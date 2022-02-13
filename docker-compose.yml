@@ -1,0 +1,35 @@
+version: '3'       # 1
+services:          # 2
+  db:
+    image: mysql:5.7    # 3
+    environment:                  # 4
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: django-db
+      MYSQL_USER: django
+      MYSQL_PASSWORD: django
+      TZ: 'Asia/Tokyo'
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    volumes: 
+      - .dbdate:/var/lib/mysql
+                                  # 5
+  web:
+    build:
+      context: .       # 6
+      dockerfile: Dockerfile
+    command: python3 manage.py runserver 0.0.0.0:8000 # 7
+    volumes:                  # 8
+      - .:/code
+    ports:                    # 9
+      - "8000:8000"
+    depends_on:               # 10
+      - db
+
+  front:
+    build:
+      context: .
+      dockerfile: Dockerfile_react
+    volumes:
+      - ./node:/usr/src/code:cached
+    command: sh -c "cd django_front && yarn start"
+    ports:
+      - "3000:3000"
