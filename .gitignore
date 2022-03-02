@@ -2,7 +2,4 @@
 __pycache__/
 
 .github/
-.dbdate/ibtmp1
-.dbdate/ibdata1
-.dbdate/ib_logfile0
-.dbdate/ib_buffer_pool
+.dbdate/
