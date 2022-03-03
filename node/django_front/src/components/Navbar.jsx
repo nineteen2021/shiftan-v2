@@ -15,8 +15,11 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import EventNoteOutlinedIcon from '@mui/icons-material/EventNoteOutlined';
+import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 
 const drawerWidth = 240;
 
@@ -134,10 +137,10 @@ export default function MiniDrawer(props) {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          {['ホーム'].map((text) => (
             <ListItem button key={text}>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <HomeOutlinedIcon fontSize='large' />
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
@@ -145,10 +148,32 @@ export default function MiniDrawer(props) {
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          {['シフト作成', 'シフト一覧'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {index % 2 === 0 ? <DriveFileRenameOutlineOutlinedIcon fontSize='large'/> : <EventNoteOutlinedIcon fontSize='large'/>}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['スタッフ管理'].map((text) => (
+            <ListItem button key={text}>
+              <ListItemIcon>
+                <PersonOutlineOutlinedIcon fontSize='large'/>
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['設定'].map((text) => (
+            <ListItem button key={text}>
+              <ListItemIcon>
+                <SettingsOutlinedIcon fontSize='large'/>
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
