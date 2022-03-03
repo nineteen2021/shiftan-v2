@@ -130,6 +130,7 @@ export default function MiniDrawer(props) {
         color: "red",
         }
       }}>
+
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
