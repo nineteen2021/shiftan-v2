@@ -6,3 +6,5 @@ __pycache__/
 .dbdate/
 
 node/django_front/yarn.lock
+
+.devcontainer
