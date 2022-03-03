@@ -2,3 +2,7 @@
 __pycache__/
 
 .github/
+
+.dbdate/
+
+.devcontainer
