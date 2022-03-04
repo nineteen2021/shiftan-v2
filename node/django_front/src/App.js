@@ -1,10 +1,12 @@
-import logo from './logo.svg';
 import './App.css';
 import MiniDrawer from './components/Navbar'
+import SimpleNavbar from './components/SimpleNavbar';
 
 function App() {
   return (
-    <MiniDrawer />
+    <>
+      <MiniDrawer title="テストタイトル" contents="test" />
+    </> 
   );
 }
 
