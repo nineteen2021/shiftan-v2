@@ -1,5 +1,6 @@
 import './App.css';
 import MiniDrawer from './components/Navbar'
+import SimpleNavbar from './components/SimpleNavbar';
 
 function App() {
   return (
