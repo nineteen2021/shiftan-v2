@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import StorefrontIcon from '@mui/icons-material/Storefront';
+import green from '@mui/material/colors/blue';
 
 function Copyright(props) {
   return (
@@ -27,7 +28,11 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme();
+const theme = createTheme({
+  palette: {
+    primary: green,
+  },
+});
 
 export default function SignUp() {
   const handleSubmit = (event) => {
@@ -56,7 +61,7 @@ export default function SignUp() {
             <StorefrontIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            店舗登録
+            アカウント＆店舗登録
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
@@ -102,7 +107,9 @@ export default function SignUp() {
                   autoComplete="new-password"
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12}
+              sx={{ mb:5 }}
+              >
                 <TextField
                   required
                   fullWidth
@@ -137,7 +144,7 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="phoneNumber"
-                  label="電話番号"
+                  label="店舗電話番号"
                   name="phoneNumber"
                   autoComplete="phone-number"
                 />
@@ -147,7 +154,7 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="address"
-                  label="住所"
+                  label="店舗住所"
                   name="address"
                   autoComplete="address"
                 />
