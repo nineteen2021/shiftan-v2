@@ -1,4 +1,5 @@
 import * as React from 'react';
+import '../App.css'
 import Paper from '@mui/material/Paper';
 import {
   ViewState, GroupingState, IntegratedGrouping, IntegratedEditing, EditingState,
@@ -20,47 +21,71 @@ import {
 const appointments = [{
   id: 0,
   title: 'Watercolor Landscape',
-  members: [1, 2],
+  members: [3],
   roomId: 1,
   startDate: new Date(2017, 4, 28, 9, 30),
   endDate: new Date(2017, 4, 28, 12, 0),
 }, {
   id: 1,
   title: 'Oil Painting for Beginners',
-  members: [1],
-  roomId: 2,
+  members: [5],
+  roomId: 1,
   startDate: new Date(2017, 4, 28, 12, 30),
   endDate: new Date(2017, 4, 28, 14, 30),
 }, {
   id: 2,
   title: 'Testing',
-  members: [1, 2],
+  members: [1],
   roomId: 1,
-  startDate: new Date(2017, 4, 29, 12, 30),
-  endDate: new Date(2017, 4, 29, 14, 30),
+  startDate: new Date(2017, 4, 28, 12, 30),
+  endDate: new Date(2017, 4, 28, 14, 30),
 }, {
   id: 3,
   title: 'Final exams',
-  members: [1, 2],
-  roomId: 2,
-  startDate: new Date(2017, 4, 29, 9, 30),
-  endDate: new Date(2017, 4, 29, 12, 0),
+  members: [1],
+  roomId: 1,
+  startDate: new Date(2017, 4, 28, 9, 30),
+  endDate: new Date(2017, 4, 28, 12, 0),
 }];
 
 const owners = [{
-  text: 'Andrew Glover',
+  text: '山田',
   id: 1,
   color: indigo,
 }, {
-  text: 'Arnie Schwartz',
+  text: '吉田',
   id: 2,
+  color: teal,
+}, {
+  text: '太郎',
+  id: 3,
+  color: teal,
+}, {
+  text: '田村',
+  id: 4,
+  color: teal,
+}, {
+  text: '山口',
+  id: 5,
+  color: teal,
+}, {
+  text: '小林',
+  id: 6,
+  color: teal,
+}, {
+  text: '田村',
+  id: 7,
   color: teal,
 }];
 
-const locations = [
-  { text: 'Room 1', id: 1 },
-  { text: 'Room 2', id: 2 },
-];
+const localization = {
+  allDayLabel: '終日',
+  detailsLabel: '概要',
+  titleLabel: 'タイトル',
+  commitCommand: '保存',
+  moreInformationLabel: '追加の情報',
+  notesLabel: 'メモ',
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -72,14 +97,8 @@ export default class Demo extends React.PureComponent {
         title: 'Members',
         instances: owners,
         allowMultiple: true,
-      }, {
-        fieldName: 'roomId',
-        title: 'Location',
-        instances: locations,
-      }],
+      }, ],
       grouping: [{
-        resourceName: 'roomId',
-      }, {
         resourceName: 'members',
       }],
     };
@@ -124,9 +143,9 @@ export default class Demo extends React.PureComponent {
           />
 
           <DayView
-            startDayHour={9}
-            endDayHour={15}
-            intervalCount={2}
+            startDayHour={0}
+            endDayHour={24}
+            intervalCount={1}
           />
           <Appointments />
           <Resources
@@ -138,7 +157,7 @@ export default class Demo extends React.PureComponent {
           <IntegratedEditing />
 
           <AppointmentTooltip showOpenButton />
-          <AppointmentForm />
+          <AppointmentForm messages={localization}/>
           <GroupingPanel />
           <DragDropProvider />
         </Scheduler>
