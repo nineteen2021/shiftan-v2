@@ -13,6 +13,9 @@ import {
   DayView,
   DragDropProvider,
   AppointmentForm,
+  Toolbar,
+  DateNavigator,
+  TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import {
   teal, indigo,
@@ -85,6 +88,7 @@ const localization = {
   commitCommand: '保存',
   moreInformationLabel: '追加の情報',
   notesLabel: 'メモ',
+  today: '今日',
 };
 
 export default class Demo extends React.PureComponent {
@@ -147,6 +151,9 @@ export default class Demo extends React.PureComponent {
             endDayHour={24}
             intervalCount={1}
           />
+          <Toolbar />
+          <DateNavigator />
+          <TodayButton messages={localization}/>
           <Appointments />
           <Resources
             data={resources}
@@ -156,7 +163,7 @@ export default class Demo extends React.PureComponent {
           <IntegratedGrouping />
           <IntegratedEditing />
 
-          <AppointmentTooltip showOpenButton />
+          <AppointmentTooltip showOpenButton showDeleteButton />
           <AppointmentForm messages={localization}/>
           <GroupingPanel />
           <DragDropProvider />
