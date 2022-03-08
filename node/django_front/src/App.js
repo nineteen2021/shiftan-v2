@@ -1,13 +1,14 @@
 import './App.css';
 import MiniDrawer from './components/Navbar'
 import SimpleNavbar from './components/SimpleNavbar';
-import SignUp from './components/RegisterStore';
+import SignUp from './components/views/RegisterStore';
+import MakeShift from './components/views/MakeShift';
 
 function App() {
   return (
     <>
       <SimpleNavbar title = "絶対登録するな"/>
-      <SignUp />
+      <MakeShift />
     </> 
   );
 }
