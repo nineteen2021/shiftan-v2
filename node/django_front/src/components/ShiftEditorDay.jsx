@@ -145,7 +145,6 @@ export default class Demo extends React.PureComponent {
           <GroupingState
             grouping={grouping}
           />
-
           <DayView
             startDayHour={0}
             endDayHour={24}
@@ -159,10 +158,8 @@ export default class Demo extends React.PureComponent {
             data={resources}
             mainResourceName="members"
           />
-
           <IntegratedGrouping />
           <IntegratedEditing />
-
           <AppointmentTooltip showOpenButton showDeleteButton />
           <AppointmentForm messages={localization}/>
           <GroupingPanel />
