@@ -32,10 +32,25 @@
   visibility:hidden;
 }
 
-.css-nupfgw-MuiGrid-root.Layout-root {
-  padding-top: 76px!important;
+.Cell-dayView {
+  display: none!important;
 }
 
+.Toolbar-toolbar {
+  position: sticky!important;
+}
+
+.css-1k4xd1i-MuiPaper-root-MuiAppBar-root {
+  z-index: 1100!important;
+}
+
+.css-jrrpff {
+  z-index: 1200!important;
+}
+
+.css-rfuiv6-MuiPaper-root-MuiDrawer-paper {
+  z-index: 1000!important;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
