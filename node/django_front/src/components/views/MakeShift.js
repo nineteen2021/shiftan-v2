@@ -1,7 +1,8 @@
-import React from 'react';
+import * as React from 'react';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -18,38 +19,66 @@ const MakeShift = ({ selectedDate, setSelectedDate }) => {
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <Container component="main" maxWidth="xs" />
+      <Container component="main"/>
         <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        />
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}> 
-              <TextField
-                autoComplete="family-name"
-                name="lastName"
-                required
-                fullWidth
-                id="lastName"
-                label="苗字"
-                autoFocus
+        <Box>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+            <Grid container 
+              direction="column" 
+              alignItems="center"
+              spacing={3}
+              >
+              <Grid item xs={6}>
+                <TextField
+                  autoComplete="shift-table-name"
+                  name="shiftTableName"
+                  required
+                  fullWidth
+                  id="shiftTableName"
+                  label="シフト表名称"
+                  autoFocus
+                />
+              </Grid>
+              <Grid item xs={6}>
+              <KeyboardDatePicker
+                disableToolbar
+                variant="inline"
+                format="yyyy/MM/dd"
+                value={selectedDate}
+                onChange={handleDateChange}
+                label="開始日"
               />
+              </Grid>
+              <Grid item xs={6}>
+              <KeyboardDatePicker
+                disableToolbar
+                variant="inline"
+                format="yyyy/MM/dd"
+                value={selectedDate}
+                onChange={handleDateChange}
+                label="終了日"
+              />
+              </Grid>
+              <Grid item xs={6}>
+              <KeyboardDatePicker
+                disableToolbar
+                variant="inline"
+                format="yyyy/MM/dd"
+                value={selectedDate}
+                onChange={handleDateChange}
+                label="希望シフトの提出締切"
+              />
+              </Grid>
+              <Button
+                type="submit"
+                variant="contained"
+                sx={{ mt: 5, mb: 3 }}
+              >
+                シフト表を作成
+              </Button>
             </Grid>
-          </Grid>
+          </Box>
         </Box>
-        <KeyboardDatePicker
-          disableToolbar
-          variant="inline"
-          format="yyyy/MM/dd"
-          value={selectedDate}
-          onChange={handleDateChange}
-        />
     </MuiPickersUtilsProvider>
   );
 };

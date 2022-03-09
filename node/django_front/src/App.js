@@ -7,8 +7,8 @@ import MakeShift from './components/views/MakeShift';
 function App() {
   return (
     <>
-      <SimpleNavbar title = "絶対登録するな"/>
-      <MakeShift />
+      <MiniDrawer title = "絶対登録するな" contents= {<MakeShift />}/>
+      
     </> 
   );
 }
