@@ -1,11 +1,12 @@
 import './App.css';
 import MiniDrawer from './components/Navbar'
 import SimpleNavbar from './components/SimpleNavbar';
+import NewAccount from './components/views/NewAccount'
 
 function App() {
   return (
     <>
-      <MiniDrawer title="テストタイトル" contents="test" />
+    <NewAccount />
     </> 
   );
 }
