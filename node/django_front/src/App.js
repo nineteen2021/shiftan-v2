@@ -1,11 +1,13 @@
 import './App.css';
 import MiniDrawer from './components/Navbar'
 import SimpleNavbar from './components/SimpleNavbar';
+import SignUp from './components/RegisterStore';
 
 function App() {
   return (
     <>
-      <MiniDrawer title="テストタイトル" contents="test" />
+      <SimpleNavbar title = "絶対登録するな"/>
+      <SignUp />
     </> 
   );
 }
@@ -26,5 +28,6 @@ export default App;
         >
           Learn React
         </a>
+        <Button variant="outlined">Material-UI ボタン</Button>
       </header>
     </div>*/
