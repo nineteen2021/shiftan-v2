@@ -1,85 +1,92 @@
 import * as React from 'react';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
 import TextField from '@mui/material/TextField';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
-const MakeShift = ({ selectedDate, setSelectedDate }) => {
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-  };
+const MakeShift = () => {
+  const [value, setValue] = React.useState(null);
 
   return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Container component="main"/>
         <CssBaseline />
-        <Box>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            <Grid container 
-              direction="column" 
-              alignItems="center"
-              spacing={3}
-              >
-              <Grid item xs={6}>
-                <TextField
-                  autoComplete="shift-table-name"
-                  name="shiftTableName"
-                  required
-                  fullWidth
-                  id="shiftTableName"
-                  label="シフト表名称"
-                  autoFocus
-                />
+          <Box 
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Grid container justifyContent="flex-start">
+              <Grid item sx={{ mb: 2 }}>
+                <Typography component="h1" variant="h5">
+                シフト作成
+                </Typography>
               </Grid>
-              <Grid item xs={6}>
-              <KeyboardDatePicker
-                disableToolbar
-                variant="inline"
-                format="yyyy/MM/dd"
-                value={selectedDate}
-                onChange={handleDateChange}
-                label="開始日"
-              />
-              </Grid>
-              <Grid item xs={6}>
-              <KeyboardDatePicker
-                disableToolbar
-                variant="inline"
-                format="yyyy/MM/dd"
-                value={selectedDate}
-                onChange={handleDateChange}
-                label="終了日"
-              />
-              </Grid>
-              <Grid item xs={6}>
-              <KeyboardDatePicker
-                disableToolbar
-                variant="inline"
-                format="yyyy/MM/dd"
-                value={selectedDate}
-                onChange={handleDateChange}
-                label="希望シフトの提出締切"
-              />
-              </Grid>
-              <Button
-                type="submit"
-                variant="contained"
-                sx={{ mt: 5, mb: 3 }}
-              >
-                シフト表を作成
-              </Button>
             </Grid>
+            <Box component="form" noValidate>
+              <Grid container >
+                <Grid item xs={12}>
+                  <TextField
+                    autoComplete="shift-table-name"
+                    name="shiftTableName"
+                    required
+                    fullWidth
+                    id="shiftTableName"
+                    label="シフト表名称"
+                    autoFocus
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                <DatePicker
+                  label="Basic example"
+                  value={value}
+                  onChange={(newValue) => {
+                    setValue(newValue);
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+                </Grid>
+                <Grid item xs={12}>
+                <DatePicker
+                  label="Basic example"
+                  value={value}
+                  onChange={(newValue) => {
+                    setValue(newValue);
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+                </Grid>
+                <Grid item xs={12}>
+                <DatePicker
+                  label="Basic example"
+                  value={value}
+                  onChange={(newValue) => {
+                    setValue(newValue);
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+                </Grid>
+                <Grid item >
+                <Button
+                    type="submit"
+                    variant="contained"
+                    sx={{ mt: 5 }}
+                >
+                    シフト表を作成
+                </Button>
+                </Grid>
+              </Grid>
+            </Box>
           </Box>
-        </Box>
-    </MuiPickersUtilsProvider>
+      </LocalizationProvider>
   );
 };
 
