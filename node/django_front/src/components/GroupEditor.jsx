@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -47,17 +46,17 @@ export default function GroupEditor() {
         container
         direction="column"
         justifyContent="center"
-        alignItems="stretch"
-        spacing={2}
+        alignItems="stretch "
+        spacing={5}
     >
         <Grid item>
             <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <Table sx={{ minWidth: 150 }} aria-label="simple table">
                 <TableHead>
                 <TableRow>
-                    <TableCell>名前</TableCell>
-                    <TableCell align="right">ポジション名</TableCell>
-                    <TableCell align="right">色</TableCell>
+                    <TableCell><b>名前</b></TableCell>
+                    <TableCell align="right"><b>ポジション名</b></TableCell>
+                    <TableCell align="right"><b>色</b></TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>
@@ -96,8 +95,9 @@ export default function GroupEditor() {
             </Table>
             </TableContainer>
         </Grid>
-        <Grid item justifyContent="flex-end">
-            <Button variant="contained">保存</Button>
+        <Grid item style={{marginLeft: 'auto'}}>
+            <Button variant="contained" sx={{ml: 2}}>保存</Button>
+            <Button variant="contained" sx={{ml: 2}}>ポジション編集</Button>
         </Grid>
     </Grid>
   );
