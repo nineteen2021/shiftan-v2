@@ -17,13 +17,7 @@ const MakeShift = () => {
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Container component="main"/>
         <CssBaseline />
-          <Box 
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
+          <Box>
             <Grid container justifyContent="flex-start">
               <Grid item sx={{ mb: 2 }}>
                 <Typography component="h1" variant="h5">
@@ -32,7 +26,12 @@ const MakeShift = () => {
               </Grid>
             </Grid>
             <Box component="form" noValidate>
-              <Grid container >
+              <Grid container
+              sx={{// grid containerに書かないと中央揃えできない？
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}>
                 <Grid item xs={12}>
                   <TextField
                     autoComplete="shift-table-name"
