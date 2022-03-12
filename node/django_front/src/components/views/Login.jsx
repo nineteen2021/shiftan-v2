@@ -42,6 +42,7 @@ export default function SignIn() {
     <ThemeProvider theme={theme}>
       <SimpleNavbar title="ログイン" />
       <Container component="main" maxWidth="xs">
+
         <CssBaseline />
         <Box
           sx={{
