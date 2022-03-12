@@ -92,6 +92,11 @@ export default function SignIn() {
                 </Link>
               </Grid>
             </Grid>
+            <Grid container sx={{ mt: 3}} >
+              <Grid item xs={12} textAlign="center">
+                <Typography>アカウント作成がまだの方はこちらから</Typography>
+              </Grid>
+            </Grid>
             <NewAccount />
           </Box>
         </Box>
