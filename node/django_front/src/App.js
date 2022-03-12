@@ -1,13 +1,14 @@
 import './App.css';
 import MiniDrawer from './components/Navbar'
 import SimpleNavbar from './components/SimpleNavbar';
+import NewAccount from './components/views/NewAccount'
 import SignUp from './components/RegisterStore';
+import Login from './components/views/Login';
 
 function App() {
   return (
     <>
-      <SimpleNavbar title = "絶対登録するな"/>
-      <SignUp />
+      <Login />
     </> 
   );
 }
