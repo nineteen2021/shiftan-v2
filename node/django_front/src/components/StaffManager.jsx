@@ -13,6 +13,12 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import PropTypes from 'prop-types';
 
 const testPos = [
     "厨房",
@@ -28,17 +34,52 @@ const rows = [
   createData('山田', 0, '#00ff00'),
   createData('山口', 1, '#0000ff'),
   createData('松岡', 0, '#00ff00'),
-  createData('小林', 0, '#ff0000'),
-  createData('森田', 0, '#ff0000'),
+  createData('小林', 0, '#00ff00'),
+  createData('森田', 0, '#00ff00'),
 ];
 
-export default function GroupEditor() {
+function PositionDialog(props) {
+    const { onClose, selectedValue, open } = props;
+  
+    const handleClose = () => {
+      onClose(selectedValue);
+    };
+    
+    //ポジション編集画面のレイアウト
+    return (
+      <Dialog onClose={handleClose} open={open}>
+        <DialogTitle>ポジション編集</DialogTitle>
+        <Typography sx={{ml: 2, mr: 2}}>ここにポジション編集画面が入ります</Typography>
+        <DialogActions>
+          <Button onClick={handleClose}>キャンセル</Button>
+          <Button onClick={handleClose}>OK</Button>
+        </DialogActions>
+      </Dialog>
+    );
+}
+
+PositionDialog.propTypes = {
+    onClose: PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired,
+  };
+
+export default function StaffManager() {
 
     const [pos, setPos] = React.useState('');
 
     //プルダウンメニューから値が変更されたときの処理
     const handleChange = (event) => {
     setPos(event.target.value);
+    };
+
+    //ポジション編集画面のポップアップ
+    const [open, setOpen] = React.useState(false);
+    const handleClickOpen = () => {
+        setOpen(true);
+        
+    };
+    const handleClose = (value) => {
+        setOpen(false);
     };
 
   return (
@@ -96,8 +137,12 @@ export default function GroupEditor() {
             </TableContainer>
         </Grid>
         <Grid item style={{marginLeft: 'auto'}}>
+            <Button variant="contained" sx={{ml: 2}} onClick={handleClickOpen}>ポジション編集</Button>
             <Button variant="contained" sx={{ml: 2}}>保存</Button>
-            <Button variant="contained" sx={{ml: 2}}>ポジション編集</Button>
+            <PositionDialog
+                open={open}
+                onClose={handleClose}
+             />
         </Grid>
     </Grid>
   );
