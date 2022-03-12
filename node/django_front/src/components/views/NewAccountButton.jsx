@@ -1,9 +1,9 @@
 import React from 'react';
 import Link from 'react-router-dom';
 import Button from '@mui/material/Button'
-import Grid from '@mui/material';
+import Grid from '@mui/material/Grid';
 
-const NewAccountButton = () => {
+export default function NewAccountButton() {
   return (
     <Grid container 
     justifyContent="space-between"
@@ -14,4 +14,3 @@ const NewAccountButton = () => {
     </Grid>
   )
 };
-export default NewAccountButton
