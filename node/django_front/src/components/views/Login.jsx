@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SimpleNavbar from '../SimpleNavbar'
-import NewAccount from './NewAccount';
+import NewAccountButton from './NewAccountButton';
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -41,7 +41,7 @@ export default function SignIn() {
   return (
     <ThemeProvider theme={theme}>
       <SimpleNavbar title="ログイン" />
-      <Container component="main" maxWidth="s">
+      <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
@@ -97,7 +97,7 @@ export default function SignIn() {
                 <Typography>アカウント作成がまだの方はこちらから</Typography>
               </Grid>
             </Grid>
-            <NewAccount />
+            <NewAccountButton />
           </Box>
         </Box>
         <Copyright sx={{ mt: 16, mb: 4 }} />
