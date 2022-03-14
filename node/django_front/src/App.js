@@ -4,11 +4,13 @@ import SimpleNavbar from './components/SimpleNavbar';
 import NewAccount from './components/views/NewAccount'
 import SignUp from './components/RegisterStore';
 import Login from './components/views/Login';
+import Settings from './components/Settings';
+import AccountSettings from './components/AccountSettings';
 
 function App() {
   return (
     <>
-      <Login />
+      <MiniDrawer title="テスト" contents={<AccountSettings />} />
     </> 
   );
 }
