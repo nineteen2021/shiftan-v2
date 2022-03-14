@@ -9,13 +9,22 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import green from '@mui/material/colors/green';
+
+const theme = createTheme({
+  palette: {
+    primary: green,
+  },
+});
 
 const MakeShift = () => {
   const [value, setValue] = React.useState(null);
 
   return (
+    <ThemeProvider theme={theme}>
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <Container component="main"/>
+      <Container component="main" maxWidth="xs"/>
         <CssBaseline />
           <Box>
             <Grid container justifyContent="flex-start">
@@ -30,9 +39,11 @@ const MakeShift = () => {
               sx={{// grid containerに書かないと中央揃えできない？
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center',
-              }}>
-                <Grid item xs={12}>
+                alignItems: 'center'
+              }}
+              spacing={4}>
+
+                <Grid item>
                   <TextField
                     autoComplete="shift-table-name"
                     name="shiftTableName"
@@ -43,7 +54,7 @@ const MakeShift = () => {
                     autoFocus
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item>
                 <DatePicker
                   label="Basic example"
                   value={value}
@@ -53,7 +64,7 @@ const MakeShift = () => {
                   renderInput={(params) => <TextField {...params} />}
                 />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item>
                 <DatePicker
                   label="Basic example"
                   value={value}
@@ -63,7 +74,7 @@ const MakeShift = () => {
                   renderInput={(params) => <TextField {...params} />}
                 />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item>
                 <DatePicker
                   label="Basic example"
                   value={value}
@@ -85,7 +96,8 @@ const MakeShift = () => {
               </Grid>
             </Box>
           </Box>
-      </LocalizationProvider>
+    </LocalizationProvider>
+    </ThemeProvider>
   );
 };
 

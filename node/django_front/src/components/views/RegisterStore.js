@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import StorefrontIcon from '@mui/icons-material/Storefront';
-import green from '@mui/material/colors/blue';
+import green from '@mui/material/colors/green';
 
 function Copyright(props) {
   return (
