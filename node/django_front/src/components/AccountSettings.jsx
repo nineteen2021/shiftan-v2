@@ -5,83 +5,95 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Divider from '@mui/material/Divider';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
-import ContactMailIcon from '@mui/icons-material/ContactMail';
-import GavelIcon from '@mui/icons-material/Gavel';
+import PersonIcon from '@mui/icons-material/Person';
+import EmailIcon from '@mui/icons-material/Email';
+import BadgeIcon from '@mui/icons-material/Badge';
+import KeyIcon from '@mui/icons-material/Key';
+import StoreIcon from '@mui/icons-material/Store';
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+
+const testUser = {
+    firstName: "太郎",
+    lastName: "山田",
+    mail: "hogehoge@gmail.com",
+    userID: "taro0000",
+    shopName: "太郎一号店",
+    shopID: "taro1stShop",
+    shopAddress: "東京都〇〇区",
+    shopNumber: "048 2828 2828",
+}
 
 export default function AccountSettings() {
-  return (
-    <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-      <nav aria-label="main mailbox folders">
-        <List>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <AccountCircleIcon />
-              </ListItemIcon>
-              <ListItemText primary="名前" secondary/>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <QuestionMarkIcon />
-              </ListItemIcon>
-              <ListItemText primary="メールアドレス"/>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <ContactMailIcon />
-              </ListItemIcon>
-              <ListItemText primary="ユーザーID"/>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <GavelIcon />
-              </ListItemIcon>
-              <ListItemText primary="パスワード"/>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <GavelIcon />
-              </ListItemIcon>
-              <ListItemText primary="店名"/>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <GavelIcon />
-              </ListItemIcon>
-              <ListItemText primary="店舗ID"/>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <GavelIcon />
-              </ListItemIcon>
-              <ListItemText primary="店舗住所"/>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <GavelIcon />
-              </ListItemIcon>
-              <ListItemText primary="電話番号"/>
-            </ListItemButton>
-          </ListItem>
-        </List>
-      </nav>
-    </Box>
-  );
+    return (
+        <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+            <nav aria-label="main mailbox folders">
+                <List>
+                    <ListItem disablePadding>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <BadgeIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="名前" secondary={testUser.lastName + " " + testUser.firstName} />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <EmailIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="メールアドレス" secondary={testUser.mail} />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <PersonIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="ユーザーID" secondary={testUser.userID} />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <KeyIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="パスワード" secondary="パスワード再設定画面に移動します" />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <StoreIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="店名" secondary={testUser.shopName} />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <StoreIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="店舗ID" secondary={testUser.shopID} />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <StoreIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="店舗住所" secondary={testUser.shopAddress} />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <LocalPhoneIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="電話番号" secondary={testUser.shopNumber} />
+                        </ListItemButton>
+                    </ListItem>
+                </List>
+            </nav>
+        </Box>
+    );
 }
