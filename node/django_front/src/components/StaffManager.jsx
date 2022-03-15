@@ -31,11 +31,11 @@ function createData(name, position, color) {
 
 //無理やり入れる
 const rows = [
-  createData('山田', 0, '#00ff00'),
-  createData('山口', 1, '#0000ff'),
-  createData('松岡', 0, '#00ff00'),
-  createData('小林', 0, '#00ff00'),
-  createData('森田', 0, '#00ff00'),
+  createData('山田 太郎', 0, '#00ff00'),
+  createData('山口 太郎', 1, '#0000ff'),
+  createData('松岡 太郎', 0, '#00ff00'),
+  createData('小林 太郎', 0, '#00ff00'),
+  createData('森田 太郎', 0, '#00ff00'),
 ];
 
 function PositionDialog(props) {
@@ -106,8 +106,8 @@ export default function StaffManager() {
                     key={row.name}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
-                    <TableCell component="th" scope="row">
-                        {row.name}
+                    <TableCell component="th" scope="row" align="center">
+                        <font size="5">{row.name}</font>
                     </TableCell>
                     <TableCell align="right">
 
