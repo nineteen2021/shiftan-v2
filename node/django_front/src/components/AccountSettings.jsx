@@ -44,238 +44,238 @@ export default function AccountSettings() {
 
     return (
         <>
-        <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-            <nav aria-label="settings">
-                <List>
-                    <ListItem disablePadding>
-                        <ListItemButton onClick={() => onOpenDialog("name")}>
-                            <ListItemIcon>
-                                <BadgeIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="名前" secondary={testUser.lastName + " " + testUser.firstName} />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton onClick={() => onOpenDialog("email")}>
-                            <ListItemIcon>
-                                <EmailIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="メールアドレス" secondary={testUser.mail} />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton onClick={() => onOpenDialog("userID")}>
-                            <ListItemIcon>
-                                <PersonIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="ユーザーID" secondary={testUser.userID} />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton onClick={() => onOpenDialog("password")}>
-                            <ListItemIcon>
-                                <KeyIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="パスワード" secondary="パスワード再設定画面に移動します" />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton onClick={() => onOpenDialog("storeName")}>
-                            <ListItemIcon>
-                                <StoreIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="店名" secondary={testUser.shopName} />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton onClick={() => onOpenDialog("storeID")}>
-                            <ListItemIcon>
-                                <StoreIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="店舗ID" secondary={testUser.shopID} />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton onClick={() => onOpenDialog("storeAddress")}>
-                            <ListItemIcon>
-                                <StoreIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="店舗住所" secondary={testUser.shopAddress} />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton onClick={() => onOpenDialog("phoneNum")}>
-                            <ListItemIcon>
-                                <LocalPhoneIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="電話番号" secondary={testUser.shopNumber} />
-                        </ListItemButton>
-                    </ListItem>
-                </List>
-            </nav>
-        </Box>
+            <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+                <nav aria-label="settings">
+                    <List>
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={() => onOpenDialog("name")}>
+                                <ListItemIcon>
+                                    <BadgeIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="名前" secondary={testUser.lastName + " " + testUser.firstName} />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={() => onOpenDialog("email")}>
+                                <ListItemIcon>
+                                    <EmailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="メールアドレス" secondary={testUser.mail} />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={() => onOpenDialog("userID")}>
+                                <ListItemIcon>
+                                    <PersonIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="ユーザーID" secondary={testUser.userID} />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={() => onOpenDialog("password")}>
+                                <ListItemIcon>
+                                    <KeyIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="パスワード" secondary="パスワード再設定画面に移動します" />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={() => onOpenDialog("storeName")}>
+                                <ListItemIcon>
+                                    <StoreIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="店名" secondary={testUser.shopName} />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={() => onOpenDialog("storeID")}>
+                                <ListItemIcon>
+                                    <StoreIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="店舗ID" secondary={testUser.shopID} />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={() => onOpenDialog("storeAddress")}>
+                                <ListItemIcon>
+                                    <StoreIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="店舗住所" secondary={testUser.shopAddress} />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={() => onOpenDialog("phoneNum")}>
+                                <ListItemIcon>
+                                    <LocalPhoneIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="電話番号" secondary={testUser.shopNumber} />
+                            </ListItemButton>
+                        </ListItem>
+                    </List>
+                </nav>
+            </Box>
 
-        <Dialog open={selectedItem === "name"} onClose={onCloseDialog}>
-        <DialogTitle>名前</DialogTitle>
-        <DialogContent>
-        <DialogContentText>
-            新しく設定する氏名を姓と名に分けて入力してください
-        </DialogContentText>
-        <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="姓"
-            type="text"
-            fullWidth
-            variant="standard"
-        />
-        <TextField
-            margin="dense"
-            id="name"
-            label="名"
-            type="text"
-            fullWidth
-            variant="standard"
-        />
-        </DialogContent>
-        <DialogActions>
-        <Button onClick={onCloseDialog}>キャンセル</Button>
-        <Button onClick={onCloseDialog}>保存</Button>
-        </DialogActions>
-        </Dialog>
+            <Dialog open={selectedItem === "name"} onClose={onCloseDialog}>
+                <DialogTitle>名前</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        新しく設定する氏名を姓と名に分けて入力してください
+                    </DialogContentText>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="姓"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                    />
+                    <TextField
+                        margin="dense"
+                        id="name"
+                        label="名"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={onCloseDialog}>キャンセル</Button>
+                    <Button onClick={onCloseDialog}>保存</Button>
+                </DialogActions>
+            </Dialog>
 
-        <Dialog open={selectedItem === "email"} onClose={onCloseDialog}>
-        <DialogTitle>メールアドレス</DialogTitle>
-        <DialogContent>
-        <DialogContentText>
-            新しく設定するメールアドレスを入力してください
-        </DialogContentText>
-        <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="メールアドレス"
-            type="email"
-            fullWidth
-            variant="standard"
-        />
-        </DialogContent>
-        <DialogActions>
-        <Button onClick={onCloseDialog}>キャンセル</Button>
-        <Button onClick={onCloseDialog}>保存</Button>
-        </DialogActions>
-        </Dialog>
+            <Dialog open={selectedItem === "email"} onClose={onCloseDialog}>
+                <DialogTitle>メールアドレス</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        新しく設定するメールアドレスを入力してください
+                    </DialogContentText>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="メールアドレス"
+                        type="email"
+                        fullWidth
+                        variant="standard"
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={onCloseDialog}>キャンセル</Button>
+                    <Button onClick={onCloseDialog}>保存</Button>
+                </DialogActions>
+            </Dialog>
 
-        <Dialog open={selectedItem === "userID"} onClose={onCloseDialog}>
-        <DialogTitle>ユーザーID</DialogTitle>
-        <DialogContent>
-        <DialogContentText>
-            新しく設定するユーザーIDを入力してください
-        </DialogContentText>
-        <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="ユーザーID"
-            type="text"
-            fullWidth
-            variant="standard"
-        />
-        </DialogContent>
-        <DialogActions>
-        <Button onClick={onCloseDialog}>キャンセル</Button>
-        <Button onClick={onCloseDialog}>保存</Button>
-        </DialogActions>
-        </Dialog>
+            <Dialog open={selectedItem === "userID"} onClose={onCloseDialog}>
+                <DialogTitle>ユーザーID</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        新しく設定するユーザーIDを入力してください
+                    </DialogContentText>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="ユーザーID"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={onCloseDialog}>キャンセル</Button>
+                    <Button onClick={onCloseDialog}>保存</Button>
+                </DialogActions>
+            </Dialog>
 
-        <Dialog open={selectedItem === "storeName"} onClose={onCloseDialog}>
-        <DialogTitle>店名</DialogTitle>
-        <DialogContent>
-        <DialogContentText>
-            新しく設定する店名を入力してください
-        </DialogContentText>
-        <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="店名"
-            type="text"
-            fullWidth
-            variant="standard"
-        />
-        </DialogContent>
-        <DialogActions>
-        <Button onClick={onCloseDialog}>キャンセル</Button>
-        <Button onClick={onCloseDialog}>保存</Button>
-        </DialogActions>
-        </Dialog>
+            <Dialog open={selectedItem === "storeName"} onClose={onCloseDialog}>
+                <DialogTitle>店名</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        新しく設定する店名を入力してください
+                    </DialogContentText>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="店名"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={onCloseDialog}>キャンセル</Button>
+                    <Button onClick={onCloseDialog}>保存</Button>
+                </DialogActions>
+            </Dialog>
 
-        <Dialog open={selectedItem === "storeID"} onClose={onCloseDialog}>
-        <DialogTitle>店舗ID</DialogTitle>
-        <DialogContent>
-        <DialogContentText>
-            新しく設定する店舗IDを入力してください
-        </DialogContentText>
-        <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="店舗ID"
-            type="text"
-            fullWidth
-            variant="standard"
-        />
-        </DialogContent>
-        <DialogActions>
-        <Button onClick={onCloseDialog}>キャンセル</Button>
-        <Button onClick={onCloseDialog}>保存</Button>
-        </DialogActions>
-        </Dialog>
+            <Dialog open={selectedItem === "storeID"} onClose={onCloseDialog}>
+                <DialogTitle>店舗ID</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        新しく設定する店舗IDを入力してください
+                    </DialogContentText>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="店舗ID"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={onCloseDialog}>キャンセル</Button>
+                    <Button onClick={onCloseDialog}>保存</Button>
+                </DialogActions>
+            </Dialog>
 
-        <Dialog open={selectedItem === "storeAddress"} onClose={onCloseDialog}>
-        <DialogTitle>店舗住所</DialogTitle>
-        <DialogContent>
-        <DialogContentText>
-            新しく設定する店舗住所を入力してください
-        </DialogContentText>
-        <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="店舗住所"
-            type="text"
-            fullWidth
-            variant="standard"
-        />
-        </DialogContent>
-        <DialogActions>
-        <Button onClick={onCloseDialog}>キャンセル</Button>
-        <Button onClick={onCloseDialog}>保存</Button>
-        </DialogActions>
-        </Dialog>
+            <Dialog open={selectedItem === "storeAddress"} onClose={onCloseDialog}>
+                <DialogTitle>店舗住所</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        新しく設定する店舗住所を入力してください
+                    </DialogContentText>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="店舗住所"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={onCloseDialog}>キャンセル</Button>
+                    <Button onClick={onCloseDialog}>保存</Button>
+                </DialogActions>
+            </Dialog>
 
-        <Dialog open={selectedItem === "phoneNum"} onClose={onCloseDialog}>
-        <DialogTitle>電話番号</DialogTitle>
-        <DialogContent>
-        <DialogContentText>
-            新しく設定する電話番号を入力してください
-        </DialogContentText>
-        <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="電話番号"
-            type="tel"
-            fullWidth
-            variant="standard"
-        />
-        </DialogContent>
-        <DialogActions>
-        <Button onClick={onCloseDialog}>キャンセル</Button>
-        <Button onClick={onCloseDialog}>保存</Button>
-        </DialogActions>
-        </Dialog>
-    </>
+            <Dialog open={selectedItem === "phoneNum"} onClose={onCloseDialog}>
+                <DialogTitle>電話番号</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        新しく設定する電話番号を入力してください
+                    </DialogContentText>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="電話番号"
+                        type="tel"
+                        fullWidth
+                        variant="standard"
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={onCloseDialog}>キャンセル</Button>
+                    <Button onClick={onCloseDialog}>保存</Button>
+                </DialogActions>
+            </Dialog>
+        </>
     );
 }
