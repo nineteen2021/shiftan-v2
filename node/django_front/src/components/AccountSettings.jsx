@@ -52,7 +52,7 @@ export default function AccountSettings() {
                                 <ListItemIcon>
                                     <BadgeIcon />
                                 </ListItemIcon>
-                                <ListItemText primary="名前" secondary={testUser.lastName + " " + testUser.firstName} />
+                                <ListItemText primary="氏名" secondary={testUser.lastName + " " + testUser.firstName} />
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
@@ -116,7 +116,7 @@ export default function AccountSettings() {
             </Box>
 
             <Dialog open={selectedItem === "name"} onClose={onCloseDialog}>
-                <DialogTitle>名前</DialogTitle>
+                <DialogTitle>氏名</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         新しく設定する氏名を姓と名に分けて入力してください
