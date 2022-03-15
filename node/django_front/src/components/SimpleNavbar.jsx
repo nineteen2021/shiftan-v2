@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Badge from '@mui/material/Badge';
 import IconButton from '@mui/material/IconButton';
+import LogoImg from "./title.svg";
 
 export default function SimpleNavbar(props) {
   return (
@@ -14,9 +15,7 @@ export default function SimpleNavbar(props) {
           background: "#00a968"
       }}>
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {props.title}
-          </Typography>
+          <a href='localhost:3000'><img src={LogoImg} height="64px" alt="logo"></img></a>  {/* heightは64pxが理想　imgタグの下に謎の隙間あり */}
           <Box sx={{ flexGrow: 1 }} />
           <Box>
             <IconButton
