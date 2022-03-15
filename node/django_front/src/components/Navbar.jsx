@@ -22,6 +22,7 @@ import EventNoteOutlinedIcon from '@mui/icons-material/EventNoteOutlined';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Badge from '@mui/material/Badge';
+import LogoImg from "./title.svg"
 
 const drawerWidth = 240;
 
@@ -120,9 +121,7 @@ export default function MiniDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            {props.title}
-          </Typography>
+          <img src={LogoImg} width="64px" height="64px" alt="logo" onClick={MiniDrawer}></img>
           <Box sx={{ flexGrow: 1 }} />
           <Box>
             <IconButton
