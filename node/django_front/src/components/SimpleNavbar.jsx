@@ -15,7 +15,7 @@ export default function SimpleNavbar(props) {
           background: "#00a968"
       }}>
         <Toolbar>
-          <a href='localhost:3000'><img src={LogoImg} height="64px" alt="logo"></img></a>  {/* heightは64pxが理想　imgタグの下に謎の隙間あり */}
+          <a href='localhost:3000'><img class="logoImg" src={LogoImg} height="64px" alt="logo"></img></a>  {/* heightは64pxが理想　imgタグの下に謎の隙間あり */}
           <Box sx={{ flexGrow: 1 }} />
           <Box>
             <IconButton
