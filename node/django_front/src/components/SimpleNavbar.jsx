@@ -12,7 +12,7 @@ export default function SimpleNavbar(props) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{
-          background: "#00a968"
+          background: "#4DC0B2"
       }}>
         <Toolbar>
           <a href='localhost:3000'><img class="logoImg" src={LogoImg} height="64px" alt="logo"></img></a>  {/* heightは64pxが理想　imgタグの下に謎の隙間あり */}
