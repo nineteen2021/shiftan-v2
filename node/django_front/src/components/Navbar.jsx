@@ -23,6 +23,7 @@ import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRen
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Badge from '@mui/material/Badge';
 import LogoImg from "./title.svg";
+import "../App.css"
 
 const drawerWidth = 240;
 
@@ -121,7 +122,7 @@ export default function MiniDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
-          <a href='localhost:3000'><img src={LogoImg} height="64px" alt="logo"></img></a>  {/* heightは64pxが理想 */}
+          <a href='localhost:3000' className='App-logo'><img src={LogoImg} alt="logo" className='App-logo'></img></a>
           <Box sx={{ flexGrow: 1 }} />
           <Box>
             <IconButton
