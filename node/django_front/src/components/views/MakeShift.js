@@ -19,7 +19,9 @@ const theme = createTheme({
 });
 
 const MakeShift = () => {
-  const [value, setValue] = React.useState(null);
+  const [startValue, startSetValue] = React.useState(null);
+  const [endValue, endSetValue] = React.useState(null);
+  const [closeValue, closeSetValue] = React.useState(null);
 
   return (
     <ThemeProvider theme={theme}>
@@ -41,8 +43,8 @@ const MakeShift = () => {
                 flexDirection: 'column',
                 alignItems: 'center'
               }}
-              spacing={4}>
-
+              spacing={4}
+              >
                 <Grid item>
                   <TextField
                     autoComplete="shift-table-name"
@@ -51,44 +53,48 @@ const MakeShift = () => {
                     fullWidth
                     id="shiftTableName"
                     label="シフト表名称"
-                    autoFocus
                   />
                 </Grid>
                 <Grid item>
                 <DatePicker
-                  label="Basic example"
-                  value={value}
+                  label="開始日"
+                  value={startValue}
                   onChange={(newValue) => {
-                    setValue(newValue);
+                    startSetValue(newValue);
                   }}
-                  renderInput={(params) => <TextField {...params} />}
+                  renderInput={(params) => <TextField {...params} 
+                  autoComplete="off"
+                  />}
+                  
                 />
                 </Grid>
                 <Grid item>
                 <DatePicker
-                  label="Basic example"
-                  value={value}
+                  label="終了日"
+                  value={endValue}
                   onChange={(newValue) => {
-                    setValue(newValue);
+                    endSetValue(newValue);
                   }}
-                  renderInput={(params) => <TextField {...params} />}
+                  renderInput={(params) => <TextField {...params}
+                  autoComplete="off" 
+                  />}
                 />
                 </Grid>
                 <Grid item>
                 <DatePicker
-                  label="Basic example"
-                  value={value}
+                  label="締切日"
+                  value={closeValue}
                   onChange={(newValue) => {
-                    setValue(newValue);
+                    closeSetValue(newValue);
                   }}
-                  renderInput={(params) => <TextField {...params} />}
+                  renderInput={(params) => <TextField {...params} 
+                  autoComplete="off"
+                  />}
                 />
                 </Grid>
                 <Grid item >
                 <Button
-                    type="submit"
                     variant="contained"
-                    sx={{ mt: 5 }}
                 >
                     シフト表を作成
                 </Button>
