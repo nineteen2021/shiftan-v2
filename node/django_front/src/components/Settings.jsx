@@ -19,6 +19,12 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Terms from './Terms';
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -26,15 +32,15 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function Settings() {
 
-    const [open, setOpen] = React.useState(false);
+    const [selectedItem, setSelectedItem] = React.useState('')
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
+    const onOpenDialog = (name) => {
+        setSelectedItem(name)
+    }
 
-    const handleClose = () => {
-        setOpen(false);
-    };
+    const onCloseDialog = () => {
+        setSelectedItem('')
+    }
 
     return (
         <>
@@ -42,7 +48,7 @@ export default function Settings() {
                 <nav aria-label="main mailbox folders">
                     <List>
                         <ListItem disablePadding>
-                            <ListItemButton onClick={handleClickOpen}>
+                            <ListItemButton onClick={() => onOpenDialog("AccountSetting")}>
                                 <ListItemIcon>
                                     <AccountCircleIcon />
                                 </ListItemIcon>
@@ -66,7 +72,7 @@ export default function Settings() {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton>
+                            <ListItemButton onClick={() => onOpenDialog("term")}>
                                 <ListItemIcon>
                                     <GavelIcon />
                                 </ListItemIcon>
@@ -79,8 +85,8 @@ export default function Settings() {
             <>
                 <Dialog
                     fullScreen
-                    open={open}
-                    onClose={handleClose}
+                    open={"AccountSetting" === selectedItem}
+                    onClose={onCloseDialog}
                     TransitionComponent={Transition}
                 >
                     <AppBar sx={{ position: 'relative' }}>
@@ -88,7 +94,7 @@ export default function Settings() {
                             <IconButton
                                 edge="start"
                                 color="inherit"
-                                onClick={handleClose}
+                                onClick={onCloseDialog}
                                 aria-label="close"
                             >
                                 <CloseIcon />
@@ -96,7 +102,7 @@ export default function Settings() {
                             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
                                 会員情報編集
                             </Typography>
-                            <Button autoFocus color="inherit" onClick={handleClose}>
+                            <Button autoFocus color="inherit" onClick={onCloseDialog}>
                                 保存
                             </Button>
                         </Toolbar>
@@ -105,6 +111,19 @@ export default function Settings() {
                         <AccountSettings />
                     </Box>
                 </Dialog>
+
+                <Dialog open={selectedItem === "term"} onClose={onCloseDialog} scroll="paper">
+                <DialogTitle>利用規約</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        
+                    </DialogContentText>
+                        <Terms/>
+                    </DialogContent>
+                <DialogActions>
+                    <Button onClick={onCloseDialog}>OK</Button>
+                </DialogActions>
+            </Dialog>
             </>
         </>
     );
