@@ -8,7 +8,7 @@ import Login from './components/views/Login';
 function App() {
   return (
     <>
-      <Login />
+      <MiniDrawer />
     </> 
   );
 }
