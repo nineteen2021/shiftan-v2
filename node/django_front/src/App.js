@@ -2,12 +2,12 @@ import './App.css';
 import MiniDrawer from './components/Navbar'
 import SimpleNavbar from './components/SimpleNavbar';
 import SignUp from './components/RegisterStore';
+import StaffManager from './components/StaffManager'
 
 function App() {
   return (
     <>
-      <SimpleNavbar title = "絶対登録するな"/>
-      <SignUp />
+      <MiniDrawer title="テスト" contents={<StaffManager />} />
     </> 
   );
 }
