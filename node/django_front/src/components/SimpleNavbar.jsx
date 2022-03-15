@@ -11,7 +11,7 @@ export default function SimpleNavbar(props) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{
-          background: "#00a968"
+          background: "#4DC0B2"
       }}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
