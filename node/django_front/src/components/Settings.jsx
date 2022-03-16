@@ -89,7 +89,7 @@ export default function Settings() {
                     onClose={onCloseDialog}
                     TransitionComponent={Transition}
                 >
-                    <AppBar sx={{ position: 'relative' }}>
+                    <AppBar sx={{ position: 'sticky' }}>
                         <Toolbar>
                             <IconButton
                                 edge="start"
