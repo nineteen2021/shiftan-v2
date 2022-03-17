@@ -8,7 +8,6 @@ import ListItemText from '@mui/material/ListItemText';
 import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
 import BadgeIcon from '@mui/icons-material/Badge';
-import LogoutIcon from '@mui/icons-material/Logout';
 import KeyIcon from '@mui/icons-material/Key';
 import StoreIcon from '@mui/icons-material/Store';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
@@ -110,14 +109,6 @@ export default function AccountSettings() {
                                     <LocalPhoneIcon />
                                 </ListItemIcon>
                                 <ListItemText primary="電話番号" secondary={testUser.shopNumber} />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton >
-                                <ListItemIcon>
-                                    <LogoutIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="退会" secondary="アカウント情報を削除し、退会します" />
                             </ListItemButton>
                         </ListItem>
                     </List>

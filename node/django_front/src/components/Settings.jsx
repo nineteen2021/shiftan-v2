@@ -9,10 +9,10 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
 import GavelIcon from '@mui/icons-material/Gavel';
+import LogoutIcon from '@mui/icons-material/Logout';
 import AccountSettings from './AccountSettings';
 import Slide from '@mui/material/Slide';
 import Dialog from '@mui/material/Dialog';
-import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -79,6 +79,14 @@ export default function Settings() {
                                 <ListItemText primary="利用規約" secondary="利用規約を確認することができます" />
                             </ListItemButton>
                         </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={() => onOpenDialog("deleteAccount")}>
+                                <ListItemIcon>
+                                    <LogoutIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="退会" secondary="アカウント情報を削除し、退会します" />
+                            </ListItemButton>
+                        </ListItem>
                     </List>
                 </nav>
             </Box>
@@ -127,6 +135,19 @@ export default function Settings() {
                     </DialogContent>
                 <DialogActions>
                     <Button onClick={onCloseDialog}>OK</Button>
+                </DialogActions>
+            </Dialog>
+
+            <Dialog open={selectedItem === "deleteAccount"} onClose={onCloseDialog}>
+                <DialogTitle>退会</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        本当に退会しますか？この操作は取り消せません
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={onCloseDialog}>キャンセル</Button>
+                    <Button onClick={onCloseDialog}>はい</Button>
                 </DialogActions>
             </Dialog>
             </>
