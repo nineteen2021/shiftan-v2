@@ -85,17 +85,17 @@ export default function StaffManager() {
         container
         direction="column"
         justifyContent="center"
-        alignItems="stretch "
+        alignItems="center "
         spacing={5}
     >
         <Grid item>
-            <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 150 }} aria-label="simple table">
+            <TableContainer component={Paper} sx={{ minWidth:  550 }}>
+            <Table  aria-label="simple table">
                 <TableHead>
                 <TableRow>
-                    <TableCell><b>名前</b></TableCell>
-                    <TableCell align="right"><b>ポジション名</b></TableCell>
-                    <TableCell align="right"><b>色</b></TableCell>
+                    <TableCell align="left"><b>名前</b></TableCell>
+                    <TableCell align="left"><b>ポジション名</b></TableCell>
+                    <TableCell align="left"><b>色</b></TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>
@@ -104,12 +104,12 @@ export default function StaffManager() {
                     key={row.name}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
-                    <TableCell component="th" scope="row" align="center">
+                    <TableCell component="th" scope="row" align="left">
                         <font size="5">{row.name}</font>
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell align="left">
 
-                        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                        <FormControl variant="standard" sx={{ mt: 1, mb: 1, minWidth: 120 }}>
                             <InputLabel id="demo-simple-select-standard-label"></InputLabel>
                             <Select
                             labelId="demo-simple-select-standard-label"
@@ -127,14 +127,14 @@ export default function StaffManager() {
                         </FormControl>
 
                     </TableCell>
-                    <TableCell align="right"><Typography variant="h4" style={{color: row.color}}>■</Typography></TableCell>
+                    <TableCell align="left"><Typography variant="h4" style={{color: row.color}}>■</Typography></TableCell>
                     </TableRow>
                 ))}
                 </TableBody>
             </Table>
             </TableContainer>
         </Grid>
-        <Grid item style={{marginLeft: 'auto'}}>
+        <Grid item sx={{marginLeft: '20em'}}>
             <Button variant="contained" sx={{ml: 2}} onClick={handleClickOpen}>ポジション編集</Button>
             <Button variant="contained" sx={{ml: 2}}>保存</Button>
             <PositionDialog
