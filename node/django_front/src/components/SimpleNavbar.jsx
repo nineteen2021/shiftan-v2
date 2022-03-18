@@ -7,6 +7,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import Badge from '@mui/material/Badge';
 import IconButton from '@mui/material/IconButton';
 import LogoImg from "./title.svg";
+import "../App.css"
 
 export default function SimpleNavbar(props) {
   return (
@@ -15,7 +16,7 @@ export default function SimpleNavbar(props) {
           background: "#4DC0B2"
       }}>
         <Toolbar>
-          <a href='localhost:3000'><img class="logoImg" src={LogoImg} height="64px" alt="logo"></img></a>  {/* heightは64pxが理想　imgタグの下に謎の隙間あり */}
+        <a href='localhost:3000' className='App-logo'><img src={LogoImg} alt="logo" className='App-logo'></img></a>
           <Box sx={{ flexGrow: 1 }} />
           <Box>
             <IconButton
