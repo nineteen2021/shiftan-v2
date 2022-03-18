@@ -71,7 +71,7 @@ export default function ResetPassword() {
               required
               fullWidth
               id="password"
-              label="パスワード"
+              label="新規パスワード"
               name="password"
               type="password"
               autoFocus
@@ -81,7 +81,7 @@ export default function ResetPassword() {
               required
               fullWidth
               name="password2"
-              label="パスワード(再確認)"
+              label="新規パスワード(再確認)"
               type="password"
               id="password2"
             />
