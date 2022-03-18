@@ -9,7 +9,8 @@ import Login from './components/views/Login';
 function App() {
   return (
     <>
-      <MiniDrawer />
+      {/* <MiniDrawer contents={<SignUp/>}/> */}
+      <SimpleNavbar/>
     </> 
   );
 }
