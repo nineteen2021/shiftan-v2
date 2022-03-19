@@ -22,7 +22,7 @@ import EventNoteOutlinedIcon from '@mui/icons-material/EventNoteOutlined';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Badge from '@mui/material/Badge';
-import LogoImg from "./title.svg";
+import LogoImg from "./titleNavbar.svg";
 import "../App.css"
 
 const drawerWidth = 240;
