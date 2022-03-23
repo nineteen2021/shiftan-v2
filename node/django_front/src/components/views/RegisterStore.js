@@ -45,23 +45,24 @@ export default function SignUp() {
   };
 
   return (
+    <>
+    <Grid container justifyContent="flex-start">
+      <Grid item sx={{ mb: 2 }}>
+        <Typography component="h1" variant="h5">
+        シフト作成
+        </Typography>
+      </Grid>
+    </Grid>
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <StorefrontIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            アカウント＆店舗登録
-          </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
@@ -198,5 +199,6 @@ export default function SignUp() {
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
+  </>
   );
 }

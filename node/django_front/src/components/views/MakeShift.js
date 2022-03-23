@@ -30,20 +30,20 @@ const MakeShift = () => {
         <CssBaseline />
           <Box>
             <Grid container justifyContent="flex-start">
-              <Grid item sx={{ mb: 2 }}>
+              <Grid item>
                 <Typography component="h1" variant="h5">
                 シフト作成
                 </Typography>
               </Grid>
             </Grid>
-            <Box component="form" noValidate>
-              <Grid container
-              sx={{// grid containerに書かないと中央揃えできない？
+            <Box component="form" noValidate sx={{ mt: 3 }}>
+              <Grid container 
+              sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center'
+                alignItems: 'center',
               }}
-              spacing={4}
+              spacing={2}
               >
                 <Grid item>
                   <TextField
@@ -56,41 +56,44 @@ const MakeShift = () => {
                   />
                 </Grid>
                 <Grid item>
-                <DatePicker
-                  label="開始日"
-                  value={startValue}
-                  onChange={(newValue) => {
-                    startSetValue(newValue);
-                  }}
-                  renderInput={(params) => <TextField {...params} 
-                  autoComplete="off"
-                  />}
-                  
+                  <DatePicker
+                    label="開始日"
+                    value={startValue}
+                    onChange={(newValue) => {
+                      startSetValue(newValue);
+                    }}
+                    renderInput={(params) => <TextField {...params} 
+                    autoComplete="off"
+                    fullWidth
+                    />}
+
+                     />
+                  </Grid>
+                <Grid item>
+                  <DatePicker
+                    label="終了日"
+                    value={endValue}
+                    onChange={(newValue) => {
+                      endSetValue(newValue);
+                    }}
+                    renderInput={(params) => <TextField {...params}
+                    autoComplete="off"
+                    fullWidth
+                    />}
                 />
                 </Grid>
                 <Grid item>
-                <DatePicker
-                  label="終了日"
-                  value={endValue}
-                  onChange={(newValue) => {
-                    endSetValue(newValue);
-                  }}
-                  renderInput={(params) => <TextField {...params}
-                  autoComplete="off" 
-                  />}
-                />
-                </Grid>
-                <Grid item>
-                <DatePicker
-                  label="締切日"
-                  value={closeValue}
-                  onChange={(newValue) => {
-                    closeSetValue(newValue);
-                  }}
-                  renderInput={(params) => <TextField {...params} 
-                  autoComplete="off"
-                  />}
-                />
+                  <DatePicker
+                    label="締切日"
+                    value={closeValue}
+                    onChange={(newValue) => {
+                      closeSetValue(newValue);
+                    }}
+                    renderInput={(params) => <TextField {...params} 
+                    autoComplete="off"
+                    fullWidth
+                    />}
+                  />
                 </Grid>
                 <Grid item >
                 <Button
@@ -99,7 +102,7 @@ const MakeShift = () => {
                     シフト表を作成
                 </Button>
                 </Grid>
-              </Grid>
+              </Grid>            
             </Box>
           </Box>
     </LocalizationProvider>
