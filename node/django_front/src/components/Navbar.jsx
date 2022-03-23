@@ -22,6 +22,8 @@ import EventNoteOutlinedIcon from '@mui/icons-material/EventNoteOutlined';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Badge from '@mui/material/Badge';
+import LogoImg from "./titleNavbar.svg";
+import "../App.css"
 
 const drawerWidth = 240;
 
@@ -120,9 +122,7 @@ export default function MiniDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            {props.title}
-          </Typography>
+          <a href='localhost:3000' className='App-logo'><img src={LogoImg} alt="logo" className='App-logo'></img></a>
           <Box sx={{ flexGrow: 1 }} />
           <Box>
             <IconButton

@@ -7,11 +7,11 @@ import Login from './components/views/Login';
 
 //colorは濃い緑#37AB9D, 緑#4DC0B2, 黄色#FFC042, 黒#586365を使って合わせること
 
-
 function App() {
   return (
     <>
-      <MiniDrawer title="テスト" contents={<StaffManager />} />
+      {/* <MiniDrawer contents={<SignUp/>}/> */}
+      <SimpleNavbar/>
     </> 
   );
 }
