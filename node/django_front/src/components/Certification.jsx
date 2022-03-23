@@ -56,8 +56,8 @@ export default function Certification() {
                     <TableCell align="left">{row.applicationDate}</TableCell>
 
                     <TableCell align="center">
-                        <Button variant="contained" color="success" sx={{ml: 1}}>認証</Button>
-                        <Button variant="contained" color="error" sx={{ml: 1}}>削除</Button>
+                        <Button variant="contained" color="success" sx={{ml: 1}}>承認</Button>
+                        <Button variant="contained" color="error" sx={{ml: 1}}>拒否</Button>
                     </TableCell>
 
                     </TableRow>
