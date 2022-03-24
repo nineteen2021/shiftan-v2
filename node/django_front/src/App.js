@@ -1,13 +1,15 @@
-import './App.css';
 import MiniDrawer from './components/Navbar'
 import SimpleNavbar from './components/SimpleNavbar';
+import MakeShift from './components/views/MakeShift';
+import NewAccount from './components/views/NewAccount'
 import SignUp from './components/RegisterStore';
+import StaffManager from './components/StaffManager'
+import Login from './components/views/Login';
 
-function App() {
-  return (
-    <>
-      <SimpleNavbar title = "絶対登録するな"/>
-      <SignUp />
+//colorは濃い緑#37AB9D, 緑#4DC0B2, 黄色#FFC042, 黒#586365を使って合わせること
+
+      {/* <MiniDrawer contents={<SignUp/>}/> */}
+      <SimpleNavbar/>
     </> 
   );
 }
@@ -28,5 +30,6 @@ export default App;
         >
           Learn React
         </a>
+        <Button variant="outlined">Material-UI ボタン</Button>
       </header>
     </div>*/
