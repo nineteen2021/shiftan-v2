@@ -8,12 +8,11 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import StorefrontIcon from '@mui/icons-material/Storefront';
-import green from '@mui/material/colors/blue';
+import green from '@mui/material/colors/green';
 
 function Copyright(props) {
   return (
@@ -46,23 +45,24 @@ export default function SignUp() {
   };
 
   return (
+    <>
+    <Grid container justifyContent="flex-start">
+      <Grid item sx={{ mb: 2 }}>
+        <Typography component="h1" variant="h5">
+        シフト作成
+        </Typography>
+      </Grid>
+    </Grid>
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <StorefrontIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            アカウント＆店舗登録
-          </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
@@ -199,5 +199,6 @@ export default function SignUp() {
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
+  </>
   );
 }
