@@ -97,7 +97,8 @@ const MakeShift = () => {
                 </Grid>
                 <Grid item >
                 <Button
-                    variant="contained"
+                  size="large"
+                  variant="contained"
                 >
                     シフト表を作成
                 </Button>
