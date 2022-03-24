@@ -1,4 +1,8 @@
-.App {
+.App-logo{
+  height: 40px; 
+}
+
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +39,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
