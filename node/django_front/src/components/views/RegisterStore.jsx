@@ -11,8 +11,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import StorefrontIcon from '@mui/icons-material/Storefront';
-import green from '@mui/material/colors/green';
+import lightGreen from '@mui/material/colors/lightGreen';
 
 function Copyright(props) {
   return (
@@ -29,7 +28,7 @@ function Copyright(props) {
 
 const theme = createTheme({
   palette: {
-    primary: green,
+    primary: lightGreen,
   },
 });
 
