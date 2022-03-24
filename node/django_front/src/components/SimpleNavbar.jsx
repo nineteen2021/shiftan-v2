@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Badge from '@mui/material/Badge';
 import IconButton from '@mui/material/IconButton';
+import LogoImg from "./title.svg";
+import "../App.css"
 
 export default function SimpleNavbar(props) {
   return (
@@ -14,9 +16,7 @@ export default function SimpleNavbar(props) {
           background: "#4DC0B2"
       }}>
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {props.title}
-          </Typography>
+        <a href='localhost:3000' className='App-logo'><img src={LogoImg} alt="logo" className='App-logo'></img></a>
           <Box sx={{ flexGrow: 1 }} />
           <Box>
             <IconButton
