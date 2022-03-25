@@ -49,7 +49,7 @@ export default function SignUp() {
     <Grid container justifyContent="flex-start">
       <Grid item sx={{ mb: 2 }}>
         <Typography component="h1" variant="h5">
-        シフト作成
+        アカウント作成
         </Typography>
       </Grid>
     </Grid>
