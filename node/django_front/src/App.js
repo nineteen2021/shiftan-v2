@@ -2,7 +2,7 @@ import MiniDrawer from './components/Navbar'
 import SimpleNavbar from './components/SimpleNavbar';
 import MakeShift from './components/views/MakeShift';
 import NewAccount from './components/views/NewAccount'
-import SignUp from './components/RegisterStore';
+import SignUp from './components/views/RegisterStore';
 import StaffManager from './components/StaffManager'
 import Login from './components/views/Login';
 
