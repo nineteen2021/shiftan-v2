@@ -11,7 +11,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import StorefrontIcon from '@mui/icons-material/Storefront';
+import SimpleNavbar from '../SimpleNavbar';
 import green from '@mui/material/colors/green';
 
 function Copyright(props) {
@@ -46,13 +46,7 @@ export default function SignUp() {
 
   return (
     <>
-    <Grid container justifyContent="flex-start">
-      <Grid item sx={{ mb: 2 }}>
-        <Typography component="h1" variant="h5">
-        アカウント作成
-        </Typography>
-      </Grid>
-    </Grid>
+    <SimpleNavbar/>
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -63,6 +57,13 @@ export default function SignUp() {
             alignItems: 'center',
           }}
         >
+          <Grid container justifyContent="flex-start">
+            <Grid item sx={{ mt: 2 }}>
+              <Typography component="h1" variant="h5">
+                店舗アカウント作成
+              </Typography>
+            </Grid>
+          </Grid>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
