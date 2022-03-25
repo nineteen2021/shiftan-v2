@@ -6,7 +6,7 @@ export default function SentPasswordMail(props) {
 
     return (
         <>
-            <Typography variant="h4" gutterBottom align="center">
+            <Typography sx={{mt: 2, mb: 3}} variant="h4" gutterBottom align="center">
                 メールを送信しました
             </Typography>
             <Typography variant="body1" gutterBottom align="center">
