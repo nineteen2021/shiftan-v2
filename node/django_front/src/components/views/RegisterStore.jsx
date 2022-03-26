@@ -48,7 +48,7 @@ export default function SignUp() {
     <Grid container justifyContent="flex-start">
       <Grid item sx={{ mb: 2 }}>
         <Typography component="h1" variant="h5">
-        シフト作成
+        店舗アカウント登録
         </Typography>
       </Grid>
     </Grid>
@@ -64,6 +64,11 @@ export default function SignUp() {
         >
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
+            <Grid item>
+              <Typography component="h2" sx={{ mr: 6 }}>
+              店舗管理者情報登録
+              </Typography>
+            </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="family-name"
@@ -71,7 +76,7 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="lastName"
-                  label="苗字"
+                  label="姓"
                   autoFocus
                 />
               </Grid>
@@ -80,7 +85,7 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="firstName"
-                  label="名前"
+                  label="名"
                   name="firstName"
                   autoComplete="given-name"
                 />
@@ -93,6 +98,16 @@ export default function SignUp() {
                   label="メールアドレス"
                   name="email"
                   autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="userID"
+                  label="ユーザーID"
+                  name="userID"
+                  autoComplete="userID"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -119,15 +134,10 @@ export default function SignUp() {
                   autoComplete="new-password"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="storeName"
-                  label="店舗名称"
-                  name="storeName"
-                  autoComplete="store-name"
-                />
+              <Grid item component="h3" sx={{ mr: 12 }}>
+                <Typography component="h2">
+                店舗情報登録
+                </Typography>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -148,6 +158,16 @@ export default function SignUp() {
                   autoComplete="phone-number"
                 />
               </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  required
+                  fullWidth
+                  id="postalCode"
+                  label="郵便番号"
+                  name="postalCode"
+                  autoComplete="postal-code"
+                />
+              </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
@@ -163,7 +183,7 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="storeID"
-                  label="店舗ID（後から変更不可）"
+                  label="店舗ID"
                   name="storeID"
                   autoComplete="storeID"
                 />

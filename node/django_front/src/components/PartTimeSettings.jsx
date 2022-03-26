@@ -24,6 +24,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Terms from './Terms';
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import CheckStore from './CheckStore';
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -45,10 +47,9 @@ export default function PartTimeSettings() {
     return (
         <>
             <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                <nav aria-label="main mailbox folders">
                     <List>
                         <ListItem disablePadding>
-                            <ListItemButton onClick={() => onOpenDialog("AccountSetting")}>
+                            <ListItemButton onClick={() => onOpenDialog("PartTimeAccountSettings")}>
                                 <ListItemIcon>
                                     <AccountCircleIcon />
                                 </ListItemIcon>
@@ -56,7 +57,15 @@ export default function PartTimeSettings() {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton>
+                            <ListItemButton onClick={() => onOpenDialog("CheckStore")}>
+                                <ListItemIcon>
+                                    <StorefrontIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="所属店舗確認" secondary="現在所属している店舗の情報を表示します" />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton >
                                 <ListItemIcon>
                                     <QuestionMarkIcon />
                                 </ListItemIcon>
@@ -88,12 +97,11 @@ export default function PartTimeSettings() {
                             </ListItemButton>
                         </ListItem>
                     </List>
-                </nav>
             </Box>
             <>
                 <Dialog
                     fullScreen
-                    open={"AccountSetting" === selectedItem}
+                    open={"PartTimeAccountSettings" === selectedItem}
                     onClose={onCloseDialog}
                     TransitionComponent={Transition}
                 >
@@ -117,6 +125,32 @@ export default function PartTimeSettings() {
                     </AppBar>
                     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                         <PartTimeAccountSettings />
+                    </Box>
+                </Dialog>
+
+                <Dialog
+                    fullScreen
+                    open={"CheckStore" === selectedItem}
+                    onClose={onCloseDialog}
+                    TransitionComponent={Transition}
+                >
+                    <AppBar sx={{ position: 'sticky' }}>
+                        <Toolbar>
+                            <IconButton
+                                edge="start"
+                                color="inherit"
+                                onClick={onCloseDialog}
+                                aria-label="close"
+                            >
+                                <CloseIcon />
+                            </IconButton>
+                            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+                                所属店舗確認
+                            </Typography>
+                        </Toolbar>
+                    </AppBar>
+                    <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+                        <CheckStore />
                     </Box>
                 </Dialog>
 
