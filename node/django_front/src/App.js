@@ -8,6 +8,7 @@ import Login from './components/views/Login';
 import PartTimeSettings from './components/PartTimeSettings';
 import Settings from './components/Settings';
 
+
 //colorは濃い緑#37AB9D, 緑#4DC0B2, 黄色#FFC042, 黒#586365を使って合わせること
 function App() {
   return (

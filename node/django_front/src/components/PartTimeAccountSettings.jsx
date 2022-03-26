@@ -38,7 +38,7 @@ export default function PartTimeAccountSettings() {
 
     return (
         <>
-            <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+            <Box sx={{ width: '100%', bgcolor: 'background.paper' }}
                     <List>
                         <ListItem disablePadding>
                             <ListItemButton onClick={() => onOpenDialog("name")}>
