@@ -84,8 +84,7 @@ export default function ShiftSubmit() {
           </Table>
         </TableContainer>
       </Grid>
-      <Grid item sx={{marginLeft: '22em'}}>
-        <Button variant="contained" sx={{ml: 2}}>変更を破棄</Button>
+      <Grid item sx={{marginLeft: '29.3em'}}>
         <Button variant="contained" sx={{ml: 2}}>保存</Button>
       </Grid>
     </Grid>
