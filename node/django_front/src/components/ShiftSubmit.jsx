@@ -52,12 +52,12 @@ export default function ShiftSubmit() {
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {row.date}
+                  <font size="4">{row.date}</font>
                   </TableCell>
                   <TableCell align="right">
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                       <TimePicker
-                        label="Basic example"
+                        label="開始"
                         value={value}
                         onChange={(newValue) => {
                           setValue(newValue);
@@ -69,7 +69,7 @@ export default function ShiftSubmit() {
                   <TableCell align="right">
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                       <TimePicker
-                        label="Basic example"
+                        label="終了"
                         value={value}
                         onChange={(newValue) => {
                           setValue(newValue);
