@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SimpleNavbar from '../SimpleNavbar';
-import lightGreen from '@mui/material/colors/lightGreen';
+import green from '@mui/material/colors/green';
 
 function Copyright(props) {
   return (
@@ -29,11 +29,11 @@ function Copyright(props) {
 
 const theme = createTheme({
   palette: {
-    primary: lightGreen,
+    primary: green,
   },
 });
 
-export default function SignUp() {
+export default function PartTimeSignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -60,12 +60,22 @@ export default function SignUp() {
           <Grid container justifyContent="flex-start">
             <Grid item sx={{ mt: 2 }}>
               <Typography component="h1" variant="h5">
-                店舗アカウント作成
+                アルバイトアカウント作成
               </Typography>
             </Grid>
           </Grid>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
+            <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="userID"
+                  label="ユーザーID（後から変更不可）"
+                  name="userID"
+                  autoComplete="userID"
+                />
+              </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="family-name"
@@ -109,7 +119,6 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}
-              sx={{ mb:5 }}
               >
                 <TextField
                   required
@@ -119,55 +128,6 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="storeName"
-                  label="店舗名称"
-                  name="storeName"
-                  autoComplete="store-name"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  id="storeName"
-                  label="店舗名"
-                  name="storeName"
-                  autoComplete="store-name"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="phoneNumber"
-                  label="店舗電話番号"
-                  name="phoneNumber"
-                  autoComplete="phone-number"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="address"
-                  label="店舗住所"
-                  name="address"
-                  autoComplete="address"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="storeID"
-                  label="店舗ID（後から変更不可）"
-                  name="storeID"
-                  autoComplete="storeID"
                 />
               </Grid>
               <Link href="#" sx={{ ml: 2, mt: 4}}>
@@ -186,7 +146,7 @@ export default function SignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              店舗を登録
+              アカウントを作成
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
