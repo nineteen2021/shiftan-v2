@@ -6,13 +6,14 @@ import SignUp from './components/views/RegisterStore';
 import StaffManager from './components/StaffManager'
 import Login from './components/views/Login';
 import PartTimeSignUp from './components/views/PartTimeRegisterStore';
+import PartTimeSettings from './components/PartTimeSettings';
 
 //colorは濃い緑#37AB9D, 緑#4DC0B2, 黄色#FFC042, 黒#586365を使って合わせること
 function App() {
   return (
     <>
       {/* <MiniDrawer contents={<PartTimeSignUp/>}/> */}
-      <SignUp/>
+      {<MiniDrawer contents={<PartTimeSettings/>}/>}
     </> 
   );
 }
