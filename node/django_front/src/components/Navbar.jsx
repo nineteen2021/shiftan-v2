@@ -26,10 +26,19 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import Badge from '@mui/material/Badge';
 import LogoImg from "./titleNavbar.svg";
 import "../App.css"
+import NotificationListItem from './NotificationListItem';
 
 const drawerWidth = 240;
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+//　連想配列を採用
+const notification = [
+  ["店舗登録がまだ終わっていません", "2022/03/03"],
+  ["シフト提出の締め切りが迫っています。", "2022/03/21"],
+  ["シフト提出の締め切りが迫っています。", "2022/03/21"],
+  ["シフト提出の締め切りが迫っています。", "2022/03/21"],
+  ["シフト提出の締め切りが迫っています。", "2022/03/21"],
+  ["シフト提出の締め切りが迫っています。", "2022/03/21"],
+];
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -163,11 +172,15 @@ export default function MiniDrawer(props) {
               open={Boolean(anchorElNotification)}
               onClose={handleCloseNotificationMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseNotificationMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              {/* このメニュータグの中が通知ボタンを押したときに出てくるところ */}
+              <List>
+                {notification.map((text) => (
+                  <>
+                    <NotificationListItem primaryText={text[0]} secondaryText={text[1]}/>
+                    <Divider />
+                  </>
+                ))}
+              </List>
             </Menu>
           </Box>
         </Toolbar>
