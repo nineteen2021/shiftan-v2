@@ -1,45 +1,31 @@
 .container {
-    width: 1000px;
-    height: 700px;
-    background: #f3f3f3;
-    display: flex;
-    padding: 30px;
-    box-sizing: border-box;
-    align-items: center;
-  }
-  
-  .containerLeft {
+  width: 1000px;
+  height: 700px;
+  background: #f3f3f3;
+  display: flex;
+  padding: 30px;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+.containerLeft {
     padding-right: 50px;
   }
   
   .bar {
     background: #fff;
-    width: 400px;
+    width: 40px;
     height: 40px;
     border: 1px solid #dedede;
     border-radius: 2px;
     display: flex;
-    cursor: pointer;
   }
-  
-  .barLeft {
-    flex: 1;
-    padding: 10px;
-  }
-  
   .barRight {
     height: 100%;
     border-left: 1px solid #dedede;
     width: 40px;
   }
-  
-  .colorBox {
-    background: #fff;
-    border: 1px solid #dedede;
-    width: 400px;
-    height: 400px;
-  }
-  
+
   .pikker {
     position: absolute;
     top: 380px;

@@ -28,18 +28,11 @@ class ColorPicker extends React.Component {
   render() {
     return (
       <>
-        <div className={styles.container}>
-          <div className={styles.containerLeft}>
-            <div className={styles.bar} onClick={this.handleOpen}>
-              <div className={styles.barLeft}>カラーを選択する</div>
-              <div className={styles.barRight} style={ { background: this.state.color } }></div>
-            </div>
+        
+          <div className={styles.bar} onClick={this.handleOpen}>
+          <div className={styles.barRight} style={ { background: this.state.color } }></div>
           </div>
-          <div className={styles.containerRight}>
-            {/* 選択されたカラーがbackgroudに反映されます。 */}
-            <div className={styles.colorBox} style={ { background: this.state.color } }></div>
-          </div>
-        </div>
+        
         {this.state.open && (
           <div className={styles.pikker}>
             {/* 背景クリック用の領域確保 */}
