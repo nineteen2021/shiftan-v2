@@ -9,7 +9,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
@@ -22,8 +24,21 @@ import EventNoteOutlinedIcon from '@mui/icons-material/EventNoteOutlined';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Badge from '@mui/material/Badge';
+import LogoImg from "./titleNavbar.svg";
+import "../App.css"
+import NotificationListItem from './NotificationListItem';
 
 const drawerWidth = 240;
+
+//　連想配列を採用
+const notification = [
+  ["店舗登録がまだ終わっていません", "2022/03/03"],
+  ["シフト提出の締め切りが迫っています。", "2022/03/21"],
+  ["シフト提出の締め切りが迫っています。", "2022/03/21"],
+  ["シフト提出の締め切りが迫っています。", "2022/03/21"],
+  ["シフト提出の締め切りが迫っています。", "2022/03/21"],
+  ["シフト提出の締め切りが迫っています。", "2022/03/21"],
+];
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -58,7 +73,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
-  background: "#ff0000",
+  background: "#4DC0B2",
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,
@@ -94,13 +109,21 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function MiniDrawer(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-
+  const [anchorElNotification, setAnchorElNotification] = React.useState(null);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const handleOpenNotificationMenu = (event) => {
+    setAnchorElNotification(event.currentTarget);
+  };
+  
+  const handleCloseNotificationMenu = () => {
+    setAnchorElNotification(null);
   };
 
   return (
@@ -120,33 +143,58 @@ export default function MiniDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            {props.title}
-          </Typography>
+          <a href='localhost:3000' className='App-logo'><img src={LogoImg} alt="logo" className='App-logo'></img></a>
           <Box sx={{ flexGrow: 1 }} />
           <Box>
             <IconButton
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
+              onClick={handleOpenNotificationMenu}
             >
               <Badge badgeContent={17} color="error">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElNotification}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElNotification)}
+              onClose={handleCloseNotificationMenu}
+            >
+              {/* このメニュータグの中が通知ボタンを押したときに出てくるところ */}
+              <List>
+                {notification.map((text) => (
+                  <>
+                    <NotificationListItem primaryText={text[0]} secondaryText={text[1]}/>
+                    <Divider />
+                  </>
+                ))}
+              </List>
+            </Menu>
           </Box>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}
       PaperProps={{
         sx: {
-        backgroundColor: "pink",
-        color: "red",
+        backgroundColor: "#586365",
+        color: "white",
         }
       }}>
 
         <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={handleDrawerClose} sx={{ color: "#ffffff" }}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
@@ -155,7 +203,7 @@ export default function MiniDrawer(props) {
           {['ホーム'].map((text) => (
             <ListItem button key={text}>
               <ListItemIcon>
-                <HomeOutlinedIcon fontSize='large' />
+                <HomeOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }} />
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
@@ -166,7 +214,7 @@ export default function MiniDrawer(props) {
           {['シフト作成', 'シフト一覧'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
-                {index % 2 === 0 ? <DriveFileRenameOutlineOutlinedIcon fontSize='large'/> : <EventNoteOutlinedIcon fontSize='large'/>}
+                {index % 2 === 0 ? <DriveFileRenameOutlineOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/> : <EventNoteOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/>}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
@@ -177,7 +225,7 @@ export default function MiniDrawer(props) {
           {['スタッフ管理'].map((text) => (
             <ListItem button key={text}>
               <ListItemIcon>
-                <PersonOutlineOutlinedIcon fontSize='large'/>
+                <PersonOutlineOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/>
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
@@ -188,7 +236,7 @@ export default function MiniDrawer(props) {
           {['設定'].map((text) => (
             <ListItem button key={text}>
               <ListItemIcon>
-                <SettingsOutlinedIcon fontSize='large'/>
+                <SettingsOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/>
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
