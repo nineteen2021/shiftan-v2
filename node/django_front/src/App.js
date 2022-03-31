@@ -5,6 +5,7 @@ import NewAccount from './components/views/NewAccount'
 import SignUp from './components/views/RegisterStore';
 import StaffManager from './components/StaffManager'
 import Login from './components/views/Login';
+import PartTimeSignUp from './components/views/PartTimeRegisterStore';
 import PartTimeSettings from './components/PartTimeSettings';
 import Settings from './components/Settings';
 
