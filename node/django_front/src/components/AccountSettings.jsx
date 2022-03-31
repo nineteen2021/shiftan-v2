@@ -9,7 +9,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
 import BadgeIcon from '@mui/icons-material/Badge';
 import KeyIcon from '@mui/icons-material/Key';
-import StoreIcon from '@mui/icons-material/Store';
+import StorefrontIcon from '@mui/icons-material/Storefront';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -18,16 +18,19 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import Grid3x3Icon from '@mui/icons-material/Grid3x3';
 
 const testUser = {
     firstName: "太郎",
     lastName: "山田",
     mail: "hogehoge@gmail.com",
     userID: "taro0000",
-    shopName: "太郎一号店",
-    shopID: "taro1stShop",
-    shopAddress: "東京都〇〇区",
-    shopNumber: "048 2828 2828",
+    storeName: "若狭屋渋谷店",
+    phoneNumber: "07044039803",
+    postalCode: "1500043",
+    address: "東京都渋谷区道玄坂1丁目1",
+    storeID: "1234567890"
 }
 
 export default function AccountSettings() {
@@ -45,7 +48,6 @@ export default function AccountSettings() {
     return (
         <>
             <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                <nav aria-label="settings">
                     <List>
                         <ListItem disablePadding>
                             <ListItemButton onClick={() => onOpenDialog("name")}>
@@ -82,49 +84,48 @@ export default function AccountSettings() {
                         <ListItem disablePadding>
                             <ListItemButton onClick={() => onOpenDialog("storeName")}>
                                 <ListItemIcon>
-                                    <StoreIcon />
+                                    <StorefrontIcon />
                                 </ListItemIcon>
-                                <ListItemText primary="店名" secondary={testUser.shopName} />
+                                <ListItemText primary="店舗名" secondary={testUser.storeName} />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={() => onOpenDialog("phoneNumber")}>
+                                <ListItemIcon>
+                                    <LocalPhoneIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="電話番号" secondary={testUser.phoneNumber} />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={() => onOpenDialog("address")}>
+                                <ListItemIcon>
+                                    <LocationOnIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="店舗住所" secondary={"〒" + testUser.postalCode + " " + testUser.address} />
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
                             <ListItemButton onClick={() => onOpenDialog("storeID")}>
                                 <ListItemIcon>
-                                    <StoreIcon />
+                                    <Grid3x3Icon />
                                 </ListItemIcon>
-                                <ListItemText primary="店舗ID" secondary={testUser.shopID} />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={() => onOpenDialog("storeAddress")}>
-                                <ListItemIcon>
-                                    <StoreIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="店舗住所" secondary={testUser.shopAddress} />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={() => onOpenDialog("phoneNum")}>
-                                <ListItemIcon>
-                                    <LocalPhoneIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="電話番号" secondary={testUser.shopNumber} />
+                                <ListItemText primary="店舗ID" secondary={testUser.storeID} />
                             </ListItemButton>
                         </ListItem>
                     </List>
-                </nav>
             </Box>
 
             <Dialog open={selectedItem === "name"} onClose={onCloseDialog}>
                 <DialogTitle>氏名</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        新しく設定する氏名を姓と名に分けて入力してください
+                        新しく設定する氏名を入力してください
                     </DialogContentText>
                     <TextField
                         autoFocus
                         margin="dense"
-                        id="name"
+                        id="lastName"
                         label="姓"
                         type="text"
                         fullWidth
@@ -132,7 +133,7 @@ export default function AccountSettings() {
                     />
                     <TextField
                         margin="dense"
-                        id="name"
+                        id="firstName"
                         label="名"
                         type="text"
                         fullWidth
@@ -154,7 +155,7 @@ export default function AccountSettings() {
                     <TextField
                         autoFocus
                         margin="dense"
-                        id="name"
+                        id="email"
                         label="メールアドレス"
                         type="email"
                         fullWidth
@@ -176,7 +177,7 @@ export default function AccountSettings() {
                     <TextField
                         autoFocus
                         margin="dense"
-                        id="name"
+                        id="userID"
                         label="ユーザーID"
                         type="text"
                         fullWidth
@@ -190,16 +191,70 @@ export default function AccountSettings() {
             </Dialog>
 
             <Dialog open={selectedItem === "storeName"} onClose={onCloseDialog}>
-                <DialogTitle>店名</DialogTitle>
+                <DialogTitle>店舗名</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        新しく設定する店名を入力してください
+                        新しく設定する店舗名を入力してください
                     </DialogContentText>
                     <TextField
                         autoFocus
                         margin="dense"
-                        id="name"
-                        label="店名"
+                        id="storeName"
+                        label="店舗名"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={onCloseDialog}>キャンセル</Button>
+                    <Button onClick={onCloseDialog}>保存</Button>
+                </DialogActions>
+            </Dialog>
+
+            <Dialog open={selectedItem === "phoneNumber"} onClose={onCloseDialog}>
+                <DialogTitle>電話番号</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        新しく設定する電話番号を入力してください
+                    </DialogContentText>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="phoneNumber"
+                        label="電話番号"
+                        type="tel"
+                        fullWidth
+                        variant="standard"
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={onCloseDialog}>キャンセル</Button>
+                    <Button onClick={onCloseDialog}>保存</Button>
+                </DialogActions>
+            </Dialog>
+            
+
+            <Dialog open={selectedItem === "address"} onClose={onCloseDialog}>
+                <DialogTitle>店舗住所</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        新しく設定する店舗住所を入力してください
+                    </DialogContentText>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="postalCode"
+                        label="郵便番号"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                    />
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="address"
+                        label="住所"
                         type="text"
                         fullWidth
                         variant="standard"
@@ -220,53 +275,9 @@ export default function AccountSettings() {
                     <TextField
                         autoFocus
                         margin="dense"
-                        id="name"
+                        id="storeID"
                         label="店舗ID"
                         type="text"
-                        fullWidth
-                        variant="standard"
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={onCloseDialog}>キャンセル</Button>
-                    <Button onClick={onCloseDialog}>保存</Button>
-                </DialogActions>
-            </Dialog>
-
-            <Dialog open={selectedItem === "storeAddress"} onClose={onCloseDialog}>
-                <DialogTitle>店舗住所</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        新しく設定する店舗住所を入力してください
-                    </DialogContentText>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="店舗住所"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={onCloseDialog}>キャンセル</Button>
-                    <Button onClick={onCloseDialog}>保存</Button>
-                </DialogActions>
-            </Dialog>
-
-            <Dialog open={selectedItem === "phoneNum"} onClose={onCloseDialog}>
-                <DialogTitle>電話番号</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        新しく設定する電話番号を入力してください
-                    </DialogContentText>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="電話番号"
-                        type="tel"
                         fullWidth
                         variant="standard"
                     />
