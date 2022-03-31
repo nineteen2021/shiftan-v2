@@ -57,9 +57,9 @@ function PositionDialog(props) {
 }
 
 PositionDialog.propTypes = {
-    onClose: PropTypes.func.isRequired,
-    open: PropTypes.bool.isRequired,
-  };
+  onClose: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+};
 
 export default function StaffManager() {
 
