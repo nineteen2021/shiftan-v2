@@ -8,22 +8,22 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Typography } from '@mui/material';
 import ColorPicker from './ColorPicker';
+import TextField from '@mui/material/TextField';
 
-function createData(color, position, member) {
-  return {color, position, member};
+function createData(position, member) {
+  return {position, member};
 }
 
 const rows = [
-    createData('#00ff00', 'ホール', 10),
-    createData('#0000ff', 'キッチン', 8),
-    createData('#ff0000', 'フリー', 3),
+    createData('ホール', 10),
+    createData('キッチン', 8),
+    createData('フリー', 3),
 ];
 
 export default function positionTable() {
     return (
         <TableContainer component={Paper}>
             <Table sx={{minWidth: 550 }} aria-label="caption table">
-                <caption>ここに入力スペースが入る</caption>
                 <TableHead>
                     <TableRow>
                         <TableCell align='left'>色</TableCell>
@@ -33,14 +33,23 @@ export default function positionTable() {
                 </TableHead>
                 <TableBody>
                     {rows.map((row) => (
-                        <TableRow key={row.color}>
+                        <TableRow>
                             <TableCell>
-                                <ColorPicker /> 
+                                <ColorPicker />
                             </TableCell>
                             <TableCell component="th" scope="row">{row.position}</TableCell>
                             <TableCell>{row.member}</TableCell>
                         </TableRow>
                     ))}
+                
+                    <TableRow>
+                        <TableCell>
+                            <ColorPicker /> 
+                        </TableCell>
+                        <TableCell component="th"><TextField id="standard-basic" label="追加したいポジションを入力" variant="standard" /></TableCell>
+                        <TableCell></TableCell>
+                    </TableRow>
+                
                 </TableBody>
             </Table>
         </TableContainer>
