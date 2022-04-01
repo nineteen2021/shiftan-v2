@@ -43,7 +43,6 @@ export default function PartTimeAccountSettings() {
     return (
         <>
             <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                <nav aria-label="settings">
                     <List>
                         <ListItem disablePadding>
                             <ListItemButton onClick={() => onOpenDialog("name")}>
@@ -78,7 +77,6 @@ export default function PartTimeAccountSettings() {
                             </ListItemButton>
                         </ListItem>
                     </List>
-                </nav>
             </Box>
 
             <Dialog open={selectedItem === "name"} onClose={onCloseDialog}>
