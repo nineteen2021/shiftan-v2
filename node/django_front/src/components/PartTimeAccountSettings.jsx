@@ -21,11 +21,7 @@ const testUser = {
     firstName: "太郎",
     lastName: "山田",
     mail: "hogehoge@gmail.com",
-    userID: "taro0000",
-    shopName: "太郎一号店",
-    shopID: "taro1stShop",
-    shopAddress: "東京都〇〇区",
-    shopNumber: "048 2828 2828",
+    userID: "taro0000"
 }
 
 export default function PartTimeAccountSettings() {
@@ -83,12 +79,12 @@ export default function PartTimeAccountSettings() {
                 <DialogTitle>氏名</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        新しく設定する氏名を姓と名に分けて入力してください
+                        新しく設定する氏名を入力してください
                     </DialogContentText>
                     <TextField
                         autoFocus
                         margin="dense"
-                        id="name"
+                        id="lastName"
                         label="姓"
                         type="text"
                         fullWidth
@@ -96,7 +92,7 @@ export default function PartTimeAccountSettings() {
                     />
                     <TextField
                         margin="dense"
-                        id="name"
+                        id="firstName"
                         label="名"
                         type="text"
                         fullWidth
@@ -118,7 +114,7 @@ export default function PartTimeAccountSettings() {
                     <TextField
                         autoFocus
                         margin="dense"
-                        id="name"
+                        id="email"
                         label="メールアドレス"
                         type="email"
                         fullWidth
@@ -140,7 +136,7 @@ export default function PartTimeAccountSettings() {
                     <TextField
                         autoFocus
                         margin="dense"
-                        id="name"
+                        id="userID"
                         label="ユーザーID"
                         type="text"
                         fullWidth

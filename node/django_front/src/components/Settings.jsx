@@ -45,7 +45,6 @@ export default function Settings() {
     return (
         <>
             <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                <nav aria-label="main mailbox folders">
                     <List>
                         <ListItem disablePadding>
                             <ListItemButton onClick={() => onOpenDialog("AccountSetting")}>
@@ -88,7 +87,6 @@ export default function Settings() {
                             </ListItemButton>
                         </ListItem>
                     </List>
-                </nav>
             </Box>
             <>
                 <Dialog
