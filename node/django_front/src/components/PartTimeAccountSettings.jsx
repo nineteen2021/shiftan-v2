@@ -43,40 +43,40 @@ export default function PartTimeAccountSettings() {
     return (
         <>
             <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                    <List>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={() => onOpenDialog("name")}>
-                                <ListItemIcon>
-                                    <BadgeIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="氏名" secondary={testUser.lastName + " " + testUser.firstName} />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={() => onOpenDialog("email")}>
-                                <ListItemIcon>
-                                    <EmailIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="メールアドレス" secondary={testUser.mail} />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={() => onOpenDialog("userID")}>
-                                <ListItemIcon>
-                                    <PersonIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="ユーザーID" secondary={testUser.userID} />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={() => onOpenDialog("password")}>
-                                <ListItemIcon>
-                                    <KeyIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="パスワード" secondary="パスワード再設定画面に移動します" />
-                            </ListItemButton>
-                        </ListItem>
-                    </List>
+                <List>
+                    <ListItem disablePadding>
+                        <ListItemButton onClick={() => onOpenDialog("name")}>
+                            <ListItemIcon>
+                                <BadgeIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="氏名" secondary={testUser.lastName + " " + testUser.firstName} />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton onClick={() => onOpenDialog("email")}>
+                            <ListItemIcon>
+                                <EmailIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="メールアドレス" secondary={testUser.mail} />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton onClick={() => onOpenDialog("userID")}>
+                            <ListItemIcon>
+                                <PersonIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="ユーザーID" secondary={testUser.userID} />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton onClick={() => onOpenDialog("password")}>
+                            <ListItemIcon>
+                                <KeyIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="パスワード" secondary="パスワード再設定画面に移動します" />
+                        </ListItemButton>
+                    </ListItem>
+                </List>
             </Box>
 
             <Dialog open={selectedItem === "name"} onClose={onCloseDialog}>
