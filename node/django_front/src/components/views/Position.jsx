@@ -6,24 +6,29 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Typography } from '@mui/material';
+import { Typography, Button, Grid, Container } from '@mui/material';
 import ColorPicker from './ColorPicker';
+import TextField from '@mui/material/TextField';
 
-function createData(color, position, member) {
-  return {color, position, member};
+function createData(position, member) {
+  return {position, member};
 }
 
 const rows = [
-    createData('#00ff00', 'ホール', 10),
-    createData('#0000ff', 'キッチン', 8),
-    createData('#ff0000', 'フリー', 3),
+    createData('ホール', 10),
+    createData('キッチン', 8),
+    createData('フリー', 3),
 ];
 
-export default function positionTable() {
+export default function PositionTable() {
     return (
+        <>
+        <Grid container>
+            <Grid item><Typography sx={{ mb:2, ml:2 ,mr:1}}><TextField id="standard-basic" label="追加したいポジションを入力" variant="standard" /></Typography></Grid>
+            <Grid item><Button variant="contained" sx={{ mt: 2 , mr:1}}>追加</Button></Grid>
+        </Grid>
         <TableContainer component={Paper}>
             <Table sx={{minWidth: 550 }} aria-label="caption table">
-                <caption>ここに入力スペースが入る</caption>
                 <TableHead>
                     <TableRow>
                         <TableCell align='left'>色</TableCell>
@@ -33,9 +38,9 @@ export default function positionTable() {
                 </TableHead>
                 <TableBody>
                     {rows.map((row) => (
-                        <TableRow key={row.color}>
+                        <TableRow>
                             <TableCell>
-                                <ColorPicker /> 
+                                <ColorPicker />
                             </TableCell>
                             <TableCell component="th" scope="row">{row.position}</TableCell>
                             <TableCell>{row.member}</TableCell>
@@ -44,5 +49,6 @@ export default function positionTable() {
                 </TableBody>
             </Table>
         </TableContainer>
+        </>
     );
 }
