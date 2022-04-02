@@ -106,7 +106,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function MiniDrawer(props) {
+export default function Navbar(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [anchorElNotification, setAnchorElNotification] = React.useState(null);
