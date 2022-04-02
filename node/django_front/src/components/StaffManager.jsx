@@ -109,7 +109,6 @@ export default function StaffManager() {
                         <font size="5">{row.name}</font>
                     </TableCell>
                     <TableCell align="left">
-
                         <FormControl variant="standard" sx={{ mt: 1, mb: 1, minWidth: 120 }}>
                             <InputLabel id="demo-simple-select-standard-label"></InputLabel>
                             <Select
