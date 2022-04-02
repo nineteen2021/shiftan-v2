@@ -24,9 +24,9 @@ import EventNoteOutlinedIcon from '@mui/icons-material/EventNoteOutlined';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Badge from '@mui/material/Badge';
-import LogoImg from "./titleNavbar.svg";
-import "../App.css"
-import NotificationListItem from './NotificationListItem';
+import LogoImg from "../titleNavbar.svg";
+import "../../App.css"
+import NotificationListItem from '../NotificationListItem';
 
 const drawerWidth = 240;
 
