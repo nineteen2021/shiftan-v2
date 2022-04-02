@@ -17,6 +17,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import PropTypes from 'prop-types';
+import PositionTable from './views/Position';
 
 const testPos = [
     "厨房",
@@ -47,7 +48,7 @@ function PositionDialog(props) {
     return (
       <Dialog onClose={handleClose} open={open}>
         <DialogTitle>ポジション編集</DialogTitle>
-        <Typography sx={{ml: 2, mr: 2}}>ここにポジション編集画面が入ります</Typography>
+        <PositionTable/>
         <DialogActions>
           <Button onClick={handleClose}>キャンセル</Button>
           <Button onClick={handleClose}>OK</Button>
