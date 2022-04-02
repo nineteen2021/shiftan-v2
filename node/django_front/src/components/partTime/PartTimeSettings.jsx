@@ -23,7 +23,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import Terms from './Terms';
+import Terms from '../Terms';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import CheckStore from './CheckStore';
 

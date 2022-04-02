@@ -11,7 +11,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import SimpleNavbar from '../SimpleNavbar';
+import SimpleNavbar from '../function/SimpleNavbar';
 import green from '@mui/material/colors/green';
 
 function Copyright(props) {
@@ -33,7 +33,7 @@ const theme = createTheme({
   },
 });
 
-export default function PartTimeSignUp() {
+export default function PartTimeRegister() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
