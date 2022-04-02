@@ -33,7 +33,7 @@ const theme = createTheme({
   },
 });
 
-export default function PartTimeSignUp() {
+export default function PartTimeRegister() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
