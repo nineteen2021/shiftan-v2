@@ -148,7 +148,7 @@ export default function RegisterStore() {
                 店舗情報登録
                 </Typography>
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} >
                 <TextField
                   required
                   fullWidth
