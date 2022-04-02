@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import SimpleNavbar from '../SimpleNavbar'
+import SimpleNavbar from './SimpleNavbar'
 import NewAccountButton from './NewAccountButton';
 function Copyright(props) {
   return (
@@ -27,7 +27,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -40,13 +40,13 @@ export default function SignIn() {
 
   return (
     <ThemeProvider theme={theme}>
-      <SimpleNavbar title="ログイン" />
+      <SimpleNavbar/>
       <Container component="main" maxWidth="xs">
 
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 16,
+            marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
