@@ -6,7 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Typography } from '@mui/material';
+import { Typography, Button, Grid, Container } from '@mui/material';
 import ColorPicker from './ColorPicker';
 import TextField from '@mui/material/TextField';
 
@@ -20,8 +20,13 @@ const rows = [
     createData('フリー', 3),
 ];
 
-export default function positionTable() {
+export default function PositionTable() {
     return (
+        <>
+        <Grid container>
+            <Grid item><Typography sx={{ mb:2, ml:2 ,mr:1}}><TextField id="standard-basic" label="追加したいポジションを入力" variant="standard" /></Typography></Grid>
+            <Grid item><Button variant="contained" sx={{ mt: 2 , mr:1}}>追加</Button></Grid>
+        </Grid>
         <TableContainer component={Paper}>
             <Table sx={{minWidth: 550 }} aria-label="caption table">
                 <TableHead>
@@ -41,17 +46,9 @@ export default function positionTable() {
                             <TableCell>{row.member}</TableCell>
                         </TableRow>
                     ))}
-                
-                    <TableRow>
-                        <TableCell>
-                            <ColorPicker /> 
-                        </TableCell>
-                        <TableCell component="th"><TextField id="standard-basic" label="追加したいポジションを入力" variant="standard" /></TableCell>
-                        <TableCell></TableCell>
-                    </TableRow>
-                
                 </TableBody>
             </Table>
         </TableContainer>
+        </>
     );
 }
