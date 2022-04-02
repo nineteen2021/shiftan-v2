@@ -6,9 +6,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Typography, Button, Grid, Container } from '@mui/material';
+import { Typography, Button, Grid } from '@mui/material';
 import ColorPicker from './ColorPicker';
 import TextField from '@mui/material/TextField';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function createData(position, member) {
   return {position, member};
@@ -34,6 +35,7 @@ export default function PositionTable() {
                         <TableCell align='left'>色</TableCell>
                         <TableCell align='left'>ポジション名</TableCell>
                         <TableCell align='left'>所属従業員数</TableCell>
+                        <TableCell align="center"></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -44,6 +46,11 @@ export default function PositionTable() {
                             </TableCell>
                             <TableCell component="th" scope="row">{row.position}</TableCell>
                             <TableCell>{row.member}</TableCell>
+                            <TableCell align="center">
+                                <Button variant="outlined" color="secondary" startIcon={<DeleteIcon />}>
+                                    消去
+                                </Button>
+                            </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
