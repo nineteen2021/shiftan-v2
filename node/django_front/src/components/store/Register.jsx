@@ -11,8 +11,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import SimpleNavbar from '../SimpleNavbar';
-import green from '@mui/material/colors/green';
+import SimpleNavbar from '../function/SimpleNavbar';
+import lightGreen from '@mui/material/colors/lightGreen';
 
 function Copyright(props) {
   return (
@@ -29,11 +29,11 @@ function Copyright(props) {
 
 const theme = createTheme({
   palette: {
-    primary: green,
+    primary: lightGreen,
   },
 });
 
-export default function PartTimeSignUp() {
+export default function Register() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -47,6 +47,13 @@ export default function PartTimeSignUp() {
   return (
     <>
     <SimpleNavbar/>
+    <Grid container justifyContent="flex-start">
+      <Grid item sx={{ mb: 2 }}>
+        <Typography component="h1" variant="h5">
+        店舗アカウント登録
+        </Typography>
+      </Grid>
+    </Grid>
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -60,22 +67,17 @@ export default function PartTimeSignUp() {
           <Grid container justifyContent="flex-start">
             <Grid item sx={{ mt: 2 }}>
               <Typography component="h1" variant="h5">
-                アルバイトアカウント作成
+                店舗アカウント作成
               </Typography>
             </Grid>
           </Grid>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-            <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="userID"
-                  label="ユーザーID（後から変更不可）"
-                  name="userID"
-                  autoComplete="userID"
-                />
-              </Grid>
+            <Grid item>
+              <Typography component="h2" sx={{ mr: 6 }}>
+              店舗管理者情報登録
+              </Typography>
+            </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="family-name"
@@ -83,7 +85,7 @@ export default function PartTimeSignUp() {
                   required
                   fullWidth
                   id="lastName"
-                  label="苗字"
+                  label="姓"
                   autoFocus
                 />
               </Grid>
@@ -92,7 +94,7 @@ export default function PartTimeSignUp() {
                   required
                   fullWidth
                   id="firstName"
-                  label="名前"
+                  label="名"
                   name="firstName"
                   autoComplete="given-name"
                 />
@@ -111,6 +113,16 @@ export default function PartTimeSignUp() {
                 <TextField
                   required
                   fullWidth
+                  id="userID"
+                  label="ユーザーID"
+                  name="userID"
+                  autoComplete="userID"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
                   name="password"
                   label="パスワード"
                   type="password"
@@ -119,6 +131,7 @@ export default function PartTimeSignUp() {
                 />
               </Grid>
               <Grid item xs={12}
+              sx={{ mb:5 }}
               >
                 <TextField
                   required
@@ -128,6 +141,61 @@ export default function PartTimeSignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                />
+              </Grid>
+              <Grid item component="h3" sx={{ mr: 12 }}>
+                <Typography component="h2">
+                店舗情報登録
+                </Typography>
+              </Grid>
+              <Grid item xs={12} >
+                <TextField
+                  required
+                  fullWidth
+                  id="storeName"
+                  label="店舗名"
+                  name="storeName"
+                  autoComplete="store-name"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="phoneNumber"
+                  label="店舗電話番号"
+                  name="phoneNumber"
+                  autoComplete="phone-number"
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  required
+                  fullWidth
+                  id="postalCode"
+                  label="郵便番号"
+                  name="postalCode"
+                  autoComplete="postal-code"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="address"
+                  label="店舗住所"
+                  name="address"
+                  autoComplete="address"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="storeID"
+                  label="店舗ID"
+                  name="storeID"
+                  autoComplete="storeID"
                 />
               </Grid>
               <Link href="#" sx={{ ml: 2, mt: 4}}>
@@ -146,7 +214,7 @@ export default function PartTimeSignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              アカウントを作成
+              店舗を登録
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
