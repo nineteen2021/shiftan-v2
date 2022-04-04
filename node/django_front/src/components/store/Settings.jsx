@@ -23,7 +23,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import Terms from './Terms';
+import Terms from '../Terms';
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -45,7 +45,6 @@ export default function Settings() {
     return (
         <>
             <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                <nav aria-label="main mailbox folders">
                     <List>
                         <ListItem disablePadding>
                             <ListItemButton onClick={() => onOpenDialog("AccountSetting")}>
@@ -88,7 +87,6 @@ export default function Settings() {
                             </ListItemButton>
                         </ListItem>
                     </List>
-                </nav>
             </Box>
             <>
                 <Dialog
