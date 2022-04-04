@@ -1,6 +1,6 @@
 import React from 'react';
 import { SketchPicker } from 'react-color';
-import styles from './ColorPicker.module.css';
+import styles from '../../App.css';
 
 
 class ColorPicker extends React.Component {

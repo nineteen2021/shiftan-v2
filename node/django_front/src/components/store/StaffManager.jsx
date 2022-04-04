@@ -17,7 +17,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import PropTypes from 'prop-types';
-import PositionTable from './views/Position';
+import PositionTable from './Position';
 
 const testPos = [
     "厨房",

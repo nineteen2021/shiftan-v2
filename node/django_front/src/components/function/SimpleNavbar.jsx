@@ -9,9 +9,9 @@ import Menu from '@mui/material/Menu';
 import List from '@mui/material/List';
 import Badge from '@mui/material/Badge';
 import IconButton from '@mui/material/IconButton';
-import LogoImg from "./title.svg";
-import "../App.css"
-import NotificationListItem from './NotificationListItem';
+import LogoImg from "../title.svg";
+import "../../App.css"
+import NotificationListItem from '../NotificationListItem';
 
 const notification = [
   ["店舗登録がまだ終わっていません", "2022/03/03"],
