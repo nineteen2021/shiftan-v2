@@ -17,6 +17,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import PropTypes from 'prop-types';
+import PositionTable from './Position';
 
 const testPos = [
     "厨房",
@@ -47,7 +48,7 @@ function PositionDialog(props) {
     return (
       <Dialog onClose={handleClose} open={open}>
         <DialogTitle>ポジション編集</DialogTitle>
-        <Typography sx={{ml: 2, mr: 2}}>ここにポジション編集画面が入ります</Typography>
+        <PositionTable/>
         <DialogActions>
           <Button onClick={handleClose}>キャンセル</Button>
           <Button onClick={handleClose}>OK</Button>
@@ -57,9 +58,9 @@ function PositionDialog(props) {
 }
 
 PositionDialog.propTypes = {
-    onClose: PropTypes.func.isRequired,
-    open: PropTypes.bool.isRequired,
-  };
+  onClose: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+};
 
 export default function StaffManager() {
 
@@ -108,7 +109,6 @@ export default function StaffManager() {
                         <font size="5">{row.name}</font>
                     </TableCell>
                     <TableCell align="left">
-
                         <FormControl variant="standard" sx={{ mt: 1, mb: 1, minWidth: 120 }}>
                             <InputLabel id="demo-simple-select-standard-label"></InputLabel>
                             <Select
