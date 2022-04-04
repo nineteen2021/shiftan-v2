@@ -19,13 +19,18 @@ const rows = [
     createData('ホール', 10),
     createData('キッチン', 8),
     createData('フリー', 3),
+    createData('フリー', 3),
+    createData('フリー', 3),
+    createData('フリー', 3),
+    createData('フリー', 3),
+    createData('フリー', 3),
 ];
 
 export default function PositionTable() {
     return (
         <>
         <Grid container>
-            <Grid item><Typography sx={{ mb:2, ml:2 ,mr:1}}><TextField id="standard-basic" label="追加したいポジションを入力" variant="standard" /></Typography></Grid>
+            <Grid item><Typography sx={{ mb:2, ml:2 ,mr:1}}><TextField sx={{minWidth: 230 }} id="standard-basic" label="追加したいポジションを入力" variant="standard" /></Typography></Grid>
             <Grid item><Button variant="contained" sx={{ mt: 2 , mr:1}}>追加</Button></Grid>
         </Grid>
         <TableContainer component={Paper}>
