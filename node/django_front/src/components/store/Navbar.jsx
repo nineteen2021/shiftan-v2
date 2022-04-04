@@ -209,14 +209,18 @@ export default function Navbar(props) {
         </List>
         <Divider />
         <List>
-          {['シフト作成', 'シフト一覧'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <DriveFileRenameOutlineOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/> : <EventNoteOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/>}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          <ListItem button>
+            <ListItemIcon>
+              <DriveFileRenameOutlineOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/>
+            </ListItemIcon>
+            <ListItemText primary='シフト作成' />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <EventNoteOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/>
+            </ListItemIcon>
+            <ListItemText primary='シフト一覧' />
+          </ListItem>
         </List>
         <Divider />
         <List>
