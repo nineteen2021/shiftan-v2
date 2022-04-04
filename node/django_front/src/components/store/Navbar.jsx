@@ -14,7 +14,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
+import { ListItemButton } from '@mui/material';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
@@ -200,45 +200,45 @@ export default function Navbar(props) {
         </DrawerHeader>
         <Divider />
         <List>
-          <ListItem button>
+          <ListItemButton>
             <ListItemIcon>
               <HomeOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }} />
             </ListItemIcon>
             <ListItemText primary='ホーム' />
-          </ListItem>
+          </ListItemButton>
         </List>
         <Divider />
         <List>
-          <ListItem button>
+          <ListItemButton>
             <ListItemIcon>
               <DriveFileRenameOutlineOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/>
             </ListItemIcon>
             <ListItemText primary='シフト作成' />
-          </ListItem>
-          <ListItem button>
+          </ListItemButton>
+          <ListItemButton>
             <ListItemIcon>
               <EventNoteOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/>
             </ListItemIcon>
             <ListItemText primary='シフト一覧' />
-          </ListItem>
+          </ListItemButton>
         </List>
         <Divider />
         <List>
-          <ListItem button>
+          <ListItemButton>
             <ListItemIcon>
               <PersonOutlineOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/>
             </ListItemIcon>
             <ListItemText primary='スタッフ管理' />
-          </ListItem>
+          </ListItemButton>
         </List>
         <Divider />
         <List>
-          <ListItem button>
+          <ListItemButton>
             <ListItemIcon>
               <SettingsOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/>
             </ListItemIcon>
             <ListItemText primary='設定'/>
-          </ListItem>
+          </ListItemButton>
         </List>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
