@@ -44,6 +44,39 @@
   top: 0;
   left: 0;
 }
+
+.Layout-booleanEditors {
+  visibility:hidden;
+}
+
+.Cell-dayView {
+  display: none!important;
+}
+
+.Toolbar-toolbar {
+  position: sticky!important;
+}
+
+.css-1k4xd1i-MuiPaper-root-MuiAppBar-root {
+  z-index: 1100!important;
+}
+
+.css-169ccso-MuiPaper-root-MuiAppBar-root {
+  z-index: 1100!important;
+}
+
+.css-jrrpff {
+  z-index: 1200!important;
+}
+
+.css-rfuiv6-MuiPaper-root-MuiDrawer-paper {
+  z-index: 1000!important;
+}
+
+.css-nupfgw-MuiGrid-root.Layout-root {
+  padding-top: 74px!important;
+}
+
 /* .App {
   text-align: center;
 }
