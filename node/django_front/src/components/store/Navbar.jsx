@@ -200,47 +200,45 @@ export default function Navbar(props) {
         </DrawerHeader>
         <Divider />
         <List>
-          {['ホーム'].map((text) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                <HomeOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }} />
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          <ListItem button>
+            <ListItemIcon>
+              <HomeOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }} />
+            </ListItemIcon>
+            <ListItemText primary='ホーム' />
+          </ListItem>
         </List>
         <Divider />
         <List>
-          {['シフト作成', 'シフト一覧'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <DriveFileRenameOutlineOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/> : <EventNoteOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/>}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          <ListItem button>
+            <ListItemIcon>
+              <DriveFileRenameOutlineOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/>
+            </ListItemIcon>
+            <ListItemText primary='シフト作成' />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <EventNoteOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/>
+            </ListItemIcon>
+            <ListItemText primary='シフト一覧' />
+          </ListItem>
         </List>
         <Divider />
         <List>
-          {['スタッフ管理'].map((text) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                <PersonOutlineOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/>
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          <ListItem button>
+            <ListItemIcon>
+              <PersonOutlineOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/>
+            </ListItemIcon>
+            <ListItemText primary='スタッフ管理' />
+          </ListItem>
         </List>
         <Divider />
         <List>
-          {['設定'].map((text) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                <SettingsOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/>
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          <ListItem button>
+            <ListItemIcon>
+              <SettingsOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/>
+            </ListItemIcon>
+            <ListItemText primary='設定'/>
+          </ListItem>
         </List>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
