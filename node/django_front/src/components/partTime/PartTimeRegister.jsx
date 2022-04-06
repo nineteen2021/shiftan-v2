@@ -101,6 +101,16 @@ export default function PartTimeRegister() {
                 <TextField
                   required
                   fullWidth
+                  id="number"
+                  label="電話番号"
+                  name="number"
+                  autoComplete="number"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
                   id="email"
                   label="メールアドレス"
                   name="email"
