@@ -101,10 +101,10 @@ export default function PartTimeRegister() {
                 <TextField
                   required
                   fullWidth
-                  id="number"
+                  id="phoneNumber"
                   label="電話番号"
-                  name="number"
-                  autoComplete="number"
+                  name="phoneNumber"
+                  autoComplete="phoneNumber"
                 />
               </Grid>
               <Grid item xs={12}>
