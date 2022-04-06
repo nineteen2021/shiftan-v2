@@ -12,6 +12,8 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SimpleNavbar from './SimpleNavbar'
 import NewAccountButton from './NewAccountButton';
+import { Link as routerLink } from 'react-router-dom'
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -83,6 +85,8 @@ export default function Login() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              component={routerLink}
+              to="/"
             >
               ログイン
             </Button>
