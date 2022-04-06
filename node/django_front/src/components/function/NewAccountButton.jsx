@@ -13,13 +13,13 @@ export default function NewAccountButton() {
     <Button 
       variant="contained"
       component={routerLink}
-      to="/signUp"
+      to="/register"
       >店舗アカウント作成
     </Button>
     <Button 
       variant="contained"
       component={routerLink}
-      to="/sign-in"
+      to="/partTimeRegister"
       >アルバイトアカウント作成</Button>
     </Grid>
   )

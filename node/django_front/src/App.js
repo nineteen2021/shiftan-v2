@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom'; 
+import Navbar from './components/store/Navbar'
 import Login from './components/function/Login';
 import SentPasswordMail from './components/function/SentPasswordMail';
 import ResetPassword from './components/function/ResetPassword';
@@ -24,7 +25,7 @@ const App = () => {
     <div>
       <Routes>
 
-        <Route path="/" />
+        <Route path="/" element={<Login />}/>
 
         <Route path="login" element={<Login />} />
 
@@ -36,9 +37,9 @@ const App = () => {
 
         <Route path="register" element={<Register />} />
 
-        <Route path="storeHome" element={<StoreHome />} />
+        <Route path="storeHome" element={<Navbar contents={<StoreHome />}/>} />
 
-        <Route path="makeShift" element={<MakeShift />} />
+        <Route path="makeShift" element={<Navbar contents={<MakeShift />}/>} />
 
         <Route path="settigns" element={<Settings />} />
 
