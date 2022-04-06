@@ -21,7 +21,7 @@ import LocalPhone from '@mui/icons-material/LocalPhone';
 const testUser = {
     firstName: "太郎",
     lastName: "山田",
-    number: "000-1111-2222",
+    phoneNumber: "000-1111-2222",
     mail: "hogehoge@gmail.com",
     userID: "taro0000"
 }
@@ -55,7 +55,7 @@ export default function PartTimeAccountSettings() {
                             <ListItemIcon>
                                 <LocalPhone />
                             </ListItemIcon>
-                            <ListItemText primary="電話番号" secondary={testUser.number} />
+                            <ListItemText primary="電話番号" secondary={testUser.phoneNumber} />
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
@@ -137,7 +137,7 @@ export default function PartTimeAccountSettings() {
                 </DialogActions>
             </Dialog>
 
-            <Dialog open={selectedItem === "number"} onClose={onCloseDialog}>
+            <Dialog open={selectedItem === "phoneNumber"} onClose={onCloseDialog}>
                 <DialogTitle>電話番号</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
@@ -146,7 +146,7 @@ export default function PartTimeAccountSettings() {
                     <TextField
                         autoFocus
                         margin="dense"
-                        id="number"
+                        id="phoneNumber"
                         label="電話番号"
                         type="text"
                         fullWidth
