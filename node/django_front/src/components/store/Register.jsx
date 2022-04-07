@@ -10,9 +10,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SimpleNavbar from '../function/SimpleNavbar';
-import lightGreen from '@mui/material/colors/lightGreen';
 
 function Copyright(props) {
   return (
@@ -27,11 +25,6 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme({
-  palette: {
-    primary: lightGreen,
-  },
-});
 
 export default function Register() {
   const handleSubmit = (event) => {
@@ -54,7 +47,6 @@ export default function Register() {
         </Typography>
       </Grid>
     </Grid>
-    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -217,7 +209,6 @@ export default function Register() {
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>
-    </ThemeProvider>
   </>
   );
 }
