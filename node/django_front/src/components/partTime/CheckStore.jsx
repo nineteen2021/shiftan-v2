@@ -26,7 +26,6 @@ const testUser = {
     firstName: "コウキ",
     lastName: "フルヤ",
     phoneNumber: "07044039803",
-    postalCode: "1500043",
     address: "東京都渋谷区道玄坂1丁目1",
     storeID: "1234567890"
 
@@ -62,7 +61,7 @@ export default function CheckStore() {
                             <ListItemIcon>
                                 <LocationOnIcon />
                             </ListItemIcon>
-                        <ListItemText primary="店舗住所" secondary={"〒" + testUser.postalCode + " " + testUser.address} />
+                        <ListItemText primary="店舗住所" secondary={testUser.address} />
                         </ListItem>
                         <ListItem disablePadding sx={{ m: 2 }}>
                             <ListItemIcon>
