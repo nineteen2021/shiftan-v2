@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
+import { Button } from '@mui/material';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -144,7 +145,14 @@ export default function Navbar(props) {
           >
             <MenuIcon />
           </IconButton>
-          <a href='localhost:3000' className='App-logo'><img src={LogoImg} alt="logo" className='App-logo'></img></a>
+          <Button 
+            disableFocusRipple
+            disableRipple
+            component={routerLink}
+            to="/storeHome"
+          >
+            <img src={LogoImg} alt="logo" className='App-logo'></img>
+          </Button>
           <Box sx={{ flexGrow: 1 }} />
           <Box>
             <IconButton
