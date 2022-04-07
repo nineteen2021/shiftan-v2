@@ -77,6 +77,16 @@
   padding-top: 74px!important;
 }
 
+.bottomButton {
+  display: flex!important;
+  flex-flow: column!important;
+  color: #fff!important;
+}
+
+.bottomIcon {
+  margin-left: 10px;
+}
+
 /* .App {
   text-align: center;
 }

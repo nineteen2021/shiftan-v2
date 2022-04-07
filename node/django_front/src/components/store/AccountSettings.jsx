@@ -27,7 +27,6 @@ const testUser = {
     mail: "hogehoge@gmail.com",
     storeName: "若狭屋渋谷店",
     phoneNumber: "07044039803",
-    postalCode: "1500043",
     address: "東京都渋谷区道玄坂1丁目1",
     storeID: "1234567890"
 }
@@ -93,7 +92,7 @@ export default function AccountSettings() {
                                 <ListItemIcon>
                                     <LocationOnIcon />
                                 </ListItemIcon>
-                                <ListItemText primary="店舗住所" secondary={"〒" + testUser.postalCode + " " + testUser.address} />
+                                <ListItemText primary="店舗住所" secondary={testUser.address} />
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
@@ -209,15 +208,6 @@ export default function AccountSettings() {
                     <DialogContentText>
                         新しく設定する店舗住所を入力してください
                     </DialogContentText>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="postalCode"
-                        label="郵便番号"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                    />
                     <TextField
                         autoFocus
                         margin="dense"
