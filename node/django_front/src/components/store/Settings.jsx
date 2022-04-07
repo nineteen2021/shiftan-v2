@@ -108,9 +108,6 @@ export default function Settings() {
                             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
                                 会員情報編集
                             </Typography>
-                            <Button autoFocus color="inherit" onClick={onCloseDialog}>
-                                保存
-                            </Button>
                         </Toolbar>
                     </AppBar>
                     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
