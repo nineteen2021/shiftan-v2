@@ -12,19 +12,13 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import green from '@mui/material/colors/green';
 
-const theme = createTheme({
-  palette: {
-    primary: green,
-  },
-});
-
 const MakeShift = () => {
   const [startValue, startSetValue] = React.useState(null);
   const [endValue, endSetValue] = React.useState(null);
   const [closeValue, closeSetValue] = React.useState(null);
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Container component="main" maxWidth="xs"/>
         <CssBaseline />
@@ -107,7 +101,7 @@ const MakeShift = () => {
             </Box>
           </Box>
     </LocalizationProvider>
-    </ThemeProvider>
+    </>
   );
 };
 
