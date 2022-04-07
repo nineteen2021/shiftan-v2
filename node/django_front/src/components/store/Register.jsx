@@ -9,7 +9,6 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SimpleNavbar from '../function/SimpleNavbar';
 import lightGreen from '@mui/material/colors/lightGreen';
 import { Link as routerLink } from 'react-router-dom'
@@ -33,11 +32,6 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme({
-  palette: {
-    primary: lightGreen,
-  },
-});
 
 export default function Register() {
   const handleSubmit = (event) => {
@@ -70,7 +64,6 @@ export default function Register() {
         </Typography>
       </Grid>
     </Grid>
-    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -182,16 +175,6 @@ export default function Register() {
                   label="店舗電話番号"
                   name="phoneNumber"
                   autoComplete="phone-number"
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="postalCode"
-                  label="郵便番号"
-                  name="postalCode"
-                  autoComplete="postal-code"
                 />
               </Grid>
               <Grid item xs={12}>

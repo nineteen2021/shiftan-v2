@@ -41,7 +41,7 @@ export default function Login() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <SimpleNavbar/>
       <Container component="main" maxWidth="xs">
 
@@ -110,6 +110,6 @@ export default function Login() {
         </Box>
         <Copyright sx={{ mt: 16, mb: 4 }} />
       </Container>
-    </ThemeProvider>
+    </>
   );
 }
