@@ -147,9 +147,9 @@ export default function PartTimeRegister() {
                 />
               </Grid>
               <Grid sx={{ ml: 2, mt: 2}}>
-                  <Button onClick={() => onOpenDialog("term")}>
-                    利用規約
-                  </Button>
+                <Link onClick={() => onOpenDialog("term")}>
+                  利用規約
+                </Link>
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
@@ -163,6 +163,8 @@ export default function PartTimeRegister() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              component={routerLink}
+              to="/partTimeHome"
             >
               アカウントを作成
             </Button>
