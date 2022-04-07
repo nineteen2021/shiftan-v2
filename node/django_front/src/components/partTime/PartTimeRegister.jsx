@@ -10,7 +10,6 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import SimpleNavbar from '../function/SimpleNavbar';
-import green from '@mui/material/colors/green';
 import { Link as routerLink } from 'react-router-dom';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -185,24 +184,23 @@ export default function PartTimeRegister() {
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>
-    </ThemeProvider>
-    <Dialog open={selectedItem === "term"}
-            onClose={onCloseDialog}
-            scroll="paper"
-            fullWidth="true"
-            maxWidth="md"
-    >
-      <DialogTitle>利用規約</DialogTitle>
-      <DialogContent>
-          <DialogContentText>
-              
-          </DialogContentText>
-              <Terms/>
-          </DialogContent>
-      <DialogActions>
-          <Button onClick={onCloseDialog}>OK</Button>
-      </DialogActions>
-    </Dialog>
+      <Dialog open={selectedItem === "term"}
+              onClose={onCloseDialog}
+              scroll="paper"
+              fullWidth="true"
+              maxWidth="md"
+      >
+        <DialogTitle>利用規約</DialogTitle>
+        <DialogContent>
+            <DialogContentText>
+                
+            </DialogContentText>
+                <Terms/>
+            </DialogContent>
+        <DialogActions>
+            <Button onClick={onCloseDialog}>OK</Button>
+        </DialogActions>
+      </Dialog>
   </>
   );
 }

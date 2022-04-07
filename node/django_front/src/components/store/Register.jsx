@@ -234,7 +234,6 @@ export default function Register() {
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>
-    </ThemeProvider>
     <Dialog open={selectedItem === "term"}
             onClose={onCloseDialog}
             scroll="paper"
