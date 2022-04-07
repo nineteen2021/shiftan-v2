@@ -215,12 +215,6 @@ export default function Navbar(props) {
             </ListItemIcon>
             <ListItemText primary='シフト作成' />
           </ListItemButton>
-          <ListItemButton>
-            <ListItemIcon>
-              <EventNoteOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/>
-            </ListItemIcon>
-            <ListItemText primary='シフト一覧' />
-          </ListItemButton>
         </List>
         <Divider />
         <List>
