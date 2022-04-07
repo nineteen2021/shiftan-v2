@@ -27,6 +27,7 @@ import Badge from '@mui/material/Badge';
 import LogoImg from "../titleNavbar.svg";
 import "../../App.css"
 import NotificationListItem from '../NotificationListItem';
+import { Link as routerLink } from 'react-router-dom'
 
 const drawerWidth = 240;
 
@@ -200,7 +201,9 @@ export default function Navbar(props) {
         </DrawerHeader>
         <Divider />
         <List>
-          <ListItemButton>
+          <ListItemButton
+          component={routerLink}
+          to="/storeHome">
             <ListItemIcon>
               <HomeOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }} />
             </ListItemIcon>
@@ -209,7 +212,9 @@ export default function Navbar(props) {
         </List>
         <Divider />
         <List>
-          <ListItemButton>
+          <ListItemButton
+          component={routerLink}
+          to="/makeShift">
             <ListItemIcon>
               <DriveFileRenameOutlineOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/>
             </ListItemIcon>

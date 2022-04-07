@@ -16,10 +16,12 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import LocalPhone from '@mui/icons-material/LocalPhone';
 
 const testUser = {
     firstName: "太郎",
     lastName: "山田",
+    phoneNumber: "000-1111-2222",
     mail: "hogehoge@gmail.com",
     userID: "taro0000"
 }
@@ -46,6 +48,14 @@ export default function PartTimeAccountSettings() {
                                 <BadgeIcon />
                             </ListItemIcon>
                             <ListItemText primary="氏名" secondary={testUser.lastName + " " + testUser.firstName} />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton onClick={() => onOpenDialog("number")}>
+                            <ListItemIcon>
+                                <LocalPhone />
+                            </ListItemIcon>
+                            <ListItemText primary="電話番号" secondary={testUser.phoneNumber} />
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
@@ -117,6 +127,28 @@ export default function PartTimeAccountSettings() {
                         id="email"
                         label="メールアドレス"
                         type="email"
+                        fullWidth
+                        variant="standard"
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={onCloseDialog}>キャンセル</Button>
+                    <Button onClick={onCloseDialog}>保存</Button>
+                </DialogActions>
+            </Dialog>
+
+            <Dialog open={selectedItem === "phoneNumber"} onClose={onCloseDialog}>
+                <DialogTitle>電話番号</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        新しく設定する電話番号を入力してください
+                    </DialogContentText>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="phoneNumber"
+                        label="電話番号"
+                        type="text"
                         fullWidth
                         variant="standard"
                     />
