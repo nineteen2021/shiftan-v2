@@ -7,12 +7,10 @@ import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
-import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { ListItemButton } from '@mui/material';
@@ -21,7 +19,6 @@ import ListItemText from '@mui/material/ListItemText';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import EventNoteOutlinedIcon from '@mui/icons-material/EventNoteOutlined';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Badge from '@mui/material/Badge';
@@ -228,16 +225,12 @@ export default function Navbar(props) {
             </ListItemIcon>
             <ListItemText primary='シフト作成' />
           </ListItemButton>
-          <ListItemButton>
-            <ListItemIcon>
-              <EventNoteOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/>
-            </ListItemIcon>
-            <ListItemText primary='シフト一覧' />
-          </ListItemButton>
         </List>
         <Divider />
         <List>
-          <ListItemButton>
+        <ListItemButton
+          component={routerLink}
+          to="/staffManager">
             <ListItemIcon>
               <PersonOutlineOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/>
             </ListItemIcon>
@@ -246,7 +239,9 @@ export default function Navbar(props) {
         </List>
         <Divider />
         <List>
-          <ListItemButton>
+        <ListItemButton
+          component={routerLink}
+          to="/settings">
             <ListItemIcon>
               <SettingsOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/>
             </ListItemIcon>

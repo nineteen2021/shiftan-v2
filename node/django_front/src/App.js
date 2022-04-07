@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom'; 
+import PartTimeNavbar from './components/partTime/PartTimeNavbar'
 import Navbar from './components/store/Navbar'
 import Login from './components/function/Login';
 import SentPasswordMail from './components/function/SentPasswordMail';
@@ -31,9 +32,9 @@ const App = () => {
 
         <Route path="sentPasswordMail" element={<SentPasswordMail />} />
 
-        <Route path="resetPassword" element={<ResetPassword />} />
+        <Route path="resetPassword" element={<ResetPassword />} /> //後回し
 
-        <Route path="staffManager" element={<StaffManager />} />
+        <Route path="staffManager" element={<Navbar contents={<StaffManager />}/>} /> //後回し
 
         <Route path="register" element={<Register />} />
 
@@ -41,21 +42,19 @@ const App = () => {
 
         <Route path="makeShift" element={<Navbar contents={<MakeShift />}/>} />
 
-        <Route path="settigns" element={<Settings />} />
+        <Route path="settings" element={<Navbar contents={<Settings />}/>} /> //後回し
 
-        <Route path="shiftEditorDay" element={<ShiftEditorDay />} />
+        <Route path="shiftEditorDay" element={<Navbar contents={<ShiftEditorDay />}/>} />
 
-        <Route path="checkStore" element={<CheckStore />} />
+        <Route path="partTimeAccountSettings" element={<PartTimeNavbar contents={<PartTimeAccountSettings />}/>} />
 
-        <Route path="partTimeAccountSettings" element={<PartTimeAccountSettings />} />
-
-        <Route path="partTimeHome" element={<PartTimeHome />} />
+        <Route path="partTimeHome" element={<PartTimeNavbar contents={<PartTimeHome />}/>} />
 
         <Route path="partTimeRegister" element={<PartTimeRegister />} />
 
-        <Route path="partTimeSettings" element={<PartTimeSettings />} />
+        <Route path="partTimeSettings" element={<PartTimeNavbar contents={<PartTimeSettings />}/>} />
 
-        <Route path="shiftSubmit" element={<ShiftSubmit />} />
+        <Route path="shiftSubmit" element={<PartTimeNavbar contents={<ShiftSubmit />}/>} />
         
       </Routes>
     </div>

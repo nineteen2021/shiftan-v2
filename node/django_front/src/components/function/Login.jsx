@@ -92,7 +92,10 @@ export default function Login() {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link
+                component={routerLink}
+                to="/sentPasswordMail"
+                variant="body2">
                   {"パスワードを忘れた場合"}
                 </Link>
               </Grid>

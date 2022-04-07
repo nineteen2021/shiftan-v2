@@ -116,14 +116,13 @@ export default function Settings() {
                     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                         <AccountSettings />
                     </Box>
-                </Dialog>
-
-                <Dialog open={selectedItem === "term"}
-                        onClose={onCloseDialog}
-                        scroll="paper"
-                        fullWidth="true"
-                        maxWidth="md"
-                    >
+            </Dialog>
+            <Dialog open={selectedItem === "term"}
+                    onClose={onCloseDialog}
+                    scroll="paper"
+                    fullWidth="true"
+                    maxWidth="md"
+            >
                 <DialogTitle>利用規約</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
