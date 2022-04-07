@@ -220,16 +220,12 @@ export default function Navbar(props) {
             </ListItemIcon>
             <ListItemText primary='シフト作成' />
           </ListItemButton>
-          <ListItemButton>
-            <ListItemIcon>
-              <EventNoteOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/>
-            </ListItemIcon>
-            <ListItemText primary='シフト一覧' />
-          </ListItemButton>
         </List>
         <Divider />
         <List>
-          <ListItemButton>
+        <ListItemButton
+          component={routerLink}
+          to="/staffManager">
             <ListItemIcon>
               <PersonOutlineOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/>
             </ListItemIcon>
@@ -238,7 +234,9 @@ export default function Navbar(props) {
         </List>
         <Divider />
         <List>
-          <ListItemButton>
+        <ListItemButton
+          component={routerLink}
+          to="/settings">
             <ListItemIcon>
               <SettingsOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }}/>
             </ListItemIcon>
