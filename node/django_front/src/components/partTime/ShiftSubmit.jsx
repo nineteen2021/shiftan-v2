@@ -12,81 +12,126 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogActions from '@mui/material/DialogActions';
+import Typography from '@mui/material/Typography';
+
 
 function createData(date, startTime, endTime) {
-  return { date, startTime, endTime };
+  let isDisable = false
+  return { date, startTime, endTime, isDisable };
 }
 
 const rows = [
-  createData('3月○日', 159, 6.0),
-  createData('3月○日', 237, 9.0),
-  createData('3月○日', 262, 16.0),
-  createData('3月○日', 305, 3.7),
-  createData('3月○日', 356, 16.0),
+  createData('3月○日', "13:00", "14:00"),
+  createData('3月○日', "18:30", "19:00"),
+  createData('3月○日', "18:30", "18:30"),
+  createData('3月○日', "18:30", "18:30"),
+  createData('3月○日', "18:30", "18:30"),
 ];
 
 export default function ShiftSubmit() {
-  const [value, setValue] = React.useState(new Date());
+  const [value, setValue] = React.useState(new Date);
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const onCloseDialog = () => {
+    setOpen(false);
+  };
+
   return (
-    <Grid
+    <>
+      <Grid
         container
         direction="column"
         justifyContent="center"
         alignItems="center "
         spacing={5}
-    >
-      <Grid item>
-        <TableContainer component={Paper} sx={{ minWidth: 550 }}>
-          <Table aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>日付</TableCell>
-                <TableCell align="right">開始時刻</TableCell>
-                <TableCell align="right">終了時刻</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow
-                  key={row.date}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                  <font size="4">{row.date}</font>
-                  </TableCell>
-                  <TableCell align="right">
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                      <TimePicker
-                        label="開始"
-                        value={value}
-                        onChange={(newValue) => {
-                          setValue(newValue);
-                        }}
-                        renderInput={(params) => <TextField sx={{maxWidth: 150}} {...params} />}
-                      />
-                    </LocalizationProvider>
-                  </TableCell>
-                  <TableCell align="right">
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                      <TimePicker
-                        label="終了"
-                        value={value}
-                        onChange={(newValue) => {
-                          setValue(newValue);
-                        }}
-                        renderInput={(params) => <TextField sx={{maxWidth: 150}} {...params} />}
-                      />
-                    </LocalizationProvider>
-                  </TableCell>
+      >
+        <Grid item>
+          <Typography sx={{ mb: 1 }}>勤務可能な日付にチェックを入れ、シフトを提出してください</Typography>
+          <TableContainer component={Paper} >
+            <Table aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>日付</TableCell>
+                  <TableCell align="right">開始時刻</TableCell>
+                  <TableCell align="right">終了時刻</TableCell>
+                  <TableCell align="right">勤務</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+              <TableBody>
+                {rows.map((row, index) => (
+                  <TableRow
+                    key={row.date}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      <font size="4">{row.date}</font>
+                    </TableCell>
+                    <TableCell align="right">
+                      <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <TimePicker
+                          label="開始"
+                          value={value}
+                          disabled={row.isDisable}
+                          onChange={(newValue) => {
+                            setValue(newValue);
+                          }}
+                          renderInput={(params) => <TextField sx={{ maxWidth: 150 }} {...params} />}
+                        />
+                      </LocalizationProvider>
+                    </TableCell>
+                    <TableCell align="right">
+                      <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <TimePicker
+                          label="終了"
+                          value={value}
+                          disabled={row.isDisable}
+                          onChange={(newValue) => {
+                            setValue(newValue);
+                          }}
+                          renderInput={(params) => <TextField sx={{ maxWidth: 150 }} {...params} />}
+                        />
+                      </LocalizationProvider>
+                    </TableCell>
+                    <TableCell align="right">
+                      <Checkbox
+                        defaultChecked
+                        onChange={(e) => {
+                          row.isDisable = !e.target.checked;
+                        }}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Grid>
+        <Grid item sx={{ marginLeft: '28em' }}>
+          <Button onClick={handleClickOpen} variant="contained" sx={{ ml: 2 }}>保存</Button>
+        </Grid>
       </Grid>
-      <Grid item sx={{marginLeft: '29.3em'}}>
-        <Button variant="contained" sx={{ml: 2}}>保存</Button>
-      </Grid>
-    </Grid>
+
+      <Dialog open={open} onClose={onCloseDialog}>
+        <DialogTitle>提出</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            以下の内容で提出しますか？
+          </DialogContentText>
+          {rows.filter(data => data.isDisable === false).map((row, index) => <li key={row.date}>{row.date}　{row.startTime}～{row.endTime}</li>)}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={onCloseDialog}>キャンセル</Button>
+          <Button onClick={onCloseDialog}>はい</Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 }
