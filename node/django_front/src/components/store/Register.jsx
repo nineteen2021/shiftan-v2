@@ -168,16 +168,6 @@ export default function Register() {
                   autoComplete="phone-number"
                 />
               </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="postalCode"
-                  label="郵便番号"
-                  name="postalCode"
-                  autoComplete="postal-code"
-                />
-              </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
