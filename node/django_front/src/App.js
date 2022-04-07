@@ -42,11 +42,9 @@ const App = () => {
 
         <Route path="makeShift" element={<Navbar contents={<MakeShift />}/>} />
 
-        <Route path="settings" element={<Navbar contents={<Settings />}/>} />
+        <Route path="settings" element={<Navbar contents={<Settings />}/>} /> //後回し
 
         <Route path="shiftEditorDay" element={<Navbar contents={<ShiftEditorDay />}/>} />
-
-        <Route path="checkStore" element={<PartTimeNavbar contents={<CheckStore />}/>} />
 
         <Route path="partTimeAccountSettings" element={<PartTimeNavbar contents={<PartTimeAccountSettings />}/>} />
 
