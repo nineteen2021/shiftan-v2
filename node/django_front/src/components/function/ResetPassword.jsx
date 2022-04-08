@@ -8,7 +8,6 @@ import Alert from '@mui/material/Alert';
 import Collapse from '@mui/material/Collapse';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 function Copyright(props) {
   return (
@@ -22,8 +21,6 @@ function Copyright(props) {
     </Typography>
   );
 }
-
-const theme = createTheme();
 
 export default function ResetPassword() {
 
@@ -50,7 +47,7 @@ export default function ResetPassword() {
     };
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
     <Collapse in={error}>
     <Alert severity="error">パスワードが一致しません</Alert>
     </Collapse>
@@ -97,6 +94,6 @@ export default function ResetPassword() {
         </Box>
         <Copyright sx={{ mt: 16, mb: 4 }} />
       </Container>
-    </ThemeProvider>
+    </>
   );
 }

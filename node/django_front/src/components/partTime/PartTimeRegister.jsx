@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -10,9 +9,14 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SimpleNavbar from '../function/SimpleNavbar';
-import green from '@mui/material/colors/green';
+import { Link as routerLink } from 'react-router-dom';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Terms from '../function/Terms';
 
 function Copyright(props) {
   return (
@@ -27,12 +31,6 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme({
-  palette: {
-    primary: green,
-  },
-});
-
 export default function PartTimeRegister() {
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -44,10 +42,19 @@ export default function PartTimeRegister() {
     });
   };
 
+  const [selectedItem, setSelectedItem] = React.useState('')
+
+    const onOpenDialog = (name) => {
+        setSelectedItem(name)
+    }
+
+    const onCloseDialog = () => {
+        setSelectedItem('')
+    }
+
   return (
     <>
     <SimpleNavbar/>
-    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -140,9 +147,11 @@ export default function PartTimeRegister() {
                   autoComplete="new-password"
                 />
               </Grid>
-              <Link href="#" sx={{ ml: 2, mt: 4}}>
-                利用規約
-              </Link>
+              <Grid sx={{ ml: 2, mt: 2}}>
+                <Link onClick={() => onOpenDialog("term")}>
+                  利用規約
+                </Link>
+              </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
@@ -155,12 +164,18 @@ export default function PartTimeRegister() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              component={routerLink}
+              to="/partTimeHome"
             >
               アカウントを作成
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link 
+                component={routerLink}
+                to="/login"
+                variant="body2"
+                >
                   すでにアカウントを持っている方はこちら
                 </Link>
               </Grid>
@@ -169,7 +184,23 @@ export default function PartTimeRegister() {
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>
-    </ThemeProvider>
+      <Dialog open={selectedItem === "term"}
+              onClose={onCloseDialog}
+              scroll="paper"
+              fullWidth="true"
+              maxWidth="md"
+      >
+        <DialogTitle>利用規約</DialogTitle>
+        <DialogContent>
+            <DialogContentText>
+                
+            </DialogContentText>
+                <Terms/>
+            </DialogContent>
+        <DialogActions>
+            <Button onClick={onCloseDialog}>OK</Button>
+        </DialogActions>
+      </Dialog>
   </>
   );
 }
