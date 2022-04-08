@@ -23,9 +23,10 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import Terms from '../Terms';
+import Terms from '../function/Terms';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import CheckStore from './CheckStore';
+import BottomNavbar from './BottomNavbar';
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -46,6 +47,7 @@ export default function PartTimeSettings() {
 
     return (
         <>
+        <BottomNavbar />
             <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
                     <List>
                         <ListItem disablePadding>
@@ -118,9 +120,6 @@ export default function PartTimeSettings() {
                             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
                                 会員情報編集
                             </Typography>
-                            <Button autoFocus color="inherit" onClick={onCloseDialog}>
-                                保存
-                            </Button>
                         </Toolbar>
                     </AppBar>
                     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
