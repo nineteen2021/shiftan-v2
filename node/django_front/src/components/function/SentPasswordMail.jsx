@@ -1,12 +1,14 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
+import SimpleNavbar from './SimpleNavbar';
 
 
 export default function SentPasswordMail(props) {
 
     return (
         <>
-            <Typography sx={{mt: 2, mb: 3}} variant="h4" gutterBottom align="center">
+        <SimpleNavbar />
+            <Typography sx={{mt: 10, mb: 3}} variant="h4" gutterBottom align="center">
                 メールを送信しました
             </Typography>
             <Typography variant="body1" gutterBottom align="center">
