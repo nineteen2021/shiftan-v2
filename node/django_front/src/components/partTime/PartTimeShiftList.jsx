@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Link as routerLink } from 'react-router-dom'
 
 const theme = createTheme({
   palette: {
@@ -33,7 +34,15 @@ export default function PartTimeShiftList(props) {
           <Grid item>
             <Button variant="contained" color="whiteButton" sx={{ mr: 1, ml:1 }}>確認</Button>
             <Button variant="contained" sx={{ mr: 1, ml:1 }}>希望確認</Button>
-            <Button variant="contained" color="yellowButton" sx={{ ml: 1 }}>編集</Button>
+            <Button 
+              variant="contained" 
+              color="yellowButton" 
+              sx={{ ml: 1 }}
+              component={routerLink}
+              to="/shiftSubmit"
+            >
+              編集
+            </Button>
           </Grid>
         </Grid>
       </Paper>
