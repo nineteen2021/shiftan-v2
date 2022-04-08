@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes, Link } from 'react-router-dom'; 
+import { BrowserRouter, Route, Routes} from 'react-router-dom'; 
 import PartTimeNavbar from './components/partTime/PartTimeNavbar'
 import Navbar from './components/store/Navbar'
 import Login from './components/function/Login';
@@ -10,7 +10,6 @@ import Register from './components/store/Register';
 import StoreHome from './components/store/StoreHome';
 import MakeShift from './components/store/MakeShift';
 import Settings from './components/store/Settings';
-import ShiftEditorDay from './components/store/ShiftEditorDay';
 import PartTimeAccountSettings from './components/partTime/PartTimeAccountSettings';
 import PartTimeHome from './components/partTime/PartTimeHome';
 import PartTimeRegister from './components/partTime/PartTimeRegister';
@@ -45,8 +44,6 @@ const App = () => {
         <Route path="makeShift" element={<Navbar contents={<MakeShift />}/>} />
 
         <Route path="settings" element={<Navbar contents={<Settings />}/>} />
-
-        <Route path="shiftEditorDay" element={<Navbar contents={<ShiftEditorDay />}/>} /> {/*未実装*/}
 
         <Route path="partTimeAccountSettings" element={<PartTimeNavbar contents={<PartTimeAccountSettings />}/>} />
 
