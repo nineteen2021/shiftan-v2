@@ -16,6 +16,7 @@ import PartTimeHome from './components/partTime/PartTimeHome';
 import PartTimeRegister from './components/partTime/PartTimeRegister';
 import PartTimeSettings from './components/partTime/PartTimeSettings';
 import ShiftSubmit from './components/partTime/ShiftSubmit';
+import Certification from './components/store/Certification';
 
 
 
@@ -25,13 +26,15 @@ const App = () => {
     <div>
       <Routes>
 
+        <Route path="/a" element={<Certification />}/> {/*テスト*/}
+
         <Route path="/" element={<Login />}/>
 
         <Route path="login" element={<Login />} />
 
         <Route path="sentPasswordMail" element={<SentPasswordMail />} />
 
-        <Route path="resetPassword" element={<ResetPassword />} /> //未実装
+        <Route path="resetPassword" element={<ResetPassword />} /> {/*未実装*/}
 
         <Route path="staffManager" element={<Navbar contents={<StaffManager />}/>} />
 
@@ -43,7 +46,7 @@ const App = () => {
 
         <Route path="settings" element={<Navbar contents={<Settings />}/>} />
 
-        <Route path="shiftEditorDay" element={<Navbar contents={<ShiftEditorDay />}/>} /> //未実装
+        <Route path="shiftEditorDay" element={<Navbar contents={<ShiftEditorDay />}/>} /> {/*未実装*/}
 
         <Route path="partTimeAccountSettings" element={<PartTimeNavbar contents={<PartTimeAccountSettings />}/>} />
 
@@ -53,7 +56,7 @@ const App = () => {
 
         <Route path="partTimeSettings" element={<PartTimeNavbar contents={<PartTimeSettings />}/>} />
 
-        <Route path="shiftSubmit" element={<PartTimeNavbar contents={<ShiftSubmit />}/>} /> //未実装
+        <Route path="shiftSubmit" element={<PartTimeNavbar contents={<ShiftSubmit />}/>} /> {/*未実装*/}
         
       </Routes>
     </div>
