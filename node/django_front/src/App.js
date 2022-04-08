@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes} from 'react-router-dom'; 
-import PartTimeNavbar from './components/partTime/PartTimeNavbar'
-import Navbar from './components/store/Navbar'
+import PartTimeNavbar from './components/partTime/PartTimeNavbar';
+import Navbar from './components/store/Navbar';
 import Login from './components/function/Login';
 import SentPasswordMail from './components/function/SentPasswordMail';
 import ResetPassword from './components/function/ResetPassword';
