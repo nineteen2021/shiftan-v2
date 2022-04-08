@@ -17,7 +17,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import Terms from '../Terms';
+import Terms from '../function/Terms';
 
 function Copyright(props) {
   return (

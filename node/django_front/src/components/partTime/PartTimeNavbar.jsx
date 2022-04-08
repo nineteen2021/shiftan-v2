@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
+import { Button } from '@mui/material';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
@@ -14,6 +15,7 @@ import LogoImg from "../titleNavbar.svg";
 import "../../App.css"
 import NotificationListItem from '../NotificationListItem';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { Link as routerLink } from 'react-router-dom'
 
 const drawerWidth = 240;
 
@@ -73,7 +75,14 @@ export default function PartTimeNavbar(props) {
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
-          <a href='localhost:3000' className='App-logo'><img src={LogoImg} alt="logo" className='App-logo'></img></a>
+            <Button 
+              disableFocusRipple
+              disableRipple
+              component={routerLink}
+              to="/partTimeHome"
+            >
+              <img src={LogoImg} alt="logo" className='App-logo'></img>
+            </Button>
           <Box sx={{ flexGrow: 1 }} />
           <Box>
             <IconButton
@@ -90,6 +99,8 @@ export default function PartTimeNavbar(props) {
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
+              component={routerLink}
+              to="/partTimeSettings"
             >
               <SettingsIcon />
             </IconButton>

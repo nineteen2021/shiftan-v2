@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HomeIcon from '@mui/icons-material/Home';
 import Grid from '@mui/material/Grid';
+import { Link as routerLink } from 'react-router-dom'
 
 export default function BottomNavbar() {
   const [value, setValue] = React.useState(0);
@@ -17,10 +18,20 @@ export default function BottomNavbar() {
         justifyContent="center"
         alignItems="center"
       >
-        <Button sx={{ mr: "5em", mb: 1 }} className="bottomButton" startIcon={<HomeIcon className="bottomIcon" />}>
+        <Button 
+        sx={{ mr: "5em", mb: 1 }} 
+        className="bottomButton" 
+        startIcon={<HomeIcon className="bottomIcon" />}
+        component={routerLink}
+        to="/partTimeHome">
           ホーム 
         </Button>
-        <Button sx={{ ml: "5em", mb: 1 }} className="bottomButton" startIcon={<SettingsIcon className="bottomIcon" />}>
+        <Button 
+        sx={{ ml: "5em", mb: 1 }} 
+        className="bottomButton" 
+        startIcon={<SettingsIcon className="bottomIcon" />}
+        component={routerLink}
+        to="/partTimeSettings">
           設定 
         </Button>
       </Grid>
