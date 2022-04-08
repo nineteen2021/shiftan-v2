@@ -16,12 +16,13 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import LocalPhone from '@mui/icons-material/LocalPhone';
 
 const testUser = {
     firstName: "太郎",
     lastName: "山田",
+    phoneNumber: "000-1111-2222",
     mail: "hogehoge@gmail.com",
-    userID: "taro0000"
 }
 
 export default function PartTimeAccountSettings() {
@@ -49,19 +50,19 @@ export default function PartTimeAccountSettings() {
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
+                        <ListItemButton onClick={() => onOpenDialog("number")}>
+                            <ListItemIcon>
+                                <LocalPhone />
+                            </ListItemIcon>
+                            <ListItemText primary="電話番号" secondary={testUser.phoneNumber} />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
                         <ListItemButton onClick={() => onOpenDialog("email")}>
                             <ListItemIcon>
                                 <EmailIcon />
                             </ListItemIcon>
                             <ListItemText primary="メールアドレス" secondary={testUser.mail} />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton onClick={() => onOpenDialog("userID")}>
-                            <ListItemIcon>
-                                <PersonIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="ユーザーID" secondary={testUser.userID} />
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
@@ -126,18 +127,17 @@ export default function PartTimeAccountSettings() {
                     <Button onClick={onCloseDialog}>保存</Button>
                 </DialogActions>
             </Dialog>
-
-            <Dialog open={selectedItem === "userID"} onClose={onCloseDialog}>
-                <DialogTitle>ユーザーID</DialogTitle>
+            <Dialog open={selectedItem === "phoneNumber"} onClose={onCloseDialog}>
+                <DialogTitle>電話番号</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        新しく設定するユーザーIDを入力してください
+                        新しく設定する電話番号を入力してください
                     </DialogContentText>
                     <TextField
                         autoFocus
                         margin="dense"
-                        id="userID"
-                        label="ユーザーID"
+                        id="phoneNumber"
+                        label="電話番号"
                         type="text"
                         fullWidth
                         variant="standard"

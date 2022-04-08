@@ -25,10 +25,8 @@ const testUser = {
     firstName: "太郎",
     lastName: "山田",
     mail: "hogehoge@gmail.com",
-    userID: "taro0000",
     storeName: "若狭屋渋谷店",
     phoneNumber: "07044039803",
-    postalCode: "1500043",
     address: "東京都渋谷区道玄坂1丁目1",
     storeID: "1234567890"
 }
@@ -66,14 +64,6 @@ export default function AccountSettings() {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton onClick={() => onOpenDialog("userID")}>
-                                <ListItemIcon>
-                                    <PersonIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="ユーザーID" secondary={testUser.userID} />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
                             <ListItemButton onClick={() => onOpenDialog("password")}>
                                 <ListItemIcon>
                                     <KeyIcon />
@@ -102,7 +92,7 @@ export default function AccountSettings() {
                                 <ListItemIcon>
                                     <LocationOnIcon />
                                 </ListItemIcon>
-                                <ListItemText primary="店舗住所" secondary={"〒" + testUser.postalCode + " " + testUser.address} />
+                                <ListItemText primary="店舗住所" secondary={testUser.address} />
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
@@ -167,29 +157,6 @@ export default function AccountSettings() {
                     <Button onClick={onCloseDialog}>保存</Button>
                 </DialogActions>
             </Dialog>
-
-            <Dialog open={selectedItem === "userID"} onClose={onCloseDialog}>
-                <DialogTitle>ユーザーID</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        新しく設定するユーザーIDを入力してください
-                    </DialogContentText>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="userID"
-                        label="ユーザーID"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={onCloseDialog}>キャンセル</Button>
-                    <Button onClick={onCloseDialog}>保存</Button>
-                </DialogActions>
-            </Dialog>
-
             <Dialog open={selectedItem === "storeName"} onClose={onCloseDialog}>
                 <DialogTitle>店舗名</DialogTitle>
                 <DialogContent>
@@ -244,15 +211,6 @@ export default function AccountSettings() {
                     <TextField
                         autoFocus
                         margin="dense"
-                        id="postalCode"
-                        label="郵便番号"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
                         id="address"
                         label="住所"
                         type="text"
@@ -270,21 +228,11 @@ export default function AccountSettings() {
                 <DialogTitle>店舗ID</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        新しく設定する店舗IDを入力してください
+                        店舗IDは変更できません。
                     </DialogContentText>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="storeID"
-                        label="店舗ID"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                    />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={onCloseDialog}>キャンセル</Button>
-                    <Button onClick={onCloseDialog}>保存</Button>
                 </DialogActions>
             </Dialog>
         </>
