@@ -2,6 +2,7 @@ import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
+import { Link as routerLink } from 'react-router-dom'
 
 export default function ResetPasswordMessage() {
 
@@ -21,6 +22,8 @@ export default function ResetPasswordMessage() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              component={routerLink}
+              to="/login"
             >
               ログイン画面へ
             </Button>
