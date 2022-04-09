@@ -18,7 +18,7 @@ const theme = createTheme({
   },
 });
 
-export default function ShiftList(props){
+export default function StoreShiftList(props){
 
   return(
     <ThemeProvider theme={theme}>

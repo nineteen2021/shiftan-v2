@@ -23,7 +23,6 @@ const testUser = {
     lastName: "山田",
     phoneNumber: "000-1111-2222",
     mail: "hogehoge@gmail.com",
-    userID: "taro0000"
 }
 
 export default function PartTimeAccountSettings() {
@@ -64,14 +63,6 @@ export default function PartTimeAccountSettings() {
                                 <EmailIcon />
                             </ListItemIcon>
                             <ListItemText primary="メールアドレス" secondary={testUser.mail} />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton onClick={() => onOpenDialog("userID")}>
-                            <ListItemIcon>
-                                <PersonIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="ユーザーID" secondary={testUser.userID} />
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
@@ -136,7 +127,6 @@ export default function PartTimeAccountSettings() {
                     <Button onClick={onCloseDialog}>保存</Button>
                 </DialogActions>
             </Dialog>
-
             <Dialog open={selectedItem === "phoneNumber"} onClose={onCloseDialog}>
                 <DialogTitle>電話番号</DialogTitle>
                 <DialogContent>
@@ -148,28 +138,6 @@ export default function PartTimeAccountSettings() {
                         margin="dense"
                         id="phoneNumber"
                         label="電話番号"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={onCloseDialog}>キャンセル</Button>
-                    <Button onClick={onCloseDialog}>保存</Button>
-                </DialogActions>
-            </Dialog>
-
-            <Dialog open={selectedItem === "userID"} onClose={onCloseDialog}>
-                <DialogTitle>ユーザーID</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        新しく設定するユーザーIDを入力してください
-                    </DialogContentText>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="userID"
-                        label="ユーザーID"
                         type="text"
                         fullWidth
                         variant="standard"
