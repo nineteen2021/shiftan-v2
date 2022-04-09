@@ -133,7 +133,7 @@ export default function PartTimeNavbar(props) {
           </Box>
         </Toolbar>
       </AppBar>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, mb:'60px' }}>
         <DrawerHeader />
         {props.contents}
       </Box>

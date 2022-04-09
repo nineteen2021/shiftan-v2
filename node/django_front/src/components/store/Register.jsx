@@ -57,14 +57,14 @@ export default function Register() {
   return (
     <>
     <SimpleNavbar/>
-    <Grid container justifyContent="flex-start">
+    <Grid container justifyContent="flex-start" >
       <Grid item sx={{ mb: 2 }}>
         <Typography component="h1" variant="h5">
         店舗アカウント登録
         </Typography>
       </Grid>
     </Grid>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" sx={{mb:'80px'}}>
         <CssBaseline />
         <Box
           sx={{
@@ -239,6 +239,7 @@ export default function Register() {
             scroll="paper"
             fullWidth="true"
             maxWidth="md"
+            sx={{mb:'60px'}}
     >
       <DialogTitle>利用規約</DialogTitle>
       <DialogContent>
