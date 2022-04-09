@@ -32,7 +32,7 @@ const App = () => {
 
         <Route path="resetPassword" element={<ResetPassword />} /> {/*メールから飛ぶリンクのため未実装*/}
 
-        <Route path="/finishResetPassword" element={<FinishResetPassword />}/>
+        <Route path="finishResetPassword" element={<FinishResetPassword />}/>
 
         <Route path="register" element={<Register />} />
 
