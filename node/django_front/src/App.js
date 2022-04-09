@@ -5,19 +5,17 @@ import Navbar from './components/store/Navbar';
 import Login from './components/function/Login';
 import SentPasswordMail from './components/function/SentPasswordMail';
 import ResetPassword from './components/function/ResetPassword';
-import StaffManager from './components/store/StaffManager';
+import FinishResetPassword from './components/function/FinishResetPassword';
 import Register from './components/store/Register';
 import StoreHome from './components/store/StoreHome';
 import MakeShift from './components/store/MakeShift';
+import StaffManager from './components/store/StaffManager';
 import Settings from './components/store/Settings';
-import PartTimeAccountSettings from './components/partTime/PartTimeAccountSettings';
-import PartTimeHome from './components/partTime/PartTimeHome';
 import PartTimeRegister from './components/partTime/PartTimeRegister';
-import PartTimeSettings from './components/partTime/PartTimeSettings';
+import PartTimeHome from './components/partTime/PartTimeHome';
 import ShiftSubmit from './components/partTime/ShiftSubmit';
+import PartTimeSettings from './components/partTime/PartTimeSettings';
 import Certification from './components/store/Certification';
-
-
 
 const App = () => {
   return (
@@ -25,17 +23,15 @@ const App = () => {
     <div>
       <Routes>
 
-        <Route path="/a" element={<Certification />}/> {/*テスト*/}
-
         <Route path="/" element={<Login />}/>
 
         <Route path="login" element={<Login />} />
 
         <Route path="sentPasswordMail" element={<SentPasswordMail />} />
 
-        <Route path="resetPassword" element={<ResetPassword />} /> {/*未実装*/}
+        <Route path="resetPassword" element={<ResetPassword />} /> {/*メールから飛ぶリンクのため未実装*/}
 
-        <Route path="staffManager" element={<Navbar contents={<StaffManager />}/>} />
+        <Route path="/finishResetPassword" element={<FinishResetPassword />}/>
 
         <Route path="register" element={<Register />} />
 
@@ -43,17 +39,19 @@ const App = () => {
 
         <Route path="makeShift" element={<Navbar contents={<MakeShift />}/>} />
 
+        <Route path="staffManager" element={<Navbar contents={<StaffManager />}/>} />
+
+        <Route path="/certification" element={<Certification />}/> {/*未実装*/}
+
         <Route path="settings" element={<Navbar contents={<Settings />}/>} />
-
-        <Route path="partTimeAccountSettings" element={<PartTimeNavbar contents={<PartTimeAccountSettings />}/>} />
-
-        <Route path="partTimeHome" element={<PartTimeNavbar contents={<PartTimeHome />}/>} />
 
         <Route path="partTimeRegister" element={<PartTimeRegister />} />
 
-        <Route path="partTimeSettings" element={<PartTimeNavbar contents={<PartTimeSettings />}/>} />
+        <Route path="partTimeHome" element={<PartTimeNavbar contents={<PartTimeHome />}/>} />
 
         <Route path="shiftSubmit" element={<PartTimeNavbar contents={<ShiftSubmit />}/>} /> {/*未実装*/}
+
+        <Route path="partTimeSettings" element={<PartTimeNavbar contents={<PartTimeSettings />}/>} />
         
       </Routes>
     </div>
