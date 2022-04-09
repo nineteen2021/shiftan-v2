@@ -5,7 +5,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
 import BadgeIcon from '@mui/icons-material/Badge';
 import KeyIcon from '@mui/icons-material/Key';
@@ -50,7 +49,7 @@ export default function PartTimeAccountSettings() {
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
-                        <ListItemButton onClick={() => onOpenDialog("number")}>
+                        <ListItemButton onClick={() => onOpenDialog("phoneNumber")}>
                             <ListItemIcon>
                                 <LocalPhone />
                             </ListItemIcon>
@@ -127,6 +126,7 @@ export default function PartTimeAccountSettings() {
                     <Button onClick={onCloseDialog}>保存</Button>
                 </DialogActions>
             </Dialog>
+
             <Dialog open={selectedItem === "phoneNumber"} onClose={onCloseDialog}>
                 <DialogTitle>電話番号</DialogTitle>
                 <DialogContent>
