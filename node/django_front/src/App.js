@@ -5,7 +5,7 @@ import Navbar from './components/store/Navbar';
 import Login from './components/function/Login';
 import SentPasswordMail from './components/function/SentPasswordMail';
 import ResetPassword from './components/function/ResetPassword';
-import FinishResetPassword from './components/function/FinishResetPassword';
+import FinishResetPassword from './components/partTime/FinishResetPassword';
 import Register from './components/store/Register';
 import StoreHome from './components/store/StoreHome';
 import MakeShift from './components/store/MakeShift';
@@ -16,7 +16,7 @@ import PartTimeHome from './components/partTime/PartTimeHome';
 import ShiftSubmit from './components/partTime/ShiftSubmit';
 import PartTimeSettings from './components/partTime/PartTimeSettings';
 import Certification from './components/store/Certification';
-import ButtomNavbar from './components/partTime/BottomNavbar'
+import BottomNavbar from './components/partTime/BottomNavbar';
 
 const App = () => {
   return (
@@ -42,43 +42,38 @@ const App = () => {
 
         <Route path="staffManager" element={<Navbar contents={<StaffManager />}/>} />
 
-        <Route path="partTimeAccountSettings" 
-          element={ 
-            <>
-            <PartTimeNavbar contents={<PartTimeAccountSettings />}/>
-            <ButtomNavbar/>
-            </>
-          }
-        />
+        <Route path="/certification" element={<Certification />}/> {/*未実装*/}
+
+        <Route path="settings" element={<Navbar contents={<Settings />}/>} />
+
+        <Route path="partTimeRegister" element={<PartTimeRegister />} />
 
         <Route path="partTimeHome"
           element={ 
             <>
             <PartTimeNavbar contents={<PartTimeHome />}/>
-            <ButtomNavbar/>
+            <BottomNavbar/>
             </>
           }
-        />
-
-        <Route path="partTimeRegister" element={<PartTimeRegister />} />
-
-        <Route path="partTimeSettings" 
-        element={ 
-          <>
-          <PartTimeNavbar contents={<PartTimeSettings />}/>
-          <ButtomNavbar/>
-          </>
-        }
         />
 
         <Route path="shiftSubmit" 
           element={ 
             <>
             <PartTimeNavbar contents={<ShiftSubmit />}/>
-            <ButtomNavbar/>
+            <BottomNavbar/>
             </>
           }
         /> {/*未実装*/}
+
+        <Route path="partTimeSettings" 
+        element={ 
+          <>
+          <PartTimeNavbar contents={<PartTimeSettings />}/>
+          <BottomNavbar/>
+          </>
+        }
+        />
         
       </Routes>
     </div>
