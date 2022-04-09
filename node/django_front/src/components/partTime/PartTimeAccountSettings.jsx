@@ -50,7 +50,7 @@ export default function PartTimeAccountSettings() {
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
-                        <ListItemButton onClick={() => onOpenDialog("number")}>
+                        <ListItemButton onClick={() => onOpenDialog("phoneNumber")}>
                             <ListItemIcon>
                                 <LocalPhone />
                             </ListItemIcon>
@@ -127,6 +127,7 @@ export default function PartTimeAccountSettings() {
                     <Button onClick={onCloseDialog}>保存</Button>
                 </DialogActions>
             </Dialog>
+
             <Dialog open={selectedItem === "phoneNumber"} onClose={onCloseDialog}>
                 <DialogTitle>電話番号</DialogTitle>
                 <DialogContent>
