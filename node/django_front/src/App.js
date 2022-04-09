@@ -5,7 +5,7 @@ import Navbar from './components/store/Navbar';
 import Login from './components/function/Login';
 import SentPasswordMail from './components/function/SentPasswordMail';
 import ResetPassword from './components/function/ResetPassword';
-import FinishResetPassword from './components/partTime/FinishResetPassword';
+import FinishResetPassword from './components/function/FinishResetPassword';
 import Register from './components/store/Register';
 import StoreHome from './components/store/StoreHome';
 import MakeShift from './components/store/MakeShift';
