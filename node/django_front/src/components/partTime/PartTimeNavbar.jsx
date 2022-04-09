@@ -95,15 +95,6 @@ export default function PartTimeNavbar(props) {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-              component={routerLink}
-              to="/partTimeSettings"
-            >
-              <SettingsIcon />
-            </IconButton>
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
@@ -133,7 +124,7 @@ export default function PartTimeNavbar(props) {
           </Box>
         </Toolbar>
       </AppBar>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, mb:'60px' }}>
         <DrawerHeader />
         {props.contents}
       </Box>

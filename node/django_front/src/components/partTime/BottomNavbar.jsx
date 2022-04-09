@@ -8,10 +8,9 @@ import Grid from '@mui/material/Grid';
 import { Link as routerLink } from 'react-router-dom'
 
 export default function BottomNavbar() {
-  const [value, setValue] = React.useState(0);
 
   return (
-    <Box sx={{ width: '100%', height: '56px', position: 'fixed', bottom: '0', background: '#586365' }}>
+    <Box className='bottomNavbar' sx={{ width: '100%', height: '56px', position: 'fixed', bottom: '0', background: '#586365' }}>
       <Grid
         container
         direction="row"
