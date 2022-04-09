@@ -16,7 +16,7 @@ import PartTimeRegister from './components/partTime/PartTimeRegister';
 import PartTimeSettings from './components/partTime/PartTimeSettings';
 import ShiftSubmit from './components/partTime/ShiftSubmit';
 import Certification from './components/store/Certification';
-import ButtomNavbar from './components/partTime/BottomNavbar'
+import BottomNavbar from './components/partTime/BottomNavbar'
 
 
 
@@ -50,7 +50,7 @@ const App = () => {
           element={ 
             <>
             <PartTimeNavbar contents={<PartTimeAccountSettings />}/>
-            <ButtomNavbar/>
+            <BottomNavbar/>
             </>
           }
         />
@@ -59,7 +59,7 @@ const App = () => {
           element={ 
             <>
             <PartTimeNavbar contents={<PartTimeHome />}/>
-            <ButtomNavbar/>
+            <BottomNavbar/>
             </>
           }
         />
@@ -70,7 +70,7 @@ const App = () => {
         element={ 
           <>
           <PartTimeNavbar contents={<PartTimeSettings />}/>
-          <ButtomNavbar/>
+          <BottomNavbar/>
           </>
         }
         />
@@ -79,7 +79,7 @@ const App = () => {
           element={ 
             <>
             <PartTimeNavbar contents={<ShiftSubmit />}/>
-            <ButtomNavbar/>
+            <BottomNavbar/>
             </>
           }
         /> {/*未実装*/}
