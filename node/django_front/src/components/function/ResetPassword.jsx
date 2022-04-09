@@ -8,6 +8,7 @@ import Alert from '@mui/material/Alert';
 import Collapse from '@mui/material/Collapse';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { Link as routerLink } from 'react-router-dom'
 
 function Copyright(props) {
   return (
@@ -87,6 +88,8 @@ export default function ResetPassword() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              component={routerLink}
+              to="/finishResetPassword"
             >
               パスワードを再設定
             </Button>

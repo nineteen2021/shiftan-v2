@@ -18,8 +18,6 @@ import PartTimeSettings from './components/partTime/PartTimeSettings';
 import Certification from './components/store/Certification';
 import BottomNavbar from './components/partTime/BottomNavbar';
 
-
-
 const App = () => {
   return (
   <BrowserRouter>
@@ -32,7 +30,7 @@ const App = () => {
 
         <Route path="sentPasswordMail" element={<SentPasswordMail />} />
 
-        <Route path="resetPassword" element={<ResetPassword />} /> {/*未実装*/}
+        <Route path="resetPassword" element={<ResetPassword />} /> {/*メールから飛ぶリンクのため未実装*/}
 
         <Route path="/finishResetPassword" element={<FinishResetPassword />}/>
 
