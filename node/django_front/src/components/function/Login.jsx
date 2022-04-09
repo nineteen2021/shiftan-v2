@@ -12,6 +12,8 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SimpleNavbar from './SimpleNavbar'
 import NewAccountButton from './NewAccountButton';
+import { Link as routerLink } from 'react-router-dom'
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -39,7 +41,7 @@ export default function Login() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <SimpleNavbar/>
       <Container component="main" maxWidth="xs">
 
@@ -83,12 +85,17 @@ export default function Login() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              component={routerLink}
+              to="/"
             >
               ログイン
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link
+                component={routerLink}
+                to="/sentPasswordMail"
+                variant="body2">
                   {"パスワードを忘れた場合"}
                 </Link>
               </Grid>
@@ -103,6 +110,6 @@ export default function Login() {
         </Box>
         <Copyright sx={{ mt: 16, mb: 4 }} />
       </Container>
-    </ThemeProvider>
+    </>
   );
 }
