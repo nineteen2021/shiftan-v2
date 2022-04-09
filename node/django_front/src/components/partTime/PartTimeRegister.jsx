@@ -55,7 +55,7 @@ export default function PartTimeRegister() {
   return (
     <>
     <SimpleNavbar/>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" sx={{mb:'80px'}}>
         <CssBaseline />
         <Box
           sx={{
@@ -179,6 +179,7 @@ export default function PartTimeRegister() {
               scroll="paper"
               fullWidth="true"
               maxWidth="md"
+              sx={{mb:'60px'}}
       >
         <DialogTitle>利用規約</DialogTitle>
         <DialogContent>
