@@ -42,7 +42,7 @@ const App = () => {
 
         <Route path="staffManager" element={<Navbar contents={<StaffManager />}/>} />
 
-        <Route path="/certification" element={<Certification />}/> {/*未実装*/}
+        <Route path="certification" element={<Certification />}/> {/*未実装*/}
 
         <Route path="settings" element={<Navbar contents={<Settings />}/>} />
 
