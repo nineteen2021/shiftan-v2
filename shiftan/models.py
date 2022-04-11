@@ -32,21 +32,23 @@ class Member_Authority(models.Model):
 class Tmp_Work_Schedule(models.Model):
     start_time = models.DateTimeField("シフト希望開始時間",auto_now=False, auto_now_add=False)
     stop_time = models.DateTimeField("シフト希望終了時間",auto_now=False, auto_now_add=False)
-    submit_time = models.DateTimeField("シフト提出時間",auto_now=True, auto_now_add=True)
+    create_time = models.DateTimeField("シフト希望提出時間",auto_now=True, auto_now_add=False)
+    update_time = models.DateTimeField("シフト希望更新時間",auto_now=False, auto_now_add=True)
     member_FK = models.ForeignKey(Member, on_delete=models.DO_NOTHING)
 
 class Work_Schedule(models.Model):
     start_time = models.DateTimeField("バイト開始時間",auto_now=False, auto_now_add=False)
     stop_time = models.DateTimeField("バイト終了時間",auto_now=False, auto_now_add=False)
-    create_time = models.DateTimeField("シフト作成時間",auto_now=True, auto_now_add=True)
+    create_time = models.DateTimeField("シフト希望提出時間",auto_now=True, auto_now_add=False)
+    update_time = models.DateTimeField("シフト希望更新時間",auto_now=False, auto_now_add=True)
     member_FK = models.ForeignKey(Member, on_delete=models.DO_NOTHING)
 
 class Shift_Range(models.Model):
     shift_name = models.CharField("シフト名",max_length=100, null=False, blank=False)
     start_date = models.DateField("募集開始日",auto_now=False, auto_now_add=False)
     stop_date = models.DateField("募集終了日",auto_now=False, auto_now_add=False)
-    create_date = models.DateField("作成時間",auto_now=True, auto_now_add=False)
-    deadline_date = models.DateField("締め切り日")
+    create_time = models.DateTimeField("シフト作成時間",auto_now=True, auto_now_add=False)
+    update_time = models.DateTimeField("シフト更新時間",auto_now=False, auto_now_add=True)
 
 class Schedule_Template(models.Model):
     start_time = models.DateTimeField("シフトテンプレ開始時間",auto_now=False, auto_now_add=False)
