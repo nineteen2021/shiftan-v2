@@ -80,7 +80,7 @@ export default function PartTimeRegister() {
                   required
                   fullWidth
                   id="lastName"
-                  label="苗字"
+                  label="姓"
                   autoFocus
                 />
               </Grid>
@@ -89,7 +89,7 @@ export default function PartTimeRegister() {
                   required
                   fullWidth
                   id="firstName"
-                  label="名前"
+                  label="名"
                   name="firstName"
                   autoComplete="given-name"
                 />
