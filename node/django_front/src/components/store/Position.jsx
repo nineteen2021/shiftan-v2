@@ -19,11 +19,6 @@ const rows = [
     createData('ホール', 10),
     createData('キッチン', 8),
     createData('フリー', 3),
-    createData('フリー', 3),
-    createData('フリー', 3),
-    createData('フリー', 3),
-    createData('フリー', 3),
-    createData('フリー', 3),
 ];
 
 export default function PositionTable() {
