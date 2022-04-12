@@ -4,7 +4,7 @@ from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.core.mail import send_mail
 from django.utils import timezone
 from django.contrib.auth.validators import UnicodeUsernameValidator
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _ # 多言語対応するために使用されている関数
 
 # Create your models here.
 class UserManager(BaseUserManager): # emailは必須項目なので、emailがからの場合は例外が発生するように設定
@@ -52,12 +52,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_("email_address"), unique=True) # emailでのログインとする
     is_staff = models.BooleanField(_("staff status"), default=False) # 管理画面のアクセス可否
     is_active = models.BooleanField(_("active"), default=True) # ログインの可否
+    is_manager = models.BooleanField("manager", default=False) # 店長かどうか
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now) # アカウントの作成日時
     last_name = models.CharField("名字", max_length=50, null=False, blank=False)
     first_name = models.CharField("名前", max_length=50, null=False, blank=False)
     phone = models.CharField("電話番号", max_length=15, null=False, blank=False)
-    store_FK = models.ForeignKey(Store, on_delete=models.DO_NOTHING)
-    group_FK = models.ForeignKey(Group, on_delete=models.DO_NOTHING)
+    store_FK = models.ForeignKey(Store, on_delete=models.SET_NULL)
+    group_FK = models.ForeignKey(Group, on_delete=models.SET_NULL)
 
     objects = UserManager() # views.pyでUserモデルの情報を取得する際などで利用
     USERNAME_FIELD = "email" # ここをemailにすることでメールアドレスでのログインが可能になる
@@ -75,27 +76,27 @@ class User(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
-class Authority(models.Model):
-    authority_name = models.CharField("権限名",max_length=50)
+# class Authority(models.Model):
+#     authority_name = models.CharField("権限名",max_length=50)
 
-class User_Authority(models.Model):
-    user_FK = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    authority_FK = models.ForeignKey(Authority, on_delete=models.DO_NOTHING)
-    authority = models.BooleanField() #初期値False
+# class User_Authority(models.Model):
+#     user_FK = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+#     authority_FK = models.ForeignKey(Authority, on_delete=models.DO_NOTHING)
+#     authority = models.BooleanField() #初期値False
 
 class Tmp_Work_Schedule(models.Model):
     start_time = models.DateTimeField("シフト希望開始時間",auto_now=False, auto_now_add=False)
     stop_time = models.DateTimeField("シフト希望終了時間",auto_now=False, auto_now_add=False)
     create_time = models.DateTimeField("シフト希望提出時間",auto_now=True, auto_now_add=False)
     update_time = models.DateTimeField("シフト希望更新時間",auto_now=False, auto_now_add=True)
-    user_FK = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    user_FK = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Work_Schedule(models.Model):
     start_time = models.DateTimeField("バイト開始時間",auto_now=False, auto_now_add=False)
     stop_time = models.DateTimeField("バイト終了時間",auto_now=False, auto_now_add=False)
     create_time = models.DateTimeField("シフト希望提出時間",auto_now=True, auto_now_add=False)
     update_time = models.DateTimeField("シフト希望更新時間",auto_now=False, auto_now_add=True)
-    user_FK = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    user_FK = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Shift_Range(models.Model):
     shift_name = models.CharField("シフト名",max_length=100, null=False, blank=False)
@@ -107,4 +108,4 @@ class Shift_Range(models.Model):
 class Schedule_Template(models.Model):
     start_time = models.DateTimeField("シフトテンプレ開始時間",auto_now=False, auto_now_add=False)
     stop_time = models.DateTimeField("シフトテンプレ終了時間",auto_now=False, auto_now_add=False)
-    user_FK = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    user_FK = models.ForeignKey(User, on_delete=models.CASCADE)
