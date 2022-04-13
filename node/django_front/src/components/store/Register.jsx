@@ -59,9 +59,9 @@ export default function Register() {
     <SimpleNavbar/>
     <Grid container justifyContent="flex-start" >
       <Grid item sx={{ mb: 2 }}>
-        <Typography component="h1" variant="h5">
+        {/* <Typography component="h1" variant="h5">
         店舗アカウント登録
-        </Typography>
+        </Typography> */}
       </Grid>
     </Grid>
       <Container component="main" maxWidth="xs" sx={{mb:'80px'}}>
@@ -122,10 +122,10 @@ export default function Register() {
                 <TextField
                   required
                   fullWidth
-                  id="userID"
-                  label="ユーザーID"
-                  name="userID"
-                  autoComplete="userID"
+                  id="phoneNumber"
+                  label="電話番号"
+                  name="phoneNumber"
+                  autoComplete="phoneNumber"
                 />
               </Grid>
               <Grid item xs={12}>
