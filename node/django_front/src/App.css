@@ -2,49 +2,6 @@
   height: 40px; 
 }
 
-.container {
-  width: 1000px;
-  height: 700px;
-  background: #f3f3f3;
-  display: flex;
-  padding: 30px;
-  box-sizing: border-box;
-  align-items: center;
-}
-
-.containerLeft {
-  padding-right: 50px;
-}
-  
-.bar {
-  background: #fff;
-  width: 40px;
-  height: 40px;
-  border: 1px solid #dedede;
-  border-radius: 2px;
-  display: flex;
-}
-
-.barRight {
-  height: 100%;
-  border-left: 1px solid #dedede;
-  width: 40px;
-}
-
-.pikker {
-  position: static;
-  top: 380px;
-  left: 30px;
-}
-  
-.pikkerBack {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-}
-
 .Layout-booleanEditors {
   visibility:hidden;
 }
@@ -87,6 +44,9 @@
   margin-left: 10px;
 }
 
+.bottomNavbar {
+  z-index: 1201;
+}
 /* .App {
   text-align: center;
 }
