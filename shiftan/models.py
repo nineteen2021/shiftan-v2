@@ -1,3 +1,4 @@
+from tkinter import CASCADE
 from django.db import models
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
@@ -44,6 +45,7 @@ class Store(models.Model):
 class Group(models.Model):
     group_name = models.CharField("グループ名",max_length=50, null=False, blank=False)
     color = models.SlugField("グループカラー",max_length=100, null=False, blank=False)
+    Store_FK = models.ForeignKey(Store, on_delete=models.CASCADE)
 
 class User(AbstractBaseUser, PermissionsMixin):
     username_validator = UnicodeUsernameValidator() # validatorとは入力チェック
@@ -84,26 +86,28 @@ class User(AbstractBaseUser, PermissionsMixin):
 #     authority_FK = models.ForeignKey(Authority, on_delete=models.DO_NOTHING)
 #     authority = models.BooleanField() #初期値False
 
-class Tmp_Work_Schedule(models.Model):
-    start_time = models.DateTimeField("シフト希望開始時間",auto_now=False, auto_now_add=False)
-    stop_time = models.DateTimeField("シフト希望終了時間",auto_now=False, auto_now_add=False)
-    create_time = models.DateTimeField("シフト希望提出時間",auto_now=True, auto_now_add=False)
-    update_time = models.DateTimeField("シフト希望更新時間",auto_now=False, auto_now_add=True)
-    user_FK = models.ForeignKey(User, on_delete=models.CASCADE)
-
-class Work_Schedule(models.Model):
-    start_time = models.DateTimeField("バイト開始時間",auto_now=False, auto_now_add=False)
-    stop_time = models.DateTimeField("バイト終了時間",auto_now=False, auto_now_add=False)
-    create_time = models.DateTimeField("シフト希望提出時間",auto_now=True, auto_now_add=False)
-    update_time = models.DateTimeField("シフト希望更新時間",auto_now=False, auto_now_add=True)
-    user_FK = models.ForeignKey(User, on_delete=models.CASCADE)
-
 class Shift_Range(models.Model):
     shift_name = models.CharField("シフト名",max_length=100, null=False, blank=False)
     start_date = models.DateField("募集開始日",auto_now=False, auto_now_add=False)
     stop_date = models.DateField("募集終了日",auto_now=False, auto_now_add=False)
     create_time = models.DateTimeField("シフト作成時間",auto_now=True, auto_now_add=False)
     update_time = models.DateTimeField("シフト更新時間",auto_now=False, auto_now_add=True)
+
+class Tmp_Work_Schedule(models.Model):
+    start_time = models.DateTimeField("シフト希望開始時間",auto_now=False, auto_now_add=False)
+    stop_time = models.DateTimeField("シフト希望終了時間",auto_now=False, auto_now_add=False)
+    create_time = models.DateTimeField("シフト希望提出時間",auto_now=True, auto_now_add=False)
+    update_time = models.DateTimeField("シフト希望更新時間",auto_now=False, auto_now_add=True)
+    user_FK = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    shift_range_FK = models.ForeignKey(Shift_Range, on_delete=models.CASCADE)
+
+class Work_Schedule(models.Model):
+    start_time = models.DateTimeField("バイト開始時間",auto_now=False, auto_now_add=False)
+    stop_time = models.DateTimeField("バイト終了時間",auto_now=False, auto_now_add=False)
+    create_time = models.DateTimeField("シフト希望提出時間",auto_now=True, auto_now_add=False)
+    update_time = models.DateTimeField("シフト希望更新時間",auto_now=False, auto_now_add=True)
+    user_FK = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    shift_range_FK = models.ForeignKey(Shift_Range, on_delete=models.CASCADE)
 
 class Schedule_Template(models.Model):
     start_time = models.DateTimeField("シフトテンプレ開始時間",auto_now=False, auto_now_add=False)
