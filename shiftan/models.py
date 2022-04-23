@@ -25,7 +25,7 @@ class UserManager(BaseUserManager): # emailは必須項目なので、emailが�
     def create_user(self, username, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
-        return self._create_user(email, password, **extra_fields)
+        return self._create_user(email, username, password, **extra_fields)
 
     def create_superuser(self, username, email, password, **extra_fields):
         extra_fields.setdefault('is_staff', True)
@@ -54,8 +54,8 @@ class Group(models.Model):
 class User(AbstractBaseUser, PermissionsMixin):
     username_validator = UnicodeUsernameValidator() # validatorとは入力チェック
 
-    store_FK = models.ForeignKey(Store, on_delete=models.DO_NOTHING)
-    group_FK = models.ForeignKey(Group, on_delete=models.DO_NOTHING)
+    store_FK = models.ForeignKey(Store, on_delete=models.SET_NULL, null=True, blank=True)
+    group_FK = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, blank=True)
     username = models.CharField(_("username"), max_length=50, validators=[username_validator], blank=True)
     email = models.EmailField(_("email_address"), unique=True) # emailでのログインとする
     is_staff = models.BooleanField(_("staff status"), default=False) # 管理画面のアクセス可否
@@ -71,7 +71,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager() # views.pyでUserモデルの情報を取得する際などで利用
     USERNAME_FIELD = "email" # ここをemailにすることでメールアドレスでのログインが可能になる
     EMAIL_FIELD = "email"
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = ['username','last_name','first_name']
 
     class Meta:
         verbose_name = _("user")
