@@ -16,6 +16,7 @@ import PartTimeHome from './components/partTime/PartTimeHome';
 import ShiftSubmit from './components/partTime/ShiftSubmit';
 import PartTimeSettings from './components/partTime/PartTimeSettings';
 import Certification from './components/store/Certification';
+import BottomNavbar from './components/partTime/BottomNavbar';
 
 const App = () => {
   return (
@@ -31,7 +32,7 @@ const App = () => {
 
         <Route path="resetPassword" element={<ResetPassword />} /> {/*メールから飛ぶリンクのため未実装*/}
 
-        <Route path="/finishResetPassword" element={<FinishResetPassword />}/>
+        <Route path="finishResetPassword" element={<FinishResetPassword />}/>
 
         <Route path="register" element={<Register />} />
 
@@ -41,20 +42,42 @@ const App = () => {
 
         <Route path="staffManager" element={<Navbar contents={<StaffManager />}/>} />
 
-        <Route path="/certification" element={<Certification />}/> {/*未実装*/}
+        <Route path="certification" element={<Certification />}/> {/*未実装*/}
 
         <Route path="settings" element={<Navbar contents={<Settings />}/>} />
 
         <Route path="partTimeRegister" element={<PartTimeRegister />} />
 
-        <Route path="partTimeHome" element={<PartTimeNavbar contents={<PartTimeHome />}/>} />
+        <Route path="partTimeHome"
+          element={ 
+            <>
+            <PartTimeNavbar contents={<PartTimeHome />}/>
+            <BottomNavbar/>
+            </>
+          }
+        />
 
-        <Route path="shiftSubmit" element={<PartTimeNavbar contents={<ShiftSubmit />}/>} /> {/*未実装*/}
+        <Route path="shiftSubmit" 
+          element={ 
+            <>
+            <PartTimeNavbar contents={<ShiftSubmit />}/>
+            <BottomNavbar/>
+            </>
+          }
+        /> {/*未実装*/}
 
-        <Route path="partTimeSettings" element={<PartTimeNavbar contents={<PartTimeSettings />}/>} />
+        <Route path="partTimeSettings" 
+        element={ 
+          <>
+          <PartTimeNavbar contents={<PartTimeSettings />}/>
+          <BottomNavbar/>
+          </>
+        }
+        />
         
       </Routes>
     </div>
+    
   </BrowserRouter>
   );
 }

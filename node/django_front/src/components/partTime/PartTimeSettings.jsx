@@ -47,7 +47,6 @@ export default function PartTimeSettings() {
 
     return (
         <>
-        <BottomNavbar />
             <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
                     <List>
                         <ListItem disablePadding>
@@ -158,6 +157,7 @@ export default function PartTimeSettings() {
                         scroll="paper"
                         fullWidth="true"
                         maxWidth="md"
+                        sx={{mb:'60px'}}
                     >
                 <DialogTitle>利用規約</DialogTitle>
                 <DialogContent>
