@@ -55,7 +55,7 @@ export default function PartTimeRegister() {
   return (
     <>
     <SimpleNavbar/>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" sx={{mb:'80px'}}>
         <CssBaseline />
         <Box
           sx={{
@@ -80,7 +80,7 @@ export default function PartTimeRegister() {
                   required
                   fullWidth
                   id="lastName"
-                  label="苗字"
+                  label="姓"
                   autoFocus
                 />
               </Grid>
@@ -89,19 +89,9 @@ export default function PartTimeRegister() {
                   required
                   fullWidth
                   id="firstName"
-                  label="名前"
+                  label="名"
                   name="firstName"
                   autoComplete="given-name"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="phoneNumber"
-                  label="電話番号"
-                  name="phoneNumber"
-                  autoComplete="phoneNumber"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -112,6 +102,16 @@ export default function PartTimeRegister() {
                   label="メールアドレス"
                   name="email"
                   autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="phoneNumber"
+                  label="電話番号"
+                  name="phoneNumber"
+                  autoComplete="phoneNumber"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -179,6 +179,7 @@ export default function PartTimeRegister() {
               scroll="paper"
               fullWidth="true"
               maxWidth="md"
+              sx={{mb:'60px'}}
       >
         <DialogTitle>利用規約</DialogTitle>
         <DialogContent>
