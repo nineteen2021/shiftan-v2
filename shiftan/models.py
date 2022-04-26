@@ -47,7 +47,7 @@ class Store(models.Model):
 class Group(models.Model):
     Store_FK = models.ForeignKey(Store, on_delete=models.CASCADE)
     group_name = models.CharField("グループ名",max_length=50, null=False, blank=False)
-    color = models.SlugField("グループカラー",max_length=100, null=False, blank=False)
+    color = models.CharField("グループカラー",max_length=100, null=False, blank=False)
     create_time = models.DateTimeField("グループ作成時間",auto_now=True, auto_now_add=False)
     update_time = models.DateTimeField("グループ更新時間",auto_now=False, auto_now_add=True)
 
