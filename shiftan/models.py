@@ -55,7 +55,7 @@ class Group(models.Model):
         db_table = 'group'
         verbose_name = verbose_name_plural ='グループ'
 
-    Store_FK = models.ForeignKey(Store, on_delete=models.CASCADE)
+    store_FK = models.ForeignKey(Store, on_delete=models.CASCADE)
     group_name = models.CharField("グループ名",max_length=50, null=False, blank=False)
     color = models.CharField("グループカラー",max_length=100, null=False, blank=False)
     create_time = models.DateTimeField("グループ作成時間",auto_now=True, auto_now_add=False)
