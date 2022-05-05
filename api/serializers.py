@@ -10,7 +10,7 @@ class StoreSerializer(serializers.ModelSerializer):
             'store_name',
             'address',
             'phone',
-            'Store_ID',
+            'store_ID',
             'create_time',
             'update_time',
         ]
@@ -62,7 +62,7 @@ class Shift_RangeSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ['id',]
 
-class Tmp_Work_Schedule(serializers.ModelSerializer):
+class Tmp_Work_ScheduleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tmp_Work_Schedule
         fields = [
@@ -76,7 +76,7 @@ class Tmp_Work_Schedule(serializers.ModelSerializer):
         ]
         read_only_fields = ['id',]
 
-class Work_Schedule(serializers.ModelSerializer):
+class Work_ScheduleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Work_Schedule
         fields = [
@@ -90,7 +90,7 @@ class Work_Schedule(serializers.ModelSerializer):
         ]
         read_only_fields = ['id',]
 
-class Schedule_Template(serializers.ModelSerializer):
+class Schedule_TemplateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Schedule_Template
         fields = [
