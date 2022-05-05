@@ -57,6 +57,7 @@ class Shift_RangeSerializer(serializers.ModelSerializer):
             'shift_name',
             'start_date',
             'stop_date',
+            'deadline_date',
             'create_time',
             'update_time',
         ]
