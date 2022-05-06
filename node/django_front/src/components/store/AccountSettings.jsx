@@ -5,7 +5,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
 import BadgeIcon from '@mui/icons-material/Badge';
 import KeyIcon from '@mui/icons-material/Key';
@@ -33,6 +32,16 @@ const testUser = {
 
 export default function AccountSettings() {
 
+    const [stores, setStores] = useState(null)
+
+    useEffect(() => {
+        axios
+        .get('http://localhost:8000/api/store/')
+        .then(res=>{setStores(res.data);
+                    console.log(res.data);})
+        .catch(err=>{console.log(err);});
+      }, []);
+
     const [selectedItem, setSelectedItem] = React.useState('')
 
     const onOpenDialog = (name) => {
@@ -45,66 +54,72 @@ export default function AccountSettings() {
 
     return (
         <>
-            <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                    <List>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={() => onOpenDialog("name")}>
-                                <ListItemIcon>
-                                    <BadgeIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="氏名" secondary={testUser.lastName + " " + testUser.firstName} />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={() => onOpenDialog("email")}>
-                                <ListItemIcon>
-                                    <EmailIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="メールアドレス" secondary={testUser.mail} />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={() => onOpenDialog("password")}>
-                                <ListItemIcon>
-                                    <KeyIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="パスワード" secondary="パスワード再設定画面に移動します" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={() => onOpenDialog("storeName")}>
-                                <ListItemIcon>
-                                    <StorefrontIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="店舗名" secondary={testUser.storeName} />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={() => onOpenDialog("phoneNumber")}>
-                                <ListItemIcon>
-                                    <LocalPhoneIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="電話番号" secondary={testUser.phoneNumber} />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={() => onOpenDialog("address")}>
-                                <ListItemIcon>
-                                    <LocationOnIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="店舗住所" secondary={testUser.address} />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={() => onOpenDialog("storeID")}>
-                                <ListItemIcon>
-                                    <Grid3x3Icon />
-                                </ListItemIcon>
-                                <ListItemText primary="店舗ID" secondary={testUser.storeID} />
-                            </ListItemButton>
-                        </ListItem>
-                    </List>
-            </Box>
+            <Fragment>
+                {users?.map(user => (
+                <div>
+                    <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+                        <List>
+                            <ListItem disablePadding>
+                                <ListItemButton onClick={() => onOpenDialog("name")}>
+                                    <ListItemIcon>
+                                        <BadgeIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="氏名" secondary={Store.lastName + " " + testUser.firstName} />
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem disablePadding>
+                                <ListItemButton onClick={() => onOpenDialog("email")}>
+                                    <ListItemIcon>
+                                        <EmailIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="メールアドレス" secondary={testUser.mail} />
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem disablePadding>
+                                <ListItemButton onClick={() => onOpenDialog("password")}>
+                                    <ListItemIcon>
+                                        <KeyIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="パスワード" secondary="パスワード再設定画面に移動します" />
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem disablePadding>
+                                <ListItemButton onClick={() => onOpenDialog("storeName")}>
+                                    <ListItemIcon>
+                                        <StorefrontIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="店舗名" secondary={testUser.storeName} />
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem disablePadding>
+                                <ListItemButton onClick={() => onOpenDialog("phoneNumber")}>
+                                    <ListItemIcon>
+                                        <LocalPhoneIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="電話番号" secondary={testUser.phoneNumber} />
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem disablePadding>
+                                <ListItemButton onClick={() => onOpenDialog("address")}>
+                                    <ListItemIcon>
+                                        <LocationOnIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="店舗住所" secondary={testUser.address} />
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem disablePadding>
+                                <ListItemButton onClick={() => onOpenDialog("storeID")}>
+                                    <ListItemIcon>
+                                        <Grid3x3Icon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="店舗ID" secondary={testUser.storeID} />
+                                </ListItemButton>
+                            </ListItem>
+                        </List>
+                    </Box>
+                </div>
+                ))}
+            </Fragment>
 
             <Dialog open={selectedItem === "name"} onClose={onCloseDialog}>
                 <DialogTitle>氏名</DialogTitle>
