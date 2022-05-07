@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -19,6 +20,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Grid3x3Icon from '@mui/icons-material/Grid3x3';
+import LocalPhone from '@mui/icons-material/LocalPhone';
+import axios from 'axios';
 
 const testUser = {
     firstName: "太郎",
@@ -32,7 +35,16 @@ const testUser = {
 
 export default function AccountSettings() {
 
+    const [users, setUsers] = useState(null)
     const [stores, setStores] = useState(null)
+
+    useEffect(() => {
+        axios
+        .get('http://localhost:8000/api/user/')
+        .then(res=>{setUsers(res.data);
+                    console.log(res.data);})
+        .catch(err=>{console.log(err);});
+      }, []);
 
     useEffect(() => {
         axios
@@ -55,8 +67,10 @@ export default function AccountSettings() {
     return (
         <>
             <Fragment>
-                {users?.map(user => (
+                {stores?.map(store => (
                 <div>
+                    {users?.map(user => (
+                    <div>
                     <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
                         <List>
                             <ListItem disablePadding>
@@ -64,7 +78,15 @@ export default function AccountSettings() {
                                     <ListItemIcon>
                                         <BadgeIcon />
                                     </ListItemIcon>
-                                    <ListItemText primary="氏名" secondary={Store.lastName + " " + testUser.firstName} />
+                                    <ListItemText primary="氏名" secondary={user.last_name + " " + user.first_name} />
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem disablePadding>
+                                <ListItemButton onClick={() => onOpenDialog("phoneNumber")}>
+                                    <ListItemIcon>
+                                        <LocalPhone />
+                                    </ListItemIcon>
+                                    <ListItemText primary="電話番号" secondary={user.phone} />
                                 </ListItemButton>
                             </ListItem>
                             <ListItem disablePadding>
@@ -72,7 +94,7 @@ export default function AccountSettings() {
                                     <ListItemIcon>
                                         <EmailIcon />
                                     </ListItemIcon>
-                                    <ListItemText primary="メールアドレス" secondary={testUser.mail} />
+                                    <ListItemText primary="メールアドレス" secondary={user.email} />
                                 </ListItemButton>
                             </ListItem>
                             <ListItem disablePadding>
@@ -88,7 +110,7 @@ export default function AccountSettings() {
                                     <ListItemIcon>
                                         <StorefrontIcon />
                                     </ListItemIcon>
-                                    <ListItemText primary="店舗名" secondary={testUser.storeName} />
+                                    <ListItemText primary="店舗名" secondary={store.store_name} />
                                 </ListItemButton>
                             </ListItem>
                             <ListItem disablePadding>
@@ -96,7 +118,7 @@ export default function AccountSettings() {
                                     <ListItemIcon>
                                         <LocalPhoneIcon />
                                     </ListItemIcon>
-                                    <ListItemText primary="電話番号" secondary={testUser.phoneNumber} />
+                                    <ListItemText primary="電話番号" secondary={store.phone} />
                                 </ListItemButton>
                             </ListItem>
                             <ListItem disablePadding>
@@ -104,7 +126,7 @@ export default function AccountSettings() {
                                     <ListItemIcon>
                                         <LocationOnIcon />
                                     </ListItemIcon>
-                                    <ListItemText primary="店舗住所" secondary={testUser.address} />
+                                    <ListItemText primary="店舗住所" secondary={store.address} />
                                 </ListItemButton>
                             </ListItem>
                             <ListItem disablePadding>
@@ -112,11 +134,13 @@ export default function AccountSettings() {
                                     <ListItemIcon>
                                         <Grid3x3Icon />
                                     </ListItemIcon>
-                                    <ListItemText primary="店舗ID" secondary={testUser.storeID} />
+                                    <ListItemText primary="店舗ID" secondary={store.store_ID} />
                                 </ListItemButton>
                             </ListItem>
                         </List>
                     </Box>
+                    </div>
+                    ))}
                 </div>
                 ))}
             </Fragment>
