@@ -1,4 +1,3 @@
-from tkinter import CASCADE
 from django.db import models
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
@@ -37,6 +36,10 @@ class UserManager(BaseUserManager): # emailは必須項目なので、emailが�
         return self._create_user(username, email, password, **extra_fields)
 
 class Store(models.Model):
+    class Meta:
+        db_table = 'store'
+        verbose_name = verbose_name_plural ='店舗'
+
     store_name = models.CharField("店舗名",max_length=100, unique=True, null=False, blank=False)
     address = models.CharField("住所",max_length=100, null=False, blank=False)
     phone = models.CharField("電話番号", max_length=15, null=False, blank=False)    # https://www.delftstack.com/ja/howto/django/django-phone-number-field/  このサイトのモジュール入れる予定
@@ -44,12 +47,22 @@ class Store(models.Model):
     create_time = models.DateTimeField("店舗作成時間",auto_now=True, auto_now_add=False)
     update_time = models.DateTimeField("店舗情報更新時間",auto_now=False, auto_now_add=True)
 
+    def __str__(self):
+        return self.store_name
+
 class Group(models.Model):
-    Store_FK = models.ForeignKey(Store, on_delete=models.CASCADE)
+    class Meta:
+        db_table = 'group'
+        verbose_name = verbose_name_plural ='グループ'
+
+    store_FK = models.ForeignKey(Store, on_delete=models.CASCADE)
     group_name = models.CharField("グループ名",max_length=50, null=False, blank=False)
     color = models.CharField("グループカラー",max_length=100, null=False, blank=False)
     create_time = models.DateTimeField("グループ作成時間",auto_now=True, auto_now_add=False)
     update_time = models.DateTimeField("グループ更新時間",auto_now=False, auto_now_add=True)
+
+    def __str__(self):
+        return self.group_name
 
 class User(AbstractBaseUser, PermissionsMixin):
     username_validator = UnicodeUsernameValidator() # validatorとは入力チェック
@@ -74,8 +87,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['username','last_name','first_name']
 
     class Meta:
-        verbose_name = _("user")
-        verbose_name_plural = _("users")
+        verbose_name = verbose_name_plural = 'ユーザー'
 
     def clean(self):
         super().clean()
@@ -84,22 +96,27 @@ class User(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
-# class Authority(models.Model):
-#     authority_name = models.CharField("権限名",max_length=50)
-
-# class User_Authority(models.Model):
-#     user_FK = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-#     authority_FK = models.ForeignKey(Authority, on_delete=models.DO_NOTHING)
-#     authority = models.BooleanField() #初期値False
-
 class Shift_Range(models.Model):
+    class Meta:
+        db_table = 'shift_range'
+        verbose_name = verbose_name_plural ='シフト範囲'
+
+    store_FK = models.ForeignKey(Store, on_delete=models.CASCADE)
     shift_name = models.CharField("シフト名",max_length=100, null=False, blank=False)
-    start_date = models.DateField("募集開始日",auto_now=False, auto_now_add=False)
-    stop_date = models.DateField("募集終了日",auto_now=False, auto_now_add=False)
+    start_date = models.DateField("開始日",auto_now=False, auto_now_add=False)
+    stop_date = models.DateField("終了日",auto_now=False, auto_now_add=False)
+    deadline_date = models.DateField("締切日",auto_now=False, auto_now_add=False)
     create_time = models.DateTimeField("シフト作成時間",auto_now=True, auto_now_add=False)
     update_time = models.DateTimeField("シフト更新時間",auto_now=False, auto_now_add=True)
 
+    def __str__(self):
+        return self.shift_name
+
 class Tmp_Work_Schedule(models.Model):
+    class Meta:
+        db_table = 'tmp_work_schedule'
+        verbose_name = verbose_name_plural ='シフト希望'
+
     user_FK = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     shift_range_FK = models.ForeignKey(Shift_Range, on_delete=models.CASCADE)
     start_time = models.DateTimeField("シフト希望開始時間",auto_now=False, auto_now_add=False)
@@ -108,14 +125,22 @@ class Tmp_Work_Schedule(models.Model):
     update_time = models.DateTimeField("シフト希望更新時間",auto_now=False, auto_now_add=True)
 
 class Work_Schedule(models.Model):
+    class Meta:
+        db_table = 'work_schedule'
+        verbose_name = verbose_name_plural ='作成シフト'
+
     user_FK = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     shift_range_FK = models.ForeignKey(Shift_Range, on_delete=models.CASCADE)
     start_time = models.DateTimeField("バイト開始時間",auto_now=False, auto_now_add=False)
     stop_time = models.DateTimeField("バイト終了時間",auto_now=False, auto_now_add=False)
-    create_time = models.DateTimeField("シフト希望提出時間",auto_now=True, auto_now_add=False)
-    update_time = models.DateTimeField("シフト希望更新時間",auto_now=False, auto_now_add=True)
+    create_time = models.DateTimeField("シフト作成時間",auto_now=True, auto_now_add=False)
+    update_time = models.DateTimeField("シフト更新時間",auto_now=False, auto_now_add=True)
     
 class Schedule_Template(models.Model):
+    class Meta:
+        db_table = 'schedule_template'
+        verbose_name = verbose_name_plural ='シフトテンプレ'
+
     user_FK = models.ForeignKey(User, on_delete=models.CASCADE)
     start_time = models.DateTimeField("シフトテンプレ開始時間",auto_now=False, auto_now_add=False)
     stop_time = models.DateTimeField("シフトテンプレ終了時間",auto_now=False, auto_now_add=False)
