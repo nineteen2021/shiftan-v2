@@ -4,3 +4,4 @@ djangorestframework==3.12.2
 django-cors-headers==3.5.0
 django-mysql==3.9
 djangorestframework-simplejwt==5.1.0
+djoser==2.1.0
