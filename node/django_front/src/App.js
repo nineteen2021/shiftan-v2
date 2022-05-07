@@ -17,15 +17,12 @@ import ShiftSubmit from './components/partTime/ShiftSubmit';
 import PartTimeSettings from './components/partTime/PartTimeSettings';
 import Certification from './components/store/Certification';
 import BottomNavbar from './components/partTime/BottomNavbar';
-import Terms from './components/function/Terms';
 
 const App = () => {
   return (
   <BrowserRouter>
     <div>
       <Routes>
-
-      <Route path="test" element={<Terms />}/>
 
         <Route path="/" element={<Login />}/>
 
