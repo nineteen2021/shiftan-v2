@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('shiftan/', include("shiftan.urls")),
     path('api/', include(apiviews.router.urls)),
+    path('api-auth/', include('djoser.urls.jwt')),
     # トークン取得
     path('api-auth/jwt/', views.TokenObtainPairView.as_view()),
     # トークン再取得
