@@ -1,0 +1,1 @@
+curl -H GET 'http://127.0.0.1:8000/api' -H 'Content-Type:application/json;charset=utf-8' -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUyMjcyOTMxLCJpYXQiOjE2NTIyNzExMzEsImp0aSI6IjA5NTUzYTVkYTUyMTRjMTRiZTUzNzliNWQ0YzUwYjE0IiwidXNlcl9pZCI6MX0.cyEI_Lo6L8AagJf2LZmLmcnwjxTDaoplUH3NYNTC8xo'
