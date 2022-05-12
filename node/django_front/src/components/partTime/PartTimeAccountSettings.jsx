@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -16,6 +17,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import LocalPhone from '@mui/icons-material/LocalPhone';
+import axios from 'axios';
 
 const testUser = {
     firstName: "太郎",
@@ -25,6 +27,16 @@ const testUser = {
 }
 
 export default function PartTimeAccountSettings() {
+
+    const [users, setUsers] = useState(null)
+
+    useEffect(() => {
+        axios
+        .get('http://localhost:8000/api/user/')
+        .then(res=>{setUsers(res.data);
+                    console.log(res.data);})
+        .catch(err=>{console.log(err);});
+      }, []);
 
     const [selectedItem, setSelectedItem] = React.useState('')
 
@@ -38,42 +50,48 @@ export default function PartTimeAccountSettings() {
 
     return (
         <>
-            <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                <List>
-                    <ListItem disablePadding>
-                        <ListItemButton onClick={() => onOpenDialog("name")}>
-                            <ListItemIcon>
-                                <BadgeIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="氏名" secondary={testUser.lastName + " " + testUser.firstName} />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton onClick={() => onOpenDialog("phoneNumber")}>
-                            <ListItemIcon>
-                                <LocalPhone />
-                            </ListItemIcon>
-                            <ListItemText primary="電話番号" secondary={testUser.phoneNumber} />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton onClick={() => onOpenDialog("email")}>
-                            <ListItemIcon>
-                                <EmailIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="メールアドレス" secondary={testUser.mail} />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton onClick={() => onOpenDialog("password")}>
-                            <ListItemIcon>
-                                <KeyIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="パスワード" secondary="パスワード再設定画面に移動します" />
-                        </ListItemButton>
-                    </ListItem>
-                </List>
-            </Box>
+            <Fragment>
+                {users?.map(user => (
+                    <div>
+                    <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+                        <List>
+                            <ListItem disablePadding>
+                                <ListItemButton onClick={() => onOpenDialog("name")}>
+                                    <ListItemIcon>
+                                        <BadgeIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="氏名" secondary={user.last_name + " " + user.first_name} />
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem disablePadding>
+                                <ListItemButton onClick={() => onOpenDialog("phoneNumber")}>
+                                    <ListItemIcon>
+                                        <LocalPhone />
+                                    </ListItemIcon>
+                                    <ListItemText primary="電話番号" secondary={user.phone} />
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem disablePadding>
+                                <ListItemButton onClick={() => onOpenDialog("email")}>
+                                    <ListItemIcon>
+                                        <EmailIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="メールアドレス" secondary={user.email} />
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem disablePadding>
+                                <ListItemButton onClick={() => onOpenDialog("password")}>
+                                    <ListItemIcon>
+                                        <KeyIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="パスワード" secondary="パスワード再設定画面に移動します" />
+                                </ListItemButton>
+                            </ListItem>
+                        </List>
+                    </Box>
+                </div>
+                ))}
+            </Fragment>
 
             <Dialog open={selectedItem === "name"} onClose={onCloseDialog}>
                 <DialogTitle>氏名</DialogTitle>
