@@ -103,8 +103,9 @@ class Shift_Range(models.Model):
 
     store_FK = models.ForeignKey(Store, on_delete=models.CASCADE)
     shift_name = models.CharField("シフト名",max_length=100, null=False, blank=False)
-    start_date = models.DateField("募集開始日",auto_now=False, auto_now_add=False)
-    stop_date = models.DateField("募集終了日",auto_now=False, auto_now_add=False)
+    start_date = models.DateField("開始日",auto_now=False, auto_now_add=False)
+    stop_date = models.DateField("終了日",auto_now=False, auto_now_add=False)
+    deadline_date = models.DateField("締切日",auto_now=False, auto_now_add=False)
     create_time = models.DateTimeField("シフト作成時間",auto_now=True, auto_now_add=False)
     update_time = models.DateTimeField("シフト更新時間",auto_now=False, auto_now_add=True)
 
