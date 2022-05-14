@@ -29,3 +29,4 @@ urlpatterns = [
     # localhost:8000/api-auth/jwt/refresh/
     # トークン検証
     # localhost:8000/api-auth/jwt/verify/
+
