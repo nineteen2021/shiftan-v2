@@ -30,3 +30,4 @@ urlpatterns = [
     # トークン検証
     # localhost:8000/api-auth/jwt/verify/
 ]
+
