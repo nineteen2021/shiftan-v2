@@ -24,7 +24,10 @@ urlpatterns = [
     path('api/', include(apiviews.router.urls)),
     path('api-auth/', include('djoser.urls.jwt')),
     # トークン取得
-    
+    # localhost:8000/api-auth/jwt/create/
     # トークン再取得
-    
+    # localhost:8000/api-auth/jwt/refresh/
+    # トークン検証
+    # localhost:8000/api-auth/jwt/verify/
 ]
+
