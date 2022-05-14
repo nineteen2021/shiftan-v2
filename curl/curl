@@ -1,0 +1,1 @@
+curl -H GET 'http://127.0.0.1:8000/api' -H 'Content-Type:application/json;charset=utf-8' -H 'Authorization: JWT accessトークン'
