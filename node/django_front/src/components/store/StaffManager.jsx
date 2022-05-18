@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link as routerLink } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -134,7 +135,8 @@ export default function StaffManager() {
             </Table>
             </TableContainer>
         </Grid>
-        <Grid item sx={{marginLeft: '20em'}}>
+        <Grid item sx={{marginLeft: '15em'}}>
+            <Button variant="contained" component={routerLink} to="/certification" sx={{ml: 2}}>認証</Button>
             <Button variant="contained" sx={{ml: 2}} onClick={handleClickOpen}>ポジション編集</Button>
             <Button variant="contained" sx={{ml: 2}}>保存</Button>
             <PositionDialog
