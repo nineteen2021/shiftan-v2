@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Link as routerLink } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -19,24 +18,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import PropTypes from 'prop-types';
 import PositionTable from './Position';
-
-const testPos = [
-    "厨房",
-    "ホール"
-]
-
-function createData(name, position, color) {
-  return { name, position, color};
-}
-
-//無理やり入れる
-const rows = [
-  createData('山田 太郎', 0, '#00ff00'),
-  createData('山口 太郎', 1, '#0000ff'),
-  createData('松岡 太郎', 0, '#00ff00'),
-  createData('小林 太郎', 0, '#00ff00'),
-  createData('森田 太郎', 0, '#00ff00'),
-];
 
 function PositionDialog(props) {
     const { onClose, selectedValue, open } = props;
@@ -65,13 +46,6 @@ PositionDialog.propTypes = {
 
 export default function StaffManager() {
 
-    const [pos, setPos] = React.useState('');
-
-    //プルダウンメニューから値が変更されたときの処理
-    const handleChange = (event) => {
-    setPos(event.target.value);
-    };
-
     //ポジション編集画面のポップアップ
     const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => {
@@ -81,6 +55,22 @@ export default function StaffManager() {
     const handleClose = (value) => {
         setOpen(false);
     };
+
+    const [pos, setPos] = React.useState([
+      {id:1, name:"未設定", color:'#000000'},
+      {id:2, name:"厨房", color:'#00ff00'},
+      {id:3, name:"ホール", color:'#ff0000'},
+    ]);
+
+    const [rows, setRows] = React.useState([
+      {id:1,name:'山田太郎', position:2},
+      {id:2,name:'山田太郎', position:2},
+      {id:3,name:'山田太郎', position:2},
+      {id:4,name:'山田太郎', position:2},
+      {id:5,name:'山田太郎', position:3},
+      {id:6,name:'山田太郎', position:3},
+      {id:7,name:'山田太郎', position:3},
+    ]);
 
   return (
     <Grid
@@ -101,9 +91,9 @@ export default function StaffManager() {
                 </TableRow>
                 </TableHead>
                 <TableBody>
-                {rows.map((row) => (
+                {rows.map((row, index) => (
                     <TableRow
-                    key={row.name}
+                    key={row.id}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                     <TableCell component="th" scope="row" align="left">
@@ -115,34 +105,37 @@ export default function StaffManager() {
                             <Select
                             labelId="demo-simple-select-standard-label"
                             id="demo-simple-select-standard"
-                            value={row.position}
-                            onChange={handleChange}
+                            defaultValue={row.position}
+                            onChange={(event, row) => {
+                              const newRow = rows;
+                              console.log(row);
+                              newRow[index].position = event.target.value;
+                              console.log(newRow);
+                              setRows(newRow);
+                            }}
                             label="ポジション"
                             >
-                            <MenuItem value="">
-                                <em>未設定</em>
-                            </MenuItem>
-                            <MenuItem value={0}>{testPos[0]}</MenuItem>
-                            <MenuItem value={1}>{testPos[1]}</MenuItem>
+                            {pos.map((poss, index) => (
+                              <MenuItem key={poss.id} value={poss.id}>{poss.name}</MenuItem>
+                            ))}
                             </Select>
                         </FormControl>
 
                     </TableCell>
-                    <TableCell align="left"><Typography variant="h4" style={{color: row.color}}>■</Typography></TableCell>
+                    <TableCell align="left"><Typography variant="h4" style={{color: pos[(row.position)-1].color}}>■</Typography></TableCell>
                     </TableRow>
                 ))}
                 </TableBody>
             </Table>
             </TableContainer>
         </Grid>
-        <Grid item sx={{marginLeft: '15em'}}>
-            <Button variant="contained" component={routerLink} to="/certification" sx={{ml: 2}}>認証</Button>
+        <Grid item sx={{marginLeft: '20em'}}>
             <Button variant="contained" sx={{ml: 2}} onClick={handleClickOpen}>ポジション編集</Button>
             <Button variant="contained" sx={{ml: 2}}>保存</Button>
             <PositionDialog
                 open={open}
                 onClose={handleClose}
-             />
+            />
         </Grid>
     </Grid>
   );
