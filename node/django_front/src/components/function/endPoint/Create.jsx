@@ -8,6 +8,8 @@ export default function Create(email, password) {
     })
     .then(function (response) {
         console.log(response.data.access);
+        localStorage.setItem("access", response.data.access);
+        console.log(localStorage.getItem("access"));
         return(response.data.access)
     })
     .catch(function (error) {
