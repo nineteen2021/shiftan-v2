@@ -20,6 +20,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import Typography from '@mui/material/Typography';
+import ja from 'date-fns/locale/ja'
 
 function createData(date, startTime, endTime) {
   let isDisable = false
@@ -28,11 +29,11 @@ function createData(date, startTime, endTime) {
 
 export default function ShiftSubmit() {
   const [rows, setRows] = React.useState([
-    createData('3月○日', "13:00", "14:00"),
-    createData('3月○日', "18:30", "19:00"),
-    createData('3月○日', "18:30", "18:30"),
-    createData('3月○日', "18:30", "18:30"),
-    createData('3月○日', "18:30", "18:30"),
+    createData('3月○日', new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
+    createData('3月○日', new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
+    createData('3月○日', new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
+    createData('3月○日', new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
+    createData('3月○日', new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
   ]);
 
   const [value, setValue] = React.useState(new Date);
@@ -75,27 +76,35 @@ export default function ShiftSubmit() {
                       <font size="4">{row.date}</font>
                     </TableCell>
                     <TableCell align="right">
-                      <LocalizationProvider dateAdapter={AdapterDateFns}>
+                      <LocalizationProvider dateAdapter={AdapterDateFns} locale={ja}>
                         <TimePicker
                           label="開始"
-                          value={value}
+                          value={row.startTime}
                           disabled={row.isDisable}
                           onChange={(newValue) => {
-                            setValue(newValue);
+                            const newRow = rows.slice(0, rows.length); //配列のコピーを取るconst newRow=rowsでは参照渡しとなるのでNG
+                            newRow[index].startTime = newValue; //コピーした配列を変更する
+                            setRows(newRow); //コピーした配列をsetStateする
                           }}
+                          inputFormat='HH:mm'
+                          mask='__:__'
                           renderInput={(params) => <TextField sx={{ maxWidth: 150 }} {...params} />}
                         />
                       </LocalizationProvider>
                     </TableCell>
                     <TableCell align="right">
-                      <LocalizationProvider dateAdapter={AdapterDateFns}>
+                      <LocalizationProvider dateAdapter={AdapterDateFns} locale={ja}>
                         <TimePicker
                           label="終了"
-                          value={value}
+                          value={row.startTime}
                           disabled={row.isDisable}
                           onChange={(newValue) => {
-                            setValue(newValue);
+                            const newRow = rows.slice(0, rows.length); //配列のコピーを取るconst newRow=rowsでは参照渡しとなるのでNG
+                            newRow[index].endTime = newValue; //コピーした配列を変更する
+                            setRows(newRow); //コピーした配列をsetStateする
                           }}
+                          inputFormat='HH:mm'
+                          mask='__:__'
                           renderInput={(params) => <TextField sx={{ maxWidth: 150 }} {...params} />}
                         />
                       </LocalizationProvider>
