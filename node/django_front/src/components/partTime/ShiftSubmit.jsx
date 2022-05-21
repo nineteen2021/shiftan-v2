@@ -35,7 +35,6 @@ export default function ShiftSubmit() {
     createData('3月○日', new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
   ]);
 
-  const [value, setValue] = React.useState(new Date);
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -95,7 +94,7 @@ export default function ShiftSubmit() {
                       <LocalizationProvider dateAdapter={AdapterDateFns} locale={ja}>
                         <TimePicker
                           label="終了"
-                          value={row.startTime}
+                          value={row.endTime}
                           disabled={row.isDisable}
                           onChange={(newValue) => {
                             const newRow = rows.slice(0, rows.length); //配列のコピーを取るconst newRow=rowsでは参照渡しとなるのでNG
