@@ -1,4 +1,5 @@
 import * as React from 'react';
+import ReactDOM from 'react-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -20,21 +21,20 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import Typography from '@mui/material/Typography';
 
-
 function createData(date, startTime, endTime) {
   let isDisable = false
   return { date, startTime, endTime, isDisable };
 }
 
-const rows = [
-  createData('3月○日', "13:00", "14:00"),
-  createData('3月○日', "18:30", "19:00"),
-  createData('3月○日', "18:30", "18:30"),
-  createData('3月○日', "18:30", "18:30"),
-  createData('3月○日', "18:30", "18:30"),
-];
-
 export default function ShiftSubmit() {
+  const [rows, setRows] = React.useState([
+    createData('3月○日', "13:00", "14:00"),
+    createData('3月○日', "18:30", "19:00"),
+    createData('3月○日', "18:30", "18:30"),
+    createData('3月○日', "18:30", "18:30"),
+    createData('3月○日', "18:30", "18:30"),
+  ]);
+
   const [value, setValue] = React.useState(new Date);
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
@@ -104,7 +104,9 @@ export default function ShiftSubmit() {
                       <Checkbox
                         defaultChecked
                         onChange={(e) => {
-                          row.isDisable = !e.target.checked;
+                          const newRow = rows.slice(0, rows.length); //配列のコピーを取るconst newRow=rowsでは参照渡しとなるのでNG
+                          newRow[index].isDisable = !e.target.checked;//コピーした配列を変更する
+                          setRows(newRow);//コピーした配列をsetStateする
                         }}
                       />
                     </TableCell>
