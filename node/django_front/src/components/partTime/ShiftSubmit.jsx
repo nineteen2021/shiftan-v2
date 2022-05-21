@@ -21,18 +21,18 @@ import DialogActions from '@mui/material/DialogActions';
 import Typography from '@mui/material/Typography';
 import ja from 'date-fns/locale/ja'
 
-function createData(date, startTime, endTime) {
+function createData(startTime, endTime) {
   let isDisable = false
-  return { date, startTime, endTime, isDisable };
+  return { startTime, endTime, isDisable };
 }
 
 export default function ShiftSubmit() {
   const [rows, setRows] = React.useState([
-    createData('3月○日', new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
-    createData('3月○日', new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
-    createData('3月○日', new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
-    createData('3月○日', new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
-    createData('3月○日', new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
+    createData(new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
+    createData(new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
+    createData(new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
+    createData(new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
+    createData(new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
   ]);
 
   const [open, setOpen] = React.useState(false);
@@ -71,7 +71,7 @@ export default function ShiftSubmit() {
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      <font size="4">{row.date}</font>
+                      <font size="4">{String(row.startTime.getMonth()+1)+ "月" + String(row.startTime.getDate()) + "日"}</font>
                     </TableCell>
                     <TableCell align="right">
                       <LocalizationProvider dateAdapter={AdapterDateFns} locale={ja}>
