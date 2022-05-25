@@ -7,10 +7,12 @@ export default function Create(email, password) {
         password: password
     })
     .then(function (response) {
-        console.log(response.data.access);
+        // console.log(response.data.access);
         localStorage.setItem("access", response.data.access);
+        localStorage.setItem("refresh", response.data.refresh);
         console.log(localStorage.getItem("access"));
-        return(response.data.access)
+        console.log(localStorage.getItem("refresh"));
+        return(response.data.access, response.data.refresh)
     })
     .catch(function (error) {
         console.log(error);

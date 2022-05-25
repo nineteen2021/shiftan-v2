@@ -13,6 +13,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SimpleNavbar from './SimpleNavbar'
 import NewAccountButton from './NewAccountButton';
 import { Link as routerLink } from 'react-router-dom'
+import Create from './endPoint/Create'
 
 function Copyright(props) {
   return (
@@ -85,8 +86,7 @@ export default function Login() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              component={routerLink}
-              to="/"
+              onClick={() => (Create("nineteen20211113@gmail.com", "programing8895"))}
             >
               ログイン
             </Button>
