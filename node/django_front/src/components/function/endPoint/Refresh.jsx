@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default function Refresh(refreshToken) {
     axios.post('http://localhost:8000/api-auth/jwt/refresh/', {
-        refresh: refreshToken
+        refreshToken: localStorage.getItem("refresh")
     })
     .then(function (response) {
         console.log(response.data.access)
