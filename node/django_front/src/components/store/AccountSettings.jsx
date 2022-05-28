@@ -40,7 +40,11 @@ export default function AccountSettings() {
 
     useEffect(() => {
         axios
-        .get('http://localhost:8000/api/user/')
+        .get('http://localhost:8000/api/user/',{
+            headers: {
+                'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
+            }
+        })
         .then(res=>{setUsers(res.data);
                     console.log(res.data);})
         .catch(err=>{console.log(err);});
@@ -48,7 +52,11 @@ export default function AccountSettings() {
 
     useEffect(() => {
         axios
-        .get('http://localhost:8000/api/store/')
+        .get('http://localhost:8000/api/store/',{
+            headers: {
+                'Authorization': `JWT ${localStorage.getItem('access')}`
+            }
+        })
         .then(res=>{setStores(res.data);
                     console.log(res.data);})
         .catch(err=>{console.log(err);});
