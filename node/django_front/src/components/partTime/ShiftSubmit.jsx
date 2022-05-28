@@ -19,23 +19,22 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import Typography from '@mui/material/Typography';
+import ja from 'date-fns/locale/ja'
 
-
-function createData(date, startTime, endTime) {
+function createData(startTime, endTime) {
   let isDisable = false
-  return { date, startTime, endTime, isDisable };
+  return { startTime, endTime, isDisable };
 }
 
-const rows = [
-  createData('3月○日', "13:00", "14:00"),
-  createData('3月○日', "18:30", "19:00"),
-  createData('3月○日', "18:30", "18:30"),
-  createData('3月○日', "18:30", "18:30"),
-  createData('3月○日', "18:30", "18:30"),
-];
-
 export default function ShiftSubmit() {
-  const [value, setValue] = React.useState(new Date);
+  const [rows, setRows] = React.useState([
+    createData(new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
+    createData(new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
+    createData(new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
+    createData(new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
+    createData(new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
+  ]);
+
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -72,30 +71,38 @@ export default function ShiftSubmit() {
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      <font size="4">{row.date}</font>
+                      <font size="4">{String(row.startTime.getMonth()+1)+ "月" + String(row.startTime.getDate()) + "日"}</font>
                     </TableCell>
                     <TableCell align="right">
-                      <LocalizationProvider dateAdapter={AdapterDateFns}>
+                      <LocalizationProvider dateAdapter={AdapterDateFns} locale={ja}>
                         <TimePicker
                           label="開始"
-                          value={value}
+                          value={row.startTime}
                           disabled={row.isDisable}
                           onChange={(newValue) => {
-                            setValue(newValue);
+                            const newRow = rows.slice(0, rows.length); //配列のコピーを取るconst newRow=rowsでは参照渡しとなるのでNG
+                            newRow[index].startTime = newValue; //コピーした配列を変更する
+                            setRows(newRow); //コピーした配列をsetStateする
                           }}
+                          inputFormat='HH:mm'
+                          mask='__:__'
                           renderInput={(params) => <TextField sx={{ maxWidth: 150 }} {...params} />}
                         />
                       </LocalizationProvider>
                     </TableCell>
                     <TableCell align="right">
-                      <LocalizationProvider dateAdapter={AdapterDateFns}>
+                      <LocalizationProvider dateAdapter={AdapterDateFns} locale={ja}>
                         <TimePicker
                           label="終了"
-                          value={value}
+                          value={row.endTime}
                           disabled={row.isDisable}
                           onChange={(newValue) => {
-                            setValue(newValue);
+                            const newRow = rows.slice(0, rows.length); //配列のコピーを取るconst newRow=rowsでは参照渡しとなるのでNG
+                            newRow[index].endTime = newValue; //コピーした配列を変更する
+                            setRows(newRow); //コピーした配列をsetStateする
                           }}
+                          inputFormat='HH:mm'
+                          mask='__:__'
                           renderInput={(params) => <TextField sx={{ maxWidth: 150 }} {...params} />}
                         />
                       </LocalizationProvider>
@@ -104,7 +111,9 @@ export default function ShiftSubmit() {
                       <Checkbox
                         defaultChecked
                         onChange={(e) => {
-                          row.isDisable = !e.target.checked;
+                          const newRow = rows.slice(0, rows.length); //配列のコピーを取るconst newRow=rowsでは参照渡しとなるのでNG
+                          newRow[index].isDisable = !e.target.checked;//コピーした配列を変更する
+                          setRows(newRow);//コピーした配列をsetStateする
                         }}
                       />
                     </TableCell>
