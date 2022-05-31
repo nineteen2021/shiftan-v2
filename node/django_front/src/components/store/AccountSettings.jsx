@@ -37,11 +37,10 @@ export default function AccountSettings() {
 
     const [users, setUsers] = useState(null)
     const [stores, setStores] = useState(null)
-    const [value, setValue] = useState("");
 
     useEffect(() => {
         axios
-        .get('http://localhost:8000/api-auth/users/me/',{
+        .get('http://localhost:8000/api/user/',{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
             }
@@ -49,7 +48,7 @@ export default function AccountSettings() {
         .then(res=>{setUsers(res.data);
                     console.log(res.data);})
         .catch(err=>{console.log(err);});
-        }, []);
+      }, []);
 
     useEffect(() => {
         axios
@@ -61,7 +60,7 @@ export default function AccountSettings() {
         .then(res=>{setStores(res.data);
                     console.log(res.data);})
         .catch(err=>{console.log(err);});
-    }, []);
+      }, []);
 
     const [selectedItem, setSelectedItem] = React.useState('')
 
@@ -73,25 +72,12 @@ export default function AccountSettings() {
         setSelectedItem('')
     }
 
-    const changeData = (key, value) => { //PATCHを利用しデータベースの値を変更する関数
-        axios
-        .patch('http://localhost:8000/api-auth/users/me/',
-            {[key]: value} //変更したいキーと値
-        ,{
-            headers: {
-                'Authorization': `JWT ${localStorage.getItem('access')}`, 
-            }
-        })
-        .then(res=>{setUsers(res.data);
-                    console.log(res.data);})
-        .catch(err=>{console.log(err);});
-    }
-
     return (
         <>
             <Fragment>
                 {stores?.map(store => (
                 <div>
+                    {users?.map(user => (
                     <div>
                     <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
                         <List>
@@ -100,7 +86,7 @@ export default function AccountSettings() {
                                     <ListItemIcon>
                                         <BadgeIcon />
                                     </ListItemIcon>
-                                    <ListItemText primary="氏名" secondary={users.last_name + " " + users.first_name} />
+                                    <ListItemText primary="氏名" secondary={user.last_name + " " + user.first_name} />
                                 </ListItemButton>
                             </ListItem>
                             <ListItem disablePadding>
@@ -108,7 +94,7 @@ export default function AccountSettings() {
                                     <ListItemIcon>
                                         <LocalPhone />
                                     </ListItemIcon>
-                                    <ListItemText primary="電話番号" secondary={users.phone} />
+                                    <ListItemText primary="電話番号" secondary={user.phone} />
                                 </ListItemButton>
                             </ListItem>
                             <ListItem disablePadding>
@@ -116,7 +102,7 @@ export default function AccountSettings() {
                                     <ListItemIcon>
                                         <EmailIcon />
                                     </ListItemIcon>
-                                    <ListItemText primary="メールアドレス" secondary={users.email} />
+                                    <ListItemText primary="メールアドレス" secondary={user.email} />
                                 </ListItemButton>
                             </ListItem>
                             <ListItem disablePadding>
@@ -162,6 +148,7 @@ export default function AccountSettings() {
                         </List>
                     </Box>
                     </div>
+                    ))}
                 </div>
                 ))}
             </Fragment>
@@ -253,13 +240,11 @@ export default function AccountSettings() {
                         type="tel"
                         fullWidth
                         variant="standard"
-                        onChange={(e) => setValue(e.target.value)}
                     />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={onCloseDialog}>キャンセル</Button>
-                    <Button onClick={() => {changeData("phone", value);
-                                            onCloseDialog();}}>保存</Button>
+                    <Button onClick={onCloseDialog}>保存</Button>
                 </DialogActions>
             </Dialog>
             
