@@ -23,6 +23,7 @@ urlpatterns = [
     path('shiftan/', include("shiftan.urls")),
     path('api/', include(apiviews.router.urls)),
     path('api-auth/', include('djoser.urls.jwt')),
+    path('api-auth/', include('djoser.urls')),
     # トークン取得
     # localhost:8000/api-auth/jwt/create/
     # トークン再取得
