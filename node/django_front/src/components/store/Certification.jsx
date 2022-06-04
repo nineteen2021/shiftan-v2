@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link as routerLink } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -65,6 +66,9 @@ export default function Certification() {
                 </TableBody>
             </Table>
             </TableContainer>
+            <Grid item sx={{marginLeft: '30em', mt: '20px'}}>
+              <Button variant="contained" component={routerLink} to="/staffManager" sx={{ml: 2}}>戻る</Button>
+            </Grid>
         </Grid>
     </Grid>
   );

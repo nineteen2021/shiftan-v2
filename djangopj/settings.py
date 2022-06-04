@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -40,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api.apps.ApiConfig',
     'rest_framework',
+    'djoser',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +53,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+]
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000'
 ]
 
 ROOT_URLCONF = 'djangopj.urls'
@@ -74,10 +82,19 @@ WSGI_APPLICATION = 'djangopj.wsgi.application'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
-    ]
+        'rest_framework.permissions.IsAuthenticated',
+        
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
 }
 
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('JWT',),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken', )
+}
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -131,3 +148,33 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+DJOSER = {
+    # メールアドレスでログイン
+    'LOGIN_FIELD': 'email',
+    # アカウント本登録メール
+    'SEND_ACTIVATION_EMAIL': True,
+    # アカウント本登録完了メール
+    'SEND_CONFIRMATION_EMAIL': True,
+    # メールアドレス変更完了メール
+    'USERNAME_CHANGED_EMAIL_CONFIRMATION': True,
+    # パスワード変更完了メール
+    'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
+    # アカウント登録時に確認用パスワード必須
+    'USER_CREATE_PASSWORD_RETYPE': True,
+    # メールアドレス変更時に確認用メールaddress必須
+    'SET_USERNAME_RETYPE': True,
+    # パスワード変更時に確認用パスワード必須
+    'SET_PASSWORD_RETYPE': True,
+    # アカウント本登録用URL
+    # 'ACTIVATION_URL': 'activate/{uid}/{token}',
+    # メールアドレスリセット完了用URL
+    # 'USERNAME_RESET_CONFIRM_URL': ''
+    # パスワードを再設定完了用URL
+    # 'PASSWORD_RESET_CONFIRM_URL': ''
+    'SERIALIZERS': {
+        'user_create': 'api.serializers.UserSerializer',
+        'user': 'api.serializers.UserSerializer',
+        'current_user': 'api.serializers.UserSerializer',
+    }
+}
