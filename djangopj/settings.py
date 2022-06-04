@@ -197,8 +197,8 @@ DJOSER = {
         # パスワードリセット
         'password_changed_confirmation': 'accounts.email.PasswordChangedConfirmationEmail',
         # メールアドレスリセット
-        'username_reset': 'accounts.email.UsernameResetEmail',
+        # 'username_reset': 'accounts.email.UsernameResetEmail',
         # メールアドレスリセット完了
-        'username_changed_confirmation': 'accounts.email.UsernameChangedConfirmationEmail',
+        # 'username_changed_confirmation': 'accounts.email.UsernameChangedConfirmationEmail',
     },
 }
