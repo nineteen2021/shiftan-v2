@@ -38,6 +38,7 @@ export default function AccountSettings() {
     const [users, setUsers] = useState(null)
     const [stores, setStores] = useState(null)
     const [value, setValue] = useState("");
+    const [subValue, setSubValue] = useState("");
 
     useEffect(() => {
         axios
@@ -180,6 +181,7 @@ export default function AccountSettings() {
                         type="text"
                         fullWidth
                         variant="standard"
+                        onChange={(e) => setValue(e.target.value)}
                     />
                     <TextField
                         margin="dense"
@@ -188,11 +190,16 @@ export default function AccountSettings() {
                         type="text"
                         fullWidth
                         variant="standard"
+                        onChange={(e) => setSubValue(e.target.value)}
                     />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={onCloseDialog}>キャンセル</Button>
-                    <Button onClick={onCloseDialog}>保存</Button>
+                    <Button onClick={
+                        () => {changeData("last_name", value);
+                        changeData("first_name", subValue);
+                        onCloseDialog();}
+                    }>保存</Button>
                 </DialogActions>
             </Dialog>
 
@@ -210,11 +217,15 @@ export default function AccountSettings() {
                         type="email"
                         fullWidth
                         variant="standard"
+                        onChange={(e) => setValue(e.target.value)}
                     />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={onCloseDialog}>キャンセル</Button>
-                    <Button onClick={onCloseDialog}>保存</Button>
+                    <Button onClick={
+                        () => {changeData("email", value);
+                        onCloseDialog();}
+                    }>保存</Button>
                 </DialogActions>
             </Dialog>
             <Dialog open={selectedItem === "storeName"} onClose={onCloseDialog}>
