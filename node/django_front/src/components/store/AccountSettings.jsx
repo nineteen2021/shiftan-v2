@@ -38,6 +38,7 @@ export default function AccountSettings() {
     const [users, setUsers] = useState(null)
     const [stores, setStores] = useState(null)
     const [value, setValue] = useState("");
+    const [subValue, setSubValue] = useState("");
 
     useEffect(() => {
         axios
@@ -52,15 +53,30 @@ export default function AccountSettings() {
         }, []);
 
     useEffect(() => {
+        let fk;
         axios
-        .get('http://localhost:8000/api/store/',{
+        .get('http://localhost:8000/api-auth/users/me/',{
             headers: {
-                'Authorization': `JWT ${localStorage.getItem('access')}`
+                'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
             }
         })
-        .then(res=>{setStores(res.data);
-                    console.log(res.data);})
+        .then(res=>{setUsers(res.data);
+                    fk = res.data.store_FK;
+                    console.log(fk);
+                    axios
+                    .get('http://localhost:8000/api/store/' + String(fk) + '/',{
+                        headers: {
+                            'Authorization': `JWT ${localStorage.getItem('access')}`
+                        }
+                    })
+                    .then(res=>{setStores(res.data);
+                                console.log(res.data);})
+                    .catch(err=>{console.log(err);});
+                
+                })
         .catch(err=>{console.log(err);});
+
+        
     }, []);
 
     const [selectedItem, setSelectedItem] = React.useState('')
@@ -86,11 +102,10 @@ export default function AccountSettings() {
                     console.log(res.data);})
         .catch(err=>{console.log(err);});
     }
-
+    if (!users || !stores) return null;
     return (
         <>
             <Fragment>
-                {stores?.map(store => (
                 <div>
                     <div>
                     <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
@@ -108,7 +123,7 @@ export default function AccountSettings() {
                                     <ListItemIcon>
                                         <LocalPhone />
                                     </ListItemIcon>
-                                    <ListItemText primary="電話番号" secondary={users.phone} />
+                                    <ListItemText primary="電話番号" secondary={users.store_FK} />
                                 </ListItemButton>
                             </ListItem>
                             <ListItem disablePadding>
@@ -132,7 +147,7 @@ export default function AccountSettings() {
                                     <ListItemIcon>
                                         <StorefrontIcon />
                                     </ListItemIcon>
-                                    <ListItemText primary="店舗名" secondary={store.store_name} />
+                                    <ListItemText primary="店舗名" secondary={stores.store_name} />
                                 </ListItemButton>
                             </ListItem>
                             <ListItem disablePadding>
@@ -140,7 +155,7 @@ export default function AccountSettings() {
                                     <ListItemIcon>
                                         <LocalPhoneIcon />
                                     </ListItemIcon>
-                                    <ListItemText primary="電話番号" secondary={store.phone} />
+                                    <ListItemText primary="電話番号" secondary={stores.phone} />
                                 </ListItemButton>
                             </ListItem>
                             <ListItem disablePadding>
@@ -148,7 +163,7 @@ export default function AccountSettings() {
                                     <ListItemIcon>
                                         <LocationOnIcon />
                                     </ListItemIcon>
-                                    <ListItemText primary="店舗住所" secondary={store.address} />
+                                    <ListItemText primary="店舗住所" secondary={stores.address} />
                                 </ListItemButton>
                             </ListItem>
                             <ListItem disablePadding>
@@ -156,14 +171,13 @@ export default function AccountSettings() {
                                     <ListItemIcon>
                                         <Grid3x3Icon />
                                     </ListItemIcon>
-                                    <ListItemText primary="店舗ID" secondary={store.store_ID} />
+                                    <ListItemText primary="店舗ID" secondary={stores.store_ID} />
                                 </ListItemButton>
                             </ListItem>
                         </List>
                     </Box>
                     </div>
                 </div>
-                ))}
             </Fragment>
 
             <Dialog open={selectedItem === "name"} onClose={onCloseDialog}>
@@ -180,6 +194,7 @@ export default function AccountSettings() {
                         type="text"
                         fullWidth
                         variant="standard"
+                        onChange={(e) => setValue(e.target.value)}
                     />
                     <TextField
                         margin="dense"
@@ -188,11 +203,16 @@ export default function AccountSettings() {
                         type="text"
                         fullWidth
                         variant="standard"
+                        onChange={(e) => setSubValue(e.target.value)}
                     />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={onCloseDialog}>キャンセル</Button>
-                    <Button onClick={onCloseDialog}>保存</Button>
+                    <Button onClick={
+                        () => {changeData("last_name", value);
+                        changeData("first_name", subValue);
+                        onCloseDialog();}
+                    }>保存</Button>
                 </DialogActions>
             </Dialog>
 
@@ -210,11 +230,15 @@ export default function AccountSettings() {
                         type="email"
                         fullWidth
                         variant="standard"
+                        onChange={(e) => setValue(e.target.value)}
                     />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={onCloseDialog}>キャンセル</Button>
-                    <Button onClick={onCloseDialog}>保存</Button>
+                    <Button onClick={
+                        () => {changeData("email", value);
+                        onCloseDialog();}
+                    }>保存</Button>
                 </DialogActions>
             </Dialog>
             <Dialog open={selectedItem === "storeName"} onClose={onCloseDialog}>
