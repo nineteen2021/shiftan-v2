@@ -78,7 +78,7 @@ export default function AccountSettings() {
                 })
         .catch(err=>{console.log(err);});
 
-        
+
     }, []);
 
     const [selectedItem, setSelectedItem] = React.useState('')
