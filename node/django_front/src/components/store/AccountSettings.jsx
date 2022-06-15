@@ -48,7 +48,8 @@ export default function AccountSettings() {
             }
         })
         .then(res=>{setUsers(res.data);
-                    console.log(res.data);})
+                    //console.log(res.data);
+                })
         .catch(err=>{console.log(err);});
         }, []);
 
@@ -62,7 +63,7 @@ export default function AccountSettings() {
         })
         .then(res=>{setUsers(res.data);
                     fk = res.data.store_FK;
-                    console.log(fk);
+                    //console.log(fk);
                     axios
                     .get('http://localhost:8000/api/store/' + String(fk) + '/',{
                         headers: {
@@ -70,7 +71,8 @@ export default function AccountSettings() {
                         }
                     })
                     .then(res=>{setStores(res.data);
-                                console.log(res.data);})
+                                //console.log(res.data);
+                            })
                     .catch(err=>{console.log(err);});
                 
                 })
