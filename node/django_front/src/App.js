@@ -19,12 +19,19 @@ import ShiftSubmit from './components/partTime/ShiftSubmit';
 import PartTimeSettings from './components/partTime/PartTimeSettings';
 import Certification from './components/store/Certification';
 import BottomNavbar from './components/partTime/BottomNavbar';
+import NoMatch from './components/function/NoMatch';
+
+export const apiURL = 'http://localhost:8000/';
 
 const App = () => {
   return (
   <BrowserRouter>
     <div>
       <Routes>
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route path="partTimeRegister" element={<PartTimeRegister />} />
+        <Route path="*" element={<NoMatch />}/>
 
         <Route element={<PrivateRoutes />}>
           <Route path="/" element={<Navbar contents={<StoreHome />}/>} exact/> {/* exact ... 部分一致を防ぐ */}
@@ -72,9 +79,7 @@ const App = () => {
           }
           />
         </Route>
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-        <Route path="partTimeRegister" element={<PartTimeRegister />} />
+        
 
       </Routes>
     </div>
