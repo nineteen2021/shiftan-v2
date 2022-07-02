@@ -149,6 +149,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 DJOSER = {
     # メールアドレスでログイン
     'LOGIN_FIELD': 'email',
@@ -167,14 +169,28 @@ DJOSER = {
     # パスワード変更時に確認用パスワード必須
     'SET_PASSWORD_RETYPE': True,
     # アカウント本登録用URL
-    # 'ACTIVATION_URL': 'activate/{uid}/{token}',
+    'ACTIVATION_URL': 'activate/{uid}/{token}',
     # メールアドレスリセット完了用URL
-    # 'USERNAME_RESET_CONFIRM_URL': ''
+    'USERNAME_RESET_CONFIRM_URL': 'email/reset/conform/{uid}/{token}',
     # パスワードを再設定完了用URL
-    # 'PASSWORD_RESET_CONFIRM_URL': ''
+    'PASSWORD_RESET_CONFIRM_URL': 'password/reset/conform/{uid}/{token}',
     'SERIALIZERS': {
         'user_create': 'api.serializers.UserSerializer',
         'user': 'api.serializers.UserSerializer',
         'current_user': 'api.serializers.UserSerializer',
-    }
+    },
+    'EMAIL':{
+        # アカウント本登録
+        'activation': 'api.email.ActivationEmail',
+        # アカウント本登録完了
+        'confirmation': 'api.email.ConfirmationEmail',
+        # パスワードリセット
+        'password_reset': 'api.email.PasswordResetEmail',
+        # パスワードリセット完了
+        'password_changed_confirmation': 'api.email.PasswordChangedConfirmationEmail',
+        # メールアドレスリセット
+        'username_reset': 'api.email.UsernameResetEmail',
+        # メールアドレスリセット完了
+        'username_changed_confirmation': 'api.email.UsernameChangedConfirmationEmail',
+    },
 }
