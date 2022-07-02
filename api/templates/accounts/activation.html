@@ -1,0 +1,13 @@
+{% block subject %}
+【しふたん】本登録のご案内
+{% endblock subject %}
+
+{% block text_body %}
+
+{{ name }}様
+以下のリンクから本登録を完了してください
+{{protocol}}://{{domain}}/{{url|safe}}
+
+【debug用】
+localhost:3000/{{url|safe}}
+{% endblock text_body %}
