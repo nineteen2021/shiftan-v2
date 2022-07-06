@@ -17,6 +17,7 @@ import ShiftSubmit from './components/partTime/ShiftSubmit';
 import PartTimeSettings from './components/partTime/PartTimeSettings';
 import Certification from './components/store/Certification';
 import BottomNavbar from './components/partTime/BottomNavbar';
+import Activate from './components/function/Activate';
 
 const App = () => {
   return (
@@ -27,6 +28,8 @@ const App = () => {
         <Route path="/" element={<Login />}/>
 
         <Route path="login" element={<Login />} />
+
+        <Route path="activate" element={<Activate />}/>
 
         <Route path="sentPasswordMail" element={<SentPasswordMail />} />
 
