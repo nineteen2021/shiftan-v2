@@ -1,4 +1,5 @@
 import * as React from 'react';
+import axios from 'axios';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -42,6 +43,12 @@ export default function PartTimeRegister() {
     });
   };
 
+  const [last_name ,setLast_name] = React.useState('')
+  const [first_name ,setFirst_name] = React.useState('')
+  const [email ,setEmail] = React.useState('')
+  const [phone_number ,setPhone_number] = React.useState('')
+  const [password ,setPassword] = React.useState('')
+  const [re_password ,setRe_password] = React.useState('')
   const [selectedItem, setSelectedItem] = React.useState('')
 
     const onOpenDialog = (name) => {
@@ -51,6 +58,27 @@ export default function PartTimeRegister() {
     const onCloseDialog = () => {
         setSelectedItem('')
     }
+
+    const changeData = () => { //PATCHを利用しデータベースの値を変更する関数
+      axios
+      .post('http://localhost:8000/api-auth/users/',
+          {
+            username: email,
+            email: email,
+            first_name: first_name,
+            last_name: last_name,
+            phone: phone_number,
+            password: password,
+            re_password: re_password,
+          } //変更したいキーと値
+      ,{
+          headers: {
+              'Content-Type': 'application/json', 
+          }
+      })
+      .then(res=>{console.log(res.data);})
+      .catch(err=>{console.log(err);});
+  }
 
   return (
     <>
@@ -81,6 +109,7 @@ export default function PartTimeRegister() {
                   fullWidth
                   id="lastName"
                   label="姓"
+                  onChange={(e) => setLast_name(e.target.value)}
                   autoFocus
                 />
               </Grid>
@@ -91,6 +120,7 @@ export default function PartTimeRegister() {
                   id="firstName"
                   label="名"
                   name="firstName"
+                  onChange={(e) => setFirst_name(e.target.value)}
                   autoComplete="given-name"
                 />
               </Grid>
@@ -101,6 +131,7 @@ export default function PartTimeRegister() {
                   id="email"
                   label="メールアドレス"
                   name="email"
+                  onChange={(e) => setEmail(e.target.value)}
                   autoComplete="email"
                 />
               </Grid>
@@ -111,6 +142,7 @@ export default function PartTimeRegister() {
                   id="phoneNumber"
                   label="電話番号"
                   name="phoneNumber"
+                  onChange={(e) => setPhone_number(e.target.value)}
                   autoComplete="phoneNumber"
                 />
               </Grid>
@@ -122,6 +154,7 @@ export default function PartTimeRegister() {
                   label="パスワード"
                   type="password"
                   id="password"
+                  onChange={(e) => setPassword(e.target.value)}
                   autoComplete="new-password"
                 />
               </Grid>
@@ -134,6 +167,7 @@ export default function PartTimeRegister() {
                   label="パスワード（確認のため再入力してください）"
                   type="password"
                   id="password"
+                  onChange={(e) => setRe_password(e.target.value)}
                   autoComplete="new-password"
                 />
               </Grid>
@@ -155,6 +189,7 @@ export default function PartTimeRegister() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
               component={routerLink}
+              onClick={changeData()}
               to="/partTimeHome"
             >
               アカウントを作成
