@@ -24,32 +24,48 @@ import axios from 'axios';
 export default function ShiftTable() {
 
   const [users, setUsers] = useState(null)
-  const [tables, setTables] = useState(null)
+  const [stores, setStores] = useState(null)
+  let fk;
 
+  // useEffect(() => {
+  //   axios
+  //   .get('http://localhost:8000/api-auth/users/',{
+  //       headers: {
+  //           'Authorization': `JWT ${localStorage.getItem('access')}`,
+  //       }
+  //   })
 
-  useEffect(() => {
-    axios
-    .get('http://localhost:8000/api-auth/users/',{
-        headers: {
-            'Authorization': `JWT ${localStorage.getItem('access')}`,
-        }
-    })
-    .then(res=>{setUsers(res.data);
-                console.log(res.data);})
-    .catch(err=>{console.log(err);});
+  //   .then(res=>{setUsers(res.data);
+  //     console.log(res.data);})
+
+  //   .catch(err=>{console.log(err);});
+  //   }, []);
+
+    useEffect(() => {
+      axios
+      .get('http://localhost:8000/api-auth/users/me/',{
+          headers: {
+              'Authorization': `JWT ${localStorage.getItem('access')}`,
+          }
+      })
+      .then(res=>{
+            fk = res.data.store_FK;
+            console.log(fk);
+            axios
+            .get('http://localhost:8000/api-auth/users/?store_FK=' + String(fk),{
+                headers: {
+                    'Authorization': `JWT ${localStorage.getItem('access')}`
+                }
+            })
+            .then(res=>{setUsers(res.data);
+                        console.log(res.data);
+                        })
+            .catch(err=>{console.log(err);
+          })
+        }, [])
+      .catch(err=>{console.log(err);})
     }, []);
 
-  useEffect(() => {
-    axios
-    .get('http://localhost:8000/api/store/',{
-        headers: {
-            'Authorization': `JWT ${localStorage.getItem('access')}`
-        }
-    })
-    .then(res=>{setStores(res.data);
-                console.log(res.data);})
-    .catch(err=>{console.log(err);});
-  }, []);
 
   return (
     <TableContainer component={Paper}>
@@ -77,5 +93,5 @@ export default function ShiftTable() {
         </TableBody>
       </Table>
     </TableContainer>
-  );
-}
+  )
+};
