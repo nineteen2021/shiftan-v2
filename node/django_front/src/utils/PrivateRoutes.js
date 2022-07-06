@@ -1,14 +1,13 @@
-import { Outlet, Navigate } from 'react-router-dom'
+import { Outlet, Navigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 
 const PrivateRoutes = () => {
-    let auth = {'token':false}  // tokenがあるかないかtrue false
+    const auth = useAuth();
+    console.log(auth);
 
-    // ここまだ実装できてない
-
-
-    console.log('Private route works!')
+    console.log('Private route works!');
     return(
-            auth.token ? <Outlet/> : <Navigate to='/login'/>
+        auth.accessToken != null ? <Outlet/> : <Navigate to='/login'/>
     )
 }
 export default PrivateRoutes
