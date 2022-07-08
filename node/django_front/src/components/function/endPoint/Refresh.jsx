@@ -9,7 +9,6 @@ export const Refresh = (refreshToken) => {
         console.log("Refresh!")
         return(
             window.localStorage.setItem("access", response.data.access),
-            window.localStorage.setItem("refresh", response.data.refresh),
             console.log(response.data.access),
             console.log(response.data.refresh)
         )
