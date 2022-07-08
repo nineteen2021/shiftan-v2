@@ -8,7 +8,7 @@ export const useAccessToken = () => {
     // const accessCheck = false;
     console.log(accessCheck);
     // TODO: リフレッシュトークンを用いたアクセストークンの自動再取得
-    if (accessCheck === false) {
+    if (accessCheck === undefined) {
         // refreshが使えれば新しいアクセストークンとリフレッシュトークンを保存し、使えなければトークンをundefinedにする
         console.log("リフレッシュ")
         Refresh(window.localStorage.getItem('refresh'))
