@@ -1,6 +1,4 @@
 import axios from "axios";
-import { Navigate } from "react-router-dom";
-import { useLocalStorage } from "../../../hooks/useLocalStorage";
 
 export const Refresh = (refreshToken) => {
     axios.post('http://localhost:8000/api-auth/jwt/refresh/', {
