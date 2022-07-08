@@ -18,7 +18,9 @@ export const Refresh = (refreshToken) => {
         return(
             console.log("Not refresh!"),
             window.localStorage.setItem("access", undefined),
-            window.localStorage.setItem("refresh", undefined)
+            window.localStorage.setItem("refresh", undefined),
+            console.log(response.data.access),
+            console.log(response.data.refresh)
         )
         
         
