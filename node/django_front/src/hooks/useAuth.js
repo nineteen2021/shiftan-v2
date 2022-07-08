@@ -1,11 +1,13 @@
 import { createContext, useContext, useMemo } from "react";
 import axios from "axios";
 import { useAccessToken } from "./useAccessToken";
+import { useLocalStorage } from "./useLocalStorage";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [accessToken, setAccessToken] = useAccessToken();
+    // const [refreshToken, setRefreshToken]
 
     const login = async (email, password) => {
         const res = await axios.post('http://localhost:8000/api-auth/jwt/create/', {
@@ -19,6 +21,7 @@ export const AuthProvider = ({ children }) => {
         })
 
         // TODO: リフレッシュトークンをLocalStorageなどに保存
+        window.localStorage.setItem("refresh", res.data.refresh)
         // リフレッシュトークンの保存はここではなくuseAccessToken内で行う
         setAccessToken(res.data.access);
         return true;

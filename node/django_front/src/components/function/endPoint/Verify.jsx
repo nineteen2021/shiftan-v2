@@ -5,10 +5,13 @@ export const Verify = (accessToken) => {
         token: accessToken
     })
     .then(() => {
+        console.log("verify!")
         return true;
     })
     .catch((error) => {
-        console.log(error);
+        // console.log(error);
+        console.log("Not verify!")
+        window.localStorage.setItem("access", undefined);
         return false;
     })
-}
+};
