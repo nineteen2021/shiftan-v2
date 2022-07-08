@@ -20,15 +20,15 @@ export const AuthProvider = ({ children }) => {
             alert("メールアドレスかパスワードが違います。");
         })
 
-        // TODO: リフレッシュトークンをLocalStorageなどに保存
-        window.localStorage.setItem("refresh", res.data.refresh)
-        // リフレッシュトークンの保存はここではなくuseAccessToken内で行う
         setAccessToken(res.data.access);
+        // TODO: リフレッシュトークンをLocalStorageなどに保存
+        window.localStorage.setItem("refresh", res.data.refresh);
         return true;
     };
 
     const logout = () => {
-        setAccessToken(undefined);
+        window.localStorage.setItem("access", undefined);
+        window.localStorage.setItem("refresh", undefined);
     };
 
     // useMemoで何度も関数が繰り返されるのを防ぐ

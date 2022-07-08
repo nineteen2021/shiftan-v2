@@ -5,7 +5,6 @@ import { useLocalStorage } from "./useLocalStorage";
 export const useAccessToken = () => {
     // TODO: アクセストークンの有効期限チェック
     const accessCheck = Verify(window.localStorage.getItem('access'))
-    // const accessCheck = false;
     console.log(accessCheck);
     // TODO: リフレッシュトークンを用いたアクセストークンの自動再取得
     if (accessCheck === undefined) {
@@ -18,7 +17,6 @@ export const useAccessToken = () => {
         useLocalStorage("refresh", undefined)
         console.log(window.localStorage.getItem('refresh'))
     
-
     return (
         access
         );
