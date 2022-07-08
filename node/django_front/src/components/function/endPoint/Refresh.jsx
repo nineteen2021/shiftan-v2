@@ -9,8 +9,7 @@ export const Refresh = (refreshToken) => {
         console.log("Refresh!")
         return(
             window.localStorage.setItem("access", response.data.access),
-            console.log(response.data.access),
-            console.log(response.data.refresh)
+            console.log(response.data.access)
         )
     })
     .catch(function (error) {
@@ -19,8 +18,8 @@ export const Refresh = (refreshToken) => {
             console.log("Not refresh!"),
             window.localStorage.setItem("access", undefined),
             window.localStorage.setItem("refresh", undefined),
-            console.log(response.data.access),
-            console.log(response.data.refresh)
+            console.log(window.localStorage.getItem("access")),
+            console.log(window.localStorage.getItem("refresh"))
         )
         
         
