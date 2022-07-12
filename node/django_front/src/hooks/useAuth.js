@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
         setAccessToken(res.data.access);
         // TODO: リフレッシュトークンをLocalStorageなどに保存
         window.localStorage.setItem("refresh", res.data.refresh);
-        console.log(window.localStorage.getItem("refresh"))
+        console.log("refresh:" + window.localStorage.getItem("refresh"))
         return true;
     };
 
