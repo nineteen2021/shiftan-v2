@@ -1,7 +1,6 @@
 import { createContext, useContext, useMemo } from "react";
 import axios from "axios";
 import { useAccessToken } from "./useAccessToken";
-import { useLocalStorage } from "./useLocalStorage";
 
 const AuthContext = createContext();
 
@@ -23,12 +22,13 @@ export const AuthProvider = ({ children }) => {
         setAccessToken(res.data.access);
         // TODO: リフレッシュトークンをLocalStorageなどに保存
         window.localStorage.setItem("refresh", res.data.refresh);
+        console.log(window.localStorage.getItem("refresh"))
         return true;
     };
 
     const logout = () => {
-        window.localStorage.setItem("access", undefined);
-        window.localStorage.setItem("refresh", undefined);
+        window.localStorage.setItem("access", "undefined");
+        window.localStorage.setItem("refresh", "undefined");
     };
 
     // useMemoで何度も関数が繰り返されるのを防ぐ

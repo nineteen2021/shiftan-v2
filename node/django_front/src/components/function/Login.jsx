@@ -61,7 +61,7 @@ export default function Login() {
   return (
     <>
       {/* ログインしている場合はリダイレクト */}
-      {auth.accessToken != undefined && <Navigate to="/" />}
+      {auth.accessToken != "undefined" && <Navigate to="/" />}
       <SimpleNavbar/>
       <Container component="main" maxWidth="xs">
 

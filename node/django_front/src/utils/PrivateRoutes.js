@@ -7,7 +7,7 @@ const PrivateRoutes = () => {
 
     console.log('Private route works!');
     return(
-        auth.accessToken != null ? <Outlet/> : <Navigate to='/login'/>
+        auth.accessToken != "undefined" ? <Outlet/> : <Navigate to='/login'/>
     )
 }
 export default PrivateRoutes
