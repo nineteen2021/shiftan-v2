@@ -12,6 +12,6 @@ export const Verify = (accessToken) => {
         // console.log(error);
         console.log("Not verify!");
         window.localStorage.setItem("access", "undefined");
-        return false;
+        return false; // このfalse機能してない
     })
 };
