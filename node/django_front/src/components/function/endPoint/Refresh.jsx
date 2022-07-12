@@ -16,8 +16,8 @@ export const Refresh = (refreshToken) => {
         // console.log(error);
         return(
             console.log("Not refresh!"),
-            window.localStorage.setItem("access", undefined),
-            window.localStorage.setItem("refresh", undefined),
+            window.localStorage.setItem("access", "undefined"),
+            window.localStorage.setItem("refresh", "undefined"),
             console.log("access:" + window.localStorage.getItem("access")),
             console.log("refresh:" + window.localStorage.getItem("refresh"))
         )
