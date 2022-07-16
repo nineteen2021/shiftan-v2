@@ -7,11 +7,11 @@ export const useAccessToken = () => {
     const accessCheck = Verify(window.localStorage.getItem('access'))
     console.log("Verify:" + accessCheck);
     // TODO: リフレッシュトークンを用いたアクセストークンの自動再取得
-    if (accessCheck === false) {
-        // refreshが使えれば新しいアクセストークンとリフレッシュトークンを保存し、使えなければトークンをundefinedにする
-        console.log("Refresh実行")
-        Refresh(window.localStorage.getItem('refresh'))
-    }
+    // if (accessCheck === false) {
+    //     // refreshが使えれば新しいアクセストークンとリフレッシュトークンを保存し、使えなければトークンをundefinedにする
+    //     console.log("Refresh実行")
+    //     Refresh(window.localStorage.getItem('refresh'))
+    // }
     const access = useLocalStorage("access", "undefined")
         console.log("access:" + window.localStorage.getItem('access'))
         useLocalStorage("refresh", "undefined")

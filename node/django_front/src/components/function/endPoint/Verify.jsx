@@ -1,4 +1,6 @@
 import axios from "axios";
+import { Refresh } from "./Refresh";
+
 
 export const Verify = (accessToken) => {
     axios.post('http://localhost:8000/api-auth/jwt/verify/', {
@@ -6,12 +8,11 @@ export const Verify = (accessToken) => {
     })
     .then(() => {
         console.log("verify!");
-        return true;
     })
     .catch((error) => {
         // console.log(error);
         console.log("Not verify!");
         window.localStorage.setItem("access", "undefined");
-        return false; // このfalse機能してない
+        Refresh(window.localStorage.getItem("refresh"));
     })
 };
