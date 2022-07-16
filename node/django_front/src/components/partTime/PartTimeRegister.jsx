@@ -99,7 +99,7 @@ export default function PartTimeRegister() {
               </Typography>
             </Grid>
           </Grid>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate onSubmit={changeData} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -188,9 +188,7 @@ export default function PartTimeRegister() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              component={routerLink}
-              onClick={changeData()}
-              to="/partTimeHome"
+              
             >
               アカウントを作成
             </Button>
