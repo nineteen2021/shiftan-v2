@@ -27,8 +27,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     const logout = () => {
-        window.localStorage.setItem("access", "undefined");
-        window.localStorage.setItem("refresh", "undefined");
+        window.localStorage.clear()
     };
 
     // useMemoで何度も関数が繰り返されるのを防ぐ
