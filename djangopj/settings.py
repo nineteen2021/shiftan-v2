@@ -186,55 +186,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# ローカル確認用
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-# 本番環境用
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'xxx@gmail.com'
-EMAIL_HOST_PASSWORD = 'xxx'
-DEFAULT_FROM_EMAIL = 'xxx@gmail.com'
-
 DJOSER = {
     # メールアドレスでログイン
     'LOGIN_FIELD': 'email',
-    # アカウント本登録メール
-    'SEND_ACTIVATION_EMAIL': True,
-    # アカウント本登録完了メール
-    'SEND_CONFIRMATION_EMAIL': True,
-    # メールアドレス変更完了メール
-    'USERNAME_CHANGED_EMAIL_CONFIRMATION': True,
-    # パスワード変更完了メール
-    'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
-    # アカウント登録時に確認用パスワード必須
-    'USER_CREATE_PASSWORD_RETYPE': True,
-    # メールアドレス変更時に確認用メールaddress必須
-    'SET_USERNAME_RETYPE': True,
-    # パスワード変更時に確認用パスワード必須
-    'SET_PASSWORD_RETYPE': True,
-    # アカウント本登録用URL
-    'ACTIVATION_URL': 'activate/{uid}/{token}',
-    # メールアドレスリセット完了用URL
-    'USERNAME_RESET_CONFIRM_URL': 'email/reset/conform/{uid}/{token}',
-    # パスワードを再設定完了用URL
-    'PASSWORD_RESET_CONFIRM_URL': 'password/reset/conform/{uid}/{token}',
     'SERIALIZERS': {
         'user_create': 'api.serializers.UserSerializer',
         'user': 'api.serializers.UserSerializer',
         'current_user': 'api.serializers.UserSerializer',
-    },
-    'EMAIL': {
-        # アカウント本登録
-        'activation': 'accounts.email.ActivationEmail',
-        # アカウント本登録完了
-        'confirmation': 'accounts.email.PasswordResetEmail',
-        # パスワードリセット
-        'password_changed_confirmation': 'accounts.email.PasswordChangedConfirmationEmail',
-        # メールアドレスリセット
-        # 'username_reset': 'accounts.email.UsernameResetEmail',
-        # メールアドレスリセット完了
-        # 'username_changed_confirmation': 'accounts.email.UsernameChangedConfirmationEmail',
-    },
+    }
 }
