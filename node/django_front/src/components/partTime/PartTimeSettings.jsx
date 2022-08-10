@@ -27,7 +27,7 @@ import Terms from '../function/Terms';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import CheckStore from './CheckStore';
 import BottomNavbar from './BottomNavbar';
-
+import { useNavigate } from 'react-router-dom';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -43,6 +43,13 @@ export default function PartTimeSettings() {
 
     const onCloseDialog = () => {
         setSelectedItem('')
+    }
+
+    const navigate = useNavigate();
+
+    const logout = () => {
+        window.localStorage.clear()
+        navigate("/login")
     }
 
     return (
@@ -87,6 +94,14 @@ export default function PartTimeSettings() {
                                     <GavelIcon />
                                 </ListItemIcon>
                                 <ListItemText primary="利用規約" secondary="利用規約を確認することができます" />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={() => onOpenDialog(logout())}>
+                                <ListItemIcon>
+                                    <LogoutIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="ログアウト" secondary="ログアウトしてログイン画面に戻ります" />
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
