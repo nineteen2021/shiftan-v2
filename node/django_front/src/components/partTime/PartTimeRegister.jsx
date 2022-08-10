@@ -59,7 +59,7 @@ export default function PartTimeRegister() {
         setSelectedItem('')
     }
 
-    const changeData = () => { //PATCHを利用しデータベースの値を変更する関数
+    const changeData = () => { //バックエンドにデータを送り、データベースにデータを作成する関数
       axios
       .post('http://localhost:8000/api-auth/users/',
           {
@@ -70,7 +70,7 @@ export default function PartTimeRegister() {
             phone: phone_number,
             password: password,
             re_password: re_password,
-          } //変更したいキーと値
+          }
       ,{
           headers: {
               'Content-Type': 'application/json', 
