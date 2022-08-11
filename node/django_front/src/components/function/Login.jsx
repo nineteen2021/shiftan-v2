@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Navigate, useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
 
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,7 +16,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SimpleNavbar from './SimpleNavbar'
 import NewAccountButton from './NewAccountButton';
 import { Link as routerLink } from 'react-router-dom'
-import Create from './endPoint/Create'
+import axios from 'axios';
 
 import { useAuth } from "../../hooks/useAuth";
 
@@ -38,6 +39,7 @@ export default function Login() {
   const navigate = useNavigate();
   const auth = useAuth();
   // console.log(auth);
+  const [users, setUsers] = useState(null)
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -53,9 +55,42 @@ export default function Login() {
     // useAuth.jsのログイン関数を呼び出してログイン
     auth.login(email, password).then((res) => {
       if(res === true) {
-        navigate("/");
+        const distribute = new Promise((resolved, rejected) => {
+          (() => {
+            axios
+            .get('http://localhost:8000/api-auth/users/me/',{
+              headers: {
+                'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
+              }
+            })
+            .then(res=>{
+              setUsers(res.data);
+              console.log("user/me取得")
+              console.log(res.data);
+              resolved();
+            })
+            .catch(err=>{console.log(err);});
+          })();
+        })
+        
+        //is_managerで振り分け
+        distribute.then(function(){
+          console.log("is_manager判別")
+          if(users.is_manager === true) {
+            console.log("店長アカウントです");
+            navigate("/");
+          }
+          else if (users.is_manager === false) {
+            console.log("アルバイトアカウントです");
+            navigate("/partTimeHome");
+          }
+          else {
+            console.log("アカウント振り分けでerrorが起こりました");
+          }
+        })
+        
       }
-    });
+    })
   };
 
   return (
