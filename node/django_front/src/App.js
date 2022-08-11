@@ -7,6 +7,7 @@ import SentPasswordMail from './components/function/SentPasswordMail';
 import ResetPassword from './components/function/ResetPassword';
 import FinishResetPassword from './components/function/FinishResetPassword';
 import Register from './components/store/Register';
+import StoreRegister from './components/store/StoreRegister';
 import StoreHome from './components/store/StoreHome';
 import MakeShift from './components/store/MakeShift';
 import StaffManager from './components/store/StaffManager';
@@ -38,6 +39,8 @@ const App = () => {
         <Route path="finishResetPassword" element={<FinishResetPassword />}/>
 
         <Route path="register" element={<Register />} />
+
+        <Route path="storeRegister" element={<StoreRegister />} />
 
         <Route path="storeHome" element={<Navbar contents={<StoreHome />}/>} />
 
