@@ -45,13 +45,11 @@ export default function Register() {
       password: data.get('password'),
     });
   };
-    const [last_name ,setLast_name] = React.useState('')
-    const [first_name ,setFirst_name] = React.useState('')
-    const [email ,setEmail] = React.useState('')
-    const [phone_number ,setPhone_number] = React.useState('')
-    const [password ,setPassword] = React.useState('')
-    const [re_password ,setRe_password] = React.useState('')
     const [selectedItem, setSelectedItem] = React.useState('')
+    const [store_name ,setStore_name] = React.useState('')
+    const [address ,setAddress] = React.useState('')
+    const [phone ,setPhone] = React.useState('')
+    const [store_ID ,setStore_ID] = React.useState('')
     const is_manager = true
     const onOpenDialog = (name) => {
         setSelectedItem(name)
@@ -62,33 +60,25 @@ export default function Register() {
     }
 
     const changeData = () => { //バックエンドにデータを送り、データベースにデータを作成する関数
-      axios //ユーザー情報を送信
-      .post('http://localhost:8000/api-auth/users/',
+      axios //店舗情報を送信
+      .post('http://localhost:8000/api/store/',
           {
-            username: email,
-            email: email,
-            first_name: first_name,
-            last_name: last_name,
-            phone: phone_number,
-            password: password,
-            re_password: re_password,
-            is_manager: is_manager,
+            store_name: store_name,
+            address: address,
+            phone: phone,
+            store_ID: store_ID,
           }
       ,{
           headers: {
               'Content-Type': 'application/json', 
+              'Authorization': `JWT ${localStorage.getItem('access')}`,
           }
       })
-      .then(
-        res=>{console.log(res.data);
-      })
+      .then(res=>{console.log(res.data);})
       .catch(err=>{console.log(err);});
     }
       
       
-
-      
-
   return (
     <>
     <SimpleNavbar/>
@@ -116,44 +106,21 @@ export default function Register() {
             </Grid>
           </Grid>
           <Box component="form" noValidate onSubmit={changeData} sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
-            <Grid item>
-              <Typography component="h2" sx={{ mr: 6 }}>
-              店舗管理者情報登録
-              </Typography>
-            </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="family-name"
-                  name="lastName"
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="姓"
-                  onChange={(e) => setLast_name(e.target.value)}
-                  autoFocus
-                />
+            <Grid container spacing={2}>       
+              <Grid item component="h3" sx={{ mr: 12 }}>
+                <Typography component="h2">
+                店舗情報登録
+                </Typography>
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} >
                 <TextField
                   required
                   fullWidth
-                  id="firstName"
-                  label="名"
-                  name="firstName"
-                  onChange={(e) => setFirst_name(e.target.value)}
-                  autoComplete="given-name"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="メールアドレス"
-                  name="email"
-                  onChange={(e) => setEmail(e.target.value)}
-                  autoComplete="email"
+                  id="storeName"
+                  label="店舗名"
+                  name="storeName"
+                  onChange={(e) => setStore_name(e.target.value)}
+                  autoComplete="store-name"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -161,36 +128,32 @@ export default function Register() {
                   required
                   fullWidth
                   id="phoneNumber"
-                  label="電話番号"
+                  label="店舗電話番号"
                   name="phoneNumber"
-                  onChange={(e) => setPhone_number(e.target.value)}
-                  autoComplete="phoneNumber"
+                  onChange={(e) => setPhone(e.target.value)}
+                  autoComplete="phone-number"
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  name="password"
-                  label="パスワード"
-                  type="password"
-                  id="password"
-                  onChange={(e) => setPassword(e.target.value)}
-                  autoComplete="new-password"
+                  id="address"
+                  label="店舗住所"
+                  name="address"
+                  onChange={(e) => setAddress(e.target.value)}
+                  autoComplete="address"
                 />
               </Grid>
-              <Grid item xs={12}
-              sx={{ mb:5 }}
-              >
+              <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  name="password"
-                  label="パスワード（確認のため再入力してください）"
-                  type="password"
-                  id="password"
-                  onChange={(e) => setRe_password(e.target.value)}
-                  autoComplete="new-password"
+                  id="storeID"
+                  label="店舗ID"
+                  name="storeID"
+                  onChange={(e) => setStore_ID(e.target.value)}
+                  autoComplete="storeID"
                 />
               </Grid>
               <Grid sx={{ ml: 2, mt: 2}}>
