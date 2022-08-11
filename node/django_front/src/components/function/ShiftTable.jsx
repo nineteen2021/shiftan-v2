@@ -42,6 +42,7 @@ export default function ShiftTable() {
   //   }, []);
 
     useEffect(() => {
+      let fk;
       axios
       .get('http://localhost:8000/api-auth/users/me/',{
           headers: {
@@ -52,7 +53,7 @@ export default function ShiftTable() {
             fk = res.data.store_FK;
             console.log(fk);
             axios
-            .get('http://localhost:8000/api-auth/users/?store_FK=' + String(fk),{
+            .get('http://localhost:8000/api/user/?store_FK=' + String(fk),{
                 headers: {
                     'Authorization': `JWT ${localStorage.getItem('access')}`
                 }

@@ -1,10 +1,13 @@
 from rest_framework import viewsets, routers
+from django_filters import rest_framework as filters
 from shiftan.models import User, Store, Group, Shift_Range, Tmp_Work_Schedule, Work_Schedule, Schedule_Template
 from .serializers import UserSerializer, StoreSerializer, GroupSerializer, Shift_RangeSerializer, Tmp_Work_ScheduleSerializer, Work_ScheduleSerializer, Schedule_TemplateSerializer 
 
 class UserApi(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    filter_backends = [filters.DjangoFilterBackend]
+    filterset_fields = '__all__'
 
     def get_queryset(self):
         queryset = User.objects.all()
