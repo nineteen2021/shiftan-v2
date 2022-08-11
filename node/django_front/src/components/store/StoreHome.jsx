@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import StoreShiftList from './StoreShiftList';
+import { Link as routerLink } from 'react-router-dom'
 
 const shifts = ['1月前半シフト','1月後半シフト','2月前半シフト','2月前半シフト','3月前半シフト','3月後半シフト'];
 
@@ -48,7 +49,12 @@ export default function StoreHome(){
                 </Grid>
                 <Grid item xs={12}>
                     <Box pt={3}>
-                        <Button variant="outlined">店舗登録</Button>
+                        <Button variant="outlined"
+                          component={routerLink}
+                          to="/storeRegister"
+                        >
+                            店舗登録
+                        </Button>
                     </Box>
                 </Grid>   
               </Grid>
