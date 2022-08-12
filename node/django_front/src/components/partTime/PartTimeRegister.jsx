@@ -50,6 +50,9 @@ export default function PartTimeRegister() {
   const [password ,setPassword] = React.useState('')
   const [re_password ,setRe_password] = React.useState('')
   const [selectedItem, setSelectedItem] = React.useState('')
+  const [accept, setAccept] = React.useState(false)
+  const emailPattern = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]+.[A-Za-z0-9]+$/;
+  const phonePattern = /^0[-0-9]{9,12}$/;
 
     const onOpenDialog = (name) => {
         setSelectedItem(name)
@@ -58,7 +61,13 @@ export default function PartTimeRegister() {
     const onCloseDialog = () => {
         setSelectedItem('')
     }
-
+    const changeAccept = (value) => {
+      if(value === false) {
+        setAccept(true);
+      }else{
+        setAccept(false);
+      }
+    }
     const changeData = () => { //バックエンドにデータを送り、データベースにデータを作成する関数
       axios
       .post('http://localhost:8000/api-auth/users/',
@@ -103,6 +112,7 @@ export default function PartTimeRegister() {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  error={last_name == ''}
                   autoComplete="family-name"
                   name="lastName"
                   required
@@ -115,6 +125,7 @@ export default function PartTimeRegister() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  error={first_name == ''}
                   required
                   fullWidth
                   id="firstName"
@@ -126,6 +137,7 @@ export default function PartTimeRegister() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  error={email == ''||!emailPattern.test(email)}//空欄かつメールアドレスの形式でないときにエラー
                   required
                   fullWidth
                   id="email"
@@ -137,6 +149,7 @@ export default function PartTimeRegister() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  error={phone_number == ''||!phonePattern.test(phone_number)}//空欄かつ、電話番号の形式でないものはエラー
                   required
                   fullWidth
                   id="phoneNumber"
@@ -148,6 +161,7 @@ export default function PartTimeRegister() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  error={password == ''}
                   required
                   fullWidth
                   name="password"
@@ -161,6 +175,7 @@ export default function PartTimeRegister() {
               <Grid item xs={12}
               >
                 <TextField
+                  error={re_password == ''||password != re_password}
                   required
                   fullWidth
                   name="password"
@@ -178,7 +193,7 @@ export default function PartTimeRegister() {
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
+                  control={<Checkbox value="allowExtraEmails" color="primary" onChange={(e) => changeAccept(!e.target.checked)}/>}
                   label="利用規約に同意する"
                 />
               </Grid>
@@ -188,7 +203,8 @@ export default function PartTimeRegister() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              
+              disabled={ !accept||last_name == ''||first_name == ''||email == ''||phone_number == '' ||password == ''||re_password == '' }              
+              //すべてが空欄かつ、チェックボックスにチェックが入っていない場合グレーアウト
             >
               アカウントを作成
             </Button>

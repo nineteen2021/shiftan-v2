@@ -52,13 +52,26 @@ export default function Register() {
     const [password ,setPassword] = React.useState('')
     const [re_password ,setRe_password] = React.useState('')
     const [selectedItem, setSelectedItem] = React.useState('')
+    const [accept, setAccept] = React.useState(false)
     const is_manager = true
+    const emailPattern = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]+.[A-Za-z0-9]+$/;
+    const phonePattern = /^0[-0-9]{9,12}$/;
+
     const onOpenDialog = (name) => {
         setSelectedItem(name)
     }
 
     const onCloseDialog = () => {
         setSelectedItem('')
+    }
+    
+    //チェックボックスの値に応じてstateを切り替え
+    const changeAccept = (value) => {
+      if(value === false) {
+        setAccept(true);
+      }else{
+        setAccept(false);
+      }
     }
 
     const changeData = () => { //バックエンドにデータを送り、データベースにデータを作成する関数
@@ -124,6 +137,7 @@ export default function Register() {
             </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  error={last_name == ''}
                   autoComplete="family-name"
                   name="lastName"
                   required
@@ -136,6 +150,7 @@ export default function Register() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  error={first_name == ''}
                   required
                   fullWidth
                   id="firstName"
@@ -147,6 +162,7 @@ export default function Register() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  error={email == ''||!emailPattern.test(email)}//空欄かつメールアドレスの形式でないときにエラー
                   required
                   fullWidth
                   id="email"
@@ -158,6 +174,7 @@ export default function Register() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  error={phone_number == ''||!phonePattern.test(phone_number)}//空欄かつ、電話番号の形式でないものはエラー
                   required
                   fullWidth
                   id="phoneNumber"
@@ -169,6 +186,7 @@ export default function Register() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  error={password == ''}
                   required
                   fullWidth
                   name="password"
@@ -183,6 +201,7 @@ export default function Register() {
               sx={{ mb:5 }}
               >
                 <TextField
+                  error={re_password == ''||password != re_password}
                   required
                   fullWidth
                   name="password"
@@ -200,7 +219,7 @@ export default function Register() {
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
+                  control={<Checkbox value="allowExtraEmails" color="primary" onChange={(e) => changeAccept(!e.target.checked)} />}
                   label="利用規約に同意する"
                 />
               </Grid>
@@ -210,9 +229,10 @@ export default function Register() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              
+              disabled={ !accept||last_name == ''||first_name == ''||email == ''||phone_number == '' ||password == ''||re_password == '' }
+              //すべてが空欄かつ、チェックボックスにチェックが入っていない場合グレーアウト
             >
-              店舗を登録
+              店舗アカウントを登録
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
