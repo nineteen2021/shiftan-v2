@@ -24,7 +24,7 @@ import axios from 'axios';
 export default function ShiftTable() {
 
   const [users, setUsers] = useState(null)
-  const [stores, setStores] = useState(null)
+  const [shiftTables, setShiftTables] = useState(null)
   let fk;
 
   // useEffect(() => {
@@ -42,7 +42,6 @@ export default function ShiftTable() {
   //   }, []);
 
     useEffect(() => {
-      let fk;
       axios
       .get('http://localhost:8000/api-auth/users/me/',{
           headers: {
@@ -50,34 +49,59 @@ export default function ShiftTable() {
           }
       })
       .then(res=>{
-            fk = res.data.store_FK;
-            console.log(fk);
-            axios
-            .get('http://localhost:8000/api/user/?store_FK=' + String(fk),{
-                headers: {
-                    'Authorization': `JWT ${localStorage.getItem('access')}`
-                }
-            })
-            .then(res=>{setUsers(res.data);
-                        console.log(res.data);
-                        })
-            .catch(err=>{console.log(err);
-          })
-        }, [])
-      .catch(err=>{console.log(err);})
-    }, []);
+        fk = res.data.store_FK;
+        console.log(fk);
+        axios
+        .get('http://localhost:8000/api/user/?store_FK=' + String(fk),{
+            headers: {
+                'Authorization': `JWT ${localStorage.getItem('access')}`
+            }
+        })
+        .then(res=>{setUsers(res.data);
+                    console.log(res.data);
+                    })
+        .catch(err=>{console.log(err);
+      })
+      axios
+        .get('http://localhost:8000/api/shift_range/?store_FK=' + String(fk),{
+            headers: {
+                'Authorization': `JWT ${localStorage.getItem('access')}`
+            }
+        })
+        .then(res=>{setShiftTables(res.data);
+                    console.log(res.data);
+                    }, [])
+        .catch(err=>{console.log(err);})
+    }, [])
+  .catch(err=>{console.log(err);})
+}, []);
 
+    // useEffect(() => {
+    //   axios
+    //   .get('http://localhost:8000/api/shift_range/?store_FK=' + String(fk),{
+    //       headers: {
+    //           'Authorization': `JWT ${localStorage.getItem('access')}`
+    //       }
+    //   })
+    //   .then(res=>{setShiftTables(res.data);
+    //               console.log(res.data);
+    //              }, [])
+    //   .catch(err=>{console.log(err);})
+    //   }, []);
+
+    //curl -H POST 'http://127.0.0.1:8000/api/shift_range/?' -H 'Content-Type:application/json;charset=utf-8' -H 'Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYwMjY2MDQyLCJpYXQiOjE2NjAyNjQyNDIsImp0aSI6IjgyNTQzYTViMmJlZTQ0ZGQ5YTYxMGMwMWY1YThlMWQzIiwidXNlcl9pZCI6MX0.NPIsUgYDVArPoO4yPUpAp93ca3Au4GfxHCY1dm6-XoI'
 
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }}>
         <TableHead>
+        {shiftTables?.map((shiftTable) => (
           <TableRow>
             <TableCell>5月シフト</TableCell>
-            <TableCell align="center">5/1（月）</TableCell>
-            <TableCell align="center">5/2（月）</TableCell>
-            <TableCell align="center">5/3（月）</TableCell>
+            {/* 一旦取ってきたシフト一覧（●月）を横に並べるように表示させたい */}
+            <TableCell>{shiftTable.shift_name}</TableCell> 
           </TableRow>
+        ))}
         </TableHead>
         <TableBody>
           {users?.map((user) => (
