@@ -59,7 +59,23 @@ export default function Register() {
         setSelectedItem('')
     }
 
+    const changeStoreFK = (value) => {
+      console.log('change関数実行！')
+      axios
+        .patch('http://localhost:8000/api-auth/users/me/',
+            {store_FK: value} //変更したいキーと値
+        ,{
+            headers: {
+                'Authorization': `JWT ${localStorage.getItem('access')}`, 
+            }
+        })
+        .then(res=>{
+                    console.log(res.data);})
+        .catch(err=>{console.log(err);});
+    };
+
     const changeData = () => { //バックエンドにデータを送り、データベースにデータを作成する関数
+      let storeID;
       axios //店舗情報を送信
       .post('http://localhost:8000/api/store/',
           {
@@ -74,10 +90,14 @@ export default function Register() {
               'Authorization': `JWT ${localStorage.getItem('access')}`,
           }
       })
-      .then(res=>{console.log(res.data);})
-      .catch(err=>{console.log(err);});
+      .then(res=>{
+        storeID = res.data;
+        console.log(storeID.id);
+        console.log('今から更新します')
+        changeStoreFK(storeID.id);
+      })
+      .catch(err=>{console.log(err);})
     }
-      
       
   return (
     <>
@@ -169,10 +189,10 @@ export default function Register() {
               </Grid>
             </Grid>
             <Button
-              type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={ changeData }
               
             >
               店舗を登録
