@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # 'rest_framework_simplejwt.tolen_blacklistdjoser' # リフレッシュトークンを再生成したときに以前のリフレッシュトークンを使えなくする。(MigrateするときにModuleNotFoundErrorがでるのでスキップ)
     'djoser',
     'corsheaders',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

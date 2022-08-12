@@ -8,7 +8,8 @@ User = get_user_model()
 class UserApi(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
+    filter_backends = [filters.DjangoFilterBackend]
+    filterset_fields = '__all__'
     def get_queryset(self):
         queryset = User.objects.all()
         L_id = self.request.query_params.get('id')
@@ -20,26 +21,38 @@ class UserApi(viewsets.ModelViewSet):
 class StoreApi(viewsets.ModelViewSet):
     queryset = Store.objects.all()
     serializer_class = StoreSerializer
+    filter_backends = [filters.DjangoFilterBackend]
+    filterset_fields = '__all__'
 
 class GroupApi(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+    filter_backends = [filters.DjangoFilterBackend]
+    filterset_fields = '__all__'
 
 class Shift_RangeApi(viewsets.ModelViewSet):
     queryset = Shift_Range.objects.all()
     serializer_class = Shift_RangeSerializer
+    filter_backends = [filters.DjangoFilterBackend]
+    filterset_fields = '__all__'
 
 class Tmp_Work_ScheduleApi(viewsets.ModelViewSet):
     queryset = Tmp_Work_Schedule.objects.all()
     serializer_class = Tmp_Work_ScheduleSerializer
+    filter_backends = [filters.DjangoFilterBackend]
+    filterset_fields = '__all__'
 
 class Work_ScheduleApi(viewsets.ModelViewSet):
     queryset = Work_Schedule.objects.all()
     serializer_class = Work_ScheduleSerializer
+    filter_backends = [filters.DjangoFilterBackend]
+    filterset_fields = '__all__'
 
 class Schedule_TemplateApi(viewsets.ModelViewSet):
     queryset = Schedule_Template.objects.all()
     serializer_class = Schedule_TemplateSerializer
+    filter_backends = [filters.DjangoFilterBackend]
+    filterset_fields = '__all__'
 
 router = routers.DefaultRouter()
 router.register(r'user', UserApi)
