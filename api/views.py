@@ -28,6 +28,8 @@ class GroupApi(viewsets.ModelViewSet):
 class Shift_RangeApi(viewsets.ModelViewSet):
     queryset = Shift_Range.objects.all()
     serializer_class = Shift_RangeSerializer
+    filter_backends = [filters.DjangoFilterBackend]
+    filterset_fields = '__all__'
 
 class Tmp_Work_ScheduleApi(viewsets.ModelViewSet):
     queryset = Tmp_Work_Schedule.objects.all()

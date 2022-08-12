@@ -89,19 +89,17 @@ export default function ShiftTable() {
     //   .catch(err=>{console.log(err);})
     //   }, []);
 
-    //curl -H POST 'http://127.0.0.1:8000/api/shift_range/?' -H 'Content-Type:application/json;charset=utf-8' -H 'Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYwMjY2MDQyLCJpYXQiOjE2NjAyNjQyNDIsImp0aSI6IjgyNTQzYTViMmJlZTQ0ZGQ5YTYxMGMwMWY1YThlMWQzIiwidXNlcl9pZCI6MX0.NPIsUgYDVArPoO4yPUpAp93ca3Au4GfxHCY1dm6-XoI'
+    //curl -H POST 'http://127.0.0.1:8000/api/shift_range/?store_FK=2 ' -H 'Content-Type:application/json;charset=utf-8' -H 'Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYwMjY5NjkwLCJpYXQiOjE2NjAyNjc4OTAsImp0aSI6IjZmZGJkZDk5ZGI2OTRjNDQ4NGIxOGYxYWRkOWQ1YWM2IiwidXNlcl9pZCI6MX0.ViyTWO98DgWL82ttsZXHdsgXkZVMsQDOd9Ep1doOZdw'
 
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }}>
         <TableHead>
-        {shiftTables?.map((shiftTable) => (
           <TableRow>
-            <TableCell>5月シフト</TableCell>
+            {/* <TableCell>{shiftTables.shift_name}</TableCell> */}
             {/* 一旦取ってきたシフト一覧（●月）を横に並べるように表示させたい */}
-            <TableCell>{shiftTable.shift_name}</TableCell> 
+            <TableCell>シフト名</TableCell>
           </TableRow>
-        ))}
         </TableHead>
         <TableBody>
           {users?.map((user) => (
