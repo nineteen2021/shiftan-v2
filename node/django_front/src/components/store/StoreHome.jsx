@@ -41,9 +41,9 @@ export default function StoreHome(){
                 </Grid>
                 <Grid item xs={12}>
                     <font color='#707070' align='center'>
-                      <p>お使いのアカウントはまだ<br/>
-                      店舗登録をお済ではありません。<br/>店舗登録ボタンを押して
-                      <br/>店舗を作成しましょう！
+                      <p>お使いのアカウントはまだ店舗<br/>
+                      登録をお済みではありません。<br/>店舗登録ボタンを押して店舗を
+                      <br/>作成しましょう！
                       </p>
                     </font>
                 </Grid>
