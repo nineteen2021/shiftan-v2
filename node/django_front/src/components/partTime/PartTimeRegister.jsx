@@ -203,7 +203,7 @@ export default function PartTimeRegister() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              disabled={ !accept||last_name == ''||first_name == ''||email == ''||phone_number == '' ||password == ''||re_password == '' }              
+              disabled={ !accept||last_name == ''||first_name == ''||email == ''||phone_number == '' ||password == ''||re_password == ''||!phonePattern.test(phone_number)||!emailPattern.test(email) }              
               //すべてが空欄かつ、チェックボックスにチェックが入っていない場合グレーアウト
             >
               アカウントを作成
