@@ -14,7 +14,6 @@ class StoreSerializer(serializers.ModelSerializer):
             'create_time',
             'update_time',
         ]
-        read_only_fields = ['id',]
 
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
@@ -27,7 +26,6 @@ class GroupSerializer(serializers.ModelSerializer):
             'create_time',
             'update_time',
         ]
-        read_only_fields = ['id',]
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -46,7 +44,6 @@ class UserSerializer(serializers.ModelSerializer):
             'phone',
             'is_store',
             ]
-        read_only_fields = ['id',]
 
 class Shift_RangeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -61,7 +58,6 @@ class Shift_RangeSerializer(serializers.ModelSerializer):
             'create_time',
             'update_time',
         ]
-        read_only_fields = ['id',]
 
 class Tmp_Work_ScheduleSerializer(serializers.ModelSerializer):
     class Meta:
@@ -75,7 +71,6 @@ class Tmp_Work_ScheduleSerializer(serializers.ModelSerializer):
             'create_time',
             'update_time',
         ]
-        read_only_fields = ['id',]
 
 class Work_ScheduleSerializer(serializers.ModelSerializer):
     class Meta:
@@ -89,7 +84,6 @@ class Work_ScheduleSerializer(serializers.ModelSerializer):
             'create_time',
             'update_time',
         ]
-        read_only_fields = ['id',]
 
 class Schedule_TemplateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -102,4 +96,3 @@ class Schedule_TemplateSerializer(serializers.ModelSerializer):
             'create_time',
             'update_time',
         ]
-        read_only_fields = ['id',]
