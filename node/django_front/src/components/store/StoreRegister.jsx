@@ -51,6 +51,12 @@ export default function Register() {
     const [address ,setAddress] = React.useState('')
     const [phone ,setPhone] = React.useState('')
     const [store_ID ,setStore_ID] = React.useState('')
+    const [store_name_error ,setStore_name_error] = React.useState(false)
+    const [address_error ,setAddress_error] = React.useState(false)
+    const [phone_error ,setPhone_error] = React.useState(false)
+    const [phone_error_message ,setPhone_error_message] = React.useState('')
+    const [store_ID_error ,setStore_ID_error] = React.useState(false)
+    const [store_ID_error_message ,setStore_ID_error_message] = React.useState('')
     const phonePattern = /^0[-0-9]{9,12}$/;
     const onOpenDialog = (name) => {
         setSelectedItem(name)
@@ -112,6 +118,38 @@ export default function Register() {
       })
       .catch(err=>{console.log(err);})
     }
+
+    const formValidation = () => {
+      if(store_name == '') setStore_name_error(true);
+      else setStore_name_error(false);
+  
+      if(phone == ''||!phonePattern.test(phone)) {
+        setPhone_error(true);
+        setPhone_error_message('正しい電話番号を入力してください');
+      }
+      else {
+        setPhone_error(false);
+        setPhone_error_message('');
+      }
+
+      if(address == '') setAddress_error(true);
+      else setAddress_error(false);
+  
+      if(store_ID==""){
+        setStore_ID_error(true);
+        setStore_ID_error_message('');
+      }else if(stores.includes(store_ID)){
+        setStore_ID_error(true);
+        setStore_ID_error_message("このIDはすでに使用されています");
+      }else {
+        setStore_ID_error(false);
+        setStore_ID_error_message('');
+      }
+  
+      if(store_name==""||store_ID==""||phone==""||address==""||!phonePattern.test(phone)||stores.includes(store_ID)) return(false);
+      else return(true);
+    }
+
     if (!stores) return null; //storeステートにデータが入るまでnullを返し続ける
   return (
     <>
@@ -139,7 +177,7 @@ export default function Register() {
               </Typography>
             </Grid>
           </Grid>
-          <Box component="form" noValidate onSubmit={changeData} sx={{ mt: 3 }}>
+          <Box component="form" noValidate sx={{ mt: 3 }}>
             <Grid container spacing={2}>       
               <Grid item component="h3" sx={{ mr: 12 }}>
                 <Typography component="h2">
@@ -148,7 +186,7 @@ export default function Register() {
               </Grid>
               <Grid item xs={12} >
                 <TextField
-                  error={store_name == ""}
+                  error={store_name_error}
                   required
                   fullWidth
                   id="storeName"
@@ -160,19 +198,20 @@ export default function Register() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  error={phone == ''||!phonePattern.test(phone)}//空欄かつ、電話番号の形式でないものはエラー
+                  error={phone_error}//空欄かつ、電話番号の形式でないものはエラー
                   required
                   fullWidth
                   id="phoneNumber"
                   label="店舗電話番号"
                   name="phoneNumber"
+                  helperText={phone_error_message}
                   onChange={(e) => setPhone(e.target.value)}
                   autoComplete="phone-number"
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                error={address == ""}
+                error={address_error}
                   required
                   fullWidth
                   id="address"
@@ -184,13 +223,13 @@ export default function Register() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  error={store_ID == ""||stores.includes(store_ID)}//空欄かつ、データベースから取ってきたものと一致した場合エラー
+                  error={store_ID_error}//空欄かつ、データベースから取ってきたものと一致した場合エラー
                   required
                   fullWidth
                   id="storeID"
                   label="店舗ID"
                   name="storeID"
-                  helperText="店舗IDはすでに使用されていないものを入力してください"
+                  helperText={store_ID_error_message}
                   onChange={(e) => setStore_ID(e.target.value)}
                   autoComplete="storeID"
                 />
@@ -202,12 +241,13 @@ export default function Register() {
               </Grid>
             </Grid>
             <Button
-              disabled={store_name==""||store_ID==""||phone==""||address==""||!phonePattern.test(phone)||stores.includes(store_ID) }
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={ changeData }
-              
+              onClick={() => {
+                if(formValidation()){
+                changeData();
+              }}} 
             >
               店舗を登録
             </Button>
