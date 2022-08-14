@@ -74,6 +74,7 @@ const MakeShift = () => {
             navigate("/")
         })
         .catch(err=>{console.log(err);})
+        alert("正しく送信できませんでした。エラーがないか確認してください。");
     }
     // if (!fk ) return null;
   return (
@@ -117,7 +118,7 @@ const MakeShift = () => {
                                 onChange={(newValue) => {
                                     startSetValue(newValue);
                                 }}
-                                renderInput={(params) => <TextField {...params} 
+                                renderInput={(params) => <TextField {...params}
                                     autoComplete="off"
                                     name="startDay"
                                     id="startDay"
@@ -139,6 +140,8 @@ const MakeShift = () => {
                                 renderInput={(params) => <TextField {...params}
                                     name="endDay"
                                     id="endDay"
+                                    error={startValue>endValue}
+                                    errorText="開始日が終了日より前になるようにしてください"
                                     autoComplete="off"
                                     required
                                     fullWidth
