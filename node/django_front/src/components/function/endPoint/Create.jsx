@@ -16,5 +16,6 @@ export default function Create(email, password) {
     })
     .catch(function (error) {
         console.log(error);
+        alert("Emailかパスワードが違います。")
     })
 };
