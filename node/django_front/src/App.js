@@ -23,6 +23,8 @@ import PartTimeSettings from './components/partTime/PartTimeSettings';
 import Certification from './components/store/Certification';
 import BottomNavbar from './components/partTime/BottomNavbar';
 import Activate from './components/function/Activate';
+import NoMatch from './components/function/NoMatch';
+
 
 const App = () => {
   return (
