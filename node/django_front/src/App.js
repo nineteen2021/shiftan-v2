@@ -1,5 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes} from 'react-router-dom'; 
+
+import { AuthProvider } from "./hooks/useAuth";
+import PrivateRoutes from './utils/PrivateRoutes'
+
 import PartTimeNavbar from './components/partTime/PartTimeNavbar';
 import Navbar from './components/store/Navbar';
 import Login from './components/function/Login';
