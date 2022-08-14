@@ -267,7 +267,7 @@ export default function PartTimeRegister() {
               }}} 
               sx={{ mt: 3, mb: 2 }}
               disabled={ !accept }              
-              //すべてが空欄かつ、チェックボックスにチェックが入っていない場合グレーアウト
+              //チェックボックスにチェックが入っていない場合グレーアウト
             >
               アカウントを作成
             </Button>

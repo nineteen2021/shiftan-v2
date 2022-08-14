@@ -283,7 +283,7 @@ export default function Register() {
               }}} 
               sx={{ mt: 3, mb: 2 }}
               disabled={ !accept }
-              //すべてが空欄かつ、チェックボックスにチェックが入っていない場合グレーアウト
+              //チェックボックスにチェックが入っていない場合グレーアウト
             >
               店舗アカウントを登録
             </Button>
