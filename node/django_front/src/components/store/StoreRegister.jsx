@@ -45,12 +45,13 @@ export default function Register() {
       password: data.get('password'),
     });
   };
+    const [stores, setStores] = React.useState()
     const [selectedItem, setSelectedItem] = React.useState('')
     const [store_name ,setStore_name] = React.useState('')
     const [address ,setAddress] = React.useState('')
     const [phone ,setPhone] = React.useState('')
     const [store_ID ,setStore_ID] = React.useState('')
-    const is_manager = true
+    const phonePattern = /^0[-0-9]{9,12}$/;
     const onOpenDialog = (name) => {
         setSelectedItem(name)
     }
@@ -59,6 +60,19 @@ export default function Register() {
         setSelectedItem('')
     }
 
+    React.useLayoutEffect(() => {//ページを表示する前にストアのデータベースを持ってくる
+      axios
+        .get('http://localhost:8000/api/store/',{
+            headers: {
+                'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
+            }
+        })
+        .then(res=>{setStores(res.data.map((obj) => obj.store_ID));// 持ってきたオブジェクトからstore_IDだけの配列にする。それをstoresに代入
+                  console.log(stores);
+                })
+        .catch(err=>{console.log(err);});
+    }, []);
+    
     const changeStoreFK = (value) => {
       console.log('change関数実行！')
       axios
@@ -98,7 +112,7 @@ export default function Register() {
       })
       .catch(err=>{console.log(err);})
     }
-      
+    if (!stores) return null; //storeステートにデータが入るまでnullを返し続ける
   return (
     <>
     <SimpleNavbar/>
@@ -121,7 +135,7 @@ export default function Register() {
           <Grid container justifyContent="flex-start">
             <Grid item sx={{ mt: 2 }}>
               <Typography component="h1" variant="h5">
-                店舗アカウント作成
+                店舗登録
               </Typography>
             </Grid>
           </Grid>
@@ -129,11 +143,12 @@ export default function Register() {
             <Grid container spacing={2}>       
               <Grid item component="h3" sx={{ mr: 12 }}>
                 <Typography component="h2">
-                店舗情報登録
+                店舗情報
                 </Typography>
               </Grid>
               <Grid item xs={12} >
                 <TextField
+                  error={store_name == ""}
                   required
                   fullWidth
                   id="storeName"
@@ -145,6 +160,7 @@ export default function Register() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  error={phone == ''||!phonePattern.test(phone)}//空欄かつ、電話番号の形式でないものはエラー
                   required
                   fullWidth
                   id="phoneNumber"
@@ -156,6 +172,7 @@ export default function Register() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                error={address == ""}
                   required
                   fullWidth
                   id="address"
@@ -167,11 +184,13 @@ export default function Register() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  error={store_ID == ""||stores.includes(store_ID)}//空欄かつ、データベースから取ってきたものと一致した場合エラー
                   required
                   fullWidth
                   id="storeID"
                   label="店舗ID"
                   name="storeID"
+                  helperText="店舗IDはすでに使用されていないものを入力してください"
                   onChange={(e) => setStore_ID(e.target.value)}
                   autoComplete="storeID"
                 />
@@ -181,14 +200,9 @@ export default function Register() {
                   利用規約
                 </Link>
               </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="利用規約に同意する"
-                />
-              </Grid>
             </Grid>
             <Button
+              disabled={store_name==""||store_ID==""||phone==""||address==""||!phonePattern.test(phone)||stores.includes(store_ID) }
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
