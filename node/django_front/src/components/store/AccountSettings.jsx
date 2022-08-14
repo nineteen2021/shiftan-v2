@@ -44,7 +44,7 @@ export default function AccountSettings() {
         axios
         .get('http://localhost:8000/api-auth/users/me/',{
             headers: {
-                'Authorization': `JWT ${window.localStorage.getItem('access')}`, // ここを追加
+                'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
             }
         })
         .then(res=>{setUsers(res.data);
@@ -97,8 +97,7 @@ export default function AccountSettings() {
             {[key]: value} //変更したいキーと値
         ,{
             headers: {
-                // 'Authorization': `JWT ${localStorage.getItem('access')}`, 
-                'Authorization': `JWT ${window.localStorage.getItem('access')}`
+                'Authorization': `JWT ${localStorage.getItem('access')}`, 
             }
         })
         .then(res=>{setUsers(res.data);

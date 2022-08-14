@@ -1,6 +1,4 @@
 import * as React from 'react';
-import { Navigate, useNavigate } from "react-router-dom";
-
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -16,8 +14,6 @@ import SimpleNavbar from './SimpleNavbar'
 import NewAccountButton from './NewAccountButton';
 import { Link as routerLink } from 'react-router-dom'
 import Create from './endPoint/Create'
-
-import { useAuth } from "../../hooks/useAuth";
 
 function Copyright(props) {
   return (
@@ -35,33 +31,21 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Login() {
-  const navigate = useNavigate();
-  const auth = useAuth();
-  // console.log(auth);
+  const [email, setEmail] = React.useState("")
+  const [password, setPassword] = React.useState("")
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    
-    // テキストボックスからメールアドレスとパスワードを取得
-    const email = data.get("email");
-    const password = data.get("password");
-
     // eslint-disable-next-line no-console
-    console.log({ email, password });
-    
-    // useAuth.jsのログイン関数を呼び出してログイン
-    auth.login(email, password).then((res) => {
-      if(res === true) {
-        navigate("/");
-      }
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
     });
   };
 
   return (
     <>
-      {/* ログインしている場合はリダイレクト */}
-      {/* {auth.accessToken != "undefined" && <Navigate to="/" />} */}
       <SimpleNavbar/>
       <Container component="main" maxWidth="xs">
 
@@ -85,6 +69,7 @@ export default function Login() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={(event) => setEmail(event.target.value)}
             />
             <TextField
               margin="normal"
@@ -95,6 +80,7 @@ export default function Login() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(event) => setPassword(event.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -105,6 +91,7 @@ export default function Login() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={() => (Create(email, password))}
             >
               ログイン
             </Button>

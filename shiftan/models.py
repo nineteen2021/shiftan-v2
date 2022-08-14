@@ -11,11 +11,10 @@ class UserManager(BaseUserManager): # emailは必須項目なので、emailが�
     use_in_migrations = True
 
     # 通常ユーザー作成用のメソッド
-    def _create_user(self, username, email, password=None, **extra_fields):
+    def _create_user(self, username, email, password, **extra_fields):
         if not email:
             raise ValueError('Emailを入力して下さい')
         email = self.normalize_email(email)
-        email = email.lower()
         username = self.model.normalize_username(username)
         user = self.model(username=username, email=email, **extra_fields)
         user.set_password(password)

@@ -1,9 +1,1 @@
-curl -H POST 'http://127.0.0.1:8000/api/user/store_FK/1/' -H 'Content-Type:application/json;charset=utf-8' -H 'Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU5OTI3OTQ2LCJpYXQiOjE2NTk5MjYxNDYsImp0aSI6ImRiZjZhZTAzY2M5MTRmZTVhMzE3OGEzZDU4NTkxOTc1IiwidXNlcl9pZCI6MX0.dqYGID-FFKc0GoF6HJe2PW_AQmS4zqDteusoJvVANP0'
-
-curl -s -X POST http://127.0.0.1:8000/api-auth/jwt/verify/ -H 'Content-Type:application/json;charset=utf-8'
-
-curl -X POST -H "Content-Type: application/json" -d '{"token" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU3MTExMjA2LCJpYXQiOjE2NTcxMDk0MDYsImp0aSI6IjQ2MzQ0OTc3NWQ0ZjQ4Njc5YjQ0YWI4MThlNmQ1OTQyIiwidXNlcl9pZCI6MX0.6uVdsV1OROvhLxRr8tXH0HQznDtC2f7_rwSUChis3yE"}' http://localhost:8000/api-auth/jwt/verify
-
-docker-compose run web python3 manage.py makemigrations shiftan
-
-docker-compose run web python3 manage.py migrate
+curl -H GET 'http://127.0.0.1:8000/api' -H 'Content-Type:application/json;charset=utf-8' -H 'Authorization: JWT accessトークン'
