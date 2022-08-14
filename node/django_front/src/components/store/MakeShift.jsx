@@ -121,6 +121,7 @@ const MakeShift = () => {
                                     autoComplete="off"
                                     name="startDay"
                                     id="startDay"
+                                    required
                                     fullWidth
                                 />}
 
@@ -139,6 +140,7 @@ const MakeShift = () => {
                                     name="endDay"
                                     id="endDay"
                                     autoComplete="off"
+                                    required
                                     fullWidth
                                 />}
                             />
