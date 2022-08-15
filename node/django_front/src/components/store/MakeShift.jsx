@@ -3,6 +3,7 @@ import { useEffect, useLayoutEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import ja from 'date-fns/locale/ja'
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 import Button from '@mui/material/Button';
@@ -90,6 +91,15 @@ const MakeShift = () => {
         .catch(err=>{console.log(err);})
     }
 
+    const styles = {
+        mobiledialogprops: {
+          '.PrivatePickersToolbar-dateTitleContainer .MuiTypography-root': 
+            {
+              fontSize: '1.5rem'
+            }
+        }
+    }
+
     const formVaridation = () => {
         if(shiftName == "")setShiftNameError(true);
         else setShiftName(false)
@@ -116,7 +126,7 @@ const MakeShift = () => {
     // if (!fk ) return null;
   return (
     <>
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
+    <LocalizationProvider dateAdapter={AdapterDateFns} utils locale={ja} dateFormats={{ monthAndYear: 'yyyy年MM月' }}>
         <Container component="main" maxWidth="xs"/>
         <CssBaseline />
             <Box>
@@ -151,12 +161,18 @@ const MakeShift = () => {
                         <Grid item>
                             <DatePicker
                                 label="開始日"
-                                inputFormat='yyyy-MM-dd'
-                                mask="____-__-__"
+                                inputFormat='yyyy年MM月dd日(E)'
+                                mask="____年__月__日(E)"
                                 value={startValue}
+                                leftArrowButtonText="前月を表示"
+                                rightArrowButtonText="次月を表示"
+                                cancelText="キャンセル"
+                                okText="選択"
+                                toolbarFormat="M月d日(E)"
                                 onChange={(newValue) => {
                                     startSetValue(newValue);
                                 }}
+                                DialogProps={{ sx: styles.mobiledialogprops }}
                                 renderInput={(params) => <TextField {...params}
                                     error={startValueError}
                                     autoComplete="off"
@@ -173,8 +189,14 @@ const MakeShift = () => {
                             <DatePicker
                                 label="終了日"
                                 value={endValue}
-                                inputFormat='yyyy-MM-dd'
-                                mask="____-__-__"
+                                inputFormat='yyyy年MM月dd日(E)'
+                                mask="____年__月__日(E)"
+                                leftArrowButtonText="前月を表示"
+                                rightArrowButtonText="次月を表示"
+                                cancelText="キャンセル"
+                                okText="選択"
+                                toolbarFormat="M月d日(E)"
+                                DialogProps={{ sx: styles.mobiledialogprops }}
                                 onChange={(newValue) => {
                                     endSetValue(newValue);
                                 }}
@@ -194,8 +216,14 @@ const MakeShift = () => {
                             <DatePicker
                                 label="締切日"
                                 value={deadlineValue}
-                                inputFormat='yyyy-MM-dd'
-                                mask="____-__-__"
+                                inputFormat='yyyy年MM月dd日(E)'
+                                mask="____年__月__日(_)"
+                                leftArrowButtonText="前月を表示"
+                                rightArrowButtonText="次月を表示"
+                                cancelText="キャンセル"
+                                okText="選択"
+                                toolbarFormat="M月d日(E)"
+                                DialogProps={{ sx: styles.mobiledialogprops }}
                                 onChange={(newValue) => {
                                     deadlineSetValue(newValue);
                                 }}
