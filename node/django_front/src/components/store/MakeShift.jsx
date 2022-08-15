@@ -16,11 +16,16 @@ import green from '@mui/material/colors/green';
 import axios from 'axios';
 
 const MakeShift = () => {
+    const [shiftName, setShiftName] = React.useState(null)
     const [startValue, startSetValue] = React.useState(null);
     const [endValue, endSetValue] = React.useState(null);
-    const [closeValue, closeSetValue] = React.useState(null);
+    const [deadlineValue, deadlineSetValue] = React.useState(null);
     const [users, setUsers] = React.useState(null);
     const [storeFK, setStoreFK] = React.useState(null);
+    const [shiftNameError, setShiftNameError] = React.useState(null);
+    const [startValueError, setStartValueError] = React.useState(null);
+    const [endValueError, setEndValueError] = React.useState(null);
+    const [endValueErrorMessage, setEndValueErrorMessage] = React.useState(null);
 
     const navigate = useNavigate();
 
@@ -39,29 +44,38 @@ const MakeShift = () => {
         .catch(err=>{console.log(err);});
     }, []);
 
-    const makeShiftPost = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
+    const makeShiftPost = () => {
+        console.log(shiftName)
+        console.log(startValue)
+        console.log(endValue)
+        console.log(deadlineValue)
+
+        // postできる値に変更
+        const postStartValue = startValue.getFullYear() + '-' + ('00' + (startValue.getMonth() + 1)).slice(-2) + '-' + ('00' + startValue.getDate()).slice(-2)
+        console.log(postStartValue)
+        const postEndValue = endValue.getFullYear() + '-' + ('00' + (endValue.getMonth() + 1)).slice(-2) + '-' + ('00' + endValue.getDate()).slice(-2)
+        console.log(postEndValue)
+        const postDeadlineValue = deadlineValue.getFullYear() + '-' + ('00' + (deadlineValue.getMonth() + 1)).slice(-2) + '-' + ('00' + deadlineValue.getDate()).slice(-2)
+        console.log(postDeadlineValue)
 
         // テキストボックスから各値を取得
-        const shiftTableName = data.get("shiftTableName")
-        const startDay = data.get("startDay")
-        const endDay = data.get("endDay")
-        const deadline = data.get("deadline")
+        // const shiftTableName = data.get("shiftTableName")
+        // const startDay = data.get("startDay")
+        // const endDay = data.get("endDay")
+        // const deadline = data.get("deadline")
 
-        console.log("storeFK:" + storeFK);
-        console.log(shiftTableName)
-        console.log(startDay)
-        console.log(endDay)
-        console.log(deadline)
-
+        // console.log("storeFK:" + storeFK);
+        // console.log(shiftTableName)
+        // console.log(startDay)
+        // console.log(endDay)
+        // console.log(deadline)
         axios
         .post("http://localhost:8000/api/shift_range/",{
             store_FK:storeFK,
-            shift_name:shiftTableName,
-            start_date:startDay,
-            stop_date:endDay,
-            deadline_date:deadline
+            shift_name:shiftName,
+            start_date:postStartValue,
+            stop_date:postEndValue,
+            deadline_date:postDeadlineValue
         }
         ,{
             headers: {
@@ -74,7 +88,30 @@ const MakeShift = () => {
             navigate("/")
         })
         .catch(err=>{console.log(err);})
-        alert("正しく送信できませんでした。エラーがないか確認してください。");
+    }
+
+    const formVaridation = () => {
+        if(shiftName == "")setShiftNameError(true);
+        else setShiftName(false)
+
+        if(startValue=="")setStartValueError(true);
+        else startSetValue(false)
+
+        if(endValue==""){
+            setEndValueError(true);
+            setEndValueErrorMessage("");
+        }
+        else if(startValue>endValue){
+            setEndValueError(true);
+            setEndValueErrorMessage("開始日が終了日よりも前になるように設定する必要があります。");
+        }
+        else {
+            endSetValue(false);
+            setEndValueErrorMessage("");
+        }
+
+        if (shiftName == ""||startValue==""||endValue==""||startValue>endValue)return(false)
+        else return(true)
     }
     // if (!fk ) return null;
   return (
@@ -91,7 +128,7 @@ const MakeShift = () => {
                     </Grid>
                 </Grid>
                 <Box component="form" onSubmit={makeShiftPost} noValidate sx={{ mt: 3 }}>
-                    <Grid container 
+                    <Grid container
                         sx={{
                             display: 'flex',
                             flexDirection: 'column',
@@ -105,8 +142,10 @@ const MakeShift = () => {
                                 name="shiftTableName"
                                 required
                                 fullWidth
+                                error={shiftNameError}
                                 id="shiftTableName"
                                 label="シフト表名称"
+                                onChange={(e) => setShiftName(e.target.value)}
                             />
                         </Grid>
                         <Grid item>
@@ -119,9 +158,11 @@ const MakeShift = () => {
                                     startSetValue(newValue);
                                 }}
                                 renderInput={(params) => <TextField {...params}
+                                    error={startValueError}
                                     autoComplete="off"
                                     name="startDay"
                                     id="startDay"
+                                    // onChange={(e) => startSetValue(e.target.value)}
                                     required
                                     fullWidth
                                 />}
@@ -138,10 +179,11 @@ const MakeShift = () => {
                                     endSetValue(newValue);
                                 }}
                                 renderInput={(params) => <TextField {...params}
+                                    error={endValueError}
+                                    helperText={endValueErrorMessage}
                                     name="endDay"
                                     id="endDay"
-                                    error={startValue>endValue}
-                                    errorText="開始日が終了日より前になるようにしてください"
+                                    // onChange={(e) => endSetValue(e.target.value)}
                                     autoComplete="off"
                                     required
                                     fullWidth
@@ -151,15 +193,16 @@ const MakeShift = () => {
                         <Grid item>
                             <DatePicker
                                 label="締切日"
-                                value={closeValue}
+                                value={deadlineValue}
                                 inputFormat='yyyy-MM-dd'
                                 mask="____-__-__"
                                 onChange={(newValue) => {
-                                    closeSetValue(newValue);
+                                    deadlineSetValue(newValue);
                                 }}
                                 renderInput={(params) => <TextField {...params}
                                     name="deadline"
                                     id="deadline"
+                                    // onChange={(e) => deadlineSetValue(e.target.value)}
                                     autoComplete="off"
                                     fullWidth
                                 />}
@@ -167,9 +210,13 @@ const MakeShift = () => {
                         </Grid>
                         <Grid item >
                             <Button
-                                type="submit"
                                 size="large"
                                 variant="contained"
+                                onClick={() => {
+                                    if(formVaridation()){
+                                        makeShiftPost();
+                                    }
+                                }}
                             >
                                 シフト表を作成
                             </Button>
