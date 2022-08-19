@@ -145,7 +145,33 @@ export default function AccountSettings() {
                     console.log(res.data);
                     console.log('patch完了' + key + value);    
                 })
-        .catch(err=>{console.log(err);});
+        .catch(err=>{
+            console.log(err);
+            console.log('patch失敗' + key + value);
+        });
+    }
+
+    const changeName = (last, first) => { //PATCHを利用しデータベースの値を変更する関数
+        axios
+        .patch('http://localhost:8000/api-auth/users/me/',
+            {
+                last_name: last,
+                first_name: first
+            } //変更したいキーと値
+        ,{
+            headers: {
+                // 'Authorization': `JWT ${localStorage.getItem('access')}`, 
+                'Authorization': `JWT ${window.localStorage.getItem('access')}`
+            }
+        })
+        .then(res=>{setUsers(res.data);
+                    console.log(res.data);
+                    console.log('patch完了' + last + first);    
+                })
+        .catch(err=>{
+            console.log(err);
+            console.log('patch失敗' + last + first);
+        });
     }
     if (!users || !stores) return null;
     return (
@@ -228,6 +254,8 @@ export default function AccountSettings() {
             <Dialog open={selectedItem === "name"} onClose={() => {
                     onCloseDialog();
                     setFormError('');
+                    setForm_firstname('');
+                    setForm_lastname('');
                 }}>
                 <DialogTitle>氏名</DialogTitle>
                 <DialogContent>
@@ -261,12 +289,15 @@ export default function AccountSettings() {
                     <Button onClick={() => {
                         onCloseDialog();
                         setFormError('');
+                        setForm_firstname('');
+                        setForm_lastname('');
                     }}>キャンセル</Button>
                     <Button onClick={
                         () => {
                             if(!checknull(form_firstname) && !checknull(form_lastname)){
-                                changeData("last_name", form_lastname);
-                                changeData("first_name", form_firstname);
+                                changeName(form_lastname,form_firstname)
+                                setForm_firstname('');
+                                setForm_lastname('');
                                 onCloseDialog();
                             } 
                         }
@@ -277,6 +308,7 @@ export default function AccountSettings() {
             <Dialog open={selectedItem === "email"} onClose={() => {
                     onCloseDialog();
                     setFormError('');
+                    setForm_email('');
                 }}>
                 <DialogTitle>メールアドレス</DialogTitle>
                 <DialogContent>
@@ -299,11 +331,13 @@ export default function AccountSettings() {
                     <Button onClick={() => {
                         onCloseDialog();
                         setFormError('');
+                        setForm_email('');
                     }}>キャンセル</Button>
                     <Button onClick={
                         () => {
                             if(!checknull(form_email) && !checkemail(form_email)){
                             changeData("email", form_email);
+                            setForm_email('');
                             onCloseDialog();
                             }
                         }
@@ -342,6 +376,7 @@ export default function AccountSettings() {
             <Dialog open={selectedItem === "phoneNumber"} onClose={() => {
                     onCloseDialog();
                     setFormError('');
+                    setForm_phone('');
                 }}>
                 <DialogTitle>電話番号</DialogTitle>
                 <DialogContent>
@@ -364,10 +399,12 @@ export default function AccountSettings() {
                     <Button onClick={() => {
                         onCloseDialog();
                         setFormError('');
+                        setForm_phone('');
                     }}>キャンセル</Button>
                     <Button onClick={() => {
                         if(!checkphone(form_phone)&&!checknull(form_phone)){
-                            changeData("phone", value);
+                            changeData("phone", form_phone);
+                            setForm_phone('');
                             onCloseDialog();
                         }
                     }}>保存</Button>
@@ -378,6 +415,7 @@ export default function AccountSettings() {
             <Dialog open={selectedItem === "address"} onClose={() => {
                     onCloseDialog();
                     setFormError('');
+                    setForm_phone('');
                 }}>
                 <DialogTitle>店舗住所</DialogTitle>
                 <DialogContent>
