@@ -17,7 +17,7 @@ import green from '@mui/material/colors/green';
 import axios from 'axios';
 
 const MakeShift = () => {
-    const [shiftName, setShiftName] = React.useState(null)
+    const [shiftName, setShiftName] = React.useState(null);
     const [startValue, startSetValue] = React.useState(null);
     const [endValue, endSetValue] = React.useState(null);
     const [deadlineValue, deadlineSetValue] = React.useState(null);
@@ -27,6 +27,11 @@ const MakeShift = () => {
     const [startValueError, setStartValueError] = React.useState(null);
     const [endValueError, setEndValueError] = React.useState(null);
     const [endValueErrorMessage, setEndValueErrorMessage] = React.useState(null);
+
+    const [postStartValue, setPostStartValue] = React.useState(null);
+    const [postEndValue, setPostEndValue] = React.useState(null);
+    const [postDeadlineValue, setPostDeadlineValue] = React.useState(null);
+
 
     const navigate = useNavigate();
 
@@ -51,25 +56,19 @@ const MakeShift = () => {
         console.log(endValue)
         console.log(deadlineValue)
 
+        // 一度Date型として再代入する
+        startValue = new Date(startValue);
+        endValue = new Date(endValue);
+        deadlineValue = new Date(deadlineValue);
+
         // postできる値に変更
-        const postStartValue = startValue.getFullYear() + '-' + ('00' + (startValue.getMonth() + 1)).slice(-2) + '-' + ('00' + startValue.getDate()).slice(-2)
+        setPostStartValue = startValue.getFullYear() + '-' + ('00' + (startValue.getMonth() + 1)).slice(-2) + '-' + ('00' + startValue.getDate()).slice(-2)
         console.log(postStartValue)
-        const postEndValue = endValue.getFullYear() + '-' + ('00' + (endValue.getMonth() + 1)).slice(-2) + '-' + ('00' + endValue.getDate()).slice(-2)
+        setPostEndValue = endValue.getFullYear() + '-' + ('00' + (endValue.getMonth() + 1)).slice(-2) + '-' + ('00' + endValue.getDate()).slice(-2)
         console.log(postEndValue)
-        const postDeadlineValue = deadlineValue.getFullYear() + '-' + ('00' + (deadlineValue.getMonth() + 1)).slice(-2) + '-' + ('00' + deadlineValue.getDate()).slice(-2)
+        setPostDeadlineValue = deadlineValue.getFullYear() + '-' + ('00' + (deadlineValue.getMonth() + 1)).slice(-2) + '-' + ('00' + deadlineValue.getDate()).slice(-2)
         console.log(postDeadlineValue)
-
-        // テキストボックスから各値を取得
-        // const shiftTableName = data.get("shiftTableName")
-        // const startDay = data.get("startDay")
-        // const endDay = data.get("endDay")
-        // const deadline = data.get("deadline")
-
-        // console.log("storeFK:" + storeFK);
-        // console.log(shiftTableName)
-        // console.log(startDay)
-        // console.log(endDay)
-        // console.log(deadline)
+        
         axios
         .post("http://localhost:8000/api/shift_range/",{
             store_FK:storeFK,
@@ -123,10 +122,17 @@ const MakeShift = () => {
         if (shiftName == ""||startValue==""||endValue==""||startValue>endValue)return(false)
         else return(true)
     }
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        if(formVaridation()){
+            makeShiftPost();
+        }
+    }
     // if (!fk ) return null;
   return (
     <>
-    <LocalizationProvider dateAdapter={AdapterDateFns} utils locale={ja} dateFormats={{ monthAndYear: 'yyyy年MM月' }}>
+    <LocalizationProvider dateAdapter={AdapterDateFns} locale={ja}>
         <Container component="main" maxWidth="xs"/>
         <CssBaseline />
             <Box>
@@ -137,7 +143,7 @@ const MakeShift = () => {
                         </Typography>
                     </Grid>
                 </Grid>
-                <Box component="form" onSubmit={makeShiftPost} noValidate sx={{ mt: 3 }}>
+                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 3 }}>
                     <Grid container
                         sx={{
                             display: 'flex',
@@ -162,13 +168,14 @@ const MakeShift = () => {
                             <DatePicker
                                 label="開始日"
                                 inputFormat='yyyy年MM月dd日(E)'
-                                mask="____年__月__日(E)"
+                                mask="____年__月__日(_)"
                                 value={startValue}
                                 leftArrowButtonText="前月を表示"
                                 rightArrowButtonText="次月を表示"
                                 cancelText="キャンセル"
                                 okText="選択"
                                 toolbarFormat="M月d日(E)"
+                                showToolbar
                                 onChange={(newValue) => {
                                     startSetValue(newValue);
                                 }}
@@ -190,12 +197,13 @@ const MakeShift = () => {
                                 label="終了日"
                                 value={endValue}
                                 inputFormat='yyyy年MM月dd日(E)'
-                                mask="____年__月__日(E)"
+                                mask="____年__月__日(_)"
                                 leftArrowButtonText="前月を表示"
                                 rightArrowButtonText="次月を表示"
                                 cancelText="キャンセル"
                                 okText="選択"
                                 toolbarFormat="M月d日(E)"
+                                showToolbar
                                 DialogProps={{ sx: styles.mobiledialogprops }}
                                 onChange={(newValue) => {
                                     endSetValue(newValue);
@@ -223,6 +231,7 @@ const MakeShift = () => {
                                 cancelText="キャンセル"
                                 okText="選択"
                                 toolbarFormat="M月d日(E)"
+                                showToolbar
                                 DialogProps={{ sx: styles.mobiledialogprops }}
                                 onChange={(newValue) => {
                                     deadlineSetValue(newValue);
@@ -238,13 +247,9 @@ const MakeShift = () => {
                         </Grid>
                         <Grid item >
                             <Button
+                                type="submit"
                                 size="large"
                                 variant="contained"
-                                onClick={() => {
-                                    if(formVaridation()){
-                                        makeShiftPost();
-                                    }
-                                }}
                             >
                                 シフト表を作成
                             </Button>
