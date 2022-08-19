@@ -1,5 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes} from 'react-router-dom'; 
+
+import { AuthProvider } from "./hooks/useAuth";
+import PrivateRoutes from './utils/PrivateRoutes'
+
 import PartTimeNavbar from './components/partTime/PartTimeNavbar';
 import Navbar from './components/store/Navbar';
 import Login from './components/function/Login';
@@ -17,68 +21,71 @@ import ShiftSubmit from './components/partTime/ShiftSubmit';
 import PartTimeSettings from './components/partTime/PartTimeSettings';
 import Certification from './components/store/Certification';
 import BottomNavbar from './components/partTime/BottomNavbar';
+import NoMatch from './components/function/NoMatch';
+
+export const apiURL = 'http://localhost:8000/';
 
 const App = () => {
   return (
-  <BrowserRouter>
-    <div>
-      <Routes>
+    <AuthProvider>
+      <BrowserRouter>
+        <div>
+          <Routes>
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+            <Route path="partTimeRegister" element={<PartTimeRegister />} />
+            <Route path="*" element={<NoMatch />}/>
 
-        <Route path="/" element={<Login />}/>
+            <Route element={<PrivateRoutes />}>
+              <Route path="/" element={<Navbar contents={<StoreHome />}/>}/> {/* exact ... 部分一致を防ぐ */}
 
-        <Route path="login" element={<Login />} />
+              <Route path="sentPasswordMail" element={<SentPasswordMail />} />
 
-        <Route path="sentPasswordMail" element={<SentPasswordMail />} />
+              <Route path="resetPassword" element={<ResetPassword />} /> {/*メールから飛ぶリンクのため未実装*/}
 
-        <Route path="resetPassword" element={<ResetPassword />} /> {/*メールから飛ぶリンクのため未実装*/}
+              <Route path="finishResetPassword" element={<FinishResetPassword />}/>
 
-        <Route path="finishResetPassword" element={<FinishResetPassword />}/>
+              {/* <Route path="storeHome" element={<Navbar contents={<StoreHome />}/>} /> */}
 
-        <Route path="register" element={<Register />} />
+              <Route path="makeShift" element={<Navbar contents={<MakeShift />}/>} />
 
-        <Route path="storeHome" element={<Navbar contents={<StoreHome />}/>} />
+              <Route path="staffManager" element={<Navbar contents={<StaffManager />}/>} />
 
-        <Route path="makeShift" element={<Navbar contents={<MakeShift />}/>} />
+              <Route path="certification" element={<Navbar contents={<Certification />}/>}/>
 
-        <Route path="staffManager" element={<Navbar contents={<StaffManager />}/>} />
+              <Route path="settings" element={<Navbar contents={<Settings />}/>} />
 
-        <Route path="certification" element={<Navbar contents={<Certification />}/>}/>
+              <Route path="partTimeHome"
+                element={ 
+                  <>
+                  <PartTimeNavbar contents={<PartTimeHome />}/>
+                  <BottomNavbar/>
+                  </>
+                }
+              />
 
-        <Route path="settings" element={<Navbar contents={<Settings />}/>} />
+              <Route path="shiftSubmit" 
+                element={ 
+                  <>
+                  <PartTimeNavbar contents={<ShiftSubmit />}/>
+                  <BottomNavbar/>
+                  </>
+                }
+              /> {/*未実装*/}
 
-        <Route path="partTimeRegister" element={<PartTimeRegister />} />
-
-        <Route path="partTimeHome"
-          element={ 
-            <>
-            <PartTimeNavbar contents={<PartTimeHome />}/>
-            <BottomNavbar/>
-            </>
-          }
-        />
-
-        <Route path="shiftSubmit" 
-          element={ 
-            <>
-            <PartTimeNavbar contents={<ShiftSubmit />}/>
-            <BottomNavbar/>
-            </>
-          }
-        /> {/*未実装*/}
-
-        <Route path="partTimeSettings" 
-        element={ 
-          <>
-          <PartTimeNavbar contents={<PartTimeSettings />}/>
-          <BottomNavbar/>
-          </>
-        }
-        />
-        
-      </Routes>
-    </div>
-    
-  </BrowserRouter>
+              <Route path="partTimeSettings" 
+              element={ 
+                <>
+                <PartTimeNavbar contents={<PartTimeSettings />}/>
+                <BottomNavbar/>
+                </>
+              }
+              />
+            </Route>
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 
