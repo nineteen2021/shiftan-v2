@@ -37,15 +37,12 @@ export default function AccountSettings() {
 
     const [users, setUsers] = useState(null)
     const [stores, setStores] = useState(null)
-    const [value, setValue] = useState("");
-    const [subValue, setSubValue] = useState("");
     const [form_firstname, setForm_firstname] = useState("");
     const [form_lastname, setForm_lastname] = useState("");
     const [form_email, setForm_email] = useState("");
     const [form_phone, setForm_phone] = useState("");
     const [form_storename, setForm_storename] = useState("");
     const [form_storeaddress, setForm_storeaddress] = useState("");
-    const [form_storeid, setForm_storeid] = useState("");
     const [form_storephone, setForm_storephone] = useState("");
     const [formError, setFormError] = useState("");
     const emailPattern = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]+.[A-Za-z0-9]+$/;
