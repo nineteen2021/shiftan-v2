@@ -23,16 +23,6 @@ import Grid3x3Icon from '@mui/icons-material/Grid3x3';
 import LocalPhone from '@mui/icons-material/LocalPhone';
 import axios from 'axios';
 
-const testUser = {
-    firstName: "太郎",
-    lastName: "山田",
-    mail: "hogehoge@gmail.com",
-    storeName: "若狭屋渋谷店",
-    phoneNumber: "07044039803",
-    address: "東京都渋谷区道玄坂1丁目1",
-    storeID: "1234567890"
-}
-
 export default function AccountSettings() {
 
     const [users, setUsers] = useState(null)
@@ -48,7 +38,7 @@ export default function AccountSettings() {
     const emailPattern = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]+.[A-Za-z0-9]+$/;
     const phonePattern = /^0[-0-9]{9,12}$/;
 
-    const checknull = (value) => {
+    const checknull = (value) => {//valueとして与えられた情報が空欄かどうか判別し、エラーをセットする関数
         if(value == ''){
             setFormError('適切な値を入力してください');
             return true
@@ -58,18 +48,8 @@ export default function AccountSettings() {
         }
     }
 
-    const checkphone = (value) => {
+    const checkphone = (value) => {//valueとして渡された電話番号が、適切な形式になっているか確認する関数
         if(!phonePattern.test(value)){
-            setFormError('適切な値を入力してください');
-            return true
-        }else{
-            setFormError('');
-            return false
-        }
-    }
-
-    const checkemail = (value) => {
-        if(!emailPattern.test(value)){
             setFormError('適切な値を入力してください');
             return true
         }else{
@@ -149,7 +129,7 @@ export default function AccountSettings() {
         });
     }
 
-    const changeName = (last, first) => { //PATCHを利用しデータベースの値を変更する関数
+    const changeName = (last, first) => { //PATCHを利用しデータベースの値を変更する関数。氏名変更専用。
         axios
         .patch('http://localhost:8000/api-auth/users/me/',
             {
@@ -172,17 +152,16 @@ export default function AccountSettings() {
         });
     }
 
-    const changeStoreData = (key, value) => {
+    const changeStoreData = (key, value) => {//ユーザーの店舗FKを取得してから、それを利用してストアの情報を変更する関数
         let fk;
         axios
         .get('http://localhost:8000/api-auth/users/me/',{
             headers: {
-                'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
+                'Authorization': `JWT ${localStorage.getItem('access')}`,
             }
         })
         .then(res=>{setUsers(res.data);
                     fk = res.data.store_FK;
-                    //console.log(fk);
                     axios
                     .patch('http://localhost:8000/api/store/' + String(fk) + '/',
                     {
@@ -202,13 +181,13 @@ export default function AccountSettings() {
         .catch(err=>{console.log(err);});
     }
 
-    const sendResetEmail = (email) => {
+    const sendResetEmail = (email) => {//メールアドレス変更メールを送信する関数
         axios
         .post('http://localhost:8000/api-auth/users/reset_email/',
         {email: email},
         {
             headers: {
-                'Authorization': `JWT ${window.localStorage.getItem('access')}`, // ここを追加
+                'Authorization': `JWT ${window.localStorage.getItem('access')}`,
             }
         })
         .then(res=>{})
