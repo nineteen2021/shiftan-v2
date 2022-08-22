@@ -201,6 +201,19 @@ export default function AccountSettings() {
                 })
         .catch(err=>{console.log(err);});
     }
+
+    const sendResetEmail = (email) => {
+        axios
+        .post('http://localhost:8000/api-auth/users/reset_email/',
+        {email: email},
+        {
+            headers: {
+                'Authorization': `JWT ${window.localStorage.getItem('access')}`, // ここを追加
+            }
+        })
+        .then(res=>{})
+        .catch(err=>{console.log(err);});
+    }
     if (!users || !stores) return null;
     return (
         <>
@@ -335,43 +348,47 @@ export default function AccountSettings() {
 
             <Dialog open={selectedItem === "email"} onClose={() => {
                     onCloseDialog();
-                    setFormError('');
-                    setForm_email('');
                 }}>
                 <DialogTitle>メールアドレス</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        新しく設定するメールアドレスを入力してください
+                        現在お使いのメールアドレスにメールアドレス変更メールを送信します。<br/>
+                        よろしいですか？
                     </DialogContentText>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        error={formError}
-                        id="email"
-                        label="メールアドレス"
-                        type="email"
-                        fullWidth
-                        variant="standard"
-                        onChange={(e) => setForm_email(e.target.value)}
-                    />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => {
                         onCloseDialog();
-                        setFormError('');
-                        setForm_email('');
                     }}>キャンセル</Button>
                     <Button onClick={
                         () => {
-                            if(!checknull(form_email) && !checkemail(form_email)){
-                            changeData("email", form_email);
-                            setForm_email('');
-                            onCloseDialog();
-                            }
+                                sendResetEmail(users.email);
+                                onCloseDialog();
+                                onOpenDialog("emailFinished");
                         }
-                    }>保存</Button>
+                    }>OK</Button>
                 </DialogActions>
             </Dialog>
+
+            <Dialog open={selectedItem === "emailFinished"} onClose={() => {
+                    onCloseDialog();
+                }}>
+                <DialogTitle>完了</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        メールアドレス変更メールを送信しました。<br/>
+                        メールボックスをご確認ください。
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={
+                        () => {
+                                onCloseDialog();
+                        }
+                    }>OK</Button>
+                </DialogActions>
+            </Dialog>
+
             <Dialog open={selectedItem === "storeName"} onClose={() => {
                     onCloseDialog();
                     setForm_storename('');
