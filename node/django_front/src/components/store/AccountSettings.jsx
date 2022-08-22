@@ -46,6 +46,7 @@ export default function AccountSettings() {
     const [form_storename, setForm_storename] = useState("");
     const [form_storeaddress, setForm_storeaddress] = useState("");
     const [form_storeid, setForm_storeid] = useState("");
+    const [form_storephone, setForm_storephone] = useState("");
     const [formError, setFormError] = useState("");
     const emailPattern = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]+.[A-Za-z0-9]+$/;
     const phonePattern = /^0[-0-9]{9,12}$/;
@@ -173,6 +174,36 @@ export default function AccountSettings() {
             console.log('patch失敗' + last + first);
         });
     }
+
+    const changeStoreData = (key, value) => {
+        let fk;
+        axios
+        .get('http://localhost:8000/api-auth/users/me/',{
+            headers: {
+                'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
+            }
+        })
+        .then(res=>{setUsers(res.data);
+                    fk = res.data.store_FK;
+                    //console.log(fk);
+                    axios
+                    .patch('http://localhost:8000/api/store/' + String(fk) + '/',
+                    {
+                        [key]: value
+                    },
+                    {
+                        headers: {
+                            'Authorization': `JWT ${localStorage.getItem('access')}`
+                        }
+                    })
+                    .then(res=>{setStores(res.data);
+                                console.log(res.data);
+                            })
+                    .catch(err=>{console.log(err);});
+                
+                })
+        .catch(err=>{console.log(err);});
+    }
     if (!users || !stores) return null;
     return (
         <>
@@ -222,7 +253,7 @@ export default function AccountSettings() {
                                 </ListItemButton>
                             </ListItem>
                             <ListItem disablePadding>
-                                <ListItemButton onClick={() => onOpenDialog("phoneNumber")}>
+                                <ListItemButton onClick={() => onOpenDialog("storePhoneNumber")}>
                                     <ListItemIcon>
                                         <LocalPhoneIcon />
                                     </ListItemIcon>
@@ -318,7 +349,7 @@ export default function AccountSettings() {
                     <TextField
                         autoFocus
                         margin="dense"
-                        error={ formError }
+                        error={formError}
                         id="email"
                         label="メールアドレス"
                         type="email"
@@ -346,6 +377,7 @@ export default function AccountSettings() {
             </Dialog>
             <Dialog open={selectedItem === "storeName"} onClose={() => {
                     onCloseDialog();
+                    setForm_storename('');
                     setFormError('');
                 }}>
                 <DialogTitle>店舗名</DialogTitle>
@@ -356,6 +388,7 @@ export default function AccountSettings() {
                     <TextField
                         autoFocus
                         margin="dense"
+                        error={formError}
                         id="storeName"
                         label="店舗名"
                         type="text"
@@ -367,9 +400,15 @@ export default function AccountSettings() {
                 <DialogActions>
                     <Button onClick={() => {
                         onCloseDialog();
+                        setForm_storename('');
                         setFormError('');
                     }}>キャンセル</Button>
-                    <Button onClick={onCloseDialog}>保存</Button>
+                    <Button onClick={() => {
+                        if(!checknull(form_storename)){
+                            changeStoreData("store_name", form_storename);
+                            onCloseDialog();
+                        }
+                    }}>保存</Button>
                 </DialogActions>
             </Dialog>
 
@@ -410,12 +449,50 @@ export default function AccountSettings() {
                     }}>保存</Button>
                 </DialogActions>
             </Dialog>
+
+            <Dialog open={selectedItem === "storePhoneNumber"} onClose={() => {
+                    onCloseDialog();
+                    setFormError('');
+                    setForm_storephone('');
+                }}>
+                <DialogTitle>店舗電話番号</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        新しく設定する電話番号を入力してください
+                    </DialogContentText>
+                    <TextField
+                        autoFocus
+                        error={formError}
+                        margin="dense"
+                        id="phoneNumber"
+                        label="電話番号"
+                        type="tel"
+                        fullWidth
+                        variant="standard"
+                        onChange={(e) => setForm_storephone(e.target.value)}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => {
+                        onCloseDialog();
+                        setFormError('');
+                        setForm_storephone('');
+                    }}>キャンセル</Button>
+                    <Button onClick={() => {
+                        if(!checkphone(form_storephone)&&!checknull(form_storephone)){
+                            changeStoreData("phone", form_storephone);
+                            setForm_storephone('');
+                            onCloseDialog();
+                        }
+                    }}>保存</Button>
+                </DialogActions>
+            </Dialog>
             
 
             <Dialog open={selectedItem === "address"} onClose={() => {
                     onCloseDialog();
                     setFormError('');
-                    setForm_phone('');
+                    setForm_storeaddress('');
                 }}>
                 <DialogTitle>店舗住所</DialogTitle>
                 <DialogContent>
@@ -425,19 +502,27 @@ export default function AccountSettings() {
                     <TextField
                         autoFocus
                         margin="dense"
+                        error={formError}
                         id="address"
                         label="住所"
                         type="text"
                         fullWidth
                         variant="standard"
+                        onChange={(e) => setForm_storeaddress(e.target.value)}
                     />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => {
                         onCloseDialog();
                         setFormError('');
+                        setForm_storeaddress('');
                     }}>キャンセル</Button>
-                    <Button onClick={onCloseDialog}>保存</Button>
+                    <Button onClick={() => {
+                        if(!checknull(form_storeaddress)){
+                            changeStoreData("address", form_storeaddress);
+                            onCloseDialog();
+                        }}
+                    }>保存</Button>
                 </DialogActions>
             </Dialog>
 
