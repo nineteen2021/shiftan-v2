@@ -13,25 +13,19 @@ import axios from 'axios';
 //   return { name, first, second, third};
 // }
 
-// const rows = [
-//   createData('テスト1', "15:00~20:00", "15:00~20:00", "15:00~20:00"),
-//   // createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-//   // createData('Eclair', 262, 16.0, 24, 6.0),
-//   // createData('Cupcake', 305, 3.7, 67, 4.3),
-//   // createData('Gingerbread', 356, 16.0, 49, 3.9),
-// ];
 
 export default function ShiftTable() {
 
   const [users, setUsers] = useState(null)
   const [shiftTable, setShiftTable] = useState(null)
+  const [shiftDatesList, setShiftDatesList] = useState(null)
   let fk;
   let startDate;  
   let stopDate;
   let dates = [];
   let betweenDates = 0;
-  let formattedDates = [];
-  let sumple = ["1月1日(土)", "1月2日(日)", "1月3日(月)"];
+  // let formattedDates = [];
+  // let exDates = ["1月1日(土)", '1月2日(日)', '1月3日(月)', '1月4日(火)', '1月5日(水)', '1月6日(木)', '1月7日(金)', '1月8日(土)', '1月9日(日)', '1月10日(月)', '1月11日(火)', '1月12日(水)', '1月13日(木)', '1月14日(金)', '1月15日(土)', '1月16日(日)', '1月17日(月)', '1月18日(火)', '1月19日(水)', '1月20日(木)', '1月21日(金)', '1月22日(土)', '1月23日(日)', '1月24日(月)', '1月25日(火)', '1月26日(水)', '1月27日(木)', '1月28日(金)', '1月29日(土)', '1月30日(日)', '1月31日(月)'];
 
   const splitByHyphen = (date) => { // ハイフンで区切られた文字を引数に取る
     // console.log(date); 
@@ -128,9 +122,10 @@ export default function ShiftTable() {
                     dates = getDatesBetweenDates(splitByHyphen("2022-01-01"), splitByHyphen("2022-01-31")); // 開始日から終了日までのdateオブジェクトの配列
                     // startDate = res.data.start_date;
                     // stopDate = res.data.stop_date;
-                    formattedDates = changeFormDates(dates); // 配列を〇月〇日（〇曜日）に変換した配列
+                    setShiftDatesList(changeFormDates(dates)); // 配列を〇月〇日（〇曜日）に変換した配列
                     // console.log(changeFormDates(dates))
-                    console.log(formattedDates)
+                    console.log(shiftDatesList)
+                    // console.log(exDates)
                   
                     })
         .catch(err=>{console.log(err);})
@@ -161,7 +156,7 @@ export default function ShiftTable() {
     //   }, []);
 
     //curl -H POST 'http://127.0.0.1:8000/api/shift_range/?store_FK=2 ' -H 'Content-Type:application/json;charset=utf-8' -H 'Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYwMjY5NjkwLCJpYXQiOjE2NjAyNjc4OTAsImp0aSI6IjZmZGJkZDk5ZGI2OTRjNDQ4NGIxOGYxYWRkOWQ1YWM2IiwidXNlcl9pZCI6MX0.ViyTWO98DgWL82ttsZXHdsgXkZVMsQDOd9Ep1doOZdw'
-  if(!shiftTable || !formattedDates) return null
+  if(!shiftDatesList || !users || !shiftTable) return null
   
   return (
     <TableContainer component={Paper}>
@@ -174,7 +169,7 @@ export default function ShiftTable() {
 
             {/* <TableCell>シフト名</TableCell> */}
             
-            {formattedDates?.map((date) => (
+            {shiftDatesList?.map((date) => (
             <TableCell align="right">{date}</TableCell>
             ))}
             
