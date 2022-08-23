@@ -20,12 +20,13 @@ export default function ShiftTable() {
   const [shiftTable, setShiftTable] = useState(null)
   const [shiftDatesList, setShiftDatesList] = useState(null)
   let fk;
-  let startDate;  
+  let startDate;
   let stopDate;
   let dates = [];
   let betweenDates = 0;
   // let formattedDates = [];
   // let exDates = ["1月1日(土)", '1月2日(日)', '1月3日(月)', '1月4日(火)', '1月5日(水)', '1月6日(木)', '1月7日(金)', '1月8日(土)', '1月9日(日)', '1月10日(月)', '1月11日(火)', '1月12日(水)', '1月13日(木)', '1月14日(金)', '1月15日(土)', '1月16日(日)', '1月17日(月)', '1月18日(火)', '1月19日(水)', '1月20日(木)', '1月21日(金)', '1月22日(土)', '1月23日(日)', '1月24日(月)', '1月25日(火)', '1月26日(水)', '1月27日(木)', '1月28日(金)', '1月29日(土)', '1月30日(日)', '1月31日(月)'];
+  let exWorkSchedules = {"start_time":"19:00", "stop_time":"22:00"}
 
   const splitByHyphen = (date) => { // ハイフンで区切られた文字を引数に取る
     // console.log(date); 
@@ -162,30 +163,25 @@ export default function ShiftTable() {
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }}>
         <TableHead>
-
           <TableRow>
-
-            <TableCell>{shiftTable[0].shift_name}</TableCell>
-
-            {/* <TableCell>シフト名</TableCell> */}
-            
+            <TableCell>{shiftTable[0].shift_name}</TableCell>            
             {shiftDatesList?.map((date) => (
             <TableCell align="right">{date}</TableCell>
             ))}
-            
           </TableRow>
-
         </TableHead>
         <TableBody>
           {users?.map((user) => (
             <TableRow
-              // key={row.name}
+              key={user.last_name + " " + user.first_name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row">{user.last_name + " " + user.first_name}</TableCell>
-              {/* <TableCell align="right">{row.first}</TableCell>
-              <TableCell align="right">{row.second}</TableCell>
-              <TableCell align="right">{row.third}</TableCell> */}
+              <TableCell component="th" scope="row">
+                {user.last_name + " " + user.first_name}
+              </TableCell>
+          {/* {exWorkSchedules?.map((workSchedule) =>( */}
+              <TableCell>{exWorkSchedules.start_time + "~" + exWorkSchedules.stop_time}</TableCell>
+          {/* ))} */}
             </TableRow>
           ))}
         </TableBody>
