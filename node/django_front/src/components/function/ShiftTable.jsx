@@ -24,7 +24,7 @@ import axios from 'axios';
 export default function ShiftTable() {
 
   const [users, setUsers] = useState(null)
-  const [shiftTables, setShiftTables] = useState(null)
+  const [shiftTable, setShiftTable] = useState(null)
   let fk;
   let startDate;  
   let stopDate;
@@ -33,25 +33,24 @@ export default function ShiftTable() {
   let formattedDates = [];
   let sumple = ["1月1日(土)", "1月2日(日)", "1月3日(月)"];
 
-  const splitByHyphen = (date) => {
-    // 区切り文字に「-（ハイフン）」を指定
+  const splitByHyphen = (date) => { // ハイフンで区切られた文字を引数に取る
     // console.log(date); 
-    let result = date.split( '-' );
+    let result = date.split( '-' ); // 区切り文字に「-（ハイフン）」を指定し、年・月・日にちを配列に格納
     // console.log(result)
-    date = new Date(result[0], result[1] - 1, result[2]);
+    date = new Date(result[0], result[1] - 1, result[2]); // 配列から取り出した数字を組み合わせてdateオブジェクトに変形
     // console.log(date.toString());
     return date;
   }
 
-  const getDatesBetweenDates = (startDate, endDate) => {
+  const getDatesBetweenDates = (startDate, endDate) => { // dateオブジェクトの開始日と終了日を引数に取る
     const theDate = new Date(startDate)
-    while (theDate <= endDate) {
+    while (theDate <= endDate) { // 開始日から最終日まで開始日に+1日していきそれを配列に入れていく
       dates = [...dates, new Date(theDate)]
       theDate.setDate(theDate.getDate() + 1)
       betweenDates++
       // console.log(betweenDates)
     }
-    console.log(dates)
+    // console.log(dates)
     return dates;
   }
 
@@ -64,19 +63,19 @@ export default function ShiftTable() {
     //   let startMonth = startDate.getMonth() + 1;
     //   let startDay = startDate.getDate();
     //   console.log("開始日は" + startYear + '年' + startMonth + '月' + startDay + '日');
-    for(let i = 0; i < betweenDates; i++){
+    for(let i = 0; i < betweenDates; i++){ // getDatesBetweenDates関数でカウントした日にちの数ループ
       // console.log(dates[i]);
-      dates[i] = new Date(dates[i])
+      dates[i] = new Date(dates[i]) // 一日ずつdateオブジェクトとして指定し、月、日、曜日を取得
       month = dates[i].getMonth() + 1;
       date = dates[i].getDate();
       // console.log(date);
       day = dates[i].getDay();
       // console.log(day);
       // console.log(month + '月' + date + '日' + "(" + dayStr[day] + ")");
-      dates[i] = month + '月' + date + '日' + "(" + dayStr[day] + ")";
-      console.log(dates[i]);
+      dates[i] = month + '月' + date + '日' + "(" + dayStr[day] + ")"; // 取得したデータを埋め込む、曜日は日付で取得するので漢字に変換
+      // console.log(dates[i]);
     }
-    console.log(dates);
+    // console.log(dates);
     return dates;
   }
 
@@ -105,7 +104,7 @@ export default function ShiftTable() {
         fk = res.data.store_FK;
         console.log(fk);
         axios
-        .get('http://localhost:8000/api/user/?store_FK=' + String(fk),{
+        .get('http://localhost:8000/api/user/?store_FK=' + String(fk),{ //店舗のuser情報を取得
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
@@ -115,21 +114,21 @@ export default function ShiftTable() {
                     })
         .catch(err=>{console.log(err);
       })
-      axios
-        .get('http://localhost:8000/api/shift_range/?store_FK=' + String(fk),{
+        axios
+        .get('http://localhost:8000/api/shift_range/?store_FK=' + String(fk),{ // 店舗のシフト表の情報を取得
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
         })
-        .then(res=>{setShiftTables(res.data);
+        .then(res=>{setShiftTable(res.data);
                     console.log(res.data);
-                    startDate = res.data[0].start_date;
+                    startDate = res.data[0].start_date; //結果が配列の中の一つとして返されるので[0]で指定する
                     stopDate = res.data[0].stop_date;
                     // console.log(date.start_date);
-                    dates = getDatesBetweenDates(splitByHyphen("2022-01-01"), splitByHyphen("2022-01-31"));
+                    dates = getDatesBetweenDates(splitByHyphen("2022-01-01"), splitByHyphen("2022-01-31")); // 開始日から終了日までのdateオブジェクトの配列
                     // startDate = res.data.start_date;
                     // stopDate = res.data.stop_date;
-                    formattedDates = changeFormDates(dates);
+                    formattedDates = changeFormDates(dates); // 配列を〇月〇日（〇曜日）に変換した配列
                     // console.log(changeFormDates(dates))
                     console.log(formattedDates)
                   
@@ -162,7 +161,7 @@ export default function ShiftTable() {
     //   }, []);
 
     //curl -H POST 'http://127.0.0.1:8000/api/shift_range/?store_FK=2 ' -H 'Content-Type:application/json;charset=utf-8' -H 'Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYwMjY5NjkwLCJpYXQiOjE2NjAyNjc4OTAsImp0aSI6IjZmZGJkZDk5ZGI2OTRjNDQ4NGIxOGYxYWRkOWQ1YWM2IiwidXNlcl9pZCI6MX0.ViyTWO98DgWL82ttsZXHdsgXkZVMsQDOd9Ep1doOZdw'
-  if(!formattedDates) return null
+  if(!shiftTable || !formattedDates) return null
   
   return (
     <TableContainer component={Paper}>
@@ -171,12 +170,11 @@ export default function ShiftTable() {
 
           <TableRow>
 
-            {/* <TableCell>{shiftTables.shift_name}</TableCell> */}
+            <TableCell>{shiftTable[0].shift_name}</TableCell>
 
-            <TableCell>シフト名</TableCell>
+            {/* <TableCell>シフト名</TableCell> */}
             
             {formattedDates?.map((date) => (
-            
             <TableCell align="right">{date}</TableCell>
             ))}
             
