@@ -26,6 +26,59 @@ export default function ShiftTable() {
   const [users, setUsers] = useState(null)
   const [shiftTables, setShiftTables] = useState(null)
   let fk;
+  let startDate;  
+  let stopDate;
+  let dates = [];
+  let betweenDates = 0;
+  let formattedDates = [];
+  let sumple = ["1月1日(土)", "1月2日(日)", "1月3日(月)"];
+
+  const splitByHyphen = (date) => {
+    // 区切り文字に「-（ハイフン）」を指定
+    // console.log(date); 
+    let result = date.split( '-' );
+    // console.log(result)
+    date = new Date(result[0], result[1] - 1, result[2]);
+    // console.log(date.toString());
+    return date;
+  }
+
+  const getDatesBetweenDates = (startDate, endDate) => {
+    const theDate = new Date(startDate)
+    while (theDate <= endDate) {
+      dates = [...dates, new Date(theDate)]
+      theDate.setDate(theDate.getDate() + 1)
+      betweenDates++
+      // console.log(betweenDates)
+    }
+    console.log(dates)
+    return dates;
+  }
+
+  const changeFormDates = (dates) => {
+    let month
+    let date
+    let day
+    const dayStr = [ "日", "月", "火", "水", "木", "金", "土" ] ;
+    //   let startYear = startDate.getFullYear();
+    //   let startMonth = startDate.getMonth() + 1;
+    //   let startDay = startDate.getDate();
+    //   console.log("開始日は" + startYear + '年' + startMonth + '月' + startDay + '日');
+    for(let i = 0; i < betweenDates; i++){
+      // console.log(dates[i]);
+      dates[i] = new Date(dates[i])
+      month = dates[i].getMonth() + 1;
+      date = dates[i].getDate();
+      // console.log(date);
+      day = dates[i].getDay();
+      // console.log(day);
+      // console.log(month + '月' + date + '日' + "(" + dayStr[day] + ")");
+      dates[i] = month + '月' + date + '日' + "(" + dayStr[day] + ")";
+      console.log(dates[i]);
+    }
+    console.log(dates);
+    return dates;
+  }
 
   // useEffect(() => {
   //   axios
@@ -70,11 +123,30 @@ export default function ShiftTable() {
         })
         .then(res=>{setShiftTables(res.data);
                     console.log(res.data);
-                    }, [])
+                    startDate = res.data[0].start_date;
+                    stopDate = res.data[0].stop_date;
+                    // console.log(date.start_date);
+                    dates = getDatesBetweenDates(splitByHyphen("2022-01-01"), splitByHyphen("2022-01-31"));
+                    // startDate = res.data.start_date;
+                    // stopDate = res.data.stop_date;
+                    formattedDates = changeFormDates(dates);
+                    // console.log(changeFormDates(dates))
+                    console.log(formattedDates)
+                  
+                    })
         .catch(err=>{console.log(err);})
     }, [])
   .catch(err=>{console.log(err);})
 }, []);
+
+// const today = new Date()
+// const oneMonthFromNow = new Date(today)
+// oneMonthFromNow.setDate( oneMonthFromNow.getDate() + 31)
+// getDatesBetweenDates(today, oneMonthFromNow)
+
+// for (let i = 1; i <= betweenDates + 2; i++){
+//   
+// }
 
     // useEffect(() => {
     //   axios
@@ -90,16 +162,26 @@ export default function ShiftTable() {
     //   }, []);
 
     //curl -H POST 'http://127.0.0.1:8000/api/shift_range/?store_FK=2 ' -H 'Content-Type:application/json;charset=utf-8' -H 'Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYwMjY5NjkwLCJpYXQiOjE2NjAyNjc4OTAsImp0aSI6IjZmZGJkZDk5ZGI2OTRjNDQ4NGIxOGYxYWRkOWQ1YWM2IiwidXNlcl9pZCI6MX0.ViyTWO98DgWL82ttsZXHdsgXkZVMsQDOd9Ep1doOZdw'
-
+  if(!formattedDates) return null
+  
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }}>
         <TableHead>
+
           <TableRow>
+
             {/* <TableCell>{shiftTables.shift_name}</TableCell> */}
-            {/* 一旦取ってきたシフト一覧（●月）を横に並べるように表示させたい */}
+
             <TableCell>シフト名</TableCell>
+            
+            {formattedDates?.map((date) => (
+            
+            <TableCell align="right">{date}</TableCell>
+            ))}
+            
           </TableRow>
+
         </TableHead>
         <TableBody>
           {users?.map((user) => (
