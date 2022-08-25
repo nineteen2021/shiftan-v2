@@ -85,7 +85,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager() # views.pyでUserモデルの情報を取得する際などで利用
     USERNAME_FIELD = "email" # ここをemailにすることでメールアドレスでのログインが可能になる
     EMAIL_FIELD = "email"
-    REQUIRED_FIELDS = ['username','last_name','first_name']
+    REQUIRED_FIELDS = ['username','last_name','first_name','phone','is_manager']
 
     class Meta:
         verbose_name = verbose_name_plural = 'ユーザー'
