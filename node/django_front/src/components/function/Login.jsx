@@ -67,7 +67,6 @@ export default function Login() {
               setUsers(res.data);
               console.log("user/me取得")
               console.log(res.data);
-              resolved();
             })
             .catch(err=>{console.log(err);});
           })();
