@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Navigate, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,7 +15,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SimpleNavbar from './SimpleNavbar'
 import NewAccountButton from './NewAccountButton';
 import { Link as routerLink } from 'react-router-dom'
-import Create from './endPoint/Create'
 
 import { useAuth } from "../../hooks/useAuth";
 
