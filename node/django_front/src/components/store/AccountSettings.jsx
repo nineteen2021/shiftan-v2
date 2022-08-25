@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Fragment, useState, useEffect } from 'react';
+import { Link as routerLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -226,7 +227,10 @@ export default function AccountSettings() {
                                 </ListItemButton>
                             </ListItem>
                             <ListItem disablePadding>
-                                <ListItemButton onClick={() => onOpenDialog("password")}>
+                                <ListItemButton 
+                                    component={routerLink}
+                                    to="/certificationPassword"
+                                >
                                     <ListItemIcon>
                                         <KeyIcon />
                                     </ListItemIcon>
