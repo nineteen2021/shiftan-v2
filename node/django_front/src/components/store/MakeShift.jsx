@@ -168,7 +168,7 @@ const MakeShift = () => {
                             <DatePicker
                                 label="開始日"
                                 inputFormat='yyyy年MM月dd日(E)'
-                                mask="____年__月__日(_)"
+                                mask="____年__月__日(E)"
                                 value={startValue}
                                 leftArrowButtonText="前月を表示"
                                 rightArrowButtonText="次月を表示"
@@ -197,7 +197,7 @@ const MakeShift = () => {
                                 label="終了日"
                                 value={endValue}
                                 inputFormat='yyyy年MM月dd日(E)'
-                                mask="____年__月__日(_)"
+                                mask="____年__月__日(E)"
                                 leftArrowButtonText="前月を表示"
                                 rightArrowButtonText="次月を表示"
                                 cancelText="キャンセル"
@@ -225,7 +225,7 @@ const MakeShift = () => {
                                 label="締切日"
                                 value={deadlineValue}
                                 inputFormat='yyyy年MM月dd日(E)'
-                                mask="____年__月__日(_)"
+                                mask="____年__月__日(E)"
                                 leftArrowButtonText="前月を表示"
                                 rightArrowButtonText="次月を表示"
                                 cancelText="キャンセル"
