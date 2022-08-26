@@ -14,7 +14,8 @@ import axios from 'axios';
 //   return { name, first, second, third};
 // }
 
-let fk;
+let storeFK;
+let shiftFK;
 let startDate;
 let stopDate;
 let dates = [];
@@ -86,9 +87,10 @@ export default function ShiftTable() {
   const [users, setUsers] = useState(null)
   const [shiftTable, setShiftTable] = useState(null)
   const [shiftDatesList, setShiftDatesList] = useState(null)
+  const [workSchedules, setWorkSchedules] = useState(null)
   
   // useEffect(() => {
-  //   axios
+  //   axiossetShiftDatesList
   //   .get('http://localhost:8000/api-auth/users/',{
   //       headers: {
   //           'Authorization': `JWT ${localStorage.getItem('access')}`,
@@ -109,39 +111,52 @@ export default function ShiftTable() {
           }
       })
       .then(res=>{
-        fk = res.data.store_FK;
-        console.log(fk);
+        storeFK = res.data.store_FK;
+        console.log("storeFKは" + storeFK);
         axios
-        .get('http://localhost:8000/api/user/?store_FK=' + String(fk),{ //店舗のuser情報を取得
+        .get('http://localhost:8000/api/user/?store_FK=' + String(storeFK),{ //店舗のuser情報を取得
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
         })
-        .then(res=>{setUsers(res.data);
-                    console.log(res.data);
-                    })
-        .catch(err=>{console.log(err);
-      })
+        .then(res=>{
+          setUsers(res.data);
+          console.log(res.data);
+          })
+        .catch(err=>{console.log(err);})
         axios
-        .get('http://localhost:8000/api/shift_range/?store_FK=' + String(fk),{ // 店舗のシフト表の情報を取得
+        .get('http://localhost:8000/api/shift_range/?store_FK=' + String(storeFK),{ // 店舗のシフト表の情報を取得
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
         })
-        .then(res=>{setShiftTable(res.data);
-                    console.log(res.data);
-                    startDate = new Date(res.data[0].start_date); //結果が配列の中の一つとして返されるので[0]で指定する
-                    stopDate = new Date(res.data[0].stop_date);
-                    // console.log(date.start_date);
-                    dates = getDatesBetweenDates(startDate, stopDate); // 開始日から終了日までのdateオブジェクトの配列
-                    // startDate = res.data.start_date;
-                    // stopDate = res.data.stop_date;
-                    setShiftDatesList(changeFormDates(dates)); // 配列を〇月〇日（〇曜日）に変換した配列
-                    // console.log(changeFormDates(dates))
-                    // console.log(shiftDatesList)
-                    // console.log(exDates)
-                  
-                    })
+        .then(res=>{
+          shiftFK = res.data[0].id
+          console.log("shiftFKは" + res.data[0].id)
+          setShiftTable(res.data);
+          console.log(res.data);
+          startDate = new Date(res.data[0].start_date); //結果が配列の中の一つとして返されるので[0]で指定する
+          stopDate = new Date(res.data[0].stop_date);
+          // console.log(date.start_date);
+          dates = getDatesBetweenDates(startDate, stopDate); // 開始日から終了日までのdateオブジェクトの配列
+          // startDate = res.data.start_date;
+          // stopDate = res.data.stop_date;
+          setShiftDatesList(changeFormDates(dates)); // 配列を〇月〇日（〇曜日）に変換した配列
+          // console.log(changeFormDates(dates))
+          // console.log(shiftDatesList)
+          // console.log(exDates) 
+          
+          axios
+          .get('http://localhost:8000/api/work_schedule/?shift_range_FK=' + String(shiftFK),{ //取ってきたシフト表の作成シフトをとってくる
+              headers: {
+                  'Authorization': `JWT ${localStorage.getItem('access')}`
+              }
+          })
+          .then(res=>{setWorkSchedules(res.data);
+                      console.log(res.data);
+                      })// userfkでuserIDごとの作成シフトの配列を作成→日付順にソート→for文を日数分（配列の長さ）回す→日付と一致した時に作成シフトの時間を代入する（一致しなかったら空の空白（×とか））→ユーザーの数だけ配列を回す、その中でできた配列（列分の長さのはず）を列分回す
+          .catch(err=>{console.log(err);})         
+          })
         .catch(err=>{console.log(err);})
     }, [])
   .catch(err=>{console.log(err);})
