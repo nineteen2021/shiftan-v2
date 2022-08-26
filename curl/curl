@@ -7,3 +7,5 @@ curl -X POST -H "Content-Type: application/json" -d '{"token" : "eyJ0eXAiOiJKV1Q
 docker-compose run web python3 manage.py makemigrations shiftan
 
 docker-compose run web python3 manage.py migrate
+
+curl -H POST 'http://127.0.0.1:8000/api-auth/users/me/' -H 'Content-Type:application/json;charset=utf-8' -H 'Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYwMTExNDA0LCJpYXQiOjE2NjAxMDk2MDQsImp0aSI6ImYyODBkMTc2NmRmNTQ5YmE4M2NhODg2ZmU1YjI2OTZmIiwidXNlcl9pZCI6NH0.wG-oaJtvqLoilDuqh6IbysByWs2OVDH4iJi_magRkGg'
