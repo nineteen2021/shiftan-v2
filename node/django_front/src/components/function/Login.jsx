@@ -54,6 +54,7 @@ export default function Login() {
     
     // useAuth.jsのログイン関数を呼び出してログイン
     auth.login(email, password).then((res) => {
+      let userMe;
       if(res === true) {
         const distribute = new Promise((resolved, rejected) => {
           (() => {
@@ -65,29 +66,28 @@ export default function Login() {
             })
             .then(res=>{
               setUsers(res.data);
+              userMe=res.data
               console.log("user/me取得")
               console.log(res.data);
+            })
+            .then(res=>{
+              console.log("is_manager判別")
+              console.log(userMe.is_manager)
+              if(userMe.is_manager === true) {
+                console.log("店長アカウントです")
+                navigate("/")
+              }
+              else if (userMe.is_manager === false) {
+                console.log("アルバイトアカウントです")
+                navigate("/partTimeHome")
+              }
+              else {
+                console.log("アカウント振り分けでエラーが起こりました")
+              }
             })
             .catch(err=>{console.log(err);});
           })();
         })
-        
-        //is_managerで振り分け
-        distribute.then(function(){
-          console.log("is_manager判別")
-          if(users.is_manager === true) {
-            console.log("店長アカウントです");
-            navigate("/");
-          }
-          else if (users.is_manager === false) {
-            console.log("アルバイトアカウントです");
-            navigate("/partTimeHome");
-          }
-          else {
-            console.log("アカウント振り分けでerrorが起こりました");
-          }
-        })
-        
       }
     })
   };
