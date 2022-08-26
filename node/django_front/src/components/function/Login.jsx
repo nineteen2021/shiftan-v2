@@ -20,7 +20,6 @@ import axios from 'axios';
 
 import { useAuth } from "../../hooks/useAuth";
 
-import { useAuth } from "../../hooks/useAuth";
 
 function Copyright(props) {
   return (
