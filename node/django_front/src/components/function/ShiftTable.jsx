@@ -25,13 +25,14 @@ let exWorkSchedules = {"start_time":"19:00", "stop_time":"22:00"}
 
 const useStyles = makeStyles({
   table: {
-    whiteSpace: "nowrap"
+    whiteSpace: "nowrap",
+    borderCollapse:"separate"
   },
   sticky: {
     position: "sticky",
     left: 0,
     background: "white",
-    boxShadow: "5px 2px 5px grey",
+    // boxShadow: "5px 2px 5px grey",
     borderRight: "2px solid black",
     width: "150px"
   },
@@ -173,8 +174,12 @@ export default function ShiftTable() {
   if(!shiftDatesList || !users || !shiftTable) return null
   
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 300 }}
+    <TableContainer 
+      component={Paper}
+      sx={{ display: "grid" }}
+    >
+      <Table 
+          sx={{ minWidth: 300 }}
           className={classes.table}
           aria-label="simple table"
           style={{ tableLayout: "fixed" }}>
