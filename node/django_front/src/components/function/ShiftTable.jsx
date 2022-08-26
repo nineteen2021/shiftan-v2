@@ -26,13 +26,12 @@ let exWorkSchedules = {"start_time":"19:00", "stop_time":"22:00"}
 const useStyles = makeStyles({
   table: {
     whiteSpace: "nowrap",
-    borderCollapse:"separate"
+    borderCollapse:"separate"  // 
   },
   sticky: {
-    position: "sticky",
+    position: "sticky", // 一列目固定
     left: 0,
     background: "white",
-    // boxShadow: "5px 2px 5px grey",
     borderRight: "2px solid black",
     width: "150px"
   },
@@ -214,7 +213,7 @@ export default function ShiftTable() {
               >
                 {user.last_name + " " + user.first_name}
               </TableCell>
-          {/* {exWorkSchedules?.map((workSchedule) =>( */}
+          {/* {exWorkSchedules?.map((workSchedule) =>( サンプルデータ */}
               <TableCell className={classes.cell}>{exWorkSchedules.start_time + "~" + exWorkSchedules.stop_time}</TableCell>
               <TableCell className={classes.cell}>{exWorkSchedules.start_time + "~" + exWorkSchedules.stop_time}</TableCell>
               <TableCell className={classes.cell}>{exWorkSchedules.start_time + "~" + exWorkSchedules.stop_time}</TableCell>
