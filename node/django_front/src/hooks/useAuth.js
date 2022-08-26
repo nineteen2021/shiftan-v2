@@ -13,16 +13,18 @@ export const AuthProvider = ({ children }) => {
             email: email,
             password: password
         })
+        .then(res=>{
+            setAccessToken(res.data.access);
+            window.localStorage.setItem("access", res.data.access);
+            window.localStorage.setItem("refresh", res.data.refresh);
+            console.log("access:" + window.localStorage.getItem("access"));
+            console.log("refresh:" + window.localStorage.getItem("refresh"));
+        })
         // TODO: エラー処理。現時点では正常系のみ想定したコードになっている
         .catch((error) => {
             console.log(error);
             alert("メールアドレスかパスワードが違います。");
         })
-
-        setAccessToken(res.data.access);
-        // TODO: リフレッシュトークンをLocalStorageなどに保存
-        window.localStorage.setItem("refresh", res.data.refresh);
-        console.log("refresh:" + window.localStorage.getItem("refresh"));
         return true;
     };
 
