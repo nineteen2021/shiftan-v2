@@ -14,12 +14,15 @@ import axios from 'axios';
 //   return { name, first, second, third};
 // }
 
+let usersval;
 let storeFK;
 let shiftFK;
 let startDate;
 let stopDate;
 let dates = [];
 let betweenDates = 0;
+let workSchedulesList = [];
+let convertedWorkSchedulesList = [];
 // let formattedDates = [];
 // let exDates = ["1月1日(土)", '1月2日(日)', '1月3日(月)', '1月4日(火)', '1月5日(水)', '1月6日(木)', '1月7日(金)', '1月8日(土)', '1月9日(日)', '1月10日(月)', '1月11日(火)', '1月12日(水)', '1月13日(木)', '1月14日(金)', '1月15日(土)', '1月16日(日)', '1月17日(月)', '1月18日(火)', '1月19日(水)', '1月20日(木)', '1月21日(金)', '1月22日(土)', '1月23日(日)', '1月24日(月)', '1月25日(火)', '1月26日(水)', '1月27日(木)', '1月28日(金)', '1月29日(土)', '1月30日(日)', '1月31日(月)'];
 let exWorkSchedules = {"start_time":"19:00", "stop_time":"22:00"}
@@ -81,6 +84,31 @@ const changeFormDates = (dates) => {
   return dates;
 }
 
+// userfkでuserIDごとの作成シフトの配列を作成→日付順にソート→for文を日数分（配列の長さ）回す→日付と一致した時に作成シフトの時間を代入する（一致しなかったら空の空白（×とか））→ユーザーの数だけ配列を回す、その中でできた配列（列分の長さのはず）を列分回す
+
+
+const makeWorkSchedulesListByUser = (list, users) => {
+  // userfkでuserIDごとの作成シフトの配列を作成
+  // usersの数だけ配列をつくる
+  let workSchedulesListByUser = new Array();
+  let userFK;
+  for (let i = 0; i < users.length; i++) {
+    userFK = users[i].id;
+    // console.log(userFK);
+    let result = list.filter( function( value, index, array ) {
+    if (value.user_FK === userFK) return value;
+})
+workSchedulesListByUser.push( result );
+}
+console.log( workSchedulesListByUser );
+}
+
+// const convertWorkSchedulesList = (list) => {
+//   //日付順にソート→for文を日数分（配列の長さ）回す 
+//   list.sort();
+//   console.log(list);
+//   //日付と一致した時に作成シフトの時間を代入する（一致しなかったら空の空白（×とか））
+// }
 
 export default function ShiftTable() {
   const classes = useStyles();
@@ -121,9 +149,12 @@ export default function ShiftTable() {
         })
         .then(res=>{
           setUsers(res.data);
-          console.log(res.data);
+          usersval = res.data;
+          // console.log(res.data);
+          // console.log(users); // 初回レンダリング時は出ない
           })
-        .catch(err=>{console.log(err);})
+        .catch(err=>{console.log(err);
+        })
         axios
         .get('http://localhost:8000/api/shift_range/?store_FK=' + String(storeFK),{ // 店舗のシフト表の情報を取得
             headers: {
@@ -153,14 +184,17 @@ export default function ShiftTable() {
               }
           })
           .then(res=>{setWorkSchedules(res.data);
-                      console.log(res.data);
-                      })// userfkでuserIDごとの作成シフトの配列を作成→日付順にソート→for文を日数分（配列の長さ）回す→日付と一致した時に作成シフトの時間を代入する（一致しなかったら空の空白（×とか））→ユーザーの数だけ配列を回す、その中でできた配列（列分の長さのはず）を列分回す
+                      // console.log(users);
+                      // console.log(workSchedules);
+                      workSchedulesList = makeWorkSchedulesListByUser(res.data, usersval);
+                      // convertedWorkSchedulesList = convertWorkSchedulesList(workSchedulesList)
+                      })
           .catch(err=>{console.log(err);})         
           })
         .catch(err=>{console.log(err);})
-    }, [])
-  .catch(err=>{console.log(err);})
-}, []);
+        })
+      .catch(err=>{console.log(err);})
+      }, []);
 
 // const today = new Date()
 // const oneMonthFromNow = new Date(today)
@@ -228,7 +262,7 @@ export default function ShiftTable() {
               >
                 {user.last_name + " " + user.first_name}
               </TableCell>
-          {/* {exWorkSchedules?.map((workSchedule) =>( サンプルデータ */}
+          {/* {exWorkSchedules?.map((workSchedule) =>( */}
               <TableCell className={classes.cell}>{exWorkSchedules.start_time + "~" + exWorkSchedules.stop_time}</TableCell>
               <TableCell className={classes.cell}>{exWorkSchedules.start_time + "~" + exWorkSchedules.stop_time}</TableCell>
               <TableCell className={classes.cell}>{exWorkSchedules.start_time + "~" + exWorkSchedules.stop_time}</TableCell>
