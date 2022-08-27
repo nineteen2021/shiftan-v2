@@ -31,7 +31,7 @@ function AddPos() {
 };
 
 export default function Position() {
-
+    const [users, setUsers] = useState(null)
     const [groups, setGroups] = useState(null)
     const [name, setName] = useState('');
     
@@ -45,19 +45,40 @@ export default function Position() {
         .then(res=>{setGroups(res.data);
                     console.log(res.data);})
         .catch(err=>{console.log(err);});
-        }, []);
+    }, []);
+    
+    useEffect(() => {
+        axios
+        .get('http://localhost:8000/api-auth/users/me/',{
+            headers: {
+                'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
+            }
+        })
+        .then(res=>{setUsers(res.data);
+                    console.log(res.data);})
+        .catch(err=>{console.log(err);});
+    }, []);
 
     const handleNewName = (e) => {
             setName(e.target.value)
-        }
+    }
     
     const createNewGroup = () => {
+        console.log(users.store_FK)
         axios.post('https://localhost:8000/api/group/', {
-            
-            name: name,
+            store_FK: 1,
+            group_name: name,
+            color: "#FFFFFF",
+        }
+        ,{
+            headers: {
+                // 'Content-Type': 'application/json', 
+                'Authorization': `JWT ${localStorage.getItem('access')}`, 
+            }
         })
             .then(response => {
-                setGroups([...groups, response.data])
+                // setGroups([...groups, response.data])
+                console.log(response.data)
             })
             .catch(error => {
                 console.log(error);
