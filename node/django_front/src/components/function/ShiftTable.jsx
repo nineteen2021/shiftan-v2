@@ -100,15 +100,33 @@ const makeWorkSchedulesListByUser = (list, users) => {
 })
 workSchedulesListByUser.push( result );
 }
-console.log( workSchedulesListByUser );
+// console.log( workSchedulesListByUser );
+return workSchedulesListByUser
 }
 
-// const convertWorkSchedulesList = (list) => {
-//   //日付順にソート→for文を日数分（配列の長さ）回す 
-//   list.sort();
-//   console.log(list);
-//   //日付と一致した時に作成シフトの時間を代入する（一致しなかったら空の空白（×とか））
-// }
+const convertWorkSchedulesList = (list) => {
+  //日付順にソート(ユーザーの数ソートする)
+  let dateOfA;
+  let dateOfB;
+  for (let i = 0; i < list.length; i++) {
+
+    list[i] = list[i].sort(function(a, b) {
+      dateOfA = new Date(a.start_time);
+      dateOfB = new Date(b.start_time);
+      // console.log(dateOfA, dateOfB);
+
+    return (a.start_time < b.start_time) ? -1 : 1;  //オブジェクトの昇順ソート
+  })};
+  console.log(list);
+  
+  //for文を日数分（配列の長さ）回す 
+  for (let j = 0; j < betweenDates; j++) {
+
+    // if // 日数分の空の配列を作成し、日付を各オブジェクトに割り当てる→空の配列と今ある作成シフトを比較→
+          //日付が合えば時間のみを配列にコピー、合わない場合は空白（または×）が表示されるようにする
+    
+  }
+}
 
 export default function ShiftTable() {
   const classes = useStyles();
@@ -185,9 +203,10 @@ export default function ShiftTable() {
           })
           .then(res=>{setWorkSchedules(res.data);
                       // console.log(users);
-                      // console.log(workSchedules);
+                      console.log(workSchedules);
                       workSchedulesList = makeWorkSchedulesListByUser(res.data, usersval);
-                      // convertedWorkSchedulesList = convertWorkSchedulesList(workSchedulesList)
+                      // console.log(workSchedulesList)
+                      convertedWorkSchedulesList = convertWorkSchedulesList(workSchedulesList);
                       })
           .catch(err=>{console.log(err);})         
           })
