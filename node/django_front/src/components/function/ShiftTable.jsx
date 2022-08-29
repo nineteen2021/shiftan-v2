@@ -104,7 +104,7 @@ workSchedulesListByUser.push( result );
 return workSchedulesListByUser
 }
 
-const convertWorkSchedulesList = (list) => {
+const convertWorkSchedulesList = (list, dates) => {
   //日付順にソート(ユーザーの数ソートする)
   let dateOfA;
   let dateOfB;
@@ -117,15 +117,19 @@ const convertWorkSchedulesList = (list) => {
 
     return (a.start_time < b.start_time) ? -1 : 1;  //オブジェクトの昇順ソート
   })};
-  console.log(list);
+  console.log(list); // ソートが完了
   
   //for文を日数分（配列の長さ）回す 
-  for (let j = 0; j < betweenDates; j++) {
+  let month1;
+  let day1;
 
-    // if // 日数分の空の配列を作成し、日付を各オブジェクトに割り当てる→空の配列と今ある作成シフトを比較→
-          //日付が合えば時間のみを配列にコピー、合わない場合は空白（または×）が表示されるようにする
-    
-  }
+  let month2;
+  let day2;
+
+  for (let j = 0; j < dates.length; j++) {
+
+  //   取得した日付の配列と今ある作成シフトを比較→
+  //   日付が合えば時間のみを配列にコピー、合わない場合は空白（または×）が表示されるようにする
 }
 
 export default function ShiftTable() {
@@ -188,6 +192,7 @@ export default function ShiftTable() {
           stopDate = new Date(res.data[0].stop_date);
           // console.log(date.start_date);
           dates = getDatesBetweenDates(startDate, stopDate); // 開始日から終了日までのdateオブジェクトの配列
+          console.log(dates)
           // startDate = res.data.start_date;
           // stopDate = res.data.stop_date;
           setShiftDatesList(changeFormDates(dates)); // 配列を〇月〇日（〇曜日）に変換した配列
@@ -203,10 +208,10 @@ export default function ShiftTable() {
           })
           .then(res=>{setWorkSchedules(res.data);
                       // console.log(users);
-                      console.log(workSchedules);
+                      // console.log(workSchedules); // 最初は出ない
                       workSchedulesList = makeWorkSchedulesListByUser(res.data, usersval);
                       // console.log(workSchedulesList)
-                      convertedWorkSchedulesList = convertWorkSchedulesList(workSchedulesList);
+                      convertedWorkSchedulesList = convertWorkSchedulesList(workSchedulesList, dates);
                       })
           .catch(err=>{console.log(err);})         
           })
