@@ -60,6 +60,7 @@ export default function ShiftSubmit() {
         .catch(err=>{console.log(err);});
   }, []);
   if (!users) return null;
+  // 店長アカウントだったときはじく
   else if (users.is_manager === true) {
     return navigate("/*")
   }

@@ -35,6 +35,7 @@ const MakeShift = () => {
         .catch(err=>{console.log(err);});
   }, []);
   if (!users) return null;
+  // アルバイトアカウントだった時はじく
   else if (users.is_manager === false) {
     return navigate("/*")
   }
