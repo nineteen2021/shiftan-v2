@@ -67,6 +67,7 @@ export default function PartTimeSettings() {
         .catch(err=>{console.log(err);});
     }, []);
     if (!users) return null;
+    // 店長アカウントははじく
     else if (users.is_manager === true) {
         return navigate("/*")
     }

@@ -32,6 +32,7 @@ export default function StoreHome(){
   return(
     <div>
       {(() => {
+          // アルバイトアカウントだった時はじく
           if (users.is_manager === false) {
             return navigate("/*")
           }

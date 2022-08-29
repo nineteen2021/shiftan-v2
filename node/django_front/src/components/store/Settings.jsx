@@ -67,6 +67,7 @@ export default function Settings() {
             .catch(err=>{console.log(err);});
     }, []);
   if (!users) return null;
+// アルバイトアカウントははじく
   else if (users.is_manager === false) {
     return navigate("/*")
   }
