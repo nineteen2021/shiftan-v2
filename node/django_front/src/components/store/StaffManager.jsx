@@ -1,4 +1,7 @@
 import * as React from 'react';
+import {useState, useLayoutEffect} from 'react'
+import { useNavigate } from "react-router-dom";
+import axios from 'axios'
 import { Link as routerLink } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -26,7 +29,24 @@ function PositionDialog(props) {
     const handleClose = () => {
       onClose(selectedValue);
     };
-    
+    const [users, setUsers] = useState(null)
+    const navigate = useNavigate();
+    useLayoutEffect(() => {
+      axios
+        .get('http://localhost:8000/api-auth/users/me/',{
+            headers: {
+                'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
+            }
+        })
+        .then(res=>{setUsers(res.data);
+                    console.log(res.data);
+                })
+        .catch(err=>{console.log(err);});
+    }, []);
+  if (!users) return null;
+  else if (users.is_manager === false) {
+    return navigate("/*")
+  }
     //ポジション編集画面のレイアウト
     return (
       <Dialog onClose={handleClose} open={open}>

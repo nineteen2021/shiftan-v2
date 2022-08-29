@@ -1,4 +1,7 @@
 import * as React from 'react';
+import {useState, useLayoutEffect} from 'react'
+import { useNavigate } from "react-router-dom";
+import axios from 'axios'
 import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -17,6 +20,24 @@ const MakeShift = () => {
   const [endValue, endSetValue] = React.useState(null);
   const [closeValue, closeSetValue] = React.useState(null);
 
+  const [users, setUsers] = useState(null)
+  const navigate = useNavigate();
+  useLayoutEffect(() => {
+    axios
+        .get('http://localhost:8000/api-auth/users/me/',{
+            headers: {
+                'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
+            }
+        })
+        .then(res=>{setUsers(res.data);
+                    console.log(res.data);
+                })
+        .catch(err=>{console.log(err);});
+  }, []);
+  if (!users) return null;
+  else if (users.is_manager === false) {
+    return navigate("/*")
+  }
   return (
     <>
     <LocalizationProvider dateAdapter={AdapterDateFns}>
