@@ -37,16 +37,13 @@ const App = () => {
           <Route path="storeRegister" element={<StoreRegister />} />
           <Route path="activate" element={<Activate />} />
           <Route path="partTimeRegister" element={<PartTimeRegister />} />
+          <Route path="sentPasswordMail" element={<SentPasswordMail />} />
+          <Route path="resetPassword" element={<ResetPassword />} /> {/*メールから飛ぶリンクのため未実装*/}
+          <Route path="finishResetPassword" element={<FinishResetPassword />}/>
           <Route path="*" element={<NoMatch />}/>
 
           <Route element={<PrivateRoutes />}>
             <Route path="/" element={<Navbar contents={<StoreHome />}/>}/> {/* exact ... 部分一致を防ぐ */}
-
-            <Route path="sentPasswordMail" element={<SentPasswordMail />} />
-
-            <Route path="resetPassword" element={<ResetPassword />} /> {/*メールから飛ぶリンクのため未実装*/}
-
-            <Route path="finishResetPassword" element={<FinishResetPassword />}/>
 
             {/* <Route path="storeHome" element={<Navbar contents={<StoreHome />}/>} /> */}
 

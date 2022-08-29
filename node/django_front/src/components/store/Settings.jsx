@@ -1,4 +1,6 @@
 import * as React from 'react';
+import {useState, useLayoutEffect} from 'react'
+import axios from 'axios'
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -24,7 +26,6 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Terms from '../function/Terms';
-import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -50,6 +51,26 @@ export default function Settings() {
         window.localStorage.clear()
         navigate("/login")
     }
+
+    const [users, setUsers] = useState(null)
+  
+    useLayoutEffect(() => {
+        axios
+            .get('http://localhost:8000/api-auth/users/me/',{
+                headers: {
+                    'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
+                }
+            })
+            .then(res=>{setUsers(res.data);
+                console.log(res.data);
+            })
+            .catch(err=>{console.log(err);});
+    }, []);
+  if (!users) return null;
+// アルバイトアカウントははじく
+  else if (users.is_manager === false) {
+    return navigate("/*")
+  }
 
     return (
         <>
