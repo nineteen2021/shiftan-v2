@@ -60,6 +60,7 @@ const MakeShift = () => {
         console.log(endValue)
         console.log(deadlineValue)
 
+
         // 一度Date型として再代入する
         startValue = new Date(startValue);
         endValue = new Date(endValue);
@@ -72,7 +73,8 @@ const MakeShift = () => {
         console.log(postEndValue)
         setPostDeadlineValue = deadlineValue.getFullYear() + '-' + ('00' + (deadlineValue.getMonth() + 1)).slice(-2) + '-' + ('00' + deadlineValue.getDate()).slice(-2)
         console.log(postDeadlineValue)
-        
+
+        // シフト範囲をPOST
         axios
         .post("http://localhost:8000/api/shift_range/",{
             store_FK:storeFK,
@@ -92,46 +94,39 @@ const MakeShift = () => {
             navigate("/")
         })
         .catch(err=>{console.log(err);})
+    
     }
 
-    const styles = {
-        mobiledialogprops: {
-          '.PrivatePickersToolbar-dateTitleContainer .MuiTypography-root': 
-            {
-              fontSize: '1.5rem'
-            }
-        }
-    }
+    // const formVaridation = () => {
+    //     if(shiftName == "")setShiftNameError(true);
+    //     else setShiftName(false)
 
-    const formVaridation = () => {
-        if(shiftName == "")setShiftNameError(true);
-        else setShiftName(false)
+    //     if(startValue=="")setStartValueError(true);
+    //     else startSetValue(false)
 
-        if(startValue=="")setStartValueError(true);
-        else startSetValue(false)
+    //     if(endValue==""){
+    //         setEndValueError(true);
+    //         setEndValueErrorMessage("");
+    //     }
+    //     else if(startValue>endValue){
+    //         setEndValueError(true);
+    //         setEndValueErrorMessage("開始日が終了日よりも前になるように設定する必要があります。");
+    //     }
+    //     else {
+    //         endSetValue(false);
+    //         setEndValueErrorMessage("");
+    //     }
 
-        if(endValue==""){
-            setEndValueError(true);
-            setEndValueErrorMessage("");
-        }
-        else if(startValue>endValue){
-            setEndValueError(true);
-            setEndValueErrorMessage("開始日が終了日よりも前になるように設定する必要があります。");
-        }
-        else {
-            endSetValue(false);
-            setEndValueErrorMessage("");
-        }
-
-        if (shiftName == ""||startValue==""||endValue==""||startValue>endValue)return(false)
-        else return(true)
-    }
+    //     if (shiftName == ""||startValue==""||endValue==""||startValue>endValue)return(false)
+    //     else return(true)
+    // }
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        if(formVaridation()){
-            makeShiftPost();
-        }
+        makeShiftPost();
+        // if(formVaridation()){
+        //     makeShiftPost();
+        // }
     }
     // if (!fk ) return null;
   return (
