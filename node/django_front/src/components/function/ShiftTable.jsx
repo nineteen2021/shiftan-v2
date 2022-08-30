@@ -19,7 +19,7 @@ let storeFK;
 let shiftFK;
 let startDate;
 let stopDate;
-let dates = [];
+let dates = new Array();
 let betweenDates = 0;
 let workSchedulesList = [];
 let convertedWorkSchedulesList = [];
@@ -50,11 +50,11 @@ const useStyles = makeStyles({
 const getDatesBetweenDates = (startDate, endDate) => { // dateオブジェクトの開始日と終了日を引数に取る
   const theDate = new Date(startDate)
   while (theDate <= endDate) { // 開始日から最終日まで開始日に+1日していきそれを配列に入れていく
-    dates = [...dates, new Date(theDate)]
-    theDate.setDate(theDate.getDate() + 1)
-    betweenDates++
+    dates = [...dates, new Date(theDate)];
+    theDate.setDate(theDate.getDate() + 1);
+    betweenDates++;
     // console.log(betweenDates)
-  }
+  };
   // console.log(dates)
   return dates;
 }
@@ -119,17 +119,64 @@ const convertWorkSchedulesList = (list, dates) => {
   })};
   console.log(list); // ソートが完了
   
-  //for文を日数分（配列の長さ）回す 
+  //for文を日数分（配列の長さ）回す
   let month1;
   let day1;
-
   let month2;
   let day2;
+  let newWorkScheduleList = new Array();
+  console.log(newWorkScheduleList)
 
-  for (let j = 0; j < dates.length; j++) {
+  let newWorkSchedule = {
+    'shift_range_FK':0,
+    'start_time':null,
+    'stop_time':null,
+    'user_FK':0
+  }
+  console.log(newWorkSchedule)
 
-  //   取得した日付の配列と今ある作成シフトを比較→
-  //   日付が合えば時間のみを配列にコピー、合わない場合は空白（または×）が表示されるようにする
+  for (let j = 0; j < betweenDates; j++){ // datesの配列を作成
+    newWorkScheduleList.push(newWorkSchedule)
+  }
+  // console.log(newWorkScheduleList) 
+
+  let newWorkScheduleUsersList = new Array()
+
+  // console.log(newWorkScheduleUsersList)
+  // console.log(list.length)
+
+  for (let k = 0; k < list.length; k++){ // users * datesの配列を作成
+    console.log("ok")
+    newWorkScheduleUsersList.push(newWorkScheduleList)
+  }
+  console.log(newWorkScheduleUsersList) 
+
+  console.log(dates)
+
+  // for (let user = 0; user < list.length; user++){
+  //   for (let date = 0; date < dates.length; date++){
+  //     month1 = dates[user][date].getMonth() + 1;
+  //     day1 = dates[user][date].getDate();
+  //     month2= list[user][date].getMonth() + 1;
+  //     day2 = list[user][date].getDate();
+
+  //     // create_time: "2022-08-26T12:05:05.997412+09:00"
+  //     // id: 19
+  //     // shift_range_FK: 5
+  //     // start_time: "2022-04-03T15:00:00+09:00"
+  //     // stop_time: "2022-04-03T18:00:00+09:00"
+  //     // update_time: "2022-08-26T12:05:05.997456+09:00"
+  //     // user_FK: 1
+
+  //     // Fri Apr 01 2022 09:00:00 GMT+0900 (日本標準時)
+
+  //     if (month1 == month2 && day1 == day2) { // 取得してきた日付と作成シフトの日付が合えば
+  //       newWorkScheduleUsersList[user][date].shift_range_FK = list[user][date].shift_range_FK // オブジェクトの内容を新しい配列にコピー
+  //     }else{
+  //       // dates[1] = // 合わない場合は空白が表示されるようにする
+  //     }    
+  //   }
+  // }   
 }
 
 export default function ShiftTable() {
@@ -187,12 +234,12 @@ export default function ShiftTable() {
           shiftFK = res.data[0].id
           console.log("shiftFKは" + res.data[0].id)
           setShiftTable(res.data);
-          console.log(res.data);
+          // console.log(res.data);
           startDate = new Date(res.data[0].start_date); //結果が配列の中の一つとして返されるので[0]で指定する
           stopDate = new Date(res.data[0].stop_date);
           // console.log(date.start_date);
           dates = getDatesBetweenDates(startDate, stopDate); // 開始日から終了日までのdateオブジェクトの配列
-          console.log(dates)
+          // console.log(dates)
           // startDate = res.data.start_date;
           // stopDate = res.data.stop_date;
           setShiftDatesList(changeFormDates(dates)); // 配列を〇月〇日（〇曜日）に変換した配列
@@ -211,7 +258,7 @@ export default function ShiftTable() {
                       // console.log(workSchedules); // 最初は出ない
                       workSchedulesList = makeWorkSchedulesListByUser(res.data, usersval);
                       // console.log(workSchedulesList)
-                      convertedWorkSchedulesList = convertWorkSchedulesList(workSchedulesList, dates);
+                      convertedWorkSchedulesList = convertWorkSchedulesList(workSchedulesList, dates, usersval);
                       })
           .catch(err=>{console.log(err);})         
           })
