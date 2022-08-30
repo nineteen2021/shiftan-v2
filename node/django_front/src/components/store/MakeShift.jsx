@@ -14,8 +14,6 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import green from '@mui/material/colors/green';
 import axios from 'axios';
 
 registerLocale("ja", ja)
@@ -31,7 +29,7 @@ const MakeShift = () => {
     const [startValueError, setStartValueError] = React.useState(null);
     const [endValueError, setEndValueError] = React.useState(null);
     const [endValueErrorMessage, setEndValueErrorMessage] = React.useState(null);
-    
+
     let postStartValue;
     let postEndValue;
     let postDeadlineValue;
