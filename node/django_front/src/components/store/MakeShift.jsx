@@ -31,11 +31,10 @@ const MakeShift = () => {
     const [startValueError, setStartValueError] = React.useState(null);
     const [endValueError, setEndValueError] = React.useState(null);
     const [endValueErrorMessage, setEndValueErrorMessage] = React.useState(null);
-
-    const [postStartValue, setPostStartValue] = React.useState(null);
-    const [postEndValue, setPostEndValue] = React.useState(null);
-    const [postDeadlineValue, setPostDeadlineValue] = React.useState(null);
-
+    
+    let postStartValue;
+    let postEndValue;
+    let postDeadlineValue;
 
     const navigate = useNavigate();
 
@@ -49,12 +48,11 @@ const MakeShift = () => {
         })
         .then(res=>{setUsers(res.data);
             setStoreFK(res.data.store_FK);
-            console.log(storeFK)
         })
         .catch(err=>{console.log(err);});
     }, []);
 
-    const makeShiftPost = () => {
+    const makeShiftPost = async() => {
         console.log(shiftName)
         console.log(startValue)
         console.log(endValue)
@@ -62,20 +60,21 @@ const MakeShift = () => {
 
 
         // 一度Date型として再代入する
-        startValue = new Date(startValue);
-        endValue = new Date(endValue);
-        deadlineValue = new Date(deadlineValue);
+        // startValue = new Date(startValue);
+        // endValue = new Date(endValue);
+        // deadlineValue = new Date(deadlineValue);
 
         // postできる値に変更
-        setPostStartValue = startValue.getFullYear() + '-' + ('00' + (startValue.getMonth() + 1)).slice(-2) + '-' + ('00' + startValue.getDate()).slice(-2)
+        postStartValue =await startValue.getFullYear() + '-' + ('00' + (startValue.getMonth() + 1)).slice(-2) + '-' + ('00' + startValue.getDate()).slice(-2)
         console.log(postStartValue)
-        setPostEndValue = endValue.getFullYear() + '-' + ('00' + (endValue.getMonth() + 1)).slice(-2) + '-' + ('00' + endValue.getDate()).slice(-2)
+        postEndValue =await endValue.getFullYear() + '-' + ('00' + (endValue.getMonth() + 1)).slice(-2) + '-' + ('00' + endValue.getDate()).slice(-2)
         console.log(postEndValue)
-        setPostDeadlineValue = deadlineValue.getFullYear() + '-' + ('00' + (deadlineValue.getMonth() + 1)).slice(-2) + '-' + ('00' + deadlineValue.getDate()).slice(-2)
+        postDeadlineValue =await deadlineValue.getFullYear() + '-' + ('00' + (deadlineValue.getMonth() + 1)).slice(-2) + '-' + ('00' + deadlineValue.getDate()).slice(-2)
         console.log(postDeadlineValue)
 
         // シフト範囲をPOST
-        axios
+        console.log(storeFK)
+        await axios
         .post("http://localhost:8000/api/shift_range/",{
             store_FK:storeFK,
             shift_name:shiftName,
