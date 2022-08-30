@@ -173,6 +173,9 @@ const MakeShift = () => {
                             selectsStart
                             startDate={startValue}
                             endDate={endValue}
+                            disabledKeyboardNavigation
+                            placeholderText="開始日"
+                            customInput={<TextField/>}
                           />
                           
                             {/* <DatePicker
@@ -210,6 +213,9 @@ const MakeShift = () => {
                               startDate={startValue}
                               endDate={endValue}
                               minDate={startValue}
+                              disabledKeyboardNavigation
+                              placeholderText="終了日"
+                              customInput={<TextField/>}
                           />
                             {/* <DatePicker
                                 label="終了日"
@@ -239,7 +245,13 @@ const MakeShift = () => {
                             /> */}
                         </Grid>
                         <Grid item>
-                          <DatePicker selected={deadlineValue} onChange={(date) => deadlineSetValue(date)} />
+                          <DatePicker
+                            selected={deadlineValue}
+                            onChange={(date) => deadlineSetValue(date)} 
+                            disabledKeyboardNavigation
+                            placeholderText="締切日"
+                            customInput={<TextField/>}
+                          />
                             {/* <DatePicker
                                 label="締切日"
                                 value={deadlineValue}
