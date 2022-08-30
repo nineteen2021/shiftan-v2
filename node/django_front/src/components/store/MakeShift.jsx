@@ -128,7 +128,7 @@ const MakeShift = () => {
         //     makeShiftPost();
         // }
     }
-    // if (!fk ) return null;
+
   return (
     <>
     <LocalizationProvider dateAdapter={AdapterDateFns} locale={ja}>

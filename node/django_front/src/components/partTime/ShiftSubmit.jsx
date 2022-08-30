@@ -1,4 +1,7 @@
 import * as React from 'react';
+import {useState, useLayoutEffect} from 'react'
+import { useNavigate } from "react-router-dom";
+import axios from 'axios'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -42,7 +45,25 @@ export default function ShiftSubmit() {
   const onCloseDialog = () => {
     setOpen(false);
   };
-
+  const [users, setUsers] = useState(null)
+  const navigate = useNavigate();
+  useLayoutEffect(() => {
+    axios
+        .get('http://localhost:8000/api-auth/users/me/',{
+            headers: {
+                'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
+            }
+        })
+        .then(res=>{setUsers(res.data);
+                    console.log(res.data);
+                })
+        .catch(err=>{console.log(err);});
+  }, []);
+  if (!users) return null;
+  // 店長アカウントだったときはじく
+  else if (users.is_manager === true) {
+    return navigate("/*")
+  }
   return (
     <>
       <Grid
