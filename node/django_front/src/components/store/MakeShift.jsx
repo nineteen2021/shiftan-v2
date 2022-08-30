@@ -6,7 +6,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import ja from 'date-fns/locale/ja'
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 // import DatePicker from '@mui/lab/DatePicker';
-import DatePicker from 'react-datepicker';
+import DatePicker , {registerLocale}from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -17,6 +17,8 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import green from '@mui/material/colors/green';
 import axios from 'axios';
+
+registerLocale("ja", ja)
 
 const MakeShift = () => {
     const [shiftName, setShiftName] = React.useState(null);
@@ -175,6 +177,7 @@ const MakeShift = () => {
                             endDate={endValue}
                             disabledKeyboardNavigation
                             placeholderText="開始日"
+                            locale="ja"
                             customInput={<TextField/>}
                           />
                           
@@ -215,6 +218,7 @@ const MakeShift = () => {
                               minDate={startValue}
                               disabledKeyboardNavigation
                               placeholderText="終了日"
+                              locale="ja"
                               customInput={<TextField/>}
                           />
                             {/* <DatePicker
@@ -250,6 +254,7 @@ const MakeShift = () => {
                             onChange={(date) => deadlineSetValue(date)} 
                             disabledKeyboardNavigation
                             placeholderText="締切日"
+                            locale="ja"
                             customInput={<TextField/>}
                           />
                             {/* <DatePicker
