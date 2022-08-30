@@ -5,7 +5,9 @@ import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import ja from 'date-fns/locale/ja'
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import DatePicker from '@mui/lab/DatePicker';
+// import DatePicker from '@mui/lab/DatePicker';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
@@ -165,7 +167,15 @@ const MakeShift = () => {
                             />
                         </Grid>
                         <Grid item>
-                            <DatePicker
+                          <DatePicker
+                            selected={startValue}
+                            onChange={(date) => startSetValue(date)}
+                            selectsStart
+                            startDate={startValue}
+                            endDate={endValue}
+                          />
+                          
+                            {/* <DatePicker
                                 label="開始日"
                                 inputFormat='yyyy年MM月dd日(E)'
                                 mask="____年__月__日(E)"
@@ -190,10 +200,18 @@ const MakeShift = () => {
                                     fullWidth
                                 />}
 
-                            />
+                            /> */}
                         </Grid>
                         <Grid item>
-                            <DatePicker
+                          <DatePicker
+                              selected={endValue}
+                              onChange={(date) => endSetValue(date)}
+                              selectsEnd
+                              startDate={startValue}
+                              endDate={endValue}
+                              minDate={startValue}
+                          />
+                            {/* <DatePicker
                                 label="終了日"
                                 value={endValue}
                                 inputFormat='yyyy年MM月dd日(E)'
@@ -218,10 +236,11 @@ const MakeShift = () => {
                                     required
                                     fullWidth
                                 />}
-                            />
+                            /> */}
                         </Grid>
                         <Grid item>
-                            <DatePicker
+                          <DatePicker selected={deadlineValue} onChange={(date) => deadlineSetValue(date)} />
+                            {/* <DatePicker
                                 label="締切日"
                                 value={deadlineValue}
                                 inputFormat='yyyy年MM月dd日(E)'
@@ -243,7 +262,7 @@ const MakeShift = () => {
                                     autoComplete="off"
                                     fullWidth
                                 />}
-                            />
+                            /> */}
                         </Grid>
                         <Grid item >
                             <Button
