@@ -18,18 +18,6 @@ import axios from 'axios';
 const rows = [];
 
 
-function DelPos() {
-    axios.delete('/group', {data: {userId: 'xxxx'}})
-    .then(res => {console.log(res.data);})
-}
-
-function AddPos() {
-    axios.post('/group', {group_name: '三郎'})
-      .then(function (response) {
-        console.log(response.data);
-      });
-};
-
 export default function Position() {
     const [users, setUsers] = useState(null)
     const [groups, setGroups] = useState(null)
@@ -65,8 +53,8 @@ export default function Position() {
     
     const createNewGroup = () => {
         console.log(users.store_FK)
-        axios.post('https://localhost:8000/api/group/', {
-            store_FK: 1,
+        axios.post('http://localhost:8000/api/group/', {
+            store_FK: users.store_FK,
             group_name: name,
             color: "#FFFFFF",
         }
@@ -77,7 +65,7 @@ export default function Position() {
             }
         })
             .then(response => {
-                // setGroups([...groups, response.data])
+                setGroups([...groups, response.data])
                 console.log(response.data)
             })
             .catch(error => {
@@ -85,13 +73,33 @@ export default function Position() {
             });
         }
     
+    const url = 'http://localhost:8000/api/group/5/'  
+    const payload = { id : '5'}
+
+    const deleteGroup = () => {
+        axios.delete(url
+        ,{
+            headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `JWT ${localStorage.getItem('access')}`, 
+            }
+        })
+        .then(response => {
+            setGroups([...groups, response.data])
+            // console.log(res.data);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }
+        
      return (
         <>
             <Fragment>
                 <Grid container>
                     <Grid item><Typography sx={{ mb:2, ml:2 ,mr:1}}><TextField sx={{minWidth: 230 }} id="standard-basic" label="追加したいポジションを入力" variant="standard" onChange={handleNewName}/></Typography></Grid>
                     <Grid item><Button variant="contained" sx={{ mt: 2 , mr:1}} onClick={createNewGroup}>追加</Button></Grid>
-                    <Grid item><Button variant="contained" sx={{ mt: 2 , mr:1}} onClick={DelPos}>削除</Button></Grid>
+                    <Grid item><Button variant="contained" sx={{ mt: 2 , mr:1}} onClick={deleteGroup}>削除</Button></Grid>
                 </Grid>
                 <TableContainer component={Paper}>
                     <Table sx={{minWidth: 550 }} aria-label="caption table">
@@ -104,14 +112,14 @@ export default function Position() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {groups?.map(group => (
+                            {groups?.map((group,index) => (
                                 <TableRow>
                                     <TableCell>
                                         <Checkbox></Checkbox>
                                     </TableCell>
                                     <TableCell>
                                         {/* group.group_color */}
-                                        {<ColorPicker />}
+                                        <ColorPicker />
                                     </TableCell>
                                     <TableCell component="th" scope="row" >{group.group_name}</TableCell>
                                 </TableRow>
