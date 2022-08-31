@@ -6,10 +6,6 @@
   visibility:hidden;
 }
 
-.Cell-dayView {
-  display: none!important;
-}
-
 .Toolbar-toolbar {
   position: sticky!important;
 }
@@ -47,6 +43,16 @@
 .bottomNavbar {
   z-index: 1201;
 }
+
+/* shiftEditor関連 */
+.css-pzc27e-MuiToolbar-root { 
+  position: sticky!important;
+  top: 69px;
+  left: 74px;
+  background: #fff;
+  z-index: 1000;
+}
+
 /* .App {
   text-align: center;
 }
