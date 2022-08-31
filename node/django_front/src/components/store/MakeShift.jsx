@@ -168,33 +168,7 @@ const MakeShift = () => {
                             locale="ja"
                             customInput={<TextField/>}
                           />
-                          
-                            {/* <DatePicker
-                                label="開始日"
-                                inputFormat='yyyy年MM月dd日(E)'
-                                mask="____年__月__日(E)"
-                                value={startValue}
-                                leftArrowButtonText="前月を表示"
-                                rightArrowButtonText="次月を表示"
-                                cancelText="キャンセル"
-                                okText="選択"
-                                toolbarFormat="M月d日(E)"
-                                showToolbar
-                                onChange={(newValue) => {
-                                    startSetValue(newValue);
-                                }}
-                                DialogProps={{ sx: styles.mobiledialogprops }}
-                                renderInput={(params) => <TextField {...params}
-                                    error={startValueError}
-                                    autoComplete="off"
-                                    name="startDay"
-                                    id="startDay"
-                                    // onChange={(e) => startSetValue(e.target.value)}
-                                    required
-                                    fullWidth
-                                />}
-
-                            /> */}
+                         
                         </Grid>
                         <Grid item>
                           <DatePicker
@@ -210,32 +184,7 @@ const MakeShift = () => {
                               locale="ja"
                               customInput={<TextField/>}
                           />
-                            {/* <DatePicker
-                                label="終了日"
-                                value={endValue}
-                                inputFormat='yyyy年MM月dd日(E)'
-                                mask="____年__月__日(E)"
-                                leftArrowButtonText="前月を表示"
-                                rightArrowButtonText="次月を表示"
-                                cancelText="キャンセル"
-                                okText="選択"
-                                toolbarFormat="M月d日(E)"
-                                showToolbar
-                                DialogProps={{ sx: styles.mobiledialogprops }}
-                                onChange={(newValue) => {
-                                    endSetValue(newValue);
-                                }}
-                                renderInput={(params) => <TextField {...params}
-                                    error={endValueError}
-                                    helperText={endValueErrorMessage}
-                                    name="endDay"
-                                    id="endDay"
-                                    // onChange={(e) => endSetValue(e.target.value)}
-                                    autoComplete="off"
-                                    required
-                                    fullWidth
-                                />}
-                            /> */}
+                           
                         </Grid>
                         <Grid item>
                           <DatePicker
@@ -247,29 +196,7 @@ const MakeShift = () => {
                             locale="ja"
                             customInput={<TextField/>}
                           />
-                            {/* <DatePicker
-                                label="締切日"
-                                value={deadlineValue}
-                                inputFormat='yyyy年MM月dd日(E)'
-                                mask="____年__月__日(E)"
-                                leftArrowButtonText="前月を表示"
-                                rightArrowButtonText="次月を表示"
-                                cancelText="キャンセル"
-                                okText="選択"
-                                toolbarFormat="M月d日(E)"
-                                showToolbar
-                                DialogProps={{ sx: styles.mobiledialogprops }}
-                                onChange={(newValue) => {
-                                    deadlineSetValue(newValue);
-                                }}
-                                renderInput={(params) => <TextField {...params}
-                                    name="deadline"
-                                    id="deadline"
-                                    // onChange={(e) => deadlineSetValue(e.target.value)}
-                                    autoComplete="off"
-                                    fullWidth
-                                />}
-                            /> */}
+                            
                         </Grid>
                         <Grid item >
                             <Button
