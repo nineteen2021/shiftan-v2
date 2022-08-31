@@ -19,6 +19,7 @@ let storeFK;
 let shiftFK;
 let startDate;
 let stopDate;
+let originalDates = new Array();
 let dates = new Array();
 let betweenDates = 0;
 let workSchedulesList = [];
@@ -104,6 +105,14 @@ workSchedulesListByUser.push( result );
 return workSchedulesListByUser
 }
 
+const add0 = (date) => {
+  date = String(date)
+  if (date.length == 1){
+    date = "0" + date
+  }
+  return date
+}
+
 const convertWorkSchedulesList = (list, dates) => {
   //日付順にソート(ユーザーの数ソートする)
   let dateOfA;
@@ -121,17 +130,15 @@ const convertWorkSchedulesList = (list, dates) => {
   
   //for文を日数分（配列の長さ）回す
   let month1;
-  let day1;
+  let date1;
   let month2;
-  let day2;
+  let date2;
   let newWorkScheduleList = new Array();
   console.log(newWorkScheduleList)
 
   let newWorkSchedule = {
-    'shift_range_FK':0,
     'start_time':null,
     'stop_time':null,
-    'user_FK':0
   }
   console.log(newWorkSchedule)
 
@@ -149,34 +156,43 @@ const convertWorkSchedulesList = (list, dates) => {
     console.log("ok")
     newWorkScheduleUsersList.push(newWorkScheduleList)
   }
-  console.log(newWorkScheduleUsersList) 
+  console.log(newWorkScheduleUsersList)
 
-  console.log(dates)
+  // console.log(dates)
 
-  // for (let user = 0; user < list.length; user++){
-  //   for (let date = 0; date < dates.length; date++){
-  //     month1 = dates[user][date].getMonth() + 1;
-  //     day1 = dates[user][date].getDate();
-  //     month2= list[user][date].getMonth() + 1;
-  //     day2 = list[user][date].getDate();
+  let workDate = 0;
+  for (let user = 0; user < list.length; user++){
+    console.log(list.length)
+    workDate = 0;
+    for (let date = 0; date < dates.length; date++){
+      month1 = add0(dates[date].getMonth() + 1);
+      console.log(month1)
+      date1 = add0(dates[date].getDate());
+      console.log(date1)
+      month2 = list[user][workDate].start_time.substr(5, 2)
+      console.log(month2)
+      date2 = list[user][workDate].start_time.substr(8, 2);
+      console.log(date2)
 
-  //     // create_time: "2022-08-26T12:05:05.997412+09:00"
-  //     // id: 19
-  //     // shift_range_FK: 5
-  //     // start_time: "2022-04-03T15:00:00+09:00"
-  //     // stop_time: "2022-04-03T18:00:00+09:00"
-  //     // update_time: "2022-08-26T12:05:05.997456+09:00"
-  //     // user_FK: 1
+      if (month1 === month2 && date1 === date2) { // 取得してきた日付と作成シフトの日付が合えば
+        // 何故かここの処理がうまくいかない
+        newWorkScheduleUsersList[user][date].start_time = list[user][workDate].start_time // オブジェクトの時間を新しい配列にコピー
+        newWorkScheduleUsersList[user][date].stop_time = list[user][workDate].stop_time
+        workDate++
+        console.log("ok")
+        console.log(list[user][workDate].start_time)
+        console.log(newWorkScheduleUsersList[user][date].start_time)
 
-  //     // Fri Apr 01 2022 09:00:00 GMT+0900 (日本標準時)
+      }
+      else{
+        newWorkScheduleUsersList[user][date].start_time = null // dates[1] = // 合わない場合は空白が表示されるようにする
+        newWorkScheduleUsersList[user][date].stop_time = null    
+        console.log("not")
 
-  //     if (month1 == month2 && day1 == day2) { // 取得してきた日付と作成シフトの日付が合えば
-  //       newWorkScheduleUsersList[user][date].shift_range_FK = list[user][date].shift_range_FK // オブジェクトの内容を新しい配列にコピー
-  //     }else{
-  //       // dates[1] = // 合わない場合は空白が表示されるようにする
-  //     }    
-  //   }
-  // }   
+      }    
+    }
+  }  
+
 }
 
 export default function ShiftTable() {
@@ -238,10 +254,11 @@ export default function ShiftTable() {
           startDate = new Date(res.data[0].start_date); //結果が配列の中の一つとして返されるので[0]で指定する
           stopDate = new Date(res.data[0].stop_date);
           // console.log(date.start_date);
-          dates = getDatesBetweenDates(startDate, stopDate); // 開始日から終了日までのdateオブジェクトの配列
+          originalDates = getDatesBetweenDates(startDate, stopDate); // 開始日から終了日までのdateオブジェクトの配列
           // console.log(dates)
           // startDate = res.data.start_date;
           // stopDate = res.data.stop_date;
+          dates = originalDates.concat();
           setShiftDatesList(changeFormDates(dates)); // 配列を〇月〇日（〇曜日）に変換した配列
           // console.log(changeFormDates(dates))
           // console.log(shiftDatesList)
@@ -258,7 +275,8 @@ export default function ShiftTable() {
                       // console.log(workSchedules); // 最初は出ない
                       workSchedulesList = makeWorkSchedulesListByUser(res.data, usersval);
                       // console.log(workSchedulesList)
-                      convertedWorkSchedulesList = convertWorkSchedulesList(workSchedulesList, dates, usersval);
+                      // console.log(originalDates)
+                      convertedWorkSchedulesList = convertWorkSchedulesList(workSchedulesList, originalDates, usersval);
                       })
           .catch(err=>{console.log(err);})         
           })
