@@ -62,8 +62,10 @@ const MakeShift = () => {
         console.log(postStartValue)
         postEndValue =await endValue.getFullYear() + '-' + ('00' + (endValue.getMonth() + 1)).slice(-2) + '-' + ('00' + endValue.getDate()).slice(-2)
         console.log(postEndValue)
-        postDeadlineValue =await deadlineValue.getFullYear() + '-' + ('00' + (deadlineValue.getMonth() + 1)).slice(-2) + '-' + ('00' + deadlineValue.getDate()).slice(-2)
-        console.log(postDeadlineValue)
+        if (deadlineValue !== null){
+          postDeadlineValue =await deadlineValue.getFullYear() + '-' + ('00' + (deadlineValue.getMonth() + 1)).slice(-2) + '-' + ('00' + deadlineValue.getDate()).slice(-2)
+          console.log(postDeadlineValue)
+        }
 
         // シフト範囲をPOST
         console.log(storeFK)
@@ -144,6 +146,9 @@ const MakeShift = () => {
                         spacing={2}
                     >
                         <Grid item>
+                            <Typography component="h1" variant="h6">
+                                シフト表名称
+                            </Typography>
                             <TextField
                                 autoComplete="shift-table-name"
                                 name="shiftTableName"
@@ -151,11 +156,14 @@ const MakeShift = () => {
                                 fullWidth
                                 error={shiftNameError}
                                 id="shiftTableName"
-                                label="シフト表名称"
+                                placeholder="シフト表名称"
                                 onChange={(e) => setShiftName(e.target.value)}
                             />
                         </Grid>
                         <Grid item>
+                          <Typography component="h1" variant="h6">
+                                開始日
+                          </Typography>
                           <DatePicker
                             selected={startValue}
                             onChange={(date) => startSetValue(date)}
@@ -171,6 +179,9 @@ const MakeShift = () => {
                          
                         </Grid>
                         <Grid item>
+                          <Typography component="h6" variant="h6">
+                              終了日
+                          </Typography>
                           <DatePicker
                               selected={endValue}
                               onChange={(date) => endSetValue(date)}
@@ -187,6 +198,9 @@ const MakeShift = () => {
                            
                         </Grid>
                         <Grid item>
+                          <Typography component="h1" variant="h6">
+                              締切日
+                          </Typography>
                           <DatePicker
                             selected={deadlineValue}
                             onChange={(date) => deadlineSetValue(date)} 
