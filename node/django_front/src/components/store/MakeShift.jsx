@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useEffect, useLayoutEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import useForm from "react-hook-form";
 import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import ja from 'date-fns/locale/ja'
@@ -55,12 +56,6 @@ const MakeShift = () => {
         console.log(startValue)
         console.log(endValue)
         console.log(deadlineValue)
-
-
-        // 一度Date型として再代入する
-        // startValue = new Date(startValue);
-        // endValue = new Date(endValue);
-        // deadlineValue = new Date(deadlineValue);
 
         // postできる値に変更
         postStartValue =await startValue.getFullYear() + '-' + ('00' + (startValue.getMonth() + 1)).slice(-2) + '-' + ('00' + startValue.getDate()).slice(-2)
@@ -118,7 +113,7 @@ const MakeShift = () => {
     //     else return(true)
     // }
 
-    const handleSubmit = (event) => {
+    const onSubmit = (event) => {
         event.preventDefault()
         makeShiftPost();
         // if(formVaridation()){
@@ -139,7 +134,7 @@ const MakeShift = () => {
                         </Typography>
                     </Grid>
                 </Grid>
-                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 3 }}>
+                <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 3 }}>
                     <Grid container
                         sx={{
                             display: 'flex',
@@ -167,6 +162,7 @@ const MakeShift = () => {
                             selectsStart
                             startDate={startValue}
                             endDate={endValue}
+                            dateFormat="yyyy年MM月dd日(E)"
                             disabledKeyboardNavigation
                             placeholderText="開始日"
                             locale="ja"
@@ -208,6 +204,7 @@ const MakeShift = () => {
                               startDate={startValue}
                               endDate={endValue}
                               minDate={startValue}
+                              dateFormat="yyyy年MM月dd日(E)"
                               disabledKeyboardNavigation
                               placeholderText="終了日"
                               locale="ja"
@@ -245,6 +242,7 @@ const MakeShift = () => {
                             selected={deadlineValue}
                             onChange={(date) => deadlineSetValue(date)} 
                             disabledKeyboardNavigation
+                            dateFormat="yyyy年MM月dd日(E)"
                             placeholderText="締切日"
                             locale="ja"
                             customInput={<TextField/>}
