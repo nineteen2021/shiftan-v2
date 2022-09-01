@@ -70,7 +70,7 @@ export default function AccountSettings() {
                     //console.log(res.data);
                 })
         .catch(err=>{console.log(err);});
-        }, []);
+    }, []);
 
     useEffect(() => {
         let fk;
