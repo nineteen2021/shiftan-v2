@@ -57,11 +57,15 @@ const MakeShift = () => {
         console.log(endValue)
         console.log(deadlineValue)
 
-        // postできる値に変更
-        postStartValue =await startValue.getFullYear() + '-' + ('00' + (startValue.getMonth() + 1)).slice(-2) + '-' + ('00' + startValue.getDate()).slice(-2)
-        console.log(postStartValue)
-        postEndValue =await endValue.getFullYear() + '-' + ('00' + (endValue.getMonth() + 1)).slice(-2) + '-' + ('00' + endValue.getDate()).slice(-2)
-        console.log(postEndValue)
+        // 各欄に値が入っていたらpostできる値に変更
+        if (startValue !== null) {
+          postStartValue =await startValue.getFullYear() + '-' + ('00' + (startValue.getMonth() + 1)).slice(-2) + '-' + ('00' + startValue.getDate()).slice(-2)
+          console.log(postStartValue)
+        }
+        if (endValue !== null) {
+          postEndValue =await endValue.getFullYear() + '-' + ('00' + (endValue.getMonth() + 1)).slice(-2) + '-' + ('00' + endValue.getDate()).slice(-2)
+          console.log(postEndValue)
+        }
         if (deadlineValue !== null){
           postDeadlineValue =await deadlineValue.getFullYear() + '-' + ('00' + (deadlineValue.getMonth() + 1)).slice(-2) + '-' + ('00' + deadlineValue.getDate()).slice(-2)
           console.log(postDeadlineValue)
@@ -91,36 +95,37 @@ const MakeShift = () => {
     
     }
 
-    // const formVaridation = () => {
-    //     if(shiftName == "")setShiftNameError(true);
-    //     else setShiftName(false)
+    // エラー処理
+    const formVaridation = () => {
+        if(shiftName == null || shiftName == "")setShiftNameError(true);
+        else setShiftNameError(false)
 
-    //     if(startValue=="")setStartValueError(true);
-    //     else startSetValue(false)
+        if(startValue==null)setStartValueError(true);
+        else setStartValueError(false)
 
-    //     if(endValue==""){
-    //         setEndValueError(true);
-    //         setEndValueErrorMessage("");
-    //     }
-    //     else if(startValue>endValue){
-    //         setEndValueError(true);
-    //         setEndValueErrorMessage("開始日が終了日よりも前になるように設定する必要があります。");
-    //     }
-    //     else {
-    //         endSetValue(false);
-    //         setEndValueErrorMessage("");
-    //     }
+        if(endValue==null){
+            setEndValueError(true);
+            setEndValueErrorMessage("");
+        }
+        else if(startValue>endValue){
+            setEndValueError(true);
+            setEndValueErrorMessage("開始日が終了日よりも前になるように設定する必要があります。");
+        }
+        else {
+            setEndValueError(false);
+            setEndValueErrorMessage("");
+        }
 
-    //     if (shiftName == ""||startValue==""||endValue==""||startValue>endValue)return(false)
-    //     else return(true)
-    // }
+        if (shiftName == null|| shiftName == "" ||startValue==null||endValue==null||startValue>endValue)return(false)
+        else return(true)
+    }
 
     const onSubmit = (event) => {
-        event.preventDefault()
+      event.preventDefault()
+      if(formVaridation()){
+          
         makeShiftPost();
-        // if(formVaridation()){
-        //     makeShiftPost();
-        // }
+      }
     }
 
   return (
@@ -147,7 +152,7 @@ const MakeShift = () => {
                     >
                         <Grid item>
                             <Typography component="h1" variant="h6">
-                                シフト表名称
+                                シフト表名称*
                             </Typography>
                             <TextField
                                 autoComplete="shift-table-name"
@@ -156,13 +161,13 @@ const MakeShift = () => {
                                 fullWidth
                                 error={shiftNameError}
                                 id="shiftTableName"
-                                placeholder="シフト表名称"
+                                placeholder="シフト表名称*"
                                 onChange={(e) => setShiftName(e.target.value)}
                             />
                         </Grid>
                         <Grid item>
                           <Typography component="h1" variant="h6">
-                                開始日
+                                開始日*
                           </Typography>
                           <DatePicker
                             selected={startValue}
@@ -172,15 +177,16 @@ const MakeShift = () => {
                             endDate={endValue}
                             dateFormat="yyyy年MM月dd日(E)"
                             disabledKeyboardNavigation
-                            placeholderText="開始日"
+                            placeholderText="開始日*"
                             locale="ja"
-                            customInput={<TextField/>}
+                            
+                            customInput={<TextField error={startValueError}/>}
                           />
                          
                         </Grid>
                         <Grid item>
                           <Typography component="h6" variant="h6">
-                              終了日
+                              終了日*
                           </Typography>
                           <DatePicker
                               selected={endValue}
@@ -191,12 +197,13 @@ const MakeShift = () => {
                               minDate={startValue}
                               dateFormat="yyyy年MM月dd日(E)"
                               disabledKeyboardNavigation
-                              placeholderText="終了日"
+                              placeholderText="終了日*"
                               locale="ja"
-                              customInput={<TextField/>}
+                              customInput={<TextField error={endValueError}/>}
                           />
                            
                         </Grid>
+                        <Grid>{endValueErrorMessage}</Grid>
                         <Grid item>
                           <Typography component="h1" variant="h6">
                               締切日
