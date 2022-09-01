@@ -3,6 +3,9 @@ import '../../App.css'
 import Paper from '@mui/material/Paper';
 import axios from 'axios';
 import Button from '@mui/material/Button';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Collapse from '@mui/material/Collapse';
 import Grid from '@mui/material/Grid';
 import {
   ViewState, GroupingState, IntegratedGrouping, IntegratedEditing, EditingState,
@@ -129,6 +132,8 @@ export default class ShiftEditorDay extends React.PureComponent {
       groupByDate: isWeekOrMonthView,
       isGroupByDate: true,
       users: null,
+      success: false,
+      moveTmp: false,
     };
 
     this.commitChanges = this.commitChanges.bind(this);
@@ -182,6 +187,16 @@ export default class ShiftEditorDay extends React.PureComponent {
         console.log("以下が更新")
         console.log(changed)
         if(Object.keys(changed)[0].match(/tmp/)){
+          this.setState({
+            moveTmp:true
+          })
+          const toRef = setTimeout(() => {
+            this.setState({
+              moveTmp: false
+            })
+            clearTimeout(toRef);
+            // it is good practice to clear the timeout (but I am not sure why)
+          }, 5000)
         }else{
           data = data.map(appointment => (
             changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
@@ -343,7 +358,7 @@ export default class ShiftEditorDay extends React.PureComponent {
   
 
   render() {
-    const { data, resources, grouping, groupByDate, isGroupByDate, } = this.state;
+    const { data, resources, grouping, groupByDate, isGroupByDate, success, moveTmp } = this.state;
     console.log('現在のシフトデータ');
     console.log(this.state.data)
 
@@ -391,6 +406,16 @@ export default class ShiftEditorDay extends React.PureComponent {
         .then(
           res=>{console.log(res.data);
           console.log('書き込みが完了しました')
+          this.setState({
+            success: true
+          })
+          const toRef = setTimeout(() => {
+            this.setState({
+              success: false
+            })
+            clearTimeout(toRef);
+            // it is good practice to clear the timeout (but I am not sure why)
+          }, 5000)
         })
         .catch(err=>{console.log(err);});
         })
@@ -429,6 +454,18 @@ export default class ShiftEditorDay extends React.PureComponent {
           <ViewSwitcher />
           <DateNavigator />
           <TodayButton messages={localization}/>
+          <Collapse in={success}>
+            <Alert severity="success">
+            <AlertTitle>成功</AlertTitle>
+              保存に成功しました
+            </Alert>
+          </Collapse>
+          <Collapse in={moveTmp} className='moveTmp'>
+            <Alert severity="error">
+            <AlertTitle>エラー</AlertTitle>
+              シフト希望は操作できません
+            </Alert>
+          </Collapse>
           <Grid
             container
             direction="row"

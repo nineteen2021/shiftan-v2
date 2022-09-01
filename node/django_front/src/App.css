@@ -47,10 +47,16 @@
 /* shiftEditor関連 */
 .css-pzc27e-MuiToolbar-root { 
   position: sticky!important;
-  top: 69px;
+  top: 63px;
   left: 74px;
   background: #fff;
   z-index: 1000;
+}
+.moveTmp { 
+  position: sticky!important;
+  top: 63px;
+  left: 74px;
+  z-index: 1001;
 }
 
 /* .App {
