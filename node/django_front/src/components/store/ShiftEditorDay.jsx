@@ -104,6 +104,8 @@ const localization = {
   today: '今日',
 };
 
+const shift_range_FK = 1;
+
 const isWeekOrMonthView = viewName => viewName === 'Week' || viewName === 'Day';
 export default class ShiftEditorDay extends React.PureComponent {
   constructor(props) {
@@ -171,10 +173,14 @@ export default class ShiftEditorDay extends React.PureComponent {
     this.setState((state) => {
       let { data } = state;
       if (added) {
+        console.log("以下が追加")
+        console.log(added)
         const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
         data = [...data, { id: startingAddedId, ...added }];
       }
       if (changed) {
+        console.log("以下が更新")
+        console.log(changed)
         if(Object.keys(changed)[0].match(/tmp/)){
         }else{
           data = data.map(appointment => (
@@ -333,10 +339,66 @@ export default class ShiftEditorDay extends React.PureComponent {
     });
 
 }
+
+  
+
   render() {
     const { data, resources, grouping, groupByDate, isGroupByDate, } = this.state;
     console.log('現在のシフトデータ');
     console.log(this.state.data)
+
+    const updateData = () => {
+      let onlyShift = this.state.data.filter(function(data){
+        return !String(data.title).match(/シフト希望/)
+      });
+      console.log(onlyShift);
+      let resurtBase = new Array();
+      for (let i = 0; i < onlyShift.length; i++){
+        let tmp = {
+          id: onlyShift[i].id,
+          user_FK: onlyShift[i].members[0],
+          shift_range_FK:shift_range_FK,
+          start_time:onlyShift[i].startDate,
+          stop_time:onlyShift[i].endDate,
+        }
+        resurtBase.push(tmp);
+      }
+      console.log("以下をpushします")
+      console.log(resurtBase)
+
+      axios //まずは消す
+      .delete('http://localhost:8000/api/work_schedule/?fk=' + shift_range_FK ,
+      {
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `JWT ${window.localStorage.getItem('access')}`,
+          }
+      })
+      .then(
+        res=>{console.log(res.data);
+        console.log('削除しました')
+        axios //ユーザー情報を送信
+        .post('http://localhost:8000/api/work_schedule/',
+            
+          resurtBase
+            
+        ,{
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `JWT ${window.localStorage.getItem('access')}`,
+            }
+        })
+        .then(
+          res=>{console.log(res.data);
+          console.log('書き込みが完了しました')
+        })
+        .catch(err=>{console.log(err);});
+        })
+      .catch(err=>{console.log(err);});
+
+      
+    }
+
     return (
       <Paper>
         <Scheduler
@@ -374,7 +436,15 @@ export default class ShiftEditorDay extends React.PureComponent {
             alignItems="center"
           >
             <Grid item xs={0}>
-              <Button variant="contained" sx={{mr:3, mt:1}}>保存</Button>
+              <Button 
+                variant="contained" 
+                sx={{mr:3, mt:1}}
+                onClick={() => {
+                  updateData()
+                }}
+              >
+                保存
+              </Button>
             </Grid>
           </Grid>
           <Appointments  />
