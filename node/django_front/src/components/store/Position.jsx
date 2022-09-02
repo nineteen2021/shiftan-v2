@@ -13,11 +13,6 @@ import TextField from '@mui/material/TextField';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { areArraysEqual } from '@mui/material/node_modules/@mui/base';
 import axios from 'axios';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 
 const rows = [];
 
@@ -79,16 +74,9 @@ export default function Position() {
     
     const url = 'http://localhost:8000/api/group/'  ;
 
-    let tmp = "";
-
-    const selectIndex = (index) => {
-        tmp = index ;
-        console.log(tmp);
-    }
-
     const deleteGroup = (index) => {
         const newGroup = [...groups]
-        if(confirm('削除してよろしいですか?')){
+        if(window.confirm('削除してよろしいですか?')){
         axios.delete(url + groups[index].id + "/"
         ,{
             headers: {
@@ -108,16 +96,6 @@ export default function Position() {
     }else{console.log('キャンセル')}
     }
     
-    const [selectedItem, setSelectedItem] = React.useState('') 
-
-    const onOpenDialog = (name) => {
-        setSelectedItem(name)
-    }
-
-    const onCloseDialog = () => {
-        setSelectedItem('')
-    } 
-        
      return (
         <>
             <Fragment>
@@ -146,26 +124,9 @@ export default function Position() {
                                     <TableCell key={index}>
                                         <Button variant="outlined" startIcon={<DeleteIcon />} 
                                                 onClick={() => {
-                                                    deleteGroup(index);
-                                                    // selectIndex(index);
-                                                    onOpenDialog("checkDelete");}}>
+                                                    deleteGroup(index);}}>
                                             Delete
                                         </Button>
-                                        {/* <Dialog open={selectedItem === "checkDelete"} onClose={onCloseDialog}>
-                                                <DialogTitle>確認</DialogTitle>
-                                                <DialogContent>
-                                                    <DialogContentText>
-                                                        削除してもよろしいですか。
-                                                    </DialogContentText>
-                                                </DialogContent>
-                                                <DialogActions>
-                                                    <Button onClick={() => {
-                                                                onCloseDialog();
-                                                                deleteGroup(index);
-                                                                }}>OK</Button>
-                                                    <Button onClick={onCloseDialog}>キャンセル</Button>
-                                                </DialogActions>
-                                         </Dialog> */}
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -173,9 +134,6 @@ export default function Position() {
                     </Table>
                 </TableContainer>
             </Fragment>
-
-            
         </>
-        
     );
 }
