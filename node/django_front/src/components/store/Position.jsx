@@ -13,7 +13,11 @@ import TextField from '@mui/material/TextField';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { areArraysEqual } from '@mui/material/node_modules/@mui/base';
 import axios from 'axios';
-
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 const rows = [];
 
@@ -54,14 +58,14 @@ export default function Position() {
     const createNewGroup = () => {
         console.log(users.store_FK)
         axios.post('http://localhost:8000/api/group/', {
-            store_FK: users.store_FK,
-            group_name: name,
-            color: "#FFFFFF",
+             store_FK: users.store_FK,
+             group_name: name,
+             color: "#FFFFFF",
         }
         ,{
             headers: {
-                // 'Content-Type': 'application/json', 
-                'Authorization': `JWT ${localStorage.getItem('access')}`, 
+                 'Content-Type': 'application/json', 
+                 'Authorization': `JWT ${localStorage.getItem('access')}`, 
             }
         })
             .then(response => {
@@ -73,25 +77,46 @@ export default function Position() {
             });
         }
     
-    const url = 'http://localhost:8000/api/group/5/'  
-    const payload = { id : '5'}
+    const url = 'http://localhost:8000/api/group/'  ;
 
-    const deleteGroup = () => {
-        axios.delete(url
+    let tmp = "";
+
+    const selectIndex = (index) => {
+        tmp = index ;
+        console.log(tmp);
+    }
+
+    const deleteGroup = (index) => {
+        const newGroup = [...groups]
+        if(confirm('削除してよろしいですか?')){
+        axios.delete(url + groups[index].id + "/"
         ,{
             headers: {
-                'Content-Type': 'application/json', 
-                'Authorization': `JWT ${localStorage.getItem('access')}`, 
+               'Content-Type': 'application/json', 
+               'Authorization': `JWT ${localStorage.getItem('access')}`, 
             }
         })
-        .then(response => {
-            setGroups([...groups, response.data])
-            // console.log(res.data);
+         .then(() => {
+            newGroup.splice(index, 1);
+            setGroups(newGroup);
+            console.log(index);
+            console.log("消えた");
         })
-        .catch(error => {
-            console.log(error);
-        });
+         .catch(error => {
+             console.log(error);
+       });
+    }else{console.log('キャンセル')}
     }
+    
+    const [selectedItem, setSelectedItem] = React.useState('') 
+
+    const onOpenDialog = (name) => {
+        setSelectedItem(name)
+    }
+
+    const onCloseDialog = () => {
+        setSelectedItem('')
+    } 
         
      return (
         <>
@@ -99,35 +124,57 @@ export default function Position() {
                 <Grid container>
                     <Grid item><Typography sx={{ mb:2, ml:2 ,mr:1}}><TextField sx={{minWidth: 230 }} id="standard-basic" label="追加したいポジションを入力" variant="standard" onChange={handleNewName}/></Typography></Grid>
                     <Grid item><Button variant="contained" sx={{ mt: 2 , mr:1}} onClick={createNewGroup}>追加</Button></Grid>
-                    <Grid item><Button variant="contained" sx={{ mt: 2 , mr:1}} onClick={deleteGroup}>削除</Button></Grid>
                 </Grid>
                 <TableContainer component={Paper}>
                     <Table sx={{minWidth: 550 }} aria-label="caption table">
                         <TableHead>
                             <TableRow>
-                                <TableCell align='left'><Checkbox></Checkbox></TableCell>
                                 <TableCell align='left'>色</TableCell>
                                 <TableCell align='left'>ポジション名</TableCell>
+                                <TableCell align='left'>削除</TableCell>
                                 <TableCell align="center"></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {groups?.map((group,index) => (
+                            {groups?.map((group, index) => (
                                 <TableRow>
-                                    <TableCell>
-                                        <Checkbox></Checkbox>
-                                    </TableCell>
                                     <TableCell>
                                         {/* group.group_color */}
                                         <ColorPicker />
                                     </TableCell>
                                     <TableCell component="th" scope="row" >{group.group_name}</TableCell>
+                                    <TableCell key={index}>
+                                        <Button variant="outlined" startIcon={<DeleteIcon />} 
+                                                onClick={() => {
+                                                    deleteGroup(index);
+                                                    // selectIndex(index);
+                                                    onOpenDialog("checkDelete");}}>
+                                            Delete
+                                        </Button>
+                                        {/* <Dialog open={selectedItem === "checkDelete"} onClose={onCloseDialog}>
+                                                <DialogTitle>確認</DialogTitle>
+                                                <DialogContent>
+                                                    <DialogContentText>
+                                                        削除してもよろしいですか。
+                                                    </DialogContentText>
+                                                </DialogContent>
+                                                <DialogActions>
+                                                    <Button onClick={() => {
+                                                                onCloseDialog();
+                                                                deleteGroup(index);
+                                                                }}>OK</Button>
+                                                    <Button onClick={onCloseDialog}>キャンセル</Button>
+                                                </DialogActions>
+                                         </Dialog> */}
+                                    </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
             </Fragment>
+
+            
         </>
         
     );
