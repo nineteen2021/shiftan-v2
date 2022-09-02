@@ -30,14 +30,14 @@ import { Link as routerLink } from 'react-router-dom'
 const drawerWidth = 240;
 
 //　連想配列を採用
-const notification = [
-  ["店舗登録がまだ終わっていません", "2022/03/03"],
-  ["シフト提出の締め切りが迫っています。", "2022/03/21"],
-  ["シフト提出の締め切りが迫っています。", "2022/03/21"],
-  ["シフト提出の締め切りが迫っています。", "2022/03/21"],
-  ["シフト提出の締め切りが迫っています。", "2022/03/21"],
-  ["シフト提出の締め切りが迫っています。", "2022/03/21"],
-];
+// const notification = [
+//   ["店舗登録がまだ終わっていません", "2022/03/03"],
+//   ["シフト提出の締め切りが迫っています。", "2022/03/21"],
+//   ["シフト提出の締め切りが迫っています。", "2022/03/21"],
+//   ["シフト提出の締め切りが迫っています。", "2022/03/21"],
+//   ["シフト提出の締め切りが迫っています。", "2022/03/21"],
+//   ["シフト提出の締め切りが迫っています。", "2022/03/21"],
+// ];
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -108,7 +108,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function Navbar(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [anchorElNotification, setAnchorElNotification] = React.useState(null);
+  // const [anchorElNotification, setAnchorElNotification] = React.useState(null);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -117,13 +117,13 @@ export default function Navbar(props) {
     setOpen(false);
   };
 
-  const handleOpenNotificationMenu = (event) => {
-    setAnchorElNotification(event.currentTarget);
-  };
+  // const handleOpenNotificationMenu = (event) => {
+  //   setAnchorElNotification(event.currentTarget);
+  // };
   
-  const handleCloseNotificationMenu = () => {
-    setAnchorElNotification(null);
-  };
+  // const handleCloseNotificationMenu = () => {
+  //   setAnchorElNotification(null);
+  // };
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -152,7 +152,7 @@ export default function Navbar(props) {
           </Button>
           <Box sx={{ flexGrow: 1 }} />
           <Box>
-            <IconButton
+            {/* <IconButton
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
@@ -161,8 +161,8 @@ export default function Navbar(props) {
               <Badge badgeContent={17} color="error">
                 <NotificationsIcon />
               </Badge>
-            </IconButton>
-            <Menu
+            </IconButton> */}
+            {/* <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
               anchorEl={anchorElNotification}
@@ -177,8 +177,9 @@ export default function Navbar(props) {
               }}
               open={Boolean(anchorElNotification)}
               onClose={handleCloseNotificationMenu}
-            >
+            >*/}
               {/* このメニュータグの中が通知ボタンを押したときに出てくるところ */}
+              {/*
               <List>
                 {notification.map((text) => (
                   <>
@@ -187,7 +188,7 @@ export default function Navbar(props) {
                   </>
                 ))}
               </List>
-            </Menu>
+            </Menu> */}
           </Box>
         </Toolbar>
       </AppBar>
