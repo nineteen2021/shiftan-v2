@@ -7,6 +7,7 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Collapse from '@mui/material/Collapse';
 import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 import {
   ViewState, GroupingState, IntegratedGrouping, IntegratedEditing, EditingState,
 } from '@devexpress/dx-react-scheduler';
@@ -134,6 +135,10 @@ export default class ShiftEditorDay extends React.PureComponent {
       users: null,
       success: false,
       moveTmp: false,
+      outOfStoreRange: false,
+      shift_rangeStart_date: '',
+      shift_rangeStop_date: '',
+      shift_rangeName: "読み込み中",
     };
 
     this.commitChanges = this.commitChanges.bind(this);
@@ -179,13 +184,29 @@ export default class ShiftEditorDay extends React.PureComponent {
       let { data } = state;
       if (added) {
         console.log("以下が追加")
-        console.log(added)
+        console.log(added) 
+        console.log(added.endDate) 
+        console.log(new Date(this.state.shift_rangeStop_date + " 00:00:00")) 
+
+        if(added.startDate<=new Date(this.state.shift_rangeStart_date + " 00:00:00") || added.endDate>=new Date(this.state.shift_rangeStop_date + " 24:00:00")){ //もし、追加したシフトがstorerangeを超えたら
+          this.setState({
+            outOfStoreRange:true
+          })
+          const toRef = setTimeout(() => {
+            this.setState({
+              outOfStoreRange: false
+            })
+            clearTimeout(toRef);
+          }, 5000)
+        }else{
         const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
         data = [...data, { id: startingAddedId, ...added }];
+        }
       }
       if (changed) {
         console.log("以下が更新")
         console.log(changed)
+        console.log(Object.entries(changed)[0][1].startDate)
         if(Object.keys(changed)[0].match(/tmp/)){
           this.setState({
             moveTmp:true
@@ -195,7 +216,16 @@ export default class ShiftEditorDay extends React.PureComponent {
               moveTmp: false
             })
             clearTimeout(toRef);
-            // it is good practice to clear the timeout (but I am not sure why)
+          }, 5000)
+        }else if(Object.entries(changed)[0][1].startDate<=new Date(this.state.shift_rangeStart_date + " 00:00:00") || Object.entries(changed)[0][1].endDate>=new Date(this.state.shift_rangeStop_date + " 24:00:00")){
+          this.setState({
+            outOfStoreRange:true
+          })
+          const toRef = setTimeout(() => {
+            this.setState({
+              outOfStoreRange: false
+            })
+            clearTimeout(toRef);
           }, 5000)
         }else{
           data = data.map(appointment => (
@@ -228,7 +258,7 @@ export default class ShiftEditorDay extends React.PureComponent {
     });
 
     await axios //店に所属しているすべてのユーザーの情報をとってくる
-    .get('http://localhost:8000/api-auth/users/',{ //TODO:storeFKで絞り込めないので、絞り込めるようにする
+    .get('http://127.0.0.1:8000/api/user/?store_FK=' + ownerAccount.store_FK,{ //TODO:storeFKで絞り込めないので、絞り込めるようにする
         headers: {
             'Authorization': `JWT ${window.localStorage.getItem('access')}`,
         }
@@ -260,7 +290,7 @@ export default class ShiftEditorDay extends React.PureComponent {
     .catch(err=>{
       console.log('再試行します');
     axios //店に所属しているすべてのユーザーの情報をとってくる
-    .get('http://localhost:8000/api-auth/users/',{ //TODO:storeFKで絞り込めないので、絞り込めるようにする
+    .get('http://127.0.0.1:8000/api/user/?store_FK=' + ownerAccount.store_FK,{ //TODO:storeFKで絞り込めないので、絞り込めるようにする
         headers: {
             'Authorization': `JWT ${window.localStorage.getItem('access')}`,
         }
@@ -352,13 +382,33 @@ export default class ShiftEditorDay extends React.PureComponent {
     .catch(err=>{
       console.log(err);
     });
+    
+    //shift_rangeを持ってくる
+    await axios
+    .get('http://localhost:8000/api/shift_range/'+ shift_range_FK + '/',{
+        headers: {
+            'Authorization': `JWT ${window.localStorage.getItem('access')}`,
+        }
+    })
+    .then(res=>{
+      console.log("shift_range取得")
+      console.log(res.data)
+      this.setState({
+        shift_rangeStart_date: res.data.start_date,
+        shift_rangeStop_date: res.data.stop_date,
+        shift_rangeName: res.data.shift_name
+      })
+    })
+    .catch(err=>{
+      console.log(err);
+    });
 
 }
 
   
 
   render() {
-    const { data, resources, grouping, groupByDate, isGroupByDate, success, moveTmp } = this.state;
+    const { data, resources, grouping, groupByDate, isGroupByDate, success, moveTmp, outOfStoreRange , shift_rangeName, shift_rangeStart_date, shift_rangeStop_date } = this.state;
     console.log('現在のシフトデータ');
     console.log(this.state.data)
 
@@ -466,12 +516,23 @@ export default class ShiftEditorDay extends React.PureComponent {
               シフト希望は操作できません
             </Alert>
           </Collapse>
+          <Collapse in={outOfStoreRange} className='moveTmp'>
+            <Alert severity="error">
+            <AlertTitle>エラー</AlertTitle>
+              シフト範囲内で指定してください
+            </Alert>
+          </Collapse>
           <Grid
             container
             direction="row"
             justifyContent="flex-end"
             alignItems="center"
           >
+            <Grid item xs={11}>
+            <Typography variant="h5" gutterBottom sx={{mt:1}}>
+              {this.state.shift_rangeName + ' ' + this.state.shift_rangeStart_date + ' ～ ' + this.state.shift_rangeStop_date}
+            </Typography>
+            </Grid>
             <Grid item xs={0}>
               <Button 
                 variant="contained" 
