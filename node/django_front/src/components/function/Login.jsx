@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react';
 
 import Button from '@mui/material/Button';
@@ -20,7 +20,6 @@ import axios from 'axios';
 
 import { useAuth } from "../../hooks/useAuth";
 
-import { useAuth } from "../../hooks/useAuth";
 
 function Copyright(props) {
   return (
