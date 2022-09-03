@@ -152,7 +152,7 @@ const convertWorkSchedulesList = (list, dates) => {
   // console.log(newWorkScheduleUsersList)
   // console.log(list.length)
 
-  for (let k = 0; k < list.length; k++){ // users * datesの配列を作成
+  for (let k = 0; k < list.length; k++){ // users * dateの空の配列を作成
     console.log("ok")
     newWorkScheduleUsersList.push(newWorkScheduleList)
   }
@@ -160,38 +160,58 @@ const convertWorkSchedulesList = (list, dates) => {
 
   // console.log(dates)
 
-  let workDate = 0;
-  for (let user = 0; user < list.length; user++){
-    console.log(list.length)
-    workDate = 0;
-    for (let date = 0; date < dates.length; date++){
-      month1 = add0(dates[date].getMonth() + 1);
+  let workDate;
+  // for (let user = 0; user < 1; user++){ //userの分、配列を回す
+  //   console.log(user)
+    // console.log(list.length)
+    let user = 0; //テスト、userを0に指定し、1回だけ実行する
+    // workDate = 0; // workDateの初期化
+    for (let date = 0; date < dates.length; date++){ // シフトの範囲だけ回す（4月シフトであれば30回）
+      console.log(date)
+      month1 = add0(dates[date].getMonth() + 1); // 日にちのみが入った30日分の配列から月、日を取得
       console.log(month1)
       date1 = add0(dates[date].getDate());
       console.log(date1)
-      month2 = list[user][workDate].start_time.substr(5, 2)
+      month2 = list[0][workDate].start_time.substr(5, 2) //作成シフトから月、日を取得
       console.log(month2)
-      date2 = list[user][workDate].start_time.substr(8, 2);
+      date2 = list[0][workDate].start_time.substr(8, 2);
       console.log(date2)
 
-      if (month1 === month2 && date1 === date2) { // 取得してきた日付と作成シフトの日付が合えば
-        // 何故かここの処理がうまくいかない
-        newWorkScheduleUsersList[user][date].start_time = list[user][workDate].start_time // オブジェクトの時間を新しい配列にコピー
-        newWorkScheduleUsersList[user][date].stop_time = list[user][workDate].stop_time
-        workDate++
-        console.log("ok")
-        console.log(list[user][workDate].start_time)
-        console.log(newWorkScheduleUsersList[user][date].start_time)
+      if (month1 === month2 && date1 === date2) { // シフトの範囲の日付と作成シフトの日付を比較する
+        // なぜか作成シフトの一番最後の値がuser * 日にち分代入された配列が生まれる
 
+        console.log(newWorkScheduleUsersList[user][date].start_time)
+        console.log(newWorkScheduleUsersList[user][date].stop_time)
+
+        console.log(list[user][workDate].start_time)
+        console.log(list[user][workDate].stop_time)
+
+        newWorkScheduleUsersList[0][date].start_time = list[0][workDate].start_time // 作成シフトの時間を新しい配列にコピー
+        newWorkScheduleUsersList[0][date].stop_time = list[0][workDate].stop_time
+        workDate++
+
+        console.log("ok")
+
+        console.log(newWorkScheduleUsersList[user][date].start_time)
+        console.log(newWorkScheduleUsersList[user][date].stop_time)
+
+        console.log(newWorkScheduleUsersList[user][date - 2].start_time) // 代入した日付の2日前の時間も取得、nullが正しい
+        console.log(newWorkScheduleUsersList[user][date - 2].stop_time)
+        // if (workDate <= dates.length){
+        //   console.log(list[user][workDate].start_time)
+        //   console.log(list[user][workDate].stop_time)
+        // }
       }
       else{
-        newWorkScheduleUsersList[user][date].start_time = null // dates[1] = // 合わない場合は空白が表示されるようにする
-        newWorkScheduleUsersList[user][date].stop_time = null    
+        newWorkScheduleUsersList[0][date].start_time = null // dates[1] = // 合わない場合はnullを代入
+        newWorkScheduleUsersList[0][date].stop_time = null    
         console.log("not")
-
-      }    
+        console.log(newWorkScheduleUsersList[user][date].start_time)
+        console.log(newWorkScheduleUsersList[user][date].stop_time)
+      }
     }
-  }  
+    console.log(newWorkScheduleUsersList)
+  // }  
 
 }
 
