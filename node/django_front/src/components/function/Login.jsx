@@ -1,4 +1,7 @@
 import * as React from 'react';
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
+
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -13,7 +16,10 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SimpleNavbar from './SimpleNavbar'
 import NewAccountButton from './NewAccountButton';
 import { Link as routerLink } from 'react-router-dom'
-import Create from './endPoint/Create'
+import axios from 'axios';
+
+import { useAuth } from "../../hooks/useAuth";
+
 
 function Copyright(props) {
   return (
@@ -31,21 +37,66 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Login() {
-  const [email, setEmail] = React.useState("")
-  const [password, setPassword] = React.useState("")
+  const navigate = useNavigate();
+  const auth = useAuth();
+  // console.log(auth);
+  const [users, setUsers] = useState(null)
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    
+    // テキストボックスからメールアドレスとパスワードを取得
+    const email = data.get("email");
+    const password = data.get("password");
+
     // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    console.log({ email, password });
+    
+    // useAuth.jsのログイン関数を呼び出してログイン
+    auth.login(email, password).then((res) => {
+      let userMe;
+      if(res === true) {
+        const distribute = new Promise((resolved, rejected) => {
+          (() => {
+            axios
+            .get('http://localhost:8000/api-auth/users/me/',{
+              headers: {
+                'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
+              }
+            })
+            .then(res=>{
+              setUsers(res.data);
+              userMe=res.data
+              console.log("user/me取得")
+              console.log(res.data);
+            })
+            .then(res=>{
+              console.log("is_manager判別")
+              console.log(userMe.is_manager)
+              if(userMe.is_manager === true) {
+                console.log("店長アカウントです")
+                navigate("/")
+              }
+              else if (userMe.is_manager === false) {
+                console.log("アルバイトアカウントです")
+                navigate("/partTimeHome")
+              }
+              else {
+                console.log("アカウント振り分けでエラーが起こりました")
+              }
+            })
+            .catch(err=>{console.log(err);});
+          })();
+        })
+      }
+    })
   };
 
   return (
     <>
+      {/* ログインしている場合はリダイレクト */}
+      {/* {auth.accessToken != "undefined" && <Navigate to="/" />} */}
       <SimpleNavbar/>
       <Container component="main" maxWidth="xs">
 
@@ -69,7 +120,6 @@ export default function Login() {
               name="email"
               autoComplete="email"
               autoFocus
-              onChange={(event) => setEmail(event.target.value)}
             />
             <TextField
               margin="normal"
@@ -80,7 +130,6 @@ export default function Login() {
               type="password"
               id="password"
               autoComplete="current-password"
-              onChange={(event) => setPassword(event.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -91,7 +140,6 @@ export default function Login() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={() => (Create(email, password))}
             >
               ログイン
             </Button>
