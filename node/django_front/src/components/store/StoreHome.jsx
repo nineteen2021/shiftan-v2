@@ -16,7 +16,10 @@ import { Link as routerLink, Navigate } from 'react-router-dom'
 
 export default function StoreHome(){
   const [users, setUsers] = useState(null)
+  const [shiftTables, setShiftTables] = useState(null)
   const navigate = useNavigate();
+  let fk;
+
   useLayoutEffect(() => {
     axios
         .get('http://localhost:8000/api-auth/users/me/',{
