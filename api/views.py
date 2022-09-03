@@ -1,8 +1,4 @@
 from rest_framework import viewsets, routers
-<<<<<<< HEAD
-from django.contrib.auth import get_user_model
-=======
->>>>>>> f61a99be43854a2ce7a9a08dff1a6bf10956b766
 from django.contrib.auth import get_user_model
 from django_filters import rest_framework as filters
 from shiftan.models import User, Store, Group, Shift_Range, Tmp_Work_Schedule, Work_Schedule, Schedule_Template
@@ -15,10 +11,7 @@ class UserApi(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     filter_backends = [filters.DjangoFilterBackend]
     filterset_fields = '__all__'
-<<<<<<< HEAD
-=======
-
->>>>>>> f61a99be43854a2ce7a9a08dff1a6bf10956b766
+    
     def get_queryset(self):
         queryset = User.objects.all()
         L_id = self.request.query_params.get('id')
