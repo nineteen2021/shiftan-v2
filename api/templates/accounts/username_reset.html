@@ -1,0 +1,13 @@
+{% block subject %}
+【しふたん】メールアドレスリセット
+{% endblock subject %}
+
+{% block text_body %}
+
+{{ name }}様
+以下のリンクからメールアドレスの再設定を行ってください
+{{protocol}}://{{domain}}/{{url}}
+
+【debug用】
+localhost:3000/{{url}}
+{% endblock text_body %}

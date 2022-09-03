@@ -1,5 +1,7 @@
 import * as React from 'react';
+import axios from 'axios';
 import Button from '@mui/material/Button';
+import Create from '../function/endPoint/Create'
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -43,8 +45,27 @@ export default function Register() {
       password: data.get('password'),
     });
   };
-
-  const [selectedItem, setSelectedItem] = React.useState('')
+    const [last_name ,setLast_name] = React.useState('')
+    const [first_name ,setFirst_name] = React.useState('')
+    const [email ,setEmail] = React.useState('')
+    const [phone_number ,setPhone_number] = React.useState('')
+    const [password ,setPassword] = React.useState('')
+    const [re_password ,setRe_password] = React.useState('')
+    const [selectedItem, setSelectedItem] = React.useState('')
+    const [accept, setAccept] = React.useState(false)
+    const [last_name_error, setLast_name_error] = React.useState(false)
+    const [first_name_error, setFirst_name_error] = React.useState(false)
+    const [email_error, setEmail_error] = React.useState(false)
+    const [phome_number_error, setPhone_number_error] = React.useState(false)
+    const [phome_number_error_message, setPhone_number_error_message] = React.useState('')
+    const [password_error, setPassword_error] = React.useState(false)
+    const [password_error_message, setPassword_error_message] = React.useState('')
+    const [re_password_error, setRe_password_error] = React.useState(false)
+    const [re_password_error_message, setRe_password_error_message] = React.useState('')
+    const is_manager = true
+    const emailPattern = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]+.[A-Za-z0-9]+$/;
+    const phonePattern = /^0[-0-9]{9,12}$/;
+    const passwordPattern = /^(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9.?/-]{8,24}$/;
 
     const onOpenDialog = (name) => {
         setSelectedItem(name)
@@ -52,6 +73,80 @@ export default function Register() {
 
     const onCloseDialog = () => {
         setSelectedItem('')
+    }
+    
+    //チェックボックスの値に応じてstateを切り替え
+    const changeAccept = (value) => {
+      if(value === false) {
+        setAccept(true);
+      }else{
+        setAccept(false);
+      }
+    }
+
+    const changeData = () => { //バックエンドにデータを送り、データベースにデータを作成する関数
+      axios //ユーザー情報を送信
+      .post('http://localhost:8000/api-auth/users/',
+          {
+            username: email,
+            email: email,
+            first_name: first_name,
+            last_name: last_name,
+            phone: phone_number,
+            password: password,
+            re_password: re_password,
+            is_manager: is_manager,
+          }
+      ,{
+          headers: {
+              'Content-Type': 'application/json', 
+          }
+      })
+      .then(
+        res=>{console.log(res.data);
+      })
+      .catch(err=>{console.log(err);});
+    }
+
+    const formValidation = () => {
+      if(last_name == '') setLast_name_error(true);
+      else setLast_name_error(false);
+  
+      if(first_name == '') setFirst_name_error(true);
+      else setFirst_name_error(false)
+  
+      if(email == ''||!emailPattern.test(email)) setEmail_error(true);
+      else setEmail_error(false);
+  
+      if(phone_number == ''||!phonePattern.test(phone_number)) {
+        setPhone_number_error(true);
+        setPhone_number_error_message('正しい電話番号を入力してください');
+      }
+      else {
+        setPhone_number_error(false);
+        setPhone_number_error_message('');
+      }
+  
+      if(password == ''||!passwordPattern.test(password)){
+        setPassword_error(true);
+        setPassword_error_message("パスワードは8文字以上で大文字と数字を含める必要があります");
+      }
+      else {
+        setPassword_error(false);
+        setPassword_error_message('');
+      }
+  
+      if(re_password == ''||password != re_password) {
+        setRe_password_error(true);
+        setRe_password_error_message("パスワードが一致しません");
+      }
+      else {
+        setRe_password_error(false);
+        setRe_password_error_message('');
+      }
+  
+      if(last_name == ''||first_name == ''||email == ''||!emailPattern.test(email)||phone_number == ''||!phonePattern.test(phone_number)||password == ''||!passwordPattern.test(password)||re_password == ''||password != re_password ) return(false);
+      else return(true);
     }
 
   return (
@@ -80,7 +175,7 @@ export default function Register() {
               </Typography>
             </Grid>
           </Grid>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate sx={{ mt: 3 }}>
             <Grid container spacing={2}>
             <Grid item>
               <Typography component="h2" sx={{ mr: 6 }}>
@@ -89,53 +184,65 @@ export default function Register() {
             </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  error={last_name_error}
                   autoComplete="family-name"
                   name="lastName"
                   required
                   fullWidth
                   id="lastName"
                   label="姓"
+                  onChange={(e) => setLast_name(e.target.value)}
                   autoFocus
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  error={first_name_error}
                   required
                   fullWidth
                   id="firstName"
                   label="名"
                   name="firstName"
+                  onChange={(e) => setFirst_name(e.target.value)}
                   autoComplete="given-name"
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  error={email_error}//空欄かつメールアドレスの形式でないときにエラー
                   required
                   fullWidth
                   id="email"
                   label="メールアドレス"
                   name="email"
+                  onChange={(e) => setEmail(e.target.value)}
                   autoComplete="email"
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  error={phome_number_error}//空欄かつ、電話番号の形式でないものはエラー
                   required
                   fullWidth
                   id="phoneNumber"
                   label="電話番号"
                   name="phoneNumber"
+                  helperText={phome_number_error_message}
+                  onChange={(e) => setPhone_number(e.target.value)}
                   autoComplete="phoneNumber"
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  error={password_error}//空欄かつ、パスワードの正規表現に一致していなかったらエラー
                   required
                   fullWidth
                   name="password"
                   label="パスワード"
                   type="password"
                   id="password"
+                  helperText={password_error_message}
+                  onChange={(e) => setPassword(e.target.value)}
                   autoComplete="new-password"
                 />
               </Grid>
@@ -143,58 +250,16 @@ export default function Register() {
               sx={{ mb:5 }}
               >
                 <TextField
+                  error={re_password_error}
                   required
                   fullWidth
                   name="password"
                   label="パスワード（確認のため再入力してください）"
                   type="password"
                   id="password"
+                  helperText={re_password_error_message}
+                  onChange={(e) => setRe_password(e.target.value)}
                   autoComplete="new-password"
-                />
-              </Grid>
-              <Grid item component="h3" sx={{ mr: 12 }}>
-                <Typography component="h2">
-                店舗情報登録
-                </Typography>
-              </Grid>
-              <Grid item xs={12} >
-                <TextField
-                  required
-                  fullWidth
-                  id="storeName"
-                  label="店舗名"
-                  name="storeName"
-                  autoComplete="store-name"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="phoneNumber"
-                  label="店舗電話番号"
-                  name="phoneNumber"
-                  autoComplete="phone-number"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="address"
-                  label="店舗住所"
-                  name="address"
-                  autoComplete="address"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="storeID"
-                  label="店舗ID"
-                  name="storeID"
-                  autoComplete="storeID"
                 />
               </Grid>
               <Grid sx={{ ml: 2, mt: 2}}>
@@ -204,20 +269,23 @@ export default function Register() {
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
+                  control={<Checkbox value="allowExtraEmails" color="primary" onChange={(e) => changeAccept(!e.target.checked)} />}
                   label="利用規約に同意する"
                 />
               </Grid>
             </Grid>
             <Button
-              type="submit"
               fullWidth
               variant="contained"
+              onClick={() => {
+                if(formValidation()){
+                changeData();
+              }}} 
               sx={{ mt: 3, mb: 2 }}
-              component={routerLink}
-              to="/storeHome"
+              disabled={ !accept }
+              //チェックボックスにチェックが入っていない場合グレーアウト
             >
-              店舗を登録
+              店舗アカウントを登録
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>

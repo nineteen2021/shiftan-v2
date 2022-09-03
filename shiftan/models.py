@@ -11,10 +11,11 @@ class UserManager(BaseUserManager): # emailは必須項目なので、emailが�
     use_in_migrations = True
 
     # 通常ユーザー作成用のメソッド
-    def _create_user(self, username, email, password, **extra_fields):
+    def _create_user(self, username, email, password=None, **extra_fields):
         if not email:
             raise ValueError('Emailを入力して下さい')
         email = self.normalize_email(email)
+        email = email.lower()
         username = self.model.normalize_username(username)
         user = self.model(username=username, email=email, **extra_fields)
         user.set_password(password)
@@ -84,7 +85,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager() # views.pyでUserモデルの情報を取得する際などで利用
     USERNAME_FIELD = "email" # ここをemailにすることでメールアドレスでのログインが可能になる
     EMAIL_FIELD = "email"
-    REQUIRED_FIELDS = ['username','last_name','first_name']
+    REQUIRED_FIELDS = ['username','last_name','first_name','phone','is_manager']
 
     class Meta:
         verbose_name = verbose_name_plural = 'ユーザー'
@@ -105,7 +106,7 @@ class Shift_Range(models.Model):
     shift_name = models.CharField("シフト名",max_length=100, null=False, blank=False)
     start_date = models.DateField("開始日",auto_now=False, auto_now_add=False)
     stop_date = models.DateField("終了日",auto_now=False, auto_now_add=False)
-    deadline_date = models.DateField("締切日",auto_now=False, auto_now_add=False)
+    deadline_date = models.DateField("締切日",auto_now=False, auto_now_add=False, null=True, blank=True)
     create_time = models.DateTimeField("シフト作成時間",auto_now=True, auto_now_add=False)
     update_time = models.DateTimeField("シフト更新時間",auto_now=False, auto_now_add=True)
 

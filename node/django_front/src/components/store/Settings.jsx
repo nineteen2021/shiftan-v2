@@ -1,4 +1,6 @@
 import * as React from 'react';
+import {useState, useLayoutEffect} from 'react'
+import axios from 'axios'
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -24,6 +26,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Terms from '../function/Terms';
+import { useNavigate } from 'react-router-dom';
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -41,6 +44,33 @@ export default function Settings() {
     const onCloseDialog = () => {
         setSelectedItem('')
     }
+
+    const navigate = useNavigate();
+
+    const logout = () => {
+        window.localStorage.clear()
+        navigate("/login")
+    }
+
+    const [users, setUsers] = useState(null)
+  
+    useLayoutEffect(() => {
+        axios
+            .get('http://localhost:8000/api-auth/users/me/',{
+                headers: {
+                    'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
+                }
+            })
+            .then(res=>{setUsers(res.data);
+                console.log(res.data);
+            })
+            .catch(err=>{console.log(err);});
+    }, []);
+  if (!users) return null;
+// アルバイトアカウントははじく
+  else if (users.is_manager === false) {
+    return navigate("/*")
+  }
 
     return (
         <>
@@ -76,6 +106,14 @@ export default function Settings() {
                                     <GavelIcon />
                                 </ListItemIcon>
                                 <ListItemText primary="利用規約" secondary="利用規約を確認することができます" />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={() => onOpenDialog(logout())}>
+                                <ListItemIcon>
+                                    <LogoutIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="ログアウト" secondary="ログアウトしてログイン画面に戻ります" />
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>

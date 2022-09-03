@@ -20,14 +20,14 @@ import { Link as routerLink } from 'react-router-dom'
 const drawerWidth = 240;
 
 //　連想配列を採用
-const notification = [
-  ["店舗登録がまだ終わっていません", "2022/03/03"],
-  ["シフト提出の締め切りが迫っています。", "2022/03/21"],
-  ["シフト提出の締め切りが迫っています。", "2022/03/21"],
-  ["シフト提出の締め切りが迫っています。", "2022/03/21"],
-  ["シフト提出の締め切りが迫っています。", "2022/03/21"],
-  ["シフト提出の締め切りが迫っています。", "2022/03/21"],
-];
+// const notification = [
+//   ["店舗登録がまだ終わっていません", "2022/03/03"],
+//   ["シフト提出の締め切りが迫っています。", "2022/03/21"],
+//   ["シフト提出の締め切りが迫っています。", "2022/03/21"],
+//   ["シフト提出の締め切りが迫っています。", "2022/03/21"],
+//   ["シフト提出の締め切りが迫っています。", "2022/03/21"],
+//   ["シフト提出の締め切りが迫っています。", "2022/03/21"],
+// ];
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -60,15 +60,15 @@ const AppBar = styled(MuiAppBar, {
 export default function PartTimeNavbar(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [anchorElNotification, setAnchorElNotification] = React.useState(null);
+  // const [anchorElNotification, setAnchorElNotification] = React.useState(null);
 
-  const handleOpenNotificationMenu = (event) => {
-    setAnchorElNotification(event.currentTarget);
-  };
+  // const handleOpenNotificationMenu = (event) => {
+  //   setAnchorElNotification(event.currentTarget);
+  // };
 
-  const handleCloseNotificationMenu = () => {
-    setAnchorElNotification(null);
-  };
+  // const handleCloseNotificationMenu = () => {
+  //   setAnchorElNotification(null);
+  // };
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -84,7 +84,7 @@ export default function PartTimeNavbar(props) {
               <img src={LogoImg} alt="logo" className='App-logo'></img>
             </Button>
           <Box sx={{ flexGrow: 1 }} />
-          <Box>
+          {/* <Box>
             <IconButton
               size="large"
               aria-label="show 17 new notifications"
@@ -110,9 +110,9 @@ export default function PartTimeNavbar(props) {
               }}
               open={Boolean(anchorElNotification)}
               onClose={handleCloseNotificationMenu}
-            >
+            > */}
               {/* このメニュータグの中が通知ボタンを押したときに出てくるところ */}
-              <List>
+              {/* <List>
                 {notification.map((text) => (
                   <>
                     <NotificationListItem primaryText={text[0]} secondaryText={text[1]} />
@@ -121,7 +121,7 @@ export default function PartTimeNavbar(props) {
                 ))}
               </List>
             </Menu>
-          </Box>
+          </Box> */}
         </Toolbar>
       </AppBar>
       <Box component="main" sx={{ flexGrow: 1, p: 3, mb:'60px' }}>

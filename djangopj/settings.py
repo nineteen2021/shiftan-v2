@@ -41,8 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api.apps.ApiConfig',
     'rest_framework',
+    # 'rest_framework_simplejwt.tolen_blacklistdjoser' # リフレッシュトークンを再生成したときに以前のリフレッシュトークンを使えなくする。(MigrateするときにModuleNotFoundErrorがでるのでスキップ)
     'djoser',
     'corsheaders',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +58,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000'
 ]
@@ -93,8 +96,43 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=3),
+    # 'ROTATE_REFRESH_TOKENS': True, # ModuleNotFoundErrorが出るのでスキップ
+    # 'BLACKLIST_AFTER_ROTATION': True, # ModuleNotFoundErrorが出るのでスキップ
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken', )
 }
+
+
+# SIMPLE_JWT = {
+#     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+#     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+#     'ROTATE_REFRESH_TOKENS': False,
+#     'BLACKLIST_AFTER_ROTATION': False,
+#     'UPDATE_LAST_LOGIN': False,
+
+#     'ALGORITHM': 'HS256',
+#     'VERIFYING_KEY': None,
+#     'AUDIENCE': None,
+#     'ISSUER': None,
+#     'JWK_URL': None,
+#     'LEEWAY': 0,
+
+#     'AUTH_HEADER_TYPES': ('Bearer',),
+#     'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+#     'USER_ID_FIELD': 'id',
+#     'USER_ID_CLAIM': 'user_id',
+#     'USER_AUTHENTICATION_RULE': 'rest_framework_simplejwt.authentication.default_user_authentication_rule',
+
+#     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+#     'TOKEN_TYPE_CLAIM': 'token_type',
+#     'TOKEN_USER_CLASS': 'rest_framework_simplejwt.models.TokenUser',
+
+#     'JTI_CLAIM': 'jti',
+
+#     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+#     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
+#     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+# }
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -149,6 +187,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 DJOSER = {
     # メールアドレスでログイン
     'LOGIN_FIELD': 'email',
@@ -167,14 +207,28 @@ DJOSER = {
     # パスワード変更時に確認用パスワード必須
     'SET_PASSWORD_RETYPE': True,
     # アカウント本登録用URL
-    # 'ACTIVATION_URL': 'activate/{uid}/{token}',
+    'ACTIVATION_URL': 'activate/{uid}/{token}',
     # メールアドレスリセット完了用URL
-    # 'USERNAME_RESET_CONFIRM_URL': ''
+    'USERNAME_RESET_CONFIRM_URL': 'email/reset/conform/{uid}/{token}',
     # パスワードを再設定完了用URL
-    # 'PASSWORD_RESET_CONFIRM_URL': ''
+    'PASSWORD_RESET_CONFIRM_URL': 'password/reset/conform/{uid}/{token}',
     'SERIALIZERS': {
         'user_create': 'api.serializers.UserSerializer',
         'user': 'api.serializers.UserSerializer',
         'current_user': 'api.serializers.UserSerializer',
-    }
+    },
+    'EMAIL':{
+        # アカウント本登録
+        'activation': 'api.email.ActivationEmail',
+        # アカウント本登録完了
+        'confirmation': 'api.email.ConfirmationEmail',
+        # パスワードリセット
+        'password_reset': 'api.email.PasswordResetEmail',
+        # パスワードリセット完了
+        'password_changed_confirmation': 'api.email.PasswordChangedConfirmationEmail',
+        # メールアドレスリセット
+        'username_reset': 'api.email.UsernameResetEmail',
+        # メールアドレスリセット完了
+        'username_changed_confirmation': 'api.email.UsernameChangedConfirmationEmail',
+    },
 }
