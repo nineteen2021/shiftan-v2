@@ -187,8 +187,8 @@ export default class ShiftEditorDay extends React.PureComponent {
         console.log(added) 
         console.log(added.endDate) 
         console.log(new Date(this.state.shift_rangeStop_date + " 00:00:00")) 
-
-        if(added.startDate<=new Date(this.state.shift_rangeStart_date + " 00:00:00") || added.endDate>=new Date(this.state.shift_rangeStop_date + " 24:00:00")){ //もし、追加したシフトがstorerangeを超えたら
+        //もし、追加したシフトがstorerangeを超えたら
+        if(added.startDate<=new Date(this.state.shift_rangeStart_date + " 00:00:00") || added.endDate>=new Date(this.state.shift_rangeStop_date + " 24:00:00")){ 
           this.setState({
             outOfStoreRange:true
           })
@@ -207,6 +207,7 @@ export default class ShiftEditorDay extends React.PureComponent {
         console.log("以下が更新")
         console.log(changed)
         console.log(Object.entries(changed)[0][1].startDate)
+        //もし、変更したシフトがシフト希望だったら
         if(Object.keys(changed)[0].match(/tmp/)){
           this.setState({
             moveTmp:true
@@ -217,6 +218,7 @@ export default class ShiftEditorDay extends React.PureComponent {
             })
             clearTimeout(toRef);
           }, 5000)
+        //もし、変更したシフトがstorerangeを超えたら
         }else if(Object.entries(changed)[0][1].startDate<=new Date(this.state.shift_rangeStart_date + " 00:00:00") || Object.entries(changed)[0][1].endDate>=new Date(this.state.shift_rangeStop_date + " 24:00:00")){
           this.setState({
             outOfStoreRange:true
@@ -473,14 +475,13 @@ export default class ShiftEditorDay extends React.PureComponent {
 
       
     }
-
     return (
       <Paper>
         <Scheduler
           data={data}
         >
           <ViewState
-            defaultCurrentDate="2022-08-28"
+            CurrentDate={String(shift_rangeStart_date)}
           />
           <EditingState
             onCommitChanges={this.commitChanges}
@@ -519,18 +520,19 @@ export default class ShiftEditorDay extends React.PureComponent {
           <Collapse in={outOfStoreRange} className='moveTmp'>
             <Alert severity="error">
             <AlertTitle>エラー</AlertTitle>
-              シフト範囲内で指定してください
+              以下のシフト範囲内で指定してください<br/>
+              {this.state.shift_rangeStart_date + ' ～ ' + this.state.shift_rangeStop_date}
             </Alert>
           </Collapse>
           <Grid
             container
             direction="row"
-            justifyContent="flex-end"
+            justifyContent="space-between"
             alignItems="center"
           >
-            <Grid item xs={11}>
-            <Typography variant="h5" gutterBottom sx={{mt:1}}>
-              {this.state.shift_rangeName + ' ' + this.state.shift_rangeStart_date + ' ～ ' + this.state.shift_rangeStop_date}
+            <Grid item xs={0}>
+            <Typography variant="h5" gutterBottom sx={{ml:3, mt:1}}>
+              {'「' + this.state.shift_rangeName +'」' + ' ' + this.state.shift_rangeStart_date + ' ～ ' + this.state.shift_rangeStop_date}
             </Typography>
             </Grid>
             <Grid item xs={0}>
