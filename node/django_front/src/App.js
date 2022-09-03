@@ -1,9 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes} from 'react-router-dom'; 
-
 import { AuthProvider } from "./hooks/useAuth";
 import PrivateRoutes from './utils/PrivateRoutes'
-
 import PartTimeNavbar from './components/partTime/PartTimeNavbar';
 import Navbar from './components/store/Navbar';
 import Login from './components/function/Login';
@@ -13,6 +11,7 @@ import FinishResetPassword from './components/function/FinishResetPassword';
 import Register from './components/store/Register';
 import StoreRegister from './components/store/StoreRegister';
 import StoreHome from './components/store/StoreHome';
+import ShiftTable from './components/function/ShiftTable';
 import MakeShift from './components/store/MakeShift';
 import StaffManager from './components/store/StaffManager';
 import Settings from './components/store/Settings';
@@ -48,6 +47,8 @@ const App = () => {
             {/* <Route path="storeHome" element={<Navbar contents={<StoreHome />}/>} /> */}
 
             <Route path="makeShift" element={<Navbar contents={<MakeShift />}/>} />
+
+            <Route path="shiftTable" element={<Navbar contents={<ShiftTable />}/>} />
 
             <Route path="staffManager" element={<Navbar contents={<StaffManager />}/>} />
 

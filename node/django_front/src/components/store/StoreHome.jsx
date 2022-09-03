@@ -11,7 +11,8 @@ import Box from '@mui/material/Box';
 import StoreShiftList from './StoreShiftList';
 import { Link as routerLink, Navigate } from 'react-router-dom'
 
-const shifts = ['1月前半シフト','1月後半シフト','2月前半シフト','2月前半シフト','3月前半シフト','3月後半シフト'];
+
+// const shifts = ['1月前半シフト','1月後半シフト','2月前半シフト','2月前半シフト','3月前半シフト','3月後半シフト'];
 
 export default function StoreHome(){
   const [users, setUsers] = useState(null)
@@ -25,6 +26,19 @@ export default function StoreHome(){
         })
         .then(res=>{setUsers(res.data);
                     console.log(res.data);
+                    fk = res.data.store_FK;
+                    console.log(fk);
+                    axios
+                      .get( // 'http://localhost:8000/api/shift_range/?store_FK=2' ,{
+                          'http://localhost:8000/api/shift_range/?store_FK=' + String(fk),{
+                          headers: {
+                              'Authorization': `JWT ${localStorage.getItem('access')}`
+                          }
+                      })
+                      .then(res=>{setShiftTables(res.data);
+                                  console.log(res.data);
+                                  }, [])
+                      .catch(err=>{console.log(err);})
                 })
         .catch(err=>{console.log(err);});
   }, []);
@@ -68,10 +82,10 @@ export default function StoreHome(){
           } else {
             return(
               <Container component="main" maxWidth="md" sx={{ mb: 4 }}>
-                <Typography fontSize={20}>シフト一覧</Typography>
-                {shifts.map((val) => 
-                  <StoreShiftList shiftName={val} />
-                )} 
+              <Typography fontSize={20}>シフト一覧</Typography>
+              {shiftTables?.map((shiftTable) => 
+              <StoreShiftList shiftName={shiftTable} />
+              )} 
               </Container>
             )
           }
