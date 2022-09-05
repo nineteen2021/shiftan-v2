@@ -1,4 +1,6 @@
 import * as React from 'react';
+import {useState, useLayoutEffect} from 'react'
+import axios from 'axios'
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -51,7 +53,24 @@ export default function PartTimeSettings() {
         window.localStorage.clear()
         navigate("/login")
     }
-
+    const [users, setUsers] = useState(null)
+    useLayoutEffect(() => {
+    axios
+        .get('http://localhost:8000/api-auth/users/me/',{
+            headers: {
+                'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
+            }
+        })
+        .then(res=>{setUsers(res.data);
+                    console.log(res.data);
+                })
+        .catch(err=>{console.log(err);});
+    }, []);
+    if (!users) return null;
+    // 店長アカウントははじく
+    else if (users.is_manager === true) {
+        return navigate("/*")
+    }
     return (
         <>
             <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
