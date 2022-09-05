@@ -28,6 +28,7 @@ export default function PartTimeHome() {
       fk = res.data.store_FK
       setUsers(res.data);
       console.log(res.data);
+      console.log('http://localhost:8000/api/shift_range/?store_FK=' + String(fk))
       axios
         .get('http://localhost:8000/api/shift_range/?store_FK=' + String(fk),{
             headers: {
@@ -37,7 +38,21 @@ export default function PartTimeHome() {
         .then(res=>{setShiftTables(res.data);
                     console.log(res.data);
                   }, [])
-        .catch(err=>{console.log(err);})
+        .catch(err=>{
+            console.log(err);
+            console.log('再試行します');
+            axios
+            .get('http://localhost:8000/api/shift_range/?store_FK=' + String(fk),{
+              headers: {
+                  'Authorization': `JWT ${localStorage.getItem('access')}`
+              }
+            })
+            .then(res=>{setShiftTables(res.data);
+                        console.log(res.data);
+                      }, [])
+            .catch(err=>{console.log(err);})
+          }
+        )
     }, [])
     .catch(err=>{console.log(err);})
   }, []);
@@ -53,7 +68,7 @@ export default function PartTimeHome() {
         <Typography fontSize={20}>シフト一覧</Typography>
 
         {shiftTables?.map((shiftTable) =>
-          <PartTimeShiftList shiftName={shiftTable} />
+          <PartTimeShiftList shiftName={shiftTable.shift_name} />
         )}
 
       </Container>
