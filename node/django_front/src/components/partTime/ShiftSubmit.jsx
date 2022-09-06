@@ -43,11 +43,13 @@ export default function ShiftSubmit() {
 
   const [dates, setDates] = React.useState(null);
   const [open, setOpen] = React.useState(false);
+  const [successDialog, setSuccessDialog] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
   };
   const onCloseDialog = () => {
     setOpen(false);
+    setSuccessDialog(false);
   };
   const [users, setUsers] = useState(null)
   const [range, setRange] = useState(null)
@@ -293,7 +295,22 @@ export default function ShiftSubmit() {
           <Button onClick={() =>{
             submit();
             onCloseDialog();
+            setSuccessDialog(true);
           }}>はい</Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={successDialog} onClose={onCloseDialog}>
+        <DialogTitle>完了</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            提出が完了しました！
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() =>{
+            onCloseDialog();
+          }}>やった！</Button>
         </DialogActions>
       </Dialog>
     </>
