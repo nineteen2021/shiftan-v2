@@ -33,14 +33,6 @@ function createData(startTime, endTime) {
 }
 
 export default function ShiftSubmit() {
-  const [rows, setRows] = React.useState([
-    createData(new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
-    createData(new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
-    createData(new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
-    createData(new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
-    createData(new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
-  ]);
-
   const [dates, setDates] = React.useState(null);
   const [open, setOpen] = React.useState(false);
   const [successDialog, setSuccessDialog] = React.useState(false);
@@ -57,10 +49,10 @@ export default function ShiftSubmit() {
   useLayoutEffect(() => {
     let storeFK;
     let userFK;
-    axios
+    axios //ユーザーの情報を取得
       .get('http://localhost:8000/api-auth/users/me/', {
         headers: {
-          'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
+          'Authorization': `JWT ${localStorage.getItem('access')}`,
         }
       })
       .then(res => {
@@ -68,26 +60,25 @@ export default function ShiftSubmit() {
         console.log(res.data);
         storeFK = res.data.store_FK;
         userFK = res.data.id;
-        axios
+        axios //shift_rangeを取得
         .get('http://localhost:8000/api/shift_range/'+ shiftRange + '/', {
             headers: {
-                'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
+                'Authorization': `JWT ${localStorage.getItem('access')}`,
             }
         })
         .then(res=>{setRange(res.data);
                     console.log(res.data);
                     console.log("シフト範囲を取得");
-                    let dateList = new Array();
+                    let dateList = new Array(); //ここでシフト範囲分の日付の配列を作成
                     for(var d = new Date(res.data.start_date); d <= new Date(res.data.stop_date); d.setDate(d.getDate()+1)) {
                       let formatedDate = createData(new Date(d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()), new Date(d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()));
                       dateList.push(formatedDate);
                     }
-                    // setDates(dateList);
                     console.log(dateList)
-                    axios
+                    axios //既存のシフト希望を取得（あとから編集できるようにするため）
                     .get('http://localhost:8000/api/tmp_work_schedule/?store_FK=' + storeFK + '&user_FK=' + userFK, {
                         headers: {
-                            'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
+                            'Authorization': `JWT ${localStorage.getItem('access')}`,
                         }
                     })
                     .then(res=>{
@@ -116,17 +107,17 @@ export default function ShiftSubmit() {
       .catch(err => { console.log(err); });
   }, []);
 
-  const submit = () => {
+  const submit = () => { //シフト希望をデーターベースに反映する
     let submitDate = dates.filter(data => data.isDisable === false && data.error === false);
-    let result = new Array();
-    for(let i = 0; i < submitDate.length; i++){
+    let result = new Array(); //postする空の配列
+    for(let i = 0; i < submitDate.length; i++){ //シフト希望をバックエンドで使われている形式に変換
       let tmp = {
         'shift_range_FK': shiftRange,
         'user_FK': users.id,
         'start_time':submitDate[i].startTime,
         'stop_time':submitDate[i].endTime,
       }
-      result.push(tmp);
+      result.push(tmp); //resurtに追加していく
     }
     console.log('以下をpostします');
     console.log(result);
@@ -155,16 +146,6 @@ export default function ShiftSubmit() {
         .then(
           res=>{console.log(res.data);
           console.log('書き込みが完了しました')
-          this.setState({
-            success: true
-          })
-          const toRef = setTimeout(() => {
-            this.setState({
-              success: false
-            })
-            clearTimeout(toRef);
-            // it is good practice to clear the timeout (but I am not sure why)
-          }, 5000)
         })
         .catch(err=>{console.log(err);});
         })
@@ -310,7 +291,7 @@ export default function ShiftSubmit() {
         <DialogActions>
           <Button onClick={() =>{
             onCloseDialog();
-          }}>やった！</Button>
+          }}>OK</Button>
         </DialogActions>
       </Dialog>
     </>
