@@ -20,6 +20,7 @@ import PartTimeHome from './components/partTime/PartTimeHome';
 import ShiftSubmit from './components/partTime/ShiftSubmit';
 import PartTimeSettings from './components/partTime/PartTimeSettings';
 import Certification from './components/store/Certification';
+import ShiftEditorDay from './components/store/ShiftEditorDay';
 import BottomNavbar from './components/partTime/BottomNavbar';
 import Activate from './components/function/Activate';
 import NoMatch from './components/function/NoMatch';
@@ -49,6 +50,8 @@ const App = () => {
             <Route path="makeShift" element={<Navbar contents={<MakeShift />}/>} />
 
             <Route path="shiftTable" element={<Navbar contents={<ShiftTable />}/>} />
+
+            <Route path="shifteditor" element={<Navbar contents={<ShiftEditorDay />}/>} />
 
             <Route path="staffManager" element={<Navbar contents={<StaffManager />}/>} />
 
