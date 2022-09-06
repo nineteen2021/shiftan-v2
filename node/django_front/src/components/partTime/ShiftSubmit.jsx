@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState, useLayoutEffect} from 'react'
+import { useState, useLayoutEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import Table from '@mui/material/Table';
@@ -24,9 +24,12 @@ import DialogActions from '@mui/material/DialogActions';
 import Typography from '@mui/material/Typography';
 import ja from 'date-fns/locale/ja'
 
+const shiftRange = 1; //propsかなんかでURLに直接入れる？
+
 function createData(startTime, endTime) {
-  let isDisable = false
-  return { startTime, endTime, isDisable };
+  let isDisable = true
+  let error = false
+  return { startTime, endTime, isDisable, error };
 }
 
 export default function ShiftSubmit() {
@@ -38,32 +41,142 @@ export default function ShiftSubmit() {
     createData(new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
   ]);
 
+  const [dates, setDates] = React.useState(null);
   const [open, setOpen] = React.useState(false);
+  const [successDialog, setSuccessDialog] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
   };
   const onCloseDialog = () => {
     setOpen(false);
+    setSuccessDialog(false);
   };
   const [users, setUsers] = useState(null)
+  const [range, setRange] = useState(null)
   const navigate = useNavigate();
   useLayoutEffect(() => {
+    let storeFK;
+    let userFK;
     axios
-        .get('http://localhost:8000/api-auth/users/me/',{
+      .get('http://localhost:8000/api-auth/users/me/', {
+        headers: {
+          'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
+        }
+      })
+      .then(res => {
+        setUsers(res.data);
+        console.log(res.data);
+        storeFK = res.data.store_FK;
+        userFK = res.data.id;
+        axios
+        .get('http://localhost:8000/api/shift_range/'+ shiftRange + '/', {
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
             }
         })
-        .then(res=>{setUsers(res.data);
+        .then(res=>{setRange(res.data);
                     console.log(res.data);
+                    console.log("シフト範囲を取得");
+                    let dateList = new Array();
+                    for(var d = new Date(res.data.start_date); d <= new Date(res.data.stop_date); d.setDate(d.getDate()+1)) {
+                      let formatedDate = createData(new Date(d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()), new Date(d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()));
+                      dateList.push(formatedDate);
+                    }
+                    // setDates(dateList);
+                    console.log(dateList)
+                    axios
+                    .get('http://localhost:8000/api/tmp_work_schedule/?store_FK=' + storeFK + '&user_FK=' + userFK, {
+                        headers: {
+                            'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
+                        }
+                    })
+                    .then(res=>{
+                      console.log(res.data)
+                      for(let i = 0; i < res.data.length; i++){ //tmp_work_scheduleから持ってきたデータを反映させる
+                        for(let j = 0; j < dateList.length; j++){
+                          let year1 = dateList[j].startTime.getFullYear();
+                          let month1 = dateList[j].startTime.getMonth() + 1;
+                          let day1 = dateList[j].startTime.getDate();
+                          let year2 = new Date(res.data[i].start_time).getFullYear();
+                          let month2 = new Date(res.data[i].start_time).getMonth() + 1;
+                          let day2 = new Date(res.data[i].start_time).getDate();
+                          if(year1==year2 && month1==month2 && day1==day2){
+                            dateList[j].startTime = new Date(res.data[i].start_time);
+                            dateList[j].endTime = new Date(res.data[i].stop_time);
+                            dateList[j].isDisable = false;
+                          }
+                        }
+                      }
+                      setDates(dateList);
+                    })
+                    .catch(err=>{console.log(err);});
                 })
         .catch(err=>{console.log(err);});
+      })
+      .catch(err => { console.log(err); });
   }, []);
-  if (!users) return null;
+
+  const submit = () => {
+    let submitDate = dates.filter(data => data.isDisable === false && data.error === false);
+    let result = new Array();
+    for(let i = 0; i < submitDate.length; i++){
+      let tmp = {
+        'shift_range_FK': shiftRange,
+        'user_FK': users.id,
+        'start_time':submitDate[i].startTime,
+        'stop_time':submitDate[i].endTime,
+      }
+      result.push(tmp);
+    }
+    console.log('以下をpostします');
+    console.log(result);
+    axios //まずは消す
+      .delete('http://localhost:8000/api/tmp_work_schedule/?fk=' + shiftRange,
+      {
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `JWT ${window.localStorage.getItem('access')}`,
+          }
+      })
+      .then(
+        res=>{console.log(res.data);
+        console.log('削除しました')
+        axios //ユーザー情報を送信
+        .post('http://localhost:8000/api/tmp_work_schedule/',
+            
+          result
+            
+        ,{
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `JWT ${window.localStorage.getItem('access')}`,
+            }
+        })
+        .then(
+          res=>{console.log(res.data);
+          console.log('書き込みが完了しました')
+          this.setState({
+            success: true
+          })
+          const toRef = setTimeout(() => {
+            this.setState({
+              success: false
+            })
+            clearTimeout(toRef);
+            // it is good practice to clear the timeout (but I am not sure why)
+          }, 5000)
+        })
+        .catch(err=>{console.log(err);});
+        })
+      .catch(err=>{console.log(err);});
+  }
+
+  if (!users || !range || !dates) return null;
   // 店長アカウントだったときはじく
   else if (users.is_manager === true) {
     return navigate("/*")
   }
+  console.log(dates)
   return (
     <>
       <Grid
@@ -86,13 +199,13 @@ export default function ShiftSubmit() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row, index) => (
+                {dates.map((row, index) => (
                   <TableRow
                     key={row.date}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      <font size="4">{String(row.startTime.getMonth()+1)+ "月" + String(row.startTime.getDate()) + "日"}</font>
+                      <font size="4">{String(row.startTime.getMonth() + 1) + "月" + String(row.startTime.getDate()) + "日"}</font>
                     </TableCell>
                     <TableCell align="right">
                       <LocalizationProvider dateAdapter={AdapterDateFns} locale={ja}>
@@ -101,13 +214,21 @@ export default function ShiftSubmit() {
                           value={row.startTime}
                           disabled={row.isDisable}
                           onChange={(newValue) => {
-                            const newRow = rows.slice(0, rows.length); //配列のコピーを取るconst newRow=rowsでは参照渡しとなるのでNG
-                            newRow[index].startTime = newValue; //コピーした配列を変更する
-                            setRows(newRow); //コピーした配列をsetStateする
+                            if(newValue>row.endTime){
+                              const newRow = dates.slice(0, dates.length); //配列のコピーを取るconst newRow=rowsでは参照渡しとなるのでNG
+                              newRow[index].startTime = newValue; //コピーした配列を変更する
+                              newRow[index].error = true; //コピーした配列を変更する
+                              setDates(newRow); //コピーした配列をsetStateする
+                            }else{
+                              const newRow = dates.slice(0, dates.length); //配列のコピーを取るconst newRow=rowsでは参照渡しとなるのでNG
+                              newRow[index].startTime = newValue; //コピーした配列を変更する
+                              newRow[index].error = false; //コピーした配列を変更する
+                              setDates(newRow); //コピーした配列をsetStateする
+                            }
                           }}
                           inputFormat='HH:mm'
                           mask='__:__'
-                          renderInput={(params) => <TextField sx={{ maxWidth: 150 }} {...params} />}
+                          renderInput={(params) => <TextField sx={{ maxWidth: 150 }} {...params} error={row.startTime>row.endTime}/>}
                         />
                       </LocalizationProvider>
                     </TableCell>
@@ -118,23 +239,31 @@ export default function ShiftSubmit() {
                           value={row.endTime}
                           disabled={row.isDisable}
                           onChange={(newValue) => {
-                            const newRow = rows.slice(0, rows.length); //配列のコピーを取るconst newRow=rowsでは参照渡しとなるのでNG
-                            newRow[index].endTime = newValue; //コピーした配列を変更する
-                            setRows(newRow); //コピーした配列をsetStateする
+                            if(row.startTime>newValue){
+                              const newRow = dates.slice(0, dates.length); //配列のコピーを取るconst newRow=rowsでは参照渡しとなるのでNG
+                              newRow[index].endTime = newValue; //コピーした配列を変更する
+                              newRow[index].error = true; //コピーした配列を変更する
+                              setDates(newRow); //コピーした配列をsetStateする
+                            }else{
+                              const newRow = dates.slice(0, dates.length); //配列のコピーを取るconst newRow=rowsでは参照渡しとなるのでNG
+                              newRow[index].endTime = newValue; //コピーした配列を変更する
+                              newRow[index].error = false; //コピーした配列を変更する
+                              setDates(newRow); //コピーした配列をsetStateする
+                            }
                           }}
                           inputFormat='HH:mm'
                           mask='__:__'
-                          renderInput={(params) => <TextField sx={{ maxWidth: 150 }} {...params} />}
+                          renderInput={(params, data = row) => <TextField sx={{ maxWidth: 150 }} {...params} error={row.startTime>row.endTime}/>}
                         />
                       </LocalizationProvider>
                     </TableCell>
                     <TableCell align="right">
                       <Checkbox
-                        defaultChecked
+                        checked={!row.isDisable}
                         onChange={(e) => {
-                          const newRow = rows.slice(0, rows.length); //配列のコピーを取るconst newRow=rowsでは参照渡しとなるのでNG
+                          const newRow = dates.slice(0, dates.length); //配列のコピーを取るconst newRow=rowsでは参照渡しとなるのでNG
                           newRow[index].isDisable = !e.target.checked;//コピーした配列を変更する
-                          setRows(newRow);//コピーした配列をsetStateする
+                          setDates(newRow);//コピーした配列をsetStateする
                         }}
                       />
                     </TableCell>
@@ -153,13 +282,35 @@ export default function ShiftSubmit() {
         <DialogTitle>提出</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            以下の内容で提出しますか？
+            以下の内容で提出しますか？<br/>
+            <font color="#ee0000">エラーが発生している箇所は提出されません</font><br/>
+            {dates.filter(data => data.error === true).map((row, index) => <li key={row.date}><font color='#ee0000'>{String(row.startTime.getMonth() + 1) + "月" + String(row.startTime.getDate()) + "日"}　{String(row.startTime.getHours())+'時'+String(row.startTime.getMinutes())+'分'}～{String(row.endTime.getHours())+'時'+String(row.endTime.getMinutes())+'分'}</font></li>)}
+            <br/>
           </DialogContentText>
-          {rows.filter(data => data.isDisable === false).map((row, index) => <li key={row.date}>{row.date}　{row.startTime}～{row.endTime}</li>)}
+          {dates.filter(data => data.isDisable === false && data.error === false).map((row, index) => <li key={row.date}>{String(row.startTime.getMonth() + 1) + "月" + String(row.startTime.getDate()) + "日"}　{String(row.startTime.getHours())+'時'+String(row.startTime.getMinutes())+'分'}～{String(row.endTime.getHours())+'時'+String(row.endTime.getMinutes())+'分'}</li>)}
+
         </DialogContent>
         <DialogActions>
           <Button onClick={onCloseDialog}>キャンセル</Button>
-          <Button onClick={onCloseDialog}>はい</Button>
+          <Button onClick={() =>{
+            submit();
+            onCloseDialog();
+            setSuccessDialog(true);
+          }}>はい</Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={successDialog} onClose={onCloseDialog}>
+        <DialogTitle>完了</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            提出が完了しました！
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() =>{
+            onCloseDialog();
+          }}>やった！</Button>
         </DialogActions>
       </Dialog>
     </>
