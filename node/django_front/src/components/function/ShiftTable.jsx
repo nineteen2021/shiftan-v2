@@ -165,16 +165,18 @@ const convertWorkSchedulesList = (list, dates) => {
   //   console.log(user)
     // console.log(list.length)
     let user = 0; //テスト、userを0に指定し、1回だけ実行する
-    // workDate = 0; // workDateの初期化
+    workDate = 0; // workDateの初期化
     for (let date = 0; date < dates.length; date++){ // シフトの範囲だけ回す（4月シフトであれば30回）
       console.log(date)
       month1 = add0(dates[date].getMonth() + 1); // 日にちのみが入った30日分の配列から月、日を取得
       console.log(month1)
       date1 = add0(dates[date].getDate());
       console.log(date1)
-      month2 = list[0][workDate].start_time.substr(5, 2) //作成シフトから月、日を取得
+      console.log(list[user][workDate])
+      console.log(list)
+      month2 = list[user][workDate].start_time.substr(5, 2) //作成シフトから月、日を取得
       console.log(month2)
-      date2 = list[0][workDate].start_time.substr(8, 2);
+      date2 = list[user][workDate].start_time.substr(8, 2);
       console.log(date2)
 
       if (month1 === month2 && date1 === date2) { // シフトの範囲の日付と作成シフトの日付を比較する
@@ -186,8 +188,8 @@ const convertWorkSchedulesList = (list, dates) => {
         console.log(list[user][workDate].start_time)
         console.log(list[user][workDate].stop_time)
 
-        newWorkScheduleUsersList[0][date].start_time = list[0][workDate].start_time // 作成シフトの時間を新しい配列にコピー
-        newWorkScheduleUsersList[0][date].stop_time = list[0][workDate].stop_time
+        newWorkScheduleUsersList[user][date].start_time = list[user][workDate].start_time // 作成シフトの時間を新しい配列にコピー
+        newWorkScheduleUsersList[user][date].stop_time = list[user][workDate].stop_time
         workDate++
 
         console.log("ok")
