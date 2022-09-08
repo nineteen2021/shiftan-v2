@@ -8,6 +8,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 import Collapse from '@mui/material/Collapse';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import { useLocation } from 'react-router-dom';
 import {
   ViewState, GroupingState, IntegratedGrouping, IntegratedEditing, EditingState,
 } from '@devexpress/dx-react-scheduler';
@@ -243,6 +244,8 @@ export default class ShiftEditorDay extends React.PureComponent {
   }
 
   async componentDidMount() { //コンポーネントが読み込まれた際の処理
+    const windowUrl = window.location.search;
+    const query2 = new URLSearchParams(windowUrl);
     let ownerAccount; //店長のユーザーデータが入る関数
     await axios
     .get('http://localhost:8000/api-auth/users/me/',{
@@ -387,7 +390,7 @@ export default class ShiftEditorDay extends React.PureComponent {
     
     //shift_rangeを持ってくる
     await axios
-    .get('http://localhost:8000/api/shift_range/'+ shift_range_FK + '/',{
+    .get('http://localhost:8000/api/shift_range/'+ query2.get('id') + '/',{
         headers: {
             'Authorization': `JWT ${window.localStorage.getItem('access')}`,
         }
@@ -415,6 +418,8 @@ export default class ShiftEditorDay extends React.PureComponent {
     console.log(this.state.data)
 
     const updateData = () => {
+      const windowUrl = window.location.search;
+      const query2 = new URLSearchParams(windowUrl);
       let onlyShift = this.state.data.filter(function(data){
         return !String(data.title).match(/シフト希望/)
       });
@@ -424,7 +429,7 @@ export default class ShiftEditorDay extends React.PureComponent {
         let tmp = {
           id: onlyShift[i].id,
           user_FK: onlyShift[i].members[0],
-          shift_range_FK:shift_range_FK,
+          shift_range_FK: query2.get('id'),
           start_time:onlyShift[i].startDate,
           stop_time:onlyShift[i].endDate,
         }
@@ -434,7 +439,7 @@ export default class ShiftEditorDay extends React.PureComponent {
       console.log(resurtBase)
 
       axios //まずは消す
-      .delete('http://localhost:8000/api/work_schedule/?fk=' + shift_range_FK ,
+      .delete('http://localhost:8000/api/work_schedule/?fk=' + query2.get('id') ,
       {
           headers: {
               'Content-Type': 'application/json',
