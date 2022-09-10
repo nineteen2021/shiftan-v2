@@ -54,6 +54,16 @@ class Tmp_Work_ScheduleApi(viewsets.ModelViewSet):
     serializer_class = Tmp_Work_ScheduleSerializer
     filter_backends = [filters.DjangoFilterBackend]
     filterset_fields = '__all__'
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data, many=isinstance(request.data,list))
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    
+    def delete(self, request):
+                Tmp_Work_Schedule.objects.filter(shift_range_FK=self.request.GET.get('fk')).delete()
+                return Response('success')
 
 class Work_ScheduleApi(viewsets.ModelViewSet):
     queryset = Work_Schedule.objects.all()
