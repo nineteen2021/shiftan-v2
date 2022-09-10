@@ -26,6 +26,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Terms from '../function/Terms';
+import Question from '../function/Question';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -85,7 +86,7 @@ export default function Settings() {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton>
+                            <ListItemButton onClick={() => onOpenDialog("question")}>
                                 <ListItemIcon>
                                     <QuestionMarkIcon />
                                 </ListItemIcon>
@@ -164,6 +165,24 @@ export default function Settings() {
                         
                     </DialogContentText>
                         <Terms/>
+                    </DialogContent>
+                <DialogActions>
+                    <Button onClick={onCloseDialog}>OK</Button>
+                </DialogActions>
+            </Dialog>
+
+            <Dialog open={selectedItem === "question"}
+                    onClose={onCloseDialog}
+                    scroll="paper"
+                    fullWidth="true"
+                    maxWidth="md"
+            >
+                <DialogTitle>よくある質問</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        
+                    </DialogContentText>
+                        <Question/>
                     </DialogContent>
                 <DialogActions>
                     <Button onClick={onCloseDialog}>OK</Button>
