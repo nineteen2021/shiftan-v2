@@ -77,7 +77,7 @@ export default function PasswordSentMail() {
             alignItems: 'center',
           }}
         >
-          「メールアドレス」を入力してください。パスワードを再設定するためのリンクをメールへ送信します。
+          パスワードを再設定したいアカウントのメールアドレスを入力してください。パスワードを再設定するためのリンクをメールへ送信します。
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
