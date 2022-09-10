@@ -480,13 +480,14 @@ export default class ShiftEditorDay extends React.PureComponent {
 
       
     }
+    if(!shift_rangeStart_date) return( null );
     return (
       <Paper>
         <Scheduler
           data={data}
         >
           <ViewState
-            CurrentDate={String(shift_rangeStart_date)}
+            defaultCurrentDate={String(shift_rangeStart_date)}
           />
           <EditingState
             onCommitChanges={this.commitChanges}
