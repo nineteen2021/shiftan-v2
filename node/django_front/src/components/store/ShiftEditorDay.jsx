@@ -331,7 +331,7 @@ export default class ShiftEditorDay extends React.PureComponent {
 
     //シフト希望のデータを持ってくる
     await axios
-    .get('http://localhost:8000/api/tmp_work_schedule/',{
+    .get('http://localhost:8000/api/tmp_work_schedule/?shift_range_FK=' + query2.get('id'),{
         headers: {
             'Authorization': `JWT ${window.localStorage.getItem('access')}`,
         }
@@ -359,7 +359,7 @@ export default class ShiftEditorDay extends React.PureComponent {
 
     //シフトデータを持ってくる
     await axios
-    .get('http://localhost:8000/api/work_schedule/',{
+    .get('http://localhost:8000/api/work_schedule/?shift_range_FK=' + query2.get('id'),{
         headers: {
             'Authorization': `JWT ${window.localStorage.getItem('access')}`,
         }
@@ -480,13 +480,14 @@ export default class ShiftEditorDay extends React.PureComponent {
 
       
     }
+    if(!shift_rangeStart_date) return( null );
     return (
       <Paper>
         <Scheduler
           data={data}
         >
           <ViewState
-            CurrentDate={String(shift_rangeStart_date)}
+            defaultCurrentDate={String(shift_rangeStart_date)}
           />
           <EditingState
             onCommitChanges={this.commitChanges}
