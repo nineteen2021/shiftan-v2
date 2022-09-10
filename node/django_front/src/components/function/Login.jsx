@@ -131,10 +131,6 @@ export default function Login() {
               id="password"
               autoComplete="current-password"
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="ログイン情報を記憶する"
-            />
             <Button
               type="submit"
               fullWidth
@@ -147,7 +143,7 @@ export default function Login() {
               <Grid item>
                 <Link
                 component={routerLink}
-                to="/sentPasswordMail"
+                to="/passwordSentMail"
                 variant="body2">
                   {"パスワードを忘れた場合"}
                 </Link>
