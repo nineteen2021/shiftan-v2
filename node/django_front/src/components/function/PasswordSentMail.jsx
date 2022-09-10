@@ -4,8 +4,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
-import Alert from '@mui/material/Alert';
-import Collapse from '@mui/material/Collapse';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Link as routerLink } from 'react-router-dom'
@@ -31,7 +29,7 @@ export default function PasswordSentMail() {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         // eslint-disable-next-line no-console
-        
+
     };
 
   return (
@@ -46,7 +44,7 @@ export default function PasswordSentMail() {
             alignItems: 'center',
           }}
         >
-          「メールアドレス」を入力してください。 パスワードを再設定するためのリンクをメールへ送信します。
+          「メールアドレス」を入力してください。パスワードを再設定するためのリンクをメールへ送信します。
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
