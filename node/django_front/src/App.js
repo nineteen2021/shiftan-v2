@@ -9,6 +9,7 @@ import Navbar from './components/store/Navbar';
 import Login from './components/function/Login';
 import SentPasswordMail from './components/function/SentPasswordMail';
 import ResetPassword from './components/function/ResetPassword';
+import PasswordSentMail from './components/function/PasswordSentMail';
 import FinishResetPassword from './components/function/FinishResetPassword';
 import Register from './components/store/Register';
 import StoreRegister from './components/store/StoreRegister';
@@ -38,6 +39,7 @@ const App = () => {
           <Route path="activate" element={<Activate />} />
           <Route path="partTimeRegister" element={<PartTimeRegister />} />
           <Route path="sentPasswordMail" element={<SentPasswordMail />} />
+          <Route path="passwordSentMail" element={<PasswordSentMail />} />
           <Route path="resetPassword" element={<ResetPassword />} /> {/*メールから飛ぶリンクのため未実装*/}
           <Route path="finishResetPassword" element={<FinishResetPassword />}/>
           <Route path="*" element={<NoMatch />}/>

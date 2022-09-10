@@ -143,7 +143,7 @@ export default function Login() {
               <Grid item>
                 <Link
                 component={routerLink}
-                to="/sentPasswordMail"
+                to="/passwordSentMail"
                 variant="body2">
                   {"パスワードを忘れた場合"}
                 </Link>
