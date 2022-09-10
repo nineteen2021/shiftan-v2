@@ -18,29 +18,15 @@ export default function PartTimeHome() {
   const [fk, setFK] = useState(null)
   const [ranges, setRanges] = useState(null)
   const navigate = useNavigate();
-  let fk;
-
   useLayoutEffect(() => {
     let store_FK;
     axios
-    .get('http://localhost:8000/api-auth/users/me/',{
-        headers: {
-            'Authorization': `JWT ${localStorage.getItem('access')}`,
-        }
-    })
-    // fkの取得がうまく動作していない
-    .then(res=>{
-      fk = res.data.store_FK
-      setUsers(res.data);
-      console.log(res.data);
-      console.log('http://localhost:8000/api/shift_range/?store_FK=' + String(fk))
-      axios
-        .get('http://localhost:8000/api/shift_range/?store_FK=' + String(fk),{
+        .get('http://localhost:8000/api-auth/users/me/',{
             headers: {
-                'Authorization': `JWT ${localStorage.getItem('access')}`
+                'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
             }
         })
-        .then(res=>{setShiftTables(res.data);
+        .then(res=>{setUsers(res.data);
                     console.log(res.data);
                     store_FK = res.data.store_FK;
                     setFK(store_FK)
