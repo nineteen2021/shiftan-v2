@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Link as routerLink } from 'react-router-dom'
 
 const theme = createTheme({
   palette: {
@@ -32,7 +33,15 @@ export default function StoreShiftList(props){
           <Typography><font size="5" color="#fff">{props.shiftName}</font></Typography>
           <Grid item>
             <Button variant="contained" color="whiteButton" sx={{mr: 1}}>確認</Button>
-            <Button variant="contained" color="yellowButton" sx={{ml: 1}}>編集</Button>
+            <Button
+              variant="contained"
+              color="yellowButton"
+              sx={{ml: 1}}
+              component={routerLink}
+              to={"/shifteditor?id=" + props.fk} //propsからFKを取得
+            >
+              編集
+            </Button>
           </Grid>
         </Grid>
       </Paper>

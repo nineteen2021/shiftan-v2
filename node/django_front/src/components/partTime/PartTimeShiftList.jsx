@@ -39,7 +39,7 @@ export default function PartTimeShiftList(props) {
               color="yellowButton" 
               sx={{ ml: 1 }}
               component={routerLink}
-              to="/shiftSubmit"
+              to={"/shiftSubmit?id=" + props.fk} //propsからFKを取得
             >
               編集
             </Button>

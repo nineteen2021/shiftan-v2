@@ -23,6 +23,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import Typography from '@mui/material/Typography';
 import ja from 'date-fns/locale/ja'
+import { useLocation } from 'react-router-dom';
 
 const shiftRange = 1; //propsかなんかでURLに直接入れる？
 
@@ -33,7 +34,16 @@ function createData(startTime, endTime) {
 }
 
 export default function ShiftSubmit() {
-  const [dates, setDates] = React.useState(null);
+  const search = useLocation().search;
+  const query2 = new URLSearchParams(search); //shift_rangeFKをquery2.get('idでもってくる')
+  const [rows, setRows] = React.useState([
+    createData(new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
+    createData(new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
+    createData(new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
+    createData(new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
+    createData(new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
+  ]);
+
   const [open, setOpen] = React.useState(false);
   const [successDialog, setSuccessDialog] = React.useState(false);
   const handleClickOpen = () => {
