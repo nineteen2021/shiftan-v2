@@ -131,10 +131,6 @@ export default function Login() {
               id="password"
               autoComplete="current-password"
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="ログイン情報を記憶する"
-            />
             <Button
               type="submit"
               fullWidth
