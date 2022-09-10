@@ -25,8 +25,6 @@ import Typography from '@mui/material/Typography';
 import ja from 'date-fns/locale/ja'
 import { useLocation } from 'react-router-dom';
 
-const shiftRange = 1; //propsかなんかでURLに直接入れる？
-
 function createData(startTime, endTime) {
   let isDisable = true
   let error = false
@@ -34,15 +32,9 @@ function createData(startTime, endTime) {
 }
 
 export default function ShiftSubmit() {
+  const [dates, setDates] = React.useState(null);
   const search = useLocation().search;
   const query2 = new URLSearchParams(search); //shift_rangeFKをquery2.get('idでもってくる')
-  const [rows, setRows] = React.useState([
-    createData(new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
-    createData(new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
-    createData(new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
-    createData(new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
-    createData(new Date(2011, 0, 1, 0, 0, 0, 0), new Date(2011, 0, 1, 0, 0, 0, 0)),
-  ]);
 
   const [open, setOpen] = React.useState(false);
   const [successDialog, setSuccessDialog] = React.useState(false);
@@ -71,7 +63,7 @@ export default function ShiftSubmit() {
         storeFK = res.data.store_FK;
         userFK = res.data.id;
         axios //shift_rangeを取得
-        .get('http://localhost:8000/api/shift_range/'+ shiftRange + '/', {
+        .get('http://localhost:8000/api/shift_range/'+ query2.get('id') + '/', {
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`,
             }
@@ -122,7 +114,7 @@ export default function ShiftSubmit() {
     let result = new Array(); //postする空の配列
     for(let i = 0; i < submitDate.length; i++){ //シフト希望をバックエンドで使われている形式に変換
       let tmp = {
-        'shift_range_FK': shiftRange,
+        'shift_range_FK': query2.get('id'),
         'user_FK': users.id,
         'start_time':submitDate[i].startTime,
         'stop_time':submitDate[i].endTime,
@@ -132,7 +124,7 @@ export default function ShiftSubmit() {
     console.log('以下をpostします');
     console.log(result);
     axios //まずは消す
-      .delete('http://localhost:8000/api/tmp_work_schedule/?fk=' + shiftRange,
+      .delete('http://localhost:8000/api/tmp_work_schedule/?fk=' + query2.get('id'),
       {
           headers: {
               'Content-Type': 'application/json',
