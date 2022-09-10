@@ -101,7 +101,7 @@ export default function PasswordSentMail() {
               onClick={() => {
                 if(formValidation()){
                   submitEmail();
-                  navigate("/sentPasswordMail");
+                  navigate("/sentPasswordMail?email="+email);
                 }}}
             >
               パスワードを再設定
