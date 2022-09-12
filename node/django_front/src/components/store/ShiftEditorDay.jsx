@@ -236,7 +236,7 @@ export default class ShiftEditorDay extends React.PureComponent {
             console.log(Object.keys(changed)[0]);
         }
       }
-      if (deleted !== undefined && !deleted.endsWith('t')) {
+      if (deleted !== undefined && !String(deleted).endsWith('t')) {
         console.log("以下を削除")
         console.log(deleted)
         data = data.filter(appointment => appointment.id !== deleted);
