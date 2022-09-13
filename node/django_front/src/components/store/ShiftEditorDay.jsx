@@ -207,9 +207,9 @@ export default class ShiftEditorDay extends React.PureComponent {
       if (changed) {
         console.log("以下が更新")
         console.log(changed)
-        console.log(Object.entries(changed)[0][1].startDate)
+        console.log(Object.entries(changed)[0][1])
         //もし、変更したシフトがシフト希望だったら
-        if(Object.keys(changed)[0].match(/tmp/)){
+        if(Object.keys(changed)[0].endsWith('t')){
           this.setState({
             moveTmp:true
           })
@@ -236,7 +236,9 @@ export default class ShiftEditorDay extends React.PureComponent {
             console.log(Object.keys(changed)[0]);
         }
       }
-      if (deleted !== undefined) {
+      if (deleted !== undefined && !String(deleted).endsWith('t')) {
+        console.log("以下を削除")
+        console.log(deleted)
         data = data.filter(appointment => appointment.id !== deleted);
       }
       return { data };
@@ -342,7 +344,7 @@ export default class ShiftEditorDay extends React.PureComponent {
       let tmpWorkScheduleArr = new Array();
       for(let i = 0; res.data.length > i; i++){
         let tmp = {
-          id: 'tmp' + res.data[i].id,
+          id: res.data[i].id + 't',
           title: 'シフト希望',
           members: [res.data[i].user_FK],
           roomId: 2,
