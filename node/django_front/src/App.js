@@ -26,6 +26,7 @@ import ShiftEditorDay from './components/store/ShiftEditorDay';
 import BottomNavbar from './components/partTime/BottomNavbar';
 import Activate from './components/function/Activate';
 import NoMatch from './components/function/NoMatch';
+import JoinStore from './components/partTime/JoinStore';
 
 
 const App = () => {
@@ -86,6 +87,16 @@ const App = () => {
               </>
             }
             />
+
+            <Route path="joinStore" 
+            element={ 
+              <>
+              <PartTimeNavbar contents={<JoinStore />}/>
+              <BottomNavbar/>
+              </>
+            }
+            />
+
           </Route>
         </Routes>
       </div>
