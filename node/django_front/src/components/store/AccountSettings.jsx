@@ -229,7 +229,7 @@ export default function AccountSettings() {
                             <ListItem disablePadding>
                                 <ListItemButton 
                                     component={routerLink}
-                                    to="/certificationPassword"
+                                    to="/changePassword"
                                 >
                                     <ListItemIcon>
                                         <KeyIcon />
