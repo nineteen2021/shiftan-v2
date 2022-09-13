@@ -104,7 +104,7 @@ export default function PartTimeSettings() {
                                 <ListItemIcon>
                                     <ContactMailIcon />
                                 </ListItemIcon>
-                                <ListItemText primary="お問い合わせ" secondary="外部ページに移動します" />
+                                <ListItemText primary="お問い合わせ" secondary="外部ページに移動します" component="a" href="https://forms.gle/4jc8pBCCxDgn18X76"/>
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>

@@ -94,7 +94,7 @@ export default function Settings() {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton to="https://forms.gle/4jc8pBCCxDgn18X76">
+                            <ListItemButton component="a" href="https://forms.gle/4jc8pBCCxDgn18X76">
                                 <ListItemIcon>
                                     <ContactMailIcon />
                                 </ListItemIcon>
