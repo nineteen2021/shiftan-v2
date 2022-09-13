@@ -1,3 +1,8 @@
+###### Shiftan
+
+学生開発団体Nineteenの開発中プロダクト
+飲食店等で利用できるシフト作成補助アプリ
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

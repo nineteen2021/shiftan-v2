@@ -1,10 +1,12 @@
 import * as React from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link as routerLink } from 'react-router-dom'
+import axios from 'axios';
 
 const theme = createTheme({
   palette: {
@@ -30,18 +32,20 @@ export default function StoreShiftList(props){
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography><font size="5" color="#fff">{props.shiftName}</font></Typography>
+          <Typography><font size="5" color="#fff">{props.shiftName.shift_name}</font></Typography>
           <Grid item>
-            <Button variant="contained" color="whiteButton" sx={{mr: 1}}>確認</Button>
-            <Button
-              variant="contained"
-              color="yellowButton"
-              sx={{ml: 1}}
-              component={routerLink}
-              to={"/shifteditor?id=" + props.fk} //propsからFKを取得
-            >
-              編集
-            </Button>
+            <Button variant="contained"
+                    color="whiteButton" 
+                    sx={{mr: 1}}
+                    component={routerLink}
+                    to="/shiftTable"
+            >確認</Button>
+            <Button variant="contained" 
+                    color="yellowButton" 
+                    sx={{ml: 1}}
+                    component={routerLink}
+                    to="/shiftTable"
+            >編集</Button>
           </Grid>
         </Grid>
       </Paper>

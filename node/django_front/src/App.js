@@ -14,6 +14,7 @@ import FinishResetPassword from './components/function/FinishResetPassword';
 import Register from './components/store/Register';
 import StoreRegister from './components/store/StoreRegister';
 import StoreHome from './components/store/StoreHome';
+import ShiftTable from './components/function/ShiftTable';
 import MakeShift from './components/store/MakeShift';
 import StaffManager from './components/store/StaffManager';
 import Settings from './components/store/Settings';
@@ -54,7 +55,9 @@ const App = () => {
 
             <Route path="shifteditor" element={<Navbar contents={<ShiftEditorDay />}/>} />
 
-            <Route path="staffManager" element={<Navbar contents={<StaffManager />}/>} />
+            <Route path="shiftTable" element={<Navbar contents={<ShiftTable />}/>} />
+
+        <Route path="staffManager" element={<Navbar contents={<StaffManager />}/>} />
 
             <Route path="certification" element={<Navbar contents={<Certification />}/>}/>
 

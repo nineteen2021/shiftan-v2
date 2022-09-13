@@ -5,3 +5,4 @@ django-cors-headers==3.5.0
 django-mysql==3.9
 djangorestframework-simplejwt==5.1.0
 djoser==2.0.3
+django_filter==22.1
