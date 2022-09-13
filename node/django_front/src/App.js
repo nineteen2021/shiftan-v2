@@ -26,6 +26,7 @@ import ShiftEditorDay from './components/store/ShiftEditorDay';
 import BottomNavbar from './components/partTime/BottomNavbar';
 import Activate from './components/function/Activate';
 import NoMatch from './components/function/NoMatch';
+import ChangePassword from './components/function/ChangePassword';
 
 
 const App = () => {
@@ -59,6 +60,8 @@ const App = () => {
             <Route path="certification" element={<Navbar contents={<Certification />}/>}/>
 
             <Route path="settings" element={<Navbar contents={<Settings />}/>} />
+            
+            <Route path="changePassword" element={<Navbar contents={<ChangePassword />}/>} />
 
             <Route path="partTimeHome"
               element={ 
