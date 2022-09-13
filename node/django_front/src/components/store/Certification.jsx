@@ -12,6 +12,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper'; 
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
 function createData(name, applicationDate) {
   return { name, applicationDate};
@@ -130,6 +132,15 @@ export default function Certification() {
   // アルバイトアカウントだった時はじく
   else if (users.is_manager === false) {
     return navigate("/*")
+  }
+  else if (untrustedUsers.length == 0){
+    return (
+      <Grid container spacing={0} alignItems='center' justifyContent='center' direction="column" style={{ minHeight: '100vh' }}>
+        <Grid item xs={12}>
+            <p><Typography fontSize={24}><font color='#707070'>申請してきたユーザーはいません</font></Typography></p>
+        </Grid>
+      </Grid>
+    )
   }
   return (
     <Grid
