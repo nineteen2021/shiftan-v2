@@ -1,4 +1,5 @@
 import * as React from 'react';
+import axios from 'axios';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -8,7 +9,7 @@ import Alert from '@mui/material/Alert';
 import Collapse from '@mui/material/Collapse';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { Link as routerLink } from 'react-router-dom'
+import { useNavigate, useLocation } from "react-router-dom"
 
 function Copyright(props) {
   return (
@@ -24,34 +25,66 @@ function Copyright(props) {
 }
 
 export default function ResetPassword() {
+  const navigate = useNavigate()
+  const search = useLocation().search;
+  const query2 = new URLSearchParams(search);
+  const [error, setError] = React.useState(false);
+  const [re_error, setRe_error] = React.useState(false);
+  const [password, setPassword] = React.useState("");
+  const [re_password, setRe_password] = React.useState("");
+  const passwordPattern = /^(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9.?/-]{8,24}$/;
 
-    const [error, setError] = React.useState(false);
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
-        console.log({
-            password: data.get('password'),
-            password2: data.get('password2'),
-        });
-        
-        if (data.get('password') === data.get('password2')){
-            //もしパスワードと再確認用のパスワードが一致したら
-            console.log("一致");
-            setError(false);
-        } else {
-            //もしパスワードと再確認用のパスワードが一致しなかったら
-            setError(true);
-            console.log("不一致");
+  const resetPassword = () => {
+    axios
+    .post('http://localhost:8000/api-auth/users/reset_password_confirm/',
+        {
+          uid: query2.get('uid'),
+          token: query2.get('token'),
+          new_password: password,
+          re_new_password: re_password
+        } //変更したいキーと値
+    ,{
+        headers: {
+            'Content-Type': 'application/json', 
         }
-    };
+    })
+    .then(res=>{console.log(res.data);})
+    .catch(err=>{console.log(err);});
+  }
+
+  const handleSubmit = () => {  
+
+    if (password == ''||!passwordPattern.test(password)){
+      setError(true);
+    } else {
+      setError(false)
+    }
+
+    if (password === re_password) {
+      //もしパスワードと再確認用のパスワードが一致したら
+      console.log("一致");
+      setRe_error(false);
+    } else {
+      //もしパスワードと再確認用のパスワードが一致しなかったら
+      setRe_error(true);
+      console.log("不一致");
+    }
+
+    if(password == ''|| !passwordPattern.test(password) || password != re_password){
+      return(false)
+    }else{
+      return(true)
+    }
+  };
 
   return (
     <>
-    <Collapse in={error}>
-    <Alert severity="error">パスワードが一致しません</Alert>
-    </Collapse>
+      <Collapse in={error}>
+        <Alert severity="error">パスワードは8文字以上で大文字と数字を含める必要があります</Alert>
+      </Collapse>
+      <Collapse in={re_error}>
+        <Alert severity="error">パスワードが一致しません</Alert>
+      </Collapse>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -72,7 +105,9 @@ export default function ResetPassword() {
               label="新規パスワード"
               name="password"
               type="password"
+              error={error}
               autoFocus
+              onChange={(e) => setPassword(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -81,15 +116,21 @@ export default function ResetPassword() {
               name="password2"
               label="新規パスワード(再確認)"
               type="password"
+              error={re_error}
               id="password2"
+              onChange={(e) => setRe_password(e.target.value)}
             />
             <Button
-              type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              component={routerLink}
-              to="/finishResetPassword"
+              onClick={() => {
+                console.log(handleSubmit());
+                if(handleSubmit()){
+                  resetPassword();
+                  navigate("/finishResetPassword");
+                }
+              }}
             >
               パスワードを再設定
             </Button>

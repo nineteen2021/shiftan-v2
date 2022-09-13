@@ -29,6 +29,7 @@ import Terms from '../function/Terms';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import CheckStore from './CheckStore';
 import BottomNavbar from './BottomNavbar';
+import Question from '../function/Question';
 import { useNavigate } from 'react-router-dom';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -92,7 +93,7 @@ export default function PartTimeSettings() {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton >
+                            <ListItemButton onClick={() => onOpenDialog("question")}>
                                 <ListItemIcon>
                                     <QuestionMarkIcon />
                                 </ListItemIcon>
@@ -100,11 +101,11 @@ export default function PartTimeSettings() {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton>
+                            <ListItemButton component="a" href="https://forms.gle/4jc8pBCCxDgn18X76">
                                 <ListItemIcon>
                                     <ContactMailIcon />
                                 </ListItemIcon>
-                                <ListItemText primary="お問い合わせ" secondary="外部ページに移動します" />
+                                <ListItemText primary="お問い合わせ" secondary="外部ページに移動します"/>
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
@@ -199,6 +200,24 @@ export default function PartTimeSettings() {
                         
                     </DialogContentText>
                         <Terms/>
+                    </DialogContent>
+                <DialogActions>
+                    <Button onClick={onCloseDialog}>OK</Button>
+                </DialogActions>
+            </Dialog>
+
+            <Dialog open={selectedItem === "question"}
+                    onClose={onCloseDialog}
+                    scroll="paper"
+                    fullWidth="true"
+                    maxWidth="md"
+            >
+                <DialogTitle>よくある質問</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        
+                    </DialogContentText>
+                        <Question/>
                     </DialogContent>
                 <DialogActions>
                     <Button onClick={onCloseDialog}>OK</Button>

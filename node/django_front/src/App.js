@@ -9,6 +9,7 @@ import Navbar from './components/store/Navbar';
 import Login from './components/function/Login';
 import SentPasswordMail from './components/function/SentPasswordMail';
 import ResetPassword from './components/function/ResetPassword';
+import PasswordSentMail from './components/function/PasswordSentMail';
 import FinishResetPassword from './components/function/FinishResetPassword';
 import Register from './components/store/Register';
 import StoreRegister from './components/store/StoreRegister';
@@ -21,6 +22,7 @@ import PartTimeHome from './components/partTime/PartTimeHome';
 import ShiftSubmit from './components/partTime/ShiftSubmit';
 import PartTimeSettings from './components/partTime/PartTimeSettings';
 import Certification from './components/store/Certification';
+import ShiftEditorDay from './components/store/ShiftEditorDay';
 import BottomNavbar from './components/partTime/BottomNavbar';
 import Activate from './components/function/Activate';
 import NoMatch from './components/function/NoMatch';
@@ -38,6 +40,7 @@ const App = () => {
           <Route path="activate" element={<Activate />} />
           <Route path="partTimeRegister" element={<PartTimeRegister />} />
           <Route path="sentPasswordMail" element={<SentPasswordMail />} />
+          <Route path="passwordSentMail" element={<PasswordSentMail />} />
           <Route path="resetPassword" element={<ResetPassword />} /> {/*メールから飛ぶリンクのため未実装*/}
           <Route path="finishResetPassword" element={<FinishResetPassword />}/>
           <Route path="*" element={<NoMatch />}/>
@@ -48,6 +51,8 @@ const App = () => {
             {/* <Route path="storeHome" element={<Navbar contents={<StoreHome />}/>} /> */}
 
             <Route path="makeShift" element={<Navbar contents={<MakeShift />}/>} />
+
+            <Route path="shifteditor" element={<Navbar contents={<ShiftEditorDay />}/>} />
 
             <Route path="staffManager" element={<Navbar contents={<StaffManager />}/>} />
 
