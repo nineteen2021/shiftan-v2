@@ -1,4 +1,6 @@
 import * as React from 'react';
+import {useState, useLayoutEffect} from 'react'
+import axios from 'axios'
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -24,6 +26,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Terms from '../function/Terms';
+import Question from '../function/Question';
+import { useNavigate } from 'react-router-dom';
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -42,6 +46,33 @@ export default function Settings() {
         setSelectedItem('')
     }
 
+    const navigate = useNavigate();
+
+    const logout = () => {
+        window.localStorage.clear()
+        navigate("/login")
+    }
+
+    const [users, setUsers] = useState(null)
+  
+    useLayoutEffect(() => {
+        axios
+            .get('http://localhost:8000/api-auth/users/me/',{
+                headers: {
+                    'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
+                }
+            })
+            .then(res=>{setUsers(res.data);
+                console.log(res.data);
+            })
+            .catch(err=>{console.log(err);});
+    }, []);
+  if (!users) return null;
+// アルバイトアカウントははじく
+  else if (users.is_manager === false) {
+    return navigate("/*")
+  }
+
     return (
         <>
             <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
@@ -55,7 +86,7 @@ export default function Settings() {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton>
+                            <ListItemButton onClick={() => onOpenDialog("question")}>
                                 <ListItemIcon>
                                     <QuestionMarkIcon />
                                 </ListItemIcon>
@@ -63,7 +94,7 @@ export default function Settings() {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton>
+                            <ListItemButton component="a" href="https://forms.gle/4jc8pBCCxDgn18X76">
                                 <ListItemIcon>
                                     <ContactMailIcon />
                                 </ListItemIcon>
@@ -76,6 +107,14 @@ export default function Settings() {
                                     <GavelIcon />
                                 </ListItemIcon>
                                 <ListItemText primary="利用規約" secondary="利用規約を確認することができます" />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={() => onOpenDialog(logout())}>
+                                <ListItemIcon>
+                                    <LogoutIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="ログアウト" secondary="ログアウトしてログイン画面に戻ります" />
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
@@ -126,6 +165,24 @@ export default function Settings() {
                         
                     </DialogContentText>
                         <Terms/>
+                    </DialogContent>
+                <DialogActions>
+                    <Button onClick={onCloseDialog}>OK</Button>
+                </DialogActions>
+            </Dialog>
+
+            <Dialog open={selectedItem === "question"}
+                    onClose={onCloseDialog}
+                    scroll="paper"
+                    fullWidth="true"
+                    maxWidth="md"
+            >
+                <DialogTitle>よくある質問</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        
+                    </DialogContentText>
+                        <Question/>
                     </DialogContent>
                 <DialogActions>
                     <Button onClick={onCloseDialog}>OK</Button>
