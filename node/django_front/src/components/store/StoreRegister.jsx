@@ -83,7 +83,10 @@ export default function Register() {
       console.log('change関数実行！')
       axios
         .patch('http://localhost:8000/api-auth/users/me/',
-            {store_FK: value} //変更したいキーと値
+            {
+              store_FK: value,
+              is_store: true
+            } //変更したいキーと値
         ,{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`, 
