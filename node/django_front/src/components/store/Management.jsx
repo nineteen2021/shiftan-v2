@@ -182,13 +182,18 @@ export default function Management() {
                                         </TableCell>
 
                                         <TableCell align="center">
-                                            <Button variant="contained" color="error" sx={{ ml: 1 }} onClick={() => {
-                                                setDeleteUsername({
-                                                    name: row.last_name + ' ' + row.first_name,
-                                                    id: row.id
-                                                })
-                                                setDialogFlag(true);
-                                            }} >削除</Button>
+                                            {!(row.id == users.id) &&
+                                                <Button variant="contained" color="error" sx={{ ml: 1 }} onClick={() => {
+                                                    setDeleteUsername({
+                                                        name: row.last_name + ' ' + row.first_name,
+                                                        id: row.id
+                                                    })
+                                                    setDialogFlag(true);
+                                                }} >削除</Button>
+                                            }
+                                            {(row.id == users.id) &&
+                                                <Typography>管理者</Typography>
+                                            }
                                         </TableCell>
 
                                     </TableRow>
