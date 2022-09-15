@@ -8,14 +8,14 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Typography, Button, Grid, Checkbox } from '@mui/material';
-import ColorPicker from '../function/ColorPicker';
+import ChangeColor from '../function/ChangeColor';
 import TextField from '@mui/material/TextField';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { areArraysEqual } from '@mui/material/node_modules/@mui/base';
 import axios from 'axios';
+import ColorPicker from '../function/ColorPicker';
 
 const rows = [];
-
 
 export default function Position() {
     const [users, setUsers] = useState(null)
@@ -118,7 +118,7 @@ export default function Position() {
                                 <TableRow>
                                     <TableCell>
                                         {/* group.group_color */}
-                                        <ColorPicker />
+                                        <ChangeColor color={group.color} id={group.id}/>
                                     </TableCell>
                                     <TableCell component="th" scope="row" >{group.group_name}</TableCell>
                                     <TableCell key={index}>
