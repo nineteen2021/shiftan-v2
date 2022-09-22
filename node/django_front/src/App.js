@@ -36,6 +36,7 @@ const App = () => {
     <BrowserRouter>
       <div>
         <Routes>
+          <Route path="/" element={<Login />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="storeRegister" element={<StoreRegister />} />
@@ -48,9 +49,7 @@ const App = () => {
           <Route path="*" element={<NoMatch />}/>
 
           <Route element={<PrivateRoutes />}>
-            <Route path="/" element={<Navbar contents={<StoreHome />}/>}/> {/* exact ... 部分一致を防ぐ */}
-
-            {/* <Route path="storeHome" element={<Navbar contents={<StoreHome />}/>} /> */}
+            <Route path="storeHome" element={<Navbar contents={<StoreHome />}/>}/> {/* exact ... 部分一致を防ぐ */}
 
             <Route path="makeShift" element={<Navbar contents={<MakeShift />}/>} />
 
