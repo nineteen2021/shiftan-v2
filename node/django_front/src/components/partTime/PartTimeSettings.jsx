@@ -52,7 +52,7 @@ export default function PartTimeSettings() {
 
     const logout = () => {
         window.localStorage.clear()
-        navigate("/login")
+        navigate("/")
     }
     const [users, setUsers] = useState(null)
     useLayoutEffect(() => {
