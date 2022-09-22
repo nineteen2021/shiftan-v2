@@ -76,7 +76,7 @@ export default function Login() {
               console.log(userMe.is_manager)
               if(userMe.is_manager === true) {
                 console.log("店長アカウントです")
-                navigate("/")
+                navigate("/storeHome")
               }
               else if (userMe.is_manager === false) {
                 console.log("アルバイトアカウントです")
