@@ -89,7 +89,7 @@ const MakeShift = () => {
         })
         .then((res) => {
             console.log(res.data)
-            navigate("/")
+            navigate("/storeHome")
         })
         .catch(err=>{console.log(err);})
     
@@ -126,6 +126,12 @@ const MakeShift = () => {
           
         makeShiftPost();
       }
+    }
+
+    // アルバイトアカウントははじく
+    if (users.is_manager === false) {
+        console.log("はじき出すよ")
+        return navigate("/*")
     }
 
   return (
