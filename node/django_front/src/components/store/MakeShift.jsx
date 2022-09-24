@@ -89,7 +89,7 @@ const MakeShift = () => {
         })
         .then((res) => {
             console.log(res.data)
-            navigate("/")
+            navigate("/storeHome")
         })
         .catch(err=>{console.log(err);})
     
