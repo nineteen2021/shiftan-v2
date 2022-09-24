@@ -209,7 +209,7 @@ export default function Navbar(props) {
         <List>
           <ListItemButton
           component={routerLink}
-          to="/">
+          to="/storeHome">
             <ListItemIcon>
               <HomeOutlinedIcon fontSize='large' sx={{ color : "#ffffff" }} />
             </ListItemIcon>
