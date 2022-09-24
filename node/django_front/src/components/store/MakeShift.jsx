@@ -128,6 +128,12 @@ const MakeShift = () => {
       }
     }
 
+    // アルバイトアカウントははじく
+    if (users.is_manager === false) {
+        console.log("はじき出すよ")
+        return navigate("/*")
+    }
+
   return (
     <>
     <LocalizationProvider dateAdapter={AdapterDateFns} locale={ja}>

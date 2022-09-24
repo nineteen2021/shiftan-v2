@@ -63,15 +63,20 @@ export default function Settings() {
                 }
             })
             .then(res=>{setUsers(res.data);
+                console.log("取ってこれたよ")
                 console.log(res.data);
             })
-            .catch(err=>{console.log(err);});
+            .catch(err=>{console.log(err);console.log("totte");});
     }, []);
-  if (!users) return null;
+    if (!users) {
+        console.log("usersがないよ");
+        return null;
+    }
 // アルバイトアカウントははじく
-  else if (users.is_manager === false) {
-    return navigate("/*")
-  }
+    else if (users.is_manager === false) {
+        console.log("はじき出すよ")
+        return navigate("/*")
+    }
 
     return (
         <>
