@@ -66,7 +66,9 @@ export default function Settings() {
                 console.log("取ってこれたよ")
                 console.log(res.data);
             })
-            .catch(err=>{console.log(err);console.log("totte");});
+            .catch(err=>{console.log(err);
+                console.log("totte");
+                });
     }, []);
     if (!users) {
         console.log("usersがないよ");
