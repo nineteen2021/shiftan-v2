@@ -45,7 +45,9 @@ const App = () => {
           <Route path="sentPasswordMail" element={<SentPasswordMail />} />
           <Route path="passwordSentMail" element={<PasswordSentMail />} />
           <Route path="resetPassword" element={<ResetPassword />} /> {/*メールから飛ぶリンクのため未実装*/}
-          <Route path="finishResetPassword" element={<FinishResetPassword />}/>
+          <Route path="finishResetPassword" element={<FinishResetPassword />} />
+          <Route path="changePassword" element={<ChangePassword />} />
+
           <Route path="*" element={<NoMatch />}/>
 
           <Route element={<PrivateRoutes />}>
@@ -60,8 +62,6 @@ const App = () => {
             <Route path="certification" element={<Navbar contents={<Certification />}/>}/>
 
             <Route path="settings" element={<Navbar contents={<Settings />}/>} />
-            
-            <Route path="changePassword" element={<Navbar contents={<ChangePassword />}/>} />
 
             <Route path="partTimeHome"
               element={ 
