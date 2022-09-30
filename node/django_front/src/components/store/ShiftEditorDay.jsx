@@ -8,7 +8,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 import Collapse from '@mui/material/Collapse';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from "react-router-dom";
 
 import {
   ViewState, GroupingState, IntegratedGrouping, IntegratedEditing, EditingState,
@@ -265,13 +265,15 @@ export default class ShiftEditorDay extends React.PureComponent {
     .catch(err=>{
       console.log(err);
     });
-    if (!ownerAccount) {
-      console.log("usersがないよ");
-      return null;
-  } else if (ownerAccount.is_manager === false) {
-    console.log("はじき出すよ")
-    return navigate("/*")
-}
+  //   if (!ownerAccount){  //遷移がうまくいかない
+  //     console.log("usersがないよ");
+  //     return null;
+  // } else if (ownerAccount.is_manager === false) {
+  //   console.log("はじき出すよ")
+  //     return (
+  //       <Navigate to="/*"/>
+  //     );
+  // }
 
     await axios //店に所属しているすべてのユーザーの情報をとってくる
     .get('http://127.0.0.1:8000/api/user/?store_FK=' + ownerAccount.store_FK,{ //TODO:storeFKで絞り込めないので、絞り込めるようにする
@@ -424,6 +426,12 @@ export default class ShiftEditorDay extends React.PureComponent {
   
 
   render() {
+    // const checkOwner = () => { //renderの後でNavigateを頑張ってみたがうまくいかず
+    //   const isManager = ownerAccount.is_manager
+    //   return(
+    //     {isManager ? <Navigate to="/*" />}
+    //   );
+    // }
     const { data, resources, grouping, groupByDate, isGroupByDate, success, moveTmp, outOfStoreRange , shift_rangeName, shift_rangeStart_date, shift_rangeStop_date } = this.state;
     console.log('現在のシフトデータ');
     console.log(this.state.data)
