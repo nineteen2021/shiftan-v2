@@ -50,7 +50,7 @@ export default function Settings() {
 
     const logout = () => {
         window.localStorage.clear()
-        navigate("/login")
+        navigate("/")
     }
 
     const [users, setUsers] = useState(null)
