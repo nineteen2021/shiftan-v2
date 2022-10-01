@@ -50,6 +50,15 @@ const MakeShift = () => {
         })
         .catch(err=>{console.log(err);});
     }, []);
+    if (!users) {
+        console.log("usersがないよ");
+        return null;
+    }
+    // アルバイトアカウントははじく
+    else if (users.is_manager === false) {
+        console.log("はじき出すよ")
+        return navigate("/*")
+    }
 
     const makeShiftPost = async() => {
         console.log(shiftName)
