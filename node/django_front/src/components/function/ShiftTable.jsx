@@ -257,7 +257,7 @@ export default function ShiftTable() {
           setUsers(res.data);
           usersval = res.data;
           // console.log(res.data);
-          // console.log(users); // 初回レンダリング時は出ない
+          // console.log(users);
           })
         .catch(err=>{console.log(err);
         })
@@ -293,7 +293,7 @@ export default function ShiftTable() {
           })
           .then(res=>{setWorkSchedules(res.data);
                       // console.log(users);
-                      // console.log(workSchedules); // 最初は出ない
+                      // console.log(workSchedules); 
                     //   workSchedulesList = makeWorkSchedulesListByUser(res.data, usersval);
                       // console.log(workSchedulesList)
                       // console.log(originalDates)
@@ -372,10 +372,10 @@ export default function ShiftTable() {
               >
                 {user.last_name + " " + user.first_name}
               </TableCell>
-          {/* {exWorkSchedules?.map((workSchedule) =>( */}
+          {/* {exWorkSchedules?.map((workSchedule) =>( セル表示用の空白 */}
             <TableCell className={classes.cell}></TableCell>
             <TableCell className={classes.cell}></TableCell>
-            <TableCell className={classes.cell}>{exWorkSchedules.start_time + "~" + exWorkSchedules.stop_time}</TableCell>
+            <TableCell className={classes.cell}></TableCell>
             <TableCell className={classes.cell}></TableCell>
             <TableCell className={classes.cell}></TableCell>
             <TableCell className={classes.cell}></TableCell>
