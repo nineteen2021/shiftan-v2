@@ -46,7 +46,6 @@ const App = () => {
           <Route path="passwordSentMail" element={<PasswordSentMail />} />
           <Route path="resetPassword" element={<ResetPassword />} /> {/*メールから飛ぶリンクのため未実装*/}
           <Route path="finishResetPassword" element={<FinishResetPassword />} />
-          <Route path="changePassword" element={<ChangePassword />} />
 
           <Route path="*" element={<NoMatch />}/>
 
@@ -62,6 +61,8 @@ const App = () => {
             <Route path="certification" element={<Navbar contents={<Certification />}/>}/>
 
             <Route path="settings" element={<Navbar contents={<Settings />}/>} />
+
+            <Route path="storeChangePassword" element={<Navbar contents={<ChangePassword />}/>} />
 
             <Route path="partTimeHome"
               element={ 
@@ -94,6 +95,15 @@ const App = () => {
             element={ 
               <>
               <PartTimeNavbar contents={<JoinStore />}/>
+              <BottomNavbar/>
+              </>
+            }
+            />
+
+            <Route path="partTimeChangePassword" 
+            element={
+              <>
+              <PartTimeNavbar contents={<ChangePassword />}/>
               <BottomNavbar/>
               </>
             }

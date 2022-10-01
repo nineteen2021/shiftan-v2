@@ -88,7 +88,7 @@ export default function PartTimeAccountSettings() {
                             <ListItem disablePadding>
                                 <ListItemButton 
                                     component={routerLink}
-                                    to="/changePassword"
+                                    to="/partTimeChangePassword"
                                 >
                                     <ListItemIcon>
                                         <KeyIcon />

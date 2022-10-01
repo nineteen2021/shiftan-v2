@@ -229,7 +229,7 @@ export default function AccountSettings() {
                             <ListItem disablePadding>
                                 <ListItemButton 
                                     component={routerLink}
-                                    to="/changePassword"
+                                    to="/storeChangePassword"
                                 >
                                     <ListItemIcon>
                                         <KeyIcon />
