@@ -103,7 +103,7 @@ const App = () => {
             }
             />
 
-            <Route path="shiftTable" 
+            <Route path="partTimeShiftTable" 
             element={
               <>
               <PartTimeNavbar contents={<ShiftTable />} />

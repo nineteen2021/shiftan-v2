@@ -37,7 +37,7 @@ export default function PartTimeShiftList(props) {
               color="whiteButton" 
               sx={{ mr: 1, ml:1 }}
               component={routerLink}
-              to={"/shiftTable?id=" + props.fk}
+              to={"/partTimeShiftTable?id=" + props.fk}
             >
               確認
             </Button>
