@@ -20,6 +20,15 @@ export default function StoreHome(){
   const [ranges, setRanges] = useState(null)
   const [untrustedUsers, setUntrustedUsers] = useState(null);
   const navigate = useNavigate();
+
+  function sort( a, b ){
+    var r = 0;
+    if( a.id < b.id ){ r = -1; }
+    else if( a.id > b.id ){ r = 1; }
+  
+    return ( -1 * r );
+  }
+
   useLayoutEffect(() => {
     let store_FK;
     axios
@@ -42,7 +51,10 @@ export default function StoreHome(){
                     .then(res=>{
                                 console.log('storeRange取得');
                                 console.log(res.data);
-                                setRanges(res.data);
+                                //start_dateで新しい順に並び替える
+                                const rangesVal = res.data;
+                                setRanges(rangesVal.sort(sort));
+
                                 axios
                                 .get('http://localhost:8000/api/user/?is_store=false&store_FK='+store_FK,{
                                     headers: {
@@ -73,7 +85,7 @@ export default function StoreHome(){
                                   axios
                                   .get('http://localhost:8000/api/user/?is_store=false&store_FK='+store_FK,{
                                       headers: {
-                                          'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
+                                          'Authorization': `JWT ${localStorage.getItem('access')}`,
                                       }
                                   })
                                   .then(res=>{console.log('認証待ちのユーザーを取得');
