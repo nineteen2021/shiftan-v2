@@ -164,7 +164,7 @@ const MakeShift = () => {
                                 シフト表名称*
                             </Typography>
                             <TextField
-                                autoComplete="shift-table-name"
+                                autoComplete="off"
                                 name="shiftTableName"
                                 required
                                 fullWidth
@@ -189,7 +189,9 @@ const MakeShift = () => {
                             placeholderText="開始日*"
                             locale="ja"
                             
-                            customInput={<TextField error={startValueError}/>}
+                            customInput={<TextField 
+                                autoComplete="off"
+                                error={startValueError}/>}
                           />
                          
                         </Grid>
@@ -208,7 +210,9 @@ const MakeShift = () => {
                               disabledKeyboardNavigation
                               placeholderText="終了日*"
                               locale="ja"
-                              customInput={<TextField error={endValueError}/>}
+                              customInput={<TextField 
+                                autoComplete="off"
+                                error={startValueError}/>}
                           />
                            
                         </Grid>
@@ -224,7 +228,8 @@ const MakeShift = () => {
                             dateFormat="yyyy年MM月dd日(E)"
                             placeholderText="締切日"
                             locale="ja"
-                            customInput={<TextField/>}
+                            customInput={<TextField 
+                                autoComplete="off"/>}
                           />
                             
                         </Grid>
