@@ -21,6 +21,15 @@ export default function PartTimeHome() {
   const [isTrusted, setIsTrusted] = useState(null)
   const [ranges, setRanges] = useState(null)
   const navigate = useNavigate();
+
+  function sort( a, b ){
+    var r = 0;
+    if( a.id < b.id ){ r = -1; }
+    else if( a.id > b.id ){ r = 1; }
+  
+    return ( -1 * r );
+  }
+
   useLayoutEffect(() => {
     let store_FK;
     axios
@@ -43,7 +52,10 @@ export default function PartTimeHome() {
                     })
                     .then(res=>{setUsers(res.data);
                                 console.log(res.data);
-                                setRanges(res.data);
+                                //idで新しい順に並び替える
+                                const rangesVal = res.data;
+                                setRanges(rangesVal.sort(sort));
+                                console.log(ranges);
                             })
                     .catch(err=>{
                       console.log(err);
@@ -55,7 +67,6 @@ export default function PartTimeHome() {
                       })
                       .then(res=>{setUsers(res.data);
                                   console.log(res.data);
-                                  setRanges(res.data)
                               })
                       .catch(err=>{
                         console.log(err);
