@@ -152,7 +152,7 @@ export default function Settings() {
                                 <CloseIcon />
                             </IconButton>
                             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                                会員情報編集
+                                会員情報変更
                             </Typography>
                         </Toolbar>
                     </AppBar>
