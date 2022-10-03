@@ -75,7 +75,7 @@ export default function PartTimeSettings() {
     return (
         <>
             <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                <Typography fontSize={20}>設定</Typography>
+                <Typography fontSize={20} sx={{ ml:3 }}>設定</Typography>
                     <List>
                         <ListItem disablePadding>
                             <ListItemButton onClick={() => onOpenDialog("PartTimeAccountSettings")}>
