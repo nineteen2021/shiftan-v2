@@ -51,7 +51,7 @@ export default function StoreHome(){
                     .then(res=>{
                                 console.log('storeRange取得');
                                 console.log(res.data);
-                                //start_dateで新しい順に並び替える
+                                //idで新しい順に並び替える
                                 const rangesVal = res.data;
                                 setRanges(rangesVal.sort(sort));
 
