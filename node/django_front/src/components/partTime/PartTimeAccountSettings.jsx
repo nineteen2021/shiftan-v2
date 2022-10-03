@@ -20,13 +20,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 import LocalPhone from '@mui/icons-material/LocalPhone';
 import axios from 'axios';
 
-const testUser = {
-    firstName: "太郎",
-    lastName: "山田",
-    phoneNumber: "000-1111-2222",
-    mail: "hogehoge@gmail.com",
-}
-
 export default function PartTimeAccountSettings() {
 
     const [users, setUsers] = useState(null)
