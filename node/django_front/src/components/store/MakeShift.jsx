@@ -140,16 +140,9 @@ const MakeShift = () => {
   return (
     <>
     <LocalizationProvider dateAdapter={AdapterDateFns} locale={ja}>
-        <Container component="main" maxWidth="xs"/>
-        <CssBaseline />
-            <Box>
-                <Grid container justifyContent="flex-start">
-                    <Grid item>
-                        <Typography component="h1" variant="h5">
-                            シフト作成
-                        </Typography>
-                    </Grid>
-                </Grid>
+        <Container component="main" maxWidth="xs" />
+        <Typography fontSize={20} sx={{ ml:3 }}>シフト作成</Typography>
+            <CssBaseline />
                 <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 3 }}>
                     <Grid container
                         sx={{
@@ -244,7 +237,6 @@ const MakeShift = () => {
                         </Grid>
                     </Grid>
                 </Box>
-            </Box>
     </LocalizationProvider>
     </>
   );
