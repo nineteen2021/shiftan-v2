@@ -54,7 +54,7 @@ const App = () => {
 
             <Route path="makeShift" element={<Navbar contents={<MakeShift />}/>} />
 
-            <Route path="shifteditor" element={<Navbar contents={<ShiftEditorDay />}/>} />
+            <Route path="shiftEditor" element={<Navbar contents={<ShiftEditorDay />}/>} />
 
             <Route path="staffManager" element={<Navbar contents={<StaffManager />}/>} />
 
