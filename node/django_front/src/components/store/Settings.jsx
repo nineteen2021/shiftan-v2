@@ -28,6 +28,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Terms from '../function/Terms';
 import Question from '../function/Question';
 import { useNavigate } from 'react-router-dom';
+import { Link as routerLink } from 'react-router-dom'
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -90,6 +91,14 @@ export default function Settings() {
                                     <AccountCircleIcon />
                                 </ListItemIcon>
                                 <ListItemText primary="会員情報変更" secondary="メールアドレス、パスワードなどの会員情報を変更します" />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton component={routerLink} to={"/management"}>
+                                <ListItemIcon>
+                                    <GavelIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="従業員管理" secondary="従業員の管理を行います" />
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
