@@ -106,7 +106,8 @@ export default function Management() {
         axios
             .patch('http://localhost:8000/api/user/' + id + '/',
                 {
-                    store_FK: null
+                    store_FK: null,
+                    is_store: false
                 } //変更したいキーと値
                 , {
                     headers: {
