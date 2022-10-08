@@ -12,8 +12,6 @@ import Box from '@mui/material/Box';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import { Link as routerLink } from 'react-router-dom'
 
-const shifts = ['1月前半シフト', '1月後半シフト', '2月前半シフト', '2月前半シフト', '3月前半シフト', '3月後半シフト'];
-
 export default function PartTimeHome() {
 
   const [users, setUsers] = useState(null)
@@ -154,8 +152,8 @@ export default function PartTimeHome() {
       <Container component="main" maxWidth="md" sx={{ mb: 4 }}>
         <Typography fontSize={20}>シフト一覧</Typography>
 
-        {ranges.map((val) =>
-          <PartTimeShiftList shiftName={val.shift_name} fk={val.id} />
+        {ranges.map((range) =>
+          <PartTimeShiftList shiftData={range} />
         )}
 
       </Container>

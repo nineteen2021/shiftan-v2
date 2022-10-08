@@ -30,14 +30,15 @@ export default function PartTimeShiftList(props) {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography><font size="5" color="#fff">{props.shiftName}</font></Typography>
+          <Typography><font size="5" color="#fff">{props.shiftData.shift_name}</font></Typography>
           <Grid item>
             <Button 
               variant="contained" 
               color="whiteButton" 
               sx={{ mr: 1, ml:1 }}
               component={routerLink}
-              to={"/partTimeShiftTable?id=" + props.fk}
+              to={"/partTimeShiftTable?id=" + props.shiftData.id}
+              state={{ shiftData: props.shiftData }}
             >
               確認
             </Button>
@@ -47,7 +48,8 @@ export default function PartTimeShiftList(props) {
               color="yellowButton" 
               sx={{ ml: 1 }}
               component={routerLink}
-              to={"/shiftSubmit?id=" + props.fk} //propsからFKを取得
+              to={"/shiftSubmit?id=" + props.shiftData.id}
+              state={{ shiftData: props.shiftData }}
             >
               編集
             </Button>
