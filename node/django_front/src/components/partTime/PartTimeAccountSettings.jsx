@@ -33,11 +33,17 @@ export default function PartTimeAccountSettings() {
 
     useEffect(() => {
         axios
-        .get('http://localhost:8000/api/user/')
+        .get('http://localhost:8000/api-auth/users/me/',{
+            headers: {
+                'Authorization': `JWT ${window.localStorage.getItem('access')}`,
+            }
+        })
         .then(res=>{setUsers(res.data);
-                    console.log(res.data);})
+                    console.log(res.data);
+                })
         .catch(err=>{console.log(err);});
-      }, []);
+    }, []);
+
 
     const [selectedItem, setSelectedItem] = React.useState('')
 
@@ -49,11 +55,11 @@ export default function PartTimeAccountSettings() {
         setSelectedItem('')
     }
 
+    if (!users) return null;
     return (
         <>
             <Fragment>
-                {users?.map(user => (
-                    <div>
+                <div>
                     <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
                         <List>
                             <ListItem disablePadding>
@@ -61,7 +67,7 @@ export default function PartTimeAccountSettings() {
                                     <ListItemIcon>
                                         <BadgeIcon />
                                     </ListItemIcon>
-                                    <ListItemText primary="氏名" secondary={user.last_name + " " + user.first_name} />
+                                    <ListItemText primary="氏名" secondary={users.last_name + " " + users.first_name} />
                                 </ListItemButton>
                             </ListItem>
                             <ListItem disablePadding>
@@ -69,7 +75,7 @@ export default function PartTimeAccountSettings() {
                                     <ListItemIcon>
                                         <LocalPhone />
                                     </ListItemIcon>
-                                    <ListItemText primary="電話番号" secondary={user.phone} />
+                                    <ListItemText primary="電話番号" secondary={users.phone} />
                                 </ListItemButton>
                             </ListItem>
                             <ListItem disablePadding>
@@ -77,14 +83,14 @@ export default function PartTimeAccountSettings() {
                                     <ListItemIcon>
                                         <EmailIcon />
                                     </ListItemIcon>
-                                    <ListItemText primary="メールアドレス" secondary={user.email} />
+                                    <ListItemText primary="メールアドレス" secondary={users.email} />
                                 </ListItemButton>
                             </ListItem>
                             <ListItem disablePadding>
                                 <ListItemButton 
                                     component={routerLink}
-                                    to="/changePassword"
-                                >
+                                    to="/partTimeChangePassword"
+                                    >
                                     <ListItemIcon>
                                         <KeyIcon />
                                     </ListItemIcon>
@@ -94,7 +100,6 @@ export default function PartTimeAccountSettings() {
                         </List>
                     </Box>
                 </div>
-                ))}
             </Fragment>
 
             <Dialog open={selectedItem === "name"} onClose={onCloseDialog}>

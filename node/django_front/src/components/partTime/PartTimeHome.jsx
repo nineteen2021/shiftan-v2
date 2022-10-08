@@ -26,7 +26,7 @@ export default function PartTimeHome() {
     axios
         .get('http://localhost:8000/api-auth/users/me/',{
             headers: {
-                'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
+                'Authorization': `JWT ${localStorage.getItem('access')}`,
             }
         })
         .then(res=>{setUsers(res.data);
