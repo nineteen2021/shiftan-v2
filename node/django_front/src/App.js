@@ -28,6 +28,7 @@ import Activate from './components/function/Activate';
 import NoMatch from './components/function/NoMatch';
 import JoinStore from './components/partTime/JoinStore';
 import ChangePassword from './components/function/ChangePassword';
+import ShiftTable from './components/function/ShiftTable';
 
 
 const App = () => {
@@ -45,7 +46,8 @@ const App = () => {
           <Route path="sentPasswordMail" element={<SentPasswordMail />} />
           <Route path="passwordSentMail" element={<PasswordSentMail />} />
           <Route path="resetPassword" element={<ResetPassword />} /> {/*メールから飛ぶリンクのため未実装*/}
-          <Route path="finishResetPassword" element={<FinishResetPassword />}/>
+          <Route path="finishResetPassword" element={<FinishResetPassword />} />
+
           <Route path="*" element={<NoMatch />}/>
 
           <Route element={<PrivateRoutes />}>
@@ -60,8 +62,10 @@ const App = () => {
             <Route path="certification" element={<Navbar contents={<Certification />}/>}/>
 
             <Route path="settings" element={<Navbar contents={<Settings />}/>} />
-            
-            <Route path="changePassword" element={<Navbar contents={<ChangePassword />}/>} />
+
+            <Route path="storeChangePassword" element={<Navbar contents={<ChangePassword />}/>} />
+
+            <Route path="shiftTable" element={<Navbar contents={<ShiftTable />}/>} />
 
             <Route path="partTimeHome"
               element={ 
@@ -99,6 +103,23 @@ const App = () => {
             }
             />
 
+            <Route path="partTimeShiftTable" 
+            element={
+              <>
+              <PartTimeNavbar contents={<ShiftTable />} />
+              <BottomNavbar/>
+              </>
+            }
+            />
+            
+            <Route path="partTimeChangePassword" 
+            element={
+              <>
+              <PartTimeNavbar contents={<ChangePassword />}/>
+              <BottomNavbar/>
+              </>
+            }
+            />
           </Route>
         </Routes>
       </div>
