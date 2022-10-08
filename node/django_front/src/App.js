@@ -28,6 +28,7 @@ import Activate from './components/function/Activate';
 import NoMatch from './components/function/NoMatch';
 import JoinStore from './components/partTime/JoinStore';
 import ChangePassword from './components/function/ChangePassword';
+import Management from './components/store/Management';
 import ShiftTable from './components/function/ShiftTable';
 
 
@@ -58,6 +59,8 @@ const App = () => {
             <Route path="shiftEditor" element={<Navbar contents={<ShiftEditorDay />}/>} />
 
             <Route path="staffManager" element={<Navbar contents={<StaffManager />}/>} />
+
+            <Route path="management" element={<Navbar contents={<Management />}/>} />
 
             <Route path="certification" element={<Navbar contents={<Certification />}/>}/>
 
