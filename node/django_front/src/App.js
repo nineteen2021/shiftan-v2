@@ -28,6 +28,7 @@ import Activate from './components/function/Activate';
 import NoMatch from './components/function/NoMatch';
 import JoinStore from './components/partTime/JoinStore';
 import ChangePassword from './components/function/ChangePassword';
+import ShiftTable from './components/function/ShiftTable';
 
 
 const App = () => {
@@ -63,6 +64,8 @@ const App = () => {
             <Route path="settings" element={<Navbar contents={<Settings />}/>} />
 
             <Route path="storeChangePassword" element={<Navbar contents={<ChangePassword />}/>} />
+
+            <Route path="shiftTable" element={<Navbar contents={<ShiftTable />}/>} />
 
             <Route path="partTimeHome"
               element={ 
@@ -100,6 +103,15 @@ const App = () => {
             }
             />
 
+            <Route path="partTimeShiftTable" 
+            element={
+              <>
+              <PartTimeNavbar contents={<ShiftTable />} />
+              <BottomNavbar/>
+              </>
+            }
+            />
+            
             <Route path="partTimeChangePassword" 
             element={
               <>
@@ -108,7 +120,6 @@ const App = () => {
               </>
             }
             />
-
           </Route>
         </Routes>
       </div>

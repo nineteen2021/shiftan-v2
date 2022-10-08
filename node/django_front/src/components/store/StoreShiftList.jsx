@@ -32,7 +32,15 @@ export default function StoreShiftList(props){
         >
           <Typography><font size="5" color="#fff">{props.shiftName}</font></Typography>
           <Grid item>
-            <Button variant="contained" color="whiteButton" sx={{mr: 1}}>確認</Button>
+            <Button 
+              variant="contained" 
+              color="whiteButton" 
+              sx={{mr: 1}}
+              component={routerLink}
+              to={"/shifttable?id=" + props.fk}
+              >
+                確認
+            </Button>
             <Button
               variant="contained"
               color="yellowButton"
