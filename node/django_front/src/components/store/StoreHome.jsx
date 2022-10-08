@@ -196,8 +196,8 @@ export default function StoreHome(){
                     </Link>
                   </Typography>
                 }
-                {ranges.map((val) => 
-                  <StoreShiftList shiftName={val.shift_name} fk={val.id} />
+                {ranges.map((range) => 
+                  <StoreShiftList shiftData={range} />
                 )} 
               </Container>
             )

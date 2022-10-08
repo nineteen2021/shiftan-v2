@@ -30,14 +30,15 @@ export default function StoreShiftList(props){
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography><font size="5" color="#fff">{props.shiftName}</font></Typography>
+          <Typography><font size="5" color="#fff">{props.shiftData.shift_name}</font></Typography>
           <Grid item>
             <Button 
               variant="contained" 
               color="whiteButton" 
               sx={{mr: 1}}
               component={routerLink}
-              to={"/shifttable?id=" + props.fk}
+              to={"/shifttable?id=" + props.shiftData.id}
+              state={{ shiftData: props.shiftData }}
               >
                 確認
             </Button>
@@ -46,7 +47,9 @@ export default function StoreShiftList(props){
               color="yellowButton"
               sx={{ml: 1}}
               component={routerLink}
-              to={"/shifteditor?id=" + props.fk} //propsからFKを取得
+              to={"/shifteditor?id=" + props.shiftData.id}
+              state={{ shiftData: props.shiftData }}
+
             >
               編集
             </Button>
