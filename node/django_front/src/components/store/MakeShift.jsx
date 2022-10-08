@@ -140,16 +140,9 @@ const MakeShift = () => {
   return (
     <>
     <LocalizationProvider dateAdapter={AdapterDateFns} locale={ja}>
-        <Container component="main" maxWidth="xs"/>
-        <CssBaseline />
-            <Box>
-                <Grid container justifyContent="flex-start">
-                    <Grid item>
-                        <Typography component="h1" variant="h5">
-                            シフト作成
-                        </Typography>
-                    </Grid>
-                </Grid>
+        <Container component="main" maxWidth="xs" />
+        <Typography fontSize={20} sx={{ ml:3 }}>シフト作成</Typography>
+            <CssBaseline />
                 <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 3 }}>
                     <Grid container
                         sx={{
@@ -164,7 +157,7 @@ const MakeShift = () => {
                                 シフト表名称*
                             </Typography>
                             <TextField
-                                autoComplete="shift-table-name"
+                                autoComplete="off"
                                 name="shiftTableName"
                                 required
                                 fullWidth
@@ -189,7 +182,9 @@ const MakeShift = () => {
                             placeholderText="開始日*"
                             locale="ja"
                             
-                            customInput={<TextField error={startValueError}/>}
+                            customInput={<TextField 
+                                autoComplete="off"
+                                error={startValueError}/>}
                           />
                          
                         </Grid>
@@ -208,7 +203,9 @@ const MakeShift = () => {
                               disabledKeyboardNavigation
                               placeholderText="終了日*"
                               locale="ja"
-                              customInput={<TextField error={endValueError}/>}
+                              customInput={<TextField 
+                                autoComplete="off"
+                                error={startValueError}/>}
                           />
                            
                         </Grid>
@@ -224,7 +221,8 @@ const MakeShift = () => {
                             dateFormat="yyyy年MM月dd日(E)"
                             placeholderText="締切日"
                             locale="ja"
-                            customInput={<TextField/>}
+                            customInput={<TextField 
+                                autoComplete="off"/>}
                           />
                             
                         </Grid>
@@ -239,7 +237,6 @@ const MakeShift = () => {
                         </Grid>
                     </Grid>
                 </Box>
-            </Box>
     </LocalizationProvider>
     </>
   );
