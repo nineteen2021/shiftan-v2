@@ -9,7 +9,6 @@ import Collapse from '@mui/material/Collapse';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { Navigate } from "react-router-dom";
-
 import {
   ViewState, GroupingState, IntegratedGrouping, IntegratedEditing, EditingState,
 } from '@devexpress/dx-react-scheduler';
@@ -113,7 +112,6 @@ const localization = {
 const shift_range_FK = 1;
 
 const isWeekOrMonthView = viewName => viewName === 'Week' || viewName === 'Day';
-
 export default class ShiftEditorDay extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -265,6 +263,7 @@ export default class ShiftEditorDay extends React.PureComponent {
     .catch(err=>{
       console.log(err);
     });
+
   //   if (!ownerAccount){  //遷移がうまくいかない
   //     console.log("usersがないよ");
   //     return null;

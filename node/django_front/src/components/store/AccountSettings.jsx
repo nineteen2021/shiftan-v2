@@ -63,11 +63,11 @@ export default function AccountSettings() {
         axios
         .get('http://localhost:8000/api-auth/users/me/',{
             headers: {
-                'Authorization': `JWT ${window.localStorage.getItem('access')}`, // ここを追加
+                'Authorization': `JWT ${window.localStorage.getItem('access')}`,
             }
         })
         .then(res=>{setUsers(res.data);
-                    //console.log(res.data);
+                    console.log(res.data);
                 })
         .catch(err=>{console.log(err);});
     }, []);
@@ -229,7 +229,7 @@ export default function AccountSettings() {
                             <ListItem disablePadding>
                                 <ListItemButton 
                                     component={routerLink}
-                                    to="/changePassword"
+                                    to="/storeChangePassword"
                                 >
                                     <ListItemIcon>
                                         <KeyIcon />
