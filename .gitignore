@@ -7,4 +7,4 @@ __pycache__/
 
 .devcontainer
 
-node/node_modules/
+node_modules/
