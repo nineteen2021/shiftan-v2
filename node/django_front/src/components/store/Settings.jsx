@@ -29,6 +29,7 @@ import Terms from '../function/Terms';
 import Question from '../function/Question';
 import { useNavigate } from 'react-router-dom';
 import { Link as routerLink } from 'react-router-dom'
+import GroupsIcon from '@mui/icons-material/Groups';
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -91,15 +92,15 @@ export default function Settings() {
                                 <ListItemIcon>
                                     <AccountCircleIcon />
                                 </ListItemIcon>
-                                <ListItemText primary="会員情報変更" secondary="メールアドレス、パスワードなどの会員情報を変更します" />
+                                <ListItemText primaryTypographyProps={{fontSize: '20px'}}  primary="会員情報変更" secondary="メールアドレス、パスワードなどの会員情報を変更します" />
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
                             <ListItemButton component={routerLink} to={"/management"}>
                                 <ListItemIcon>
-                                    <GavelIcon />
+                                    <GroupsIcon />
                                 </ListItemIcon>
-                                <ListItemText primary="従業員管理" secondary="従業員の管理を行います" />
+                                <ListItemText primaryTypographyProps={{fontSize: '20px'}} primary="従業員管理" secondary="従業員の管理を行います" />
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
@@ -107,7 +108,7 @@ export default function Settings() {
                                 <ListItemIcon>
                                     <QuestionMarkIcon />
                                 </ListItemIcon>
-                                <ListItemText primary="よくある質問" secondary="よくある質問を表示します" />
+                                <ListItemText primaryTypographyProps={{fontSize: '20px'}} primary="よくある質問" secondary="よくある質問を表示します" />
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
@@ -115,7 +116,7 @@ export default function Settings() {
                                 <ListItemIcon>
                                     <ContactMailIcon />
                                 </ListItemIcon>
-                                <ListItemText primary="お問い合わせ" secondary="外部ページに移動します" />
+                                <ListItemText primaryTypographyProps={{fontSize: '20px'}} primary="お問い合わせ" secondary="外部ページに移動します" />
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
@@ -123,7 +124,7 @@ export default function Settings() {
                                 <ListItemIcon>
                                     <GavelIcon />
                                 </ListItemIcon>
-                                <ListItemText primary="利用規約" secondary="利用規約を確認することができます" />
+                                <ListItemText primaryTypographyProps={{fontSize: '20px'}} primary="利用規約" secondary="利用規約を確認することができます" />
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
@@ -131,17 +132,17 @@ export default function Settings() {
                                 <ListItemIcon>
                                     <LogoutIcon />
                                 </ListItemIcon>
-                                <ListItemText primary="ログアウト" secondary="ログアウトしてログイン画面に戻ります" />
+                                <ListItemText primaryTypographyProps={{fontSize: '20px'}} primary="ログアウト" secondary="ログアウトしてログイン画面に戻ります" />
                             </ListItemButton>
                         </ListItem>
-                        <ListItem disablePadding>
+                        {/* <ListItem disablePadding>
                             <ListItemButton onClick={() => onOpenDialog("deleteAccount")}>
                                 <ListItemIcon>
                                     <LogoutIcon />
                                 </ListItemIcon>
                                 <ListItemText primary="退会" secondary="アカウント情報を削除し、退会します" />
                             </ListItemButton>
-                        </ListItem>
+                        </ListItem> */}
                     </List>
             </Box>
             <>
