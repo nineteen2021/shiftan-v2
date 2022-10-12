@@ -97,7 +97,7 @@ export default function StaffManager() {
 
   return (
     <Container component="main" maxWidth="md" sx={{ mb: 4 }}>
-      <Typography fontSize={20}>スタッフ管理</Typography>
+      <Typography fontSize={20} sx={{ ml:-22 }}>スタッフ管理</Typography>
         <Grid
             container
             direction="column"

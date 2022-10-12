@@ -18,6 +18,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
+import Container from '@mui/material/Container';
 
 export default function Management() {
     const [users, setUsers] = useState(null);
@@ -152,6 +153,8 @@ export default function Management() {
     }
     return (
         <>
+        <Container component="main" maxWidth="md" sx={{ mb: 4 }}>
+            <Typography fontSize={20} sx={{ ml:-22 }}>従業員管理</Typography>
             <Grid
                 container
                 direction="column"
@@ -159,9 +162,9 @@ export default function Management() {
                 alignItems="center "
                 spacing={5}
             >
-                <Grid item>
+                {/* <Grid item>
                     <Typography fontSize={34}>{store.store_name}</Typography>
-                </Grid>
+                </Grid> */}
                 <Grid item>
                     <TableContainer component={Paper} sx={{ minWidth: 550 }}>
                         <Table aria-label="simple table">
@@ -203,7 +206,7 @@ export default function Management() {
                         </Table>
                     </TableContainer>
                     <Grid item sx={{ marginLeft: '30em', mt: '20px' }}>
-                        <Button variant="contained" component={routerLink} to="/" sx={{ ml: 2 }}>戻る</Button>
+                        <Button variant="contained" component={routerLink} to="/settings" sx={{ ml: 2 }}>戻る</Button>
                     </Grid>
                 </Grid>
             </Grid>
@@ -224,6 +227,7 @@ export default function Management() {
                     }}>はい</Button>
                 </DialogActions>
             </Dialog>
+        </Container>
         </>
     );
 }
