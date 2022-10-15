@@ -96,3 +96,15 @@ class Schedule_TemplateSerializer(serializers.ModelSerializer):
             'create_time',
             'update_time',
         ]
+        
+class workSerializer(serializers.ModelSerializer):
+    work_schedules = Work_ScheduleSerializer(many=True, read_only=True, source='work_schedule_set')
+    class Meta:
+        model = User
+        fields = [
+            'id',
+            'store_FK',
+            'last_name',
+            'first_name',
+            'work_schedules'
+            ]
