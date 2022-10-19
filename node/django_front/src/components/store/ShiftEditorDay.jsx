@@ -8,7 +8,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 import Collapse from '@mui/material/Collapse';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { Navigate } from "react-router-dom";
+
 import {
   ViewState, GroupingState, IntegratedGrouping, IntegratedEditing, EditingState,
 } from '@devexpress/dx-react-scheduler';
@@ -30,6 +30,7 @@ import {
 import {
   teal, indigo, red, purple,
 } from '@mui/material/colors';
+import NoMatch from '../function/NoMatch';
 
 const getUsersF = () => {
   axios
@@ -140,6 +141,7 @@ export default class ShiftEditorDay extends React.PureComponent {
       shift_rangeStart_date: '',
       shift_rangeStop_date: '',
       shift_rangeName: "読み込み中",
+      bad_store_id: false,
     };
 
     this.commitChanges = this.commitChanges.bind(this);
@@ -377,7 +379,7 @@ export default class ShiftEditorDay extends React.PureComponent {
         }
     })
     .then(res=>{
-      console.log("シフト取得")
+      console.log("work_scheduleシフト取得")
       console.log(res.data)
       let workScheduleArr = new Array();
       for(let i = 0; res.data.length > i; i++){
@@ -410,6 +412,10 @@ export default class ShiftEditorDay extends React.PureComponent {
     .then(res=>{
       console.log("shift_range取得")
       console.log(res.data)
+      if(res.data.store_FK != ownerAccount.store_FK) {
+        console.log("誤った店舗");
+        this.setState({bad_store_id: true}); //自分が所属していない店舗IDだった場合bad_store_idフラグをtrueに
+      }
       this.setState({
         shift_rangeStart_date: res.data.start_date,
         shift_rangeStop_date: res.data.stop_date,
@@ -431,7 +437,7 @@ export default class ShiftEditorDay extends React.PureComponent {
     //     {isManager ? <Navigate to="/*" />}
     //   );
     // }
-    const { data, resources, grouping, groupByDate, isGroupByDate, success, moveTmp, outOfStoreRange , shift_rangeName, shift_rangeStart_date, shift_rangeStop_date } = this.state;
+    const { data, resources, grouping, groupByDate, isGroupByDate, success, moveTmp, outOfStoreRange , shift_rangeName, shift_rangeStart_date, shift_rangeStop_date, bad_store_id } = this.state;
     console.log('現在のシフトデータ');
     console.log(this.state.data)
 
@@ -498,7 +504,10 @@ export default class ShiftEditorDay extends React.PureComponent {
 
       
     }
+    //shift_rangeStart_dateに値が入るまでnullを返し続ける
     if(!shift_rangeStart_date) return( null );
+    //クエリパラメーターに不正なIDが入った場合に「このページは存在しません」とエラー
+    if(bad_store_id) return(<NoMatch/>);
     return (
       <Paper>
         <Scheduler
