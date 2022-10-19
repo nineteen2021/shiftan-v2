@@ -22,8 +22,6 @@ let stopDate;
 let originalDates = new Array();
 let dates = new Array();
 let betweenDates = 0;
-let workSchedulesList = [];
-let convertedWorkSchedulesList = [];
 // let formattedDates = [];
 // let exDates = ["1月1日(土)", '1月2日(日)', '1月3日(月)', '1月4日(火)', '1月5日(水)', '1月6日(木)', '1月7日(金)', '1月8日(土)', '1月9日(日)', '1月10日(月)', '1月11日(火)', '1月12日(水)', '1月13日(木)', '1月14日(金)', '1月15日(土)', '1月16日(日)', '1月17日(月)', '1月18日(火)', '1月19日(水)', '1月20日(木)', '1月21日(金)', '1月22日(土)', '1月23日(日)', '1月24日(月)', '1月25日(火)', '1月26日(水)', '1月27日(木)', '1月28日(金)', '1月29日(土)', '1月30日(日)', '1月31日(月)'];
 let exWorkSchedules = {"start_time":"17:00", "stop_time":"20:00"}
@@ -85,33 +83,63 @@ const changeFormDates = (dates) => {
   return dates;
 }
 
+// axiosのworkSchedulesで受け取ったデータを整形する
+const makeShiftTable = (getWorkSchedules, shiftRangeDatesList, shiftFK) => { // shiftRangeDatesListにはoriginalDatesを入れる
+  let workSchedulesList = []; // 完成したシフトデータ配列
+
+  // for user数✕shiftRangeDate数で2次元でループを回す
+  for (const user of getWorkSchedules) {
+    let schedules = [user.last_name + ' ' + user.first_name];
+    for (const shiftDate of shiftRangeDatesList) {
+      // shiftRangeDatesListの値とshiftRangeIdの同じデータのstartTimeを比べる、同じものがあればworkSchedulesListにstartTime ~ endTimeを、無ければundefinedを入れる
+      let flag = false
+      for (const workSchedules of user.work_schedules) {
+        // workScheduleIDが同じものだけを検証する
+        if (workSchedules.shift_range_FK === shiftFK) {
+          if ((shiftDate.getFullYear() === new Date(workSchedules.start_time).getFullYear()) && (shiftDate.getMonth()+1 === new Date(workSchedules.start_time).getMonth()+1) && (shiftDate.getDate() === new Date(workSchedules.start_time).getDate())) {
+            schedules.push(('0' + new Date(workSchedules.start_time).getHours()).slice(-2) + ':' + ('0' + new Date(workSchedules.start_time).getMinutes()).slice(-2) + '～' + ('0' + new Date(workSchedules.stop_time).getHours()).slice(-2) + ':' + ('0' + new Date(workSchedules.stop_time).getMinutes()).slice(-2));
+            flag = true;
+          }
+        }
+      }
+      if (!flag) {schedules.push(undefined);}
+    };
+    console.log(schedules);
+    workSchedulesList.push(schedules); 
+  };
+  
+  console.log(workSchedulesList);
+  return workSchedulesList;
+};
+
+
 // userfkでuserIDごとの作成シフトの配列を作成→日付順にソート→for文を日数分（配列の長さ）回す→日付と一致した時に作成シフトの時間を代入する（一致しなかったら空の空白（×とか））→ユーザーの数だけ配列を回す、その中でできた配列（列分の長さのはず）を列分回す
 
 
-const makeWorkSchedulesListByUser = (list, users) => {
-  // userfkでuserIDごとの作成シフトの配列を作成
-  // usersの数だけ配列をつくる
-  let workSchedulesListByUser = new Array();
-  let userFK;
-  for (let i = 0; i < users.length; i++) {
-    userFK = users[i].id;
-    // console.log(userFK);
-    let result = list.filter( function( value, index, array ) {
-    if (value.user_FK === userFK) return value;
-})
-workSchedulesListByUser.push( result );
-}
-// console.log( workSchedulesListByUser );
-return workSchedulesListByUser
-}
+// const makeWorkSchedulesListByUser = (list, users) => {
+//   // userfkでuserIDごとの作成シフトの配列を作成
+//   // usersの数だけ配列をつくる
+//   let workSchedulesListByUser = new Array();
+//   let userFK;
+//   for (let i = 0; i < users.length; i++) {
+//     userFK = users[i].id;
+//     // console.log(userFK);
+//     let result = list.filter( function( value, index, array ) {
+//     if (value.user_FK === userFK) return value;
+// })
+// workSchedulesListByUser.push( result );
+// }
+// // console.log( workSchedulesListByUser );
+// return workSchedulesListByUser
+// }
 
-const add0 = (date) => {
-  date = String(date)
-  if (date.length == 1){
-    date = "0" + date
-  }
-  return date
-}
+// const add0 = (date) => {
+//   date = String(date)
+//   if (date.length == 1){
+//     date = "0" + date
+//   }
+//   return date
+// }
 
 // const convertWorkSchedulesList = (list, dates) => {
 //   //日付順にソート(ユーザーの数ソートする)
@@ -222,7 +250,7 @@ export default function ShiftTable() {
   const [shiftTable, setShiftTable] = useState(null)
   const [shiftDatesList, setShiftDatesList] = useState(null)
   const [workSchedules, setWorkSchedules] = useState(null)
-  
+  const [finishShiftTable, setFinishShiftTable] = useState(null)
   // useEffect(() => {
   //   axiossetShiftDatesList
   //   .get('http://localhost:8000/api-auth/users/',{
@@ -237,86 +265,88 @@ export default function ShiftTable() {
   //   .catch(err=>{console.log(err);});
   //   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
+    axios
+    .get('http://localhost:8000/api-auth/users/me/',{
+        headers: {
+            'Authorization': `JWT ${localStorage.getItem('access')}`,
+        }
+    })
+    .then(res=>{
+      storeFK = res.data.store_FK;
+      console.log("storeFKは" + storeFK);
+      // axios
+      // .get('http://localhost:8000/api/user/?store_FK=' + String(storeFK),{ //店舗のuser情報を取得
+      //     headers: {
+      //         'Authorization': `JWT ${localStorage.getItem('access')}`
+      //     }
+      // })
+      // .then(res=>{
+      //   setUsers(res.data);
+      //   usersval = res.data;
+      //   // console.log(res.data);
+      //   // console.log(users);
+      //   })
+      // .catch(err=>{console.log(err);
+      // })
       axios
-      .get('http://localhost:8000/api-auth/users/me/',{
+      .get('http://localhost:8000/api/shift_range/?store_FK=' + String(storeFK),{ // 店舗のシフト表の情報を取得
           headers: {
-              'Authorization': `JWT ${localStorage.getItem('access')}`,
+              'Authorization': `JWT ${localStorage.getItem('access')}`
           }
       })
       .then(res=>{
-        storeFK = res.data.store_FK;
-        console.log("storeFKは" + storeFK);
+        shiftFK = res.data[0].id
+        console.log("shiftFKは" + res.data[0].id)
+        setShiftTable(res.data);
+        // console.log(res.data);
+        startDate = new Date(res.data[0].start_date); //結果が配列の中の一つとして返されるので[0]で指定する
+        console.log(res.data[0].stop_date)
+        stopDate = new Date(res.data[0].stop_date);
+        // console.log(date.start_date);
+        originalDates = getDatesBetweenDates(startDate, stopDate); // 開始日から終了日までのdateオブジェクトの配列
+        // console.log(dates)
+        // startDate = res.data.start_date;
+        // stopDate = res.data.stop_date;
+        dates = originalDates.concat();
+        setShiftDatesList(changeFormDates(dates)); // 配列を〇月〇日（〇曜日）に変換した配列
+        // console.log(changeFormDates(dates))
+        // console.log(shiftDatesList)
+        // console.log(exDates) 
+        
         // axios
-        // .get('http://localhost:8000/api/user/?store_FK=' + String(storeFK),{ //店舗のuser情報を取得
+        // .get('http://localhost:8000/api/work_schedule/?shift_range_FK=' + String(shiftFK),{ //取ってきたシフト表の作成シフトをとってくる
         //     headers: {
         //         'Authorization': `JWT ${localStorage.getItem('access')}`
         //     }
         // })
-        // .then(res=>{
-        //   setUsers(res.data);
-        //   usersval = res.data;
-        //   // console.log(res.data);
-        //   // console.log(users);
-        //   })
-        // .catch(err=>{console.log(err);
+        // .then(res=>{setWorkSchedules(res.data);
+        //             // console.log(users);
+        //             // console.log(workSchedules); 
+        //             console.log(res.data)
+        //             // workSchedulesList = makeWorkSchedulesListByUser(res.data, usersval);
+        //             // console.log(workSchedulesList)
+        //             // console.log(originalDates)
+        //             // convertedWorkSchedulesList = convertWorkSchedulesList(workSchedulesList, originalDates, usersval);
+        //             })
+        // .catch(err=>{console.log(err);})         
         // })
-        axios
-        .get('http://localhost:8000/api/shift_range/?store_FK=' + String(storeFK),{ // 店舗のシフト表の情報を取得
-            headers: {
-                'Authorization': `JWT ${localStorage.getItem('access')}`
-            }
+        axios.get('http://localhost:8000/api/work_schedules/?store_FK=' + String(storeFK), {
+          headers: {
+            'Authorization': `JWT ${localStorage.getItem('access')}`
+          }
         })
         .then(res=>{
-          shiftFK = res.data[0].id
-          console.log("shiftFKは" + res.data[0].id)
-          setShiftTable(res.data);
-          // console.log(res.data);
-          startDate = new Date(res.data[0].start_date); //結果が配列の中の一つとして返されるので[0]で指定する
-          stopDate = new Date(res.data[0].stop_date);
-          // console.log(date.start_date);
-          originalDates = getDatesBetweenDates(startDate, stopDate); // 開始日から終了日までのdateオブジェクトの配列
-          // console.log(dates)
-          // startDate = res.data.start_date;
-          // stopDate = res.data.stop_date;
-          dates = originalDates.concat();
-          setShiftDatesList(changeFormDates(dates)); // 配列を〇月〇日（〇曜日）に変換した配列
-          // console.log(changeFormDates(dates))
-          // console.log(shiftDatesList)
-          // console.log(exDates) 
-          
-          // axios
-          // .get('http://localhost:8000/api/work_schedule/?shift_range_FK=' + String(shiftFK),{ //取ってきたシフト表の作成シフトをとってくる
-          //     headers: {
-          //         'Authorization': `JWT ${localStorage.getItem('access')}`
-          //     }
-          // })
-          // .then(res=>{setWorkSchedules(res.data);
-          //             // console.log(users);
-          //             // console.log(workSchedules); 
-          //             console.log(res.data)
-          //             // workSchedulesList = makeWorkSchedulesListByUser(res.data, usersval);
-          //             // console.log(workSchedulesList)
-          //             // console.log(originalDates)
-          //             // convertedWorkSchedulesList = convertWorkSchedulesList(workSchedulesList, originalDates, usersval);
-          //             })
-          // .catch(err=>{console.log(err);})         
-          // })
-          axios.get('http://localhost:8000/api/work_schedules/?store_FK=' + String(storeFK), {
-            headers: {
-              'Authorization': `JWT ${localStorage.getItem('access')}`
-            }
-          })
-          .then(res=>{
-            console.log(res.data);
-            setWorkSchedules(res.data);
-          })
-          .catch(err=>{console.log(err);})
+          console.log(res.data);
+          setWorkSchedules(res.data);
+          setFinishShiftTable(makeShiftTable(res.data, originalDates, shiftFK))
         })
         .catch(err=>{console.log(err);})
-        })
+      })
       .catch(err=>{console.log(err);})
-      }, []);
+      })
+    .catch(err=>{console.log(err);})
+  }, []);
 
 // const today = new Date()
 // const oneMonthFromNow = new Date(today)
@@ -370,31 +400,23 @@ export default function ShiftTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {workSchedules?.map((user) => (
+          {finishShiftTable?.map((table, index) => (
             <TableRow
-              key={user.last_name + " " + user.first_name}
+              // key={user.last_name + " " + user.first_name}
               // sx={{ '&:last-child td, &:last-child th': { border: 0 }}} //最後の子要素のみ属性を（border:0に）指定
               // className={classes.tableRaw}
             >
-              <TableCell 
+              <TableCell
                 component="th" 
-                scope="row" 
+                scope="row"
                 className={classes.sticky}
               >
-                {user.last_name + " " + user.first_name}
+                {table[0]}
+                {/* {user.last_name + " " + user.first_name} */}
               </TableCell>
-          {/* {exWorkSchedules?.map((workSchedule) =>( セル表示用の空白 */}
-            <TableCell className={classes.cell}></TableCell>
-            <TableCell className={classes.cell}></TableCell>
-            <TableCell className={classes.cell}></TableCell>
-            <TableCell className={classes.cell}></TableCell>
-            <TableCell className={classes.cell}></TableCell>
-            <TableCell className={classes.cell}></TableCell>
-            <TableCell className={classes.cell}></TableCell>
-            <TableCell className={classes.cell}></TableCell>
-            <TableCell className={classes.cell}></TableCell>
-            <TableCell className={classes.cell}></TableCell>
-          {/* ))} */}
+                {table?.map((shift, index) => (
+                  (index != 0) && <TableCell className={classes.cell}>{shift}</TableCell>
+                ))}
             </TableRow>
           ))}
         </TableBody>
