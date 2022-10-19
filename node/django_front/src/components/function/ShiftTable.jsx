@@ -247,20 +247,20 @@ export default function ShiftTable() {
       .then(res=>{
         storeFK = res.data.store_FK;
         console.log("storeFKは" + storeFK);
-        axios
-        .get('http://localhost:8000/api/user/?store_FK=' + String(storeFK),{ //店舗のuser情報を取得
-            headers: {
-                'Authorization': `JWT ${localStorage.getItem('access')}`
-            }
-        })
-        .then(res=>{
-          setUsers(res.data);
-          usersval = res.data;
-          // console.log(res.data);
-          // console.log(users);
-          })
-        .catch(err=>{console.log(err);
-        })
+        // axios
+        // .get('http://localhost:8000/api/user/?store_FK=' + String(storeFK),{ //店舗のuser情報を取得
+        //     headers: {
+        //         'Authorization': `JWT ${localStorage.getItem('access')}`
+        //     }
+        // })
+        // .then(res=>{
+        //   setUsers(res.data);
+        //   usersval = res.data;
+        //   // console.log(res.data);
+        //   // console.log(users);
+        //   })
+        // .catch(err=>{console.log(err);
+        // })
         axios
         .get('http://localhost:8000/api/shift_range/?store_FK=' + String(storeFK),{ // 店舗のシフト表の情報を取得
             headers: {
@@ -285,22 +285,34 @@ export default function ShiftTable() {
           // console.log(shiftDatesList)
           // console.log(exDates) 
           
-          axios
-          .get('http://localhost:8000/api/work_schedule/?shift_range_FK=' + String(shiftFK),{ //取ってきたシフト表の作成シフトをとってくる
-              headers: {
-                  'Authorization': `JWT ${localStorage.getItem('access')}`
-              }
+          // axios
+          // .get('http://localhost:8000/api/work_schedule/?shift_range_FK=' + String(shiftFK),{ //取ってきたシフト表の作成シフトをとってくる
+          //     headers: {
+          //         'Authorization': `JWT ${localStorage.getItem('access')}`
+          //     }
+          // })
+          // .then(res=>{setWorkSchedules(res.data);
+          //             // console.log(users);
+          //             // console.log(workSchedules); 
+          //             console.log(res.data)
+          //             // workSchedulesList = makeWorkSchedulesListByUser(res.data, usersval);
+          //             // console.log(workSchedulesList)
+          //             // console.log(originalDates)
+          //             // convertedWorkSchedulesList = convertWorkSchedulesList(workSchedulesList, originalDates, usersval);
+          //             })
+          // .catch(err=>{console.log(err);})         
+          // })
+          axios.get('http://localhost:8000/api/work_schedules/?store_FK=' + String(storeFK), {
+            headers: {
+              'Authorization': `JWT ${localStorage.getItem('access')}`
+            }
           })
-          .then(res=>{setWorkSchedules(res.data);
-                      // console.log(users);
-                      // console.log(workSchedules); 
-                    //   workSchedulesList = makeWorkSchedulesListByUser(res.data, usersval);
-                      // console.log(workSchedulesList)
-                      // console.log(originalDates)
-                    //   convertedWorkSchedulesList = convertWorkSchedulesList(workSchedulesList, originalDates, usersval);
-                      })
-          .catch(err=>{console.log(err);})         
+          .then(res=>{
+            console.log(res.data);
+            setWorkSchedules(res.data);
           })
+          .catch(err=>{console.log(err);})
+        })
         .catch(err=>{console.log(err);})
         })
       .catch(err=>{console.log(err);})
@@ -327,9 +339,8 @@ export default function ShiftTable() {
     //              }, [])
     //   .catch(err=>{console.log(err);})
     //   }, []);
-
     //curl -H POST 'http://127.0.0.1:8000/api/shift_range/?store_FK=2 ' -H 'Content-Type:application/json;charset=utf-8' -H 'Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYwMjY5NjkwLCJpYXQiOjE2NjAyNjc4OTAsImp0aSI6IjZmZGJkZDk5ZGI2OTRjNDQ4NGIxOGYxYWRkOWQ1YWM2IiwidXNlcl9pZCI6MX0.ViyTWO98DgWL82ttsZXHdsgXkZVMsQDOd9Ep1doOZdw'
-  if(!shiftDatesList || !users || !shiftTable) return null
+  if(!shiftDatesList || !workSchedules || !shiftTable) return null
   
   return (
     <TableContainer 
@@ -359,7 +370,7 @@ export default function ShiftTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {users?.map((user) => (
+          {workSchedules?.map((user) => (
             <TableRow
               key={user.last_name + " " + user.first_name}
               // sx={{ '&:last-child td, &:last-child th': { border: 0 }}} //最後の子要素のみ属性を（border:0に）指定
