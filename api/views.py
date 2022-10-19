@@ -2,7 +2,7 @@ from rest_framework import viewsets, routers, generics
 from django.contrib.auth import get_user_model
 from django_filters import rest_framework as filters
 from shiftan.models import User, Store, Group, Shift_Range, Tmp_Work_Schedule, Work_Schedule, Schedule_Template
-from .serializers import UserSerializer, StoreSerializer, GroupSerializer, Shift_RangeSerializer, Tmp_Work_ScheduleSerializer, Work_ScheduleSerializer, Schedule_TemplateSerializer 
+from .serializers import UserSerializer, StoreSerializer, GroupSerializer, Shift_RangeSerializer, Tmp_Work_ScheduleSerializer, Work_ScheduleSerializer, Schedule_TemplateSerializer, workSerializer 
 from django_filters import rest_framework as filters
 from rest_framework import status, viewsets
 from rest_framework.response import Response
@@ -120,6 +120,12 @@ class Schedule_TemplateApi(viewsets.ModelViewSet):
     serializer_class = Schedule_TemplateSerializer
     filter_backends = [filters.DjangoFilterBackend]
     filterset_fields = '__all__'
+    
+class Work_SchedulesApi(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = workSerializer
+    filter_backends = [filters.DjangoFilterBackend]
+    filterset_fields = '__all__'
 
 
 
@@ -131,3 +137,4 @@ router.register(r'shift_range', Shift_RangeApi)
 router.register(r'tmp_work_schedule', Tmp_Work_ScheduleApi)
 router.register(r'work_schedule', Work_ScheduleApi)
 router.register(r'schedule_template', Schedule_TemplateApi)
+router.register(r'work_schedules', Work_SchedulesApi)
