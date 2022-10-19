@@ -10,11 +10,6 @@ import Paper from '@mui/material/Paper';
 import { makeStyles } from "@material-ui/core/styles";
 import axios from 'axios';
 
-// function createData(name, first, second, third) {
-//   return { name, first, second, third};
-// }
-
-let usersval;
 let storeFK;
 let shiftFK;
 let startDate;
@@ -63,9 +58,6 @@ const changeFormDates = (dates) => {
   let date
   let day
   const dayStr = [ "日", "月", "火", "水", "木", "金", "土" ] ;
-  //   let startYear = startDate.getFullYear();
-  //   let startMonth = startDate.getMonth() + 1;
-  //   let startDay = startDate.getDate();
   //   console.log("開始日は" + startYear + '年' + startMonth + '月' + startDay + '日');
   for(let i = 0; i < betweenDates; i++){ // getDatesBetweenDates関数でカウントした日にちの数ループ
     // console.log(dates[i]);
@@ -112,158 +104,13 @@ const makeShiftTable = (getWorkSchedules, shiftRangeDatesList, shiftFK) => { // 
   return workSchedulesList;
 };
 
-
-// userfkでuserIDごとの作成シフトの配列を作成→日付順にソート→for文を日数分（配列の長さ）回す→日付と一致した時に作成シフトの時間を代入する（一致しなかったら空の空白（×とか））→ユーザーの数だけ配列を回す、その中でできた配列（列分の長さのはず）を列分回す
-
-
-// const makeWorkSchedulesListByUser = (list, users) => {
-//   // userfkでuserIDごとの作成シフトの配列を作成
-//   // usersの数だけ配列をつくる
-//   let workSchedulesListByUser = new Array();
-//   let userFK;
-//   for (let i = 0; i < users.length; i++) {
-//     userFK = users[i].id;
-//     // console.log(userFK);
-//     let result = list.filter( function( value, index, array ) {
-//     if (value.user_FK === userFK) return value;
-// })
-// workSchedulesListByUser.push( result );
-// }
-// // console.log( workSchedulesListByUser );
-// return workSchedulesListByUser
-// }
-
-// const add0 = (date) => {
-//   date = String(date)
-//   if (date.length == 1){
-//     date = "0" + date
-//   }
-//   return date
-// }
-
-// const convertWorkSchedulesList = (list, dates) => {
-//   //日付順にソート(ユーザーの数ソートする)
-//   let dateOfA;
-//   let dateOfB;
-//   for (let i = 0; i < list.length; i++) {
-
-//     list[i] = list[i].sort(function(a, b) {
-//       dateOfA = new Date(a.start_time);
-//       dateOfB = new Date(b.start_time);
-//       // console.log(dateOfA, dateOfB);
-
-//     return (a.start_time < b.start_time) ? -1 : 1;  //オブジェクトの昇順ソート
-//   })};
-//   console.log(list); // ソートが完了
-
-//   //for文を日数分（配列の長さ）回す
-//   let month1;
-//   let date1;
-//   let month2;
-//   let date2;
-//   let newWorkScheduleList = new Array();
-//   console.log(newWorkScheduleList)
-
-//   let newWorkSchedule = {
-//     'start_time':null,
-//     'stop_time':null,
-//   }
-//   console.log(newWorkSchedule)
-
-//   for (let j = 0; j < betweenDates; j++){ // datesの配列を作成
-//     newWorkScheduleList.push(newWorkSchedule)
-//   }
-//   // console.log(newWorkScheduleList) 
-
-//   let newWorkScheduleUsersList = new Array()
-
-//   // console.log(newWorkScheduleUsersList)
-//   // console.log(list.length)
-
-//   for (let k = 0; k < list.length; k++){ // users * dateの空の配列を作成
-//     console.log("ok")
-//     newWorkScheduleUsersList.push(newWorkScheduleList)
-//   }
-//   console.log(newWorkScheduleUsersList)
-//   console.log(newWorkScheduleList)
-
-//   // console.log(dates)
-
-//   for (let user = 0; user < 1; user++){ 
-//     //userの人数分配列を回す テスト:userを0に指定し、1回（1人のユーザー分）だけ実行する
-//     for (let workDate = 0; workDate < 1; workDate++){
-//       //作成シフト分配列を回す 
-//       console.log("okkkkkkkkkkkkkk")
-//       console.log(list[user][workDate])
-//       for (let date = 0; date < newWorkScheduleList.length; date++){ // シフトの範囲だけ回す（4月シフトであれば30回）
-//         month1 = add0(dates[date].getMonth() + 1); // 日にちのみが入った30日分の配列から月、日を取得
-//         date1 = add0(dates[date].getDate());
-//         console.log(month1 + date1)
-//         month2 = list[user][workDate].start_time.substr(5, 2) //作成シフトから月、日を取得
-//         date2 = list[user][workDate].start_time.substr(8, 2);
-//         console.log(month2 + date2)
-
-//         if (month1 === month2 && date1 === date2) { // シフトの範囲の日付と作成シフトの日付を比較する
-//           // なぜか作成シフトの一番最後の値がuser * 日にち分代入された配列が生まれる
-
-//           console.log(newWorkScheduleUsersList[user][date].start_time) //nullのはず
-//           console.log(newWorkScheduleUsersList[user][date].stop_time)
-
-//           console.log(list[user][workDate].start_time)
-//           console.log(list[user][workDate].stop_time)
-
-//           // console.log(user)
-//           // console.log(date)
-
-//           newWorkScheduleUsersList[user][date].start_time = list[user][workDate].start_time // 作成シフトの時間を新しい配列にコピー
-//           newWorkScheduleUsersList[user][date].stop_time = list[user][workDate].stop_time
-
-//           console.log("ok" + user + date)
-
-//           console.log(newWorkScheduleUsersList[user][date].start_time) //代入した時間が表示される
-//           console.log(newWorkScheduleUsersList[user][date].stop_time)
-
-//           // console.log(newWorkScheduleUsersList[user][date - 2].start_time) // 代入した日付の2日前の時間も取得を表示
-//           // console.log(newWorkScheduleUsersList[user][date - 2].stop_time) 
-
-//         }
-//         else{
-//           // newWorkScheduleUsersList[user][date].start_time = null // 合わない場合はnullを代入
-//           // newWorkScheduleUsersList[user][date].stop_time = null    
-//           newWorkScheduleUsersList[user][date].start_time = "aaaaa" // テスト、配列の最後が全ての配列のデータに代入される不具合
-//           newWorkScheduleUsersList[user][date].stop_time ="aaaaa"    
-//           console.log(newWorkScheduleUsersList[user][date].start_time) 
-//           console.log(newWorkScheduleUsersList[user][date].stop_time)
-//           console.log("not" + user + date)
-//           console.log(newWorkScheduleUsersList[user][date].start_time)
-//           console.log(newWorkScheduleUsersList[user][date].stop_time)
-//         }
-//       }
-//     }
-//   }  
-//   console.log(newWorkScheduleUsersList)
-// }
-
 export default function ShiftTable() {
   const classes = useStyles();
-  const [users, setUsers] = useState(null)
+  
   const [shiftTable, setShiftTable] = useState(null)
   const [shiftDatesList, setShiftDatesList] = useState(null)
   const [workSchedules, setWorkSchedules] = useState(null)
   const [finishShiftTable, setFinishShiftTable] = useState(null)
-  // useEffect(() => {
-  //   axiossetShiftDatesList
-  //   .get('http://localhost:8000/api-auth/users/',{
-  //       headers: {
-  //           'Authorization': `JWT ${localStorage.getItem('access')}`,
-  //       }
-  //   })
-
-  //   .then(res=>{setUsers(res.data);
-  //     console.log(res.data);})
-
-  //   .catch(err=>{console.log(err);});
-  //   }, []);
 
   useEffect(() => {
     axios
@@ -274,21 +121,8 @@ export default function ShiftTable() {
     })
     .then(res=>{
       storeFK = res.data.store_FK;
-      console.log("storeFKは" + storeFK);
-      // axios
-      // .get('http://localhost:8000/api/user/?store_FK=' + String(storeFK),{ //店舗のuser情報を取得
-      //     headers: {
-      //         'Authorization': `JWT ${localStorage.getItem('access')}`
-      //     }
-      // })
-      // .then(res=>{
-      //   setUsers(res.data);
-      //   usersval = res.data;
-      //   // console.log(res.data);
-      //   // console.log(users);
-      //   })
-      // .catch(err=>{console.log(err);
-      // })
+      // console.log("storeFKは" + storeFK);
+      
       axios
       .get('http://localhost:8000/api/shift_range/?store_FK=' + String(storeFK),{ // 店舗のシフト表の情報を取得
           headers: {
@@ -306,31 +140,12 @@ export default function ShiftTable() {
         // console.log(date.start_date);
         originalDates = getDatesBetweenDates(startDate, stopDate); // 開始日から終了日までのdateオブジェクトの配列
         // console.log(dates)
-        // startDate = res.data.start_date;
-        // stopDate = res.data.stop_date;
         dates = originalDates.concat();
         setShiftDatesList(changeFormDates(dates)); // 配列を〇月〇日（〇曜日）に変換した配列
         // console.log(changeFormDates(dates))
         // console.log(shiftDatesList)
-        // console.log(exDates) 
+        // console.log(exDates)
         
-        // axios
-        // .get('http://localhost:8000/api/work_schedule/?shift_range_FK=' + String(shiftFK),{ //取ってきたシフト表の作成シフトをとってくる
-        //     headers: {
-        //         'Authorization': `JWT ${localStorage.getItem('access')}`
-        //     }
-        // })
-        // .then(res=>{setWorkSchedules(res.data);
-        //             // console.log(users);
-        //             // console.log(workSchedules); 
-        //             console.log(res.data)
-        //             // workSchedulesList = makeWorkSchedulesListByUser(res.data, usersval);
-        //             // console.log(workSchedulesList)
-        //             // console.log(originalDates)
-        //             // convertedWorkSchedulesList = convertWorkSchedulesList(workSchedulesList, originalDates, usersval);
-        //             })
-        // .catch(err=>{console.log(err);})         
-        // })
         axios.get('http://localhost:8000/api/work_schedules/?store_FK=' + String(storeFK), {
           headers: {
             'Authorization': `JWT ${localStorage.getItem('access')}`
@@ -348,28 +163,6 @@ export default function ShiftTable() {
     .catch(err=>{console.log(err);})
   }, []);
 
-// const today = new Date()
-// const oneMonthFromNow = new Date(today)
-// oneMonthFromNow.setDate( oneMonthFromNow.getDate() + 31)
-// getDatesBetweenDates(today, oneMonthFromNow)
-
-// for (let i = 1; i <= betweenDates + 2; i++){
-//   
-// }
-
-    // useEffect(() => {
-    //   axios
-    //   .get('http://localhost:8000/api/shift_range/?store_FK=' + String(fk),{
-    //       headers: {
-    //           'Authorization': `JWT ${localStorage.getItem('access')}`
-    //       }
-    //   })
-    //   .then(res=>{setShiftTables(res.data);
-    //               console.log(res.data);
-    //              }, [])
-    //   .catch(err=>{console.log(err);})
-    //   }, []);
-    //curl -H POST 'http://127.0.0.1:8000/api/shift_range/?store_FK=2 ' -H 'Content-Type:application/json;charset=utf-8' -H 'Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYwMjY5NjkwLCJpYXQiOjE2NjAyNjc4OTAsImp0aSI6IjZmZGJkZDk5ZGI2OTRjNDQ4NGIxOGYxYWRkOWQ1YWM2IiwidXNlcl9pZCI6MX0.ViyTWO98DgWL82ttsZXHdsgXkZVMsQDOd9Ep1doOZdw'
   if(!shiftDatesList || !workSchedules || !shiftTable) return null
   
   return (
@@ -400,19 +193,14 @@ export default function ShiftTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {finishShiftTable?.map((table, index) => (
-            <TableRow
-              // key={user.last_name + " " + user.first_name}
-              // sx={{ '&:last-child td, &:last-child th': { border: 0 }}} //最後の子要素のみ属性を（border:0に）指定
-              // className={classes.tableRaw}
-            >
+          {finishShiftTable?.map((table) => (
+            <TableRow>
               <TableCell
                 component="th" 
                 scope="row"
                 className={classes.sticky}
               >
                 {table[0]}
-                {/* {user.last_name + " " + user.first_name} */}
               </TableCell>
                 {table?.map((shift, index) => (
                   (index != 0) && <TableCell className={classes.cell}>{shift}</TableCell>
