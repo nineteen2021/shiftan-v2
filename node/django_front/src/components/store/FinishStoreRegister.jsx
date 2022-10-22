@@ -15,7 +15,7 @@ export default function FinishStoreRegister(props) {
                 店舗を登録しました
             </Typography>
             <Typography variant="body1" gutterBottom align="center">
-                店舗登録が正常に完了しました。<br />
+                店舗登録が正常に完了しました。<br /><br/>
                 <Button variant="outlined"
                     component={routerLink}
                     to="/storeHome"
