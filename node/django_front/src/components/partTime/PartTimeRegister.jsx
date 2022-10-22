@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import SimpleNavbar from '../function/SimpleNavbar';
 import { Link as routerLink } from 'react-router-dom';
+import { useNavigate } from "react-router-dom"
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -33,6 +34,7 @@ function Copyright(props) {
 }
 
 export default function PartTimeRegister() {
+  const navigate = useNavigate()
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -264,6 +266,7 @@ export default function PartTimeRegister() {
               onClick={() => {
                 if(formValidation()){
                 changeData();
+                navigate("/finishRegister?email="+email);
               }}} 
               sx={{ mt: 3, mb: 2 }}
               disabled={ !accept }              

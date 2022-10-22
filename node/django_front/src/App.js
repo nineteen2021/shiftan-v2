@@ -30,6 +30,8 @@ import JoinStore from './components/partTime/JoinStore';
 import ChangePassword from './components/function/ChangePassword';
 import Management from './components/store/Management';
 import ShiftTable from './components/function/ShiftTable';
+import FinishRegister from './components/function/FinishRegister';
+import FinishStoreRegister from './components/store/FinishStoreRegister';
 
 
 const App = () => {
@@ -46,6 +48,7 @@ const App = () => {
           <Route path="partTimeRegister" element={<PartTimeRegister />} />
           <Route path="sentPasswordMail" element={<SentPasswordMail />} />
           <Route path="passwordSentMail" element={<PasswordSentMail />} />
+          <Route path="finishRegister" element={<FinishRegister />} />
           <Route path="resetPassword" element={<ResetPassword />} /> {/*メールから飛ぶリンクのため未実装*/}
           <Route path="finishResetPassword" element={<FinishResetPassword />} />
 
@@ -69,6 +72,8 @@ const App = () => {
             <Route path="storeChangePassword" element={<Navbar contents={<ChangePassword />}/>} />
 
             <Route path="shiftTable" element={<Navbar contents={<ShiftTable />}/>} />
+
+            <Route path="finishStoreRegister" element={<FinishStoreRegister />}/>
 
             <Route path="partTimeHome"
               element={ 
