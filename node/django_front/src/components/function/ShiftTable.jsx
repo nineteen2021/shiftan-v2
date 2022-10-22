@@ -10,11 +10,6 @@ import Paper from '@mui/material/Paper';
 import { makeStyles } from "@material-ui/core/styles";
 import axios from 'axios';
 
-let storeFK;
-let shiftFK;
-let startDate;
-let stopDate;
-let originalDates = new Array();
 let betweenDates = 0;
 
 const useStyles = makeStyles({
@@ -63,7 +58,6 @@ const changeFormDates = (shiftan) => {
     shiftan[i] = new Date(shiftan[i])
     month = shiftan[i].getMonth() + 1;
     date = shiftan[i].getDate();
-    // console.log(date);
     day = shiftan[i].getDay();
     // console.log(day);
     // console.log(month + '月' + date + '日' + "(" + dayStr[day] + ")");
@@ -99,12 +93,8 @@ const makeShiftTable = (getWorkSchedules, shiftRangeDatesList, shiftFK) => { // 
       }
       if (!flag) {schedules.push(undefined);}
     };
-
-    console.log(schedules);
     workSchedulesList.push(schedules); 
   };
-  
-  console.log(workSchedulesList);
   return workSchedulesList;
 };
 
@@ -126,8 +116,7 @@ export default function ShiftTable() {
         }
     })
     .then(res=>{
-      storeFK = res.data.store_FK;
-      // console.log("storeFKは" + storeFK);
+      const storeFK = res.data.store_FK;
       axios
       .get('http://localhost:8000/api/shift_range/' + query2.get('id') +'/',{ // 店舗のシフト表の情報を取得
           headers: {
@@ -135,22 +124,13 @@ export default function ShiftTable() {
           }
       })
       .then(res=>{
-        console.log(res.data)
-        shiftFK = res.data.id
-        // console.log("shiftFKは" + res.data.id)
+        let shiftFK = res.data.id
         setShiftTable(res.data);
-        // console.log(res.data);
-        startDate = new Date(res.data.start_date); //結果が配列の中の一つとして返される
-        console.log(res.data.stop_date);
-        stopDate = new Date(res.data.stop_date);
-        // console.log(date.start_date);
-        originalDates = getDatesBetweenDates(startDate, stopDate); // 開始日から終了日までのdateオブジェクトの配列
-        console.log("originalDates:");
-        console.log(originalDates);
+        let startDate = new Date(res.data.start_date); //結果が配列の中の一つとして返される
+        let stopDate = new Date(res.data.stop_date);
+
+        let originalDates = getDatesBetweenDates(startDate, stopDate); // 開始日から終了日までのdateオブジェクトの配列
         setShiftDatesList(changeFormDates(originalDates)); // 配列を〇月〇日（〇曜日）に変換した配列
-        // console.log(changeFormDates(originalDates));
-        // console.log(shiftDatesList)
-        // console.log(exDates)
         
         axios.get('http://localhost:8000/api/work_schedules/?store_FK=' + String(storeFK), {
           headers: {
@@ -158,7 +138,6 @@ export default function ShiftTable() {
           }
         })
         .then(res=>{
-          console.log(res.data);
           setWorkSchedules(res.data);
           setFinishShiftTable(makeShiftTable(res.data, originalDates, shiftFK))
         })
