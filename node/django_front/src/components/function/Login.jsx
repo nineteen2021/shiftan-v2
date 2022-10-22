@@ -69,7 +69,7 @@ export default function Login() {
             .then(res=>{
               setUsers(res.data);
               userMe=res.data
-              console.log("user/me取得")
+              console.log("user/me取得");
               console.log(res.data);
             })
             .then(res=>{
