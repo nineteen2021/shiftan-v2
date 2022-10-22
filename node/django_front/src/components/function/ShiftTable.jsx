@@ -15,7 +15,6 @@ let shiftFK;
 let startDate;
 let stopDate;
 let originalDates = new Array();
-let dates = new Array();
 let betweenDates = 0;
 
 const useStyles = makeStyles({
@@ -40,13 +39,14 @@ const useStyles = makeStyles({
 
 const getDatesBetweenDates = (startDate, endDate) => { // dateオブジェクトの開始日と終了日を引数に取る
   const theDate = new Date(startDate)
+  let dates = new Array();
+  dates = [];
+  betweenDates = 0;
   while (theDate <= endDate) { // 開始日から最終日まで開始日に+1日していきそれを配列に入れていく
     dates = [...dates, new Date(theDate)];
     theDate.setDate(theDate.getDate() + 1);
     betweenDates++;
-    // console.log(betweenDates)
   };
-  console.log(dates)
   return dates;
 }
 
@@ -56,7 +56,7 @@ const changeFormDates = (shiftan) => {
   let day;
   const dayStr = [ "日", "月", "火", "水", "木", "金", "土" ];
   //   console.log("開始日は" + startYear + '年' + startMonth + '月' + startDay + '日');
-  let changeDate = [];
+  let changeDates = [];
   for(let i = 0; i < betweenDates; i++){ // getDatesBetweenDates関数でカウントした日にちの数ループ
     // console.log(dates[i]);
     // 一日ずつdateオブジェクトとして指定し、月、日、曜日を取得
@@ -67,27 +67,31 @@ const changeFormDates = (shiftan) => {
     day = shiftan[i].getDay();
     // console.log(day);
     // console.log(month + '月' + date + '日' + "(" + dayStr[day] + ")");
-    changeDate[i] = month + '月' + date + '日' + "(" + dayStr[day] + ")"; // 取得したデータを埋め込む、曜日は日付で取得するので漢字に変換
+    changeDates[i] = month + '月' + date + '日' + "(" + dayStr[day] + ")"; // 取得したデータを埋め込む、曜日は日付で取得するので漢字に変換
     // console.log(changeDate);
   }
   // console.log(dates);
-  return changeDate;
+  return changeDates;
 }
 
 // axiosのworkSchedulesで受け取ったデータを整形する
 const makeShiftTable = (getWorkSchedules, shiftRangeDatesList, shiftFK) => { // shiftRangeDatesListにはoriginalDatesを入れる
   let workSchedulesList = []; // 完成したシフトデータ配列
-
   // for user数✕shiftRangeDate数で2次元でループを回す
   for (const user of getWorkSchedules) {
     let schedules = [user.last_name + ' ' + user.first_name];
     for (const shiftDate of shiftRangeDatesList) {
       // shiftRangeDatesListの値とshiftRangeIdの同じデータのstartTimeを比べる、同じものがあればworkSchedulesListにstartTime ~ endTimeを、無ければundefinedを入れる
+      // シフトの範囲が入っていた
       let flag = false
       for (const workSchedules of user.work_schedules) {
         // workScheduleIDが同じものだけを検証する
         if (workSchedules.shift_range_FK === shiftFK) {
-          if ((new Date(shiftDate).getFullYear() === new Date(workSchedules.start_time).getFullYear()) && (new Date(shiftDate.getMonth())+1 === new Date(workSchedules.start_time).getMonth()+1) && (new Date(shiftDate.getDate()) === new Date(workSchedules.start_time).getDate())) {
+          if (
+            (new Date(shiftDate).getFullYear() === new Date(workSchedules.start_time).getFullYear())
+            && (new Date(shiftDate).getMonth()+1 === new Date(workSchedules.start_time).getMonth()+1)
+            && (new Date(shiftDate).getDate() === new Date(workSchedules.start_time).getDate())
+          ){
             schedules.push(('0' + new Date(workSchedules.start_time).getHours()).slice(-2) + ':' + ('0' + new Date(workSchedules.start_time).getMinutes()).slice(-2) + '～' + ('0' + new Date(workSchedules.stop_time).getHours()).slice(-2) + ':' + ('0' + new Date(workSchedules.stop_time).getMinutes()).slice(-2));
             flag = true;
           }
@@ -95,6 +99,7 @@ const makeShiftTable = (getWorkSchedules, shiftRangeDatesList, shiftFK) => { // 
       }
       if (!flag) {schedules.push(undefined);}
     };
+
     console.log(schedules);
     workSchedulesList.push(schedules); 
   };
@@ -136,15 +141,14 @@ export default function ShiftTable() {
         setShiftTable(res.data);
         // console.log(res.data);
         startDate = new Date(res.data.start_date); //結果が配列の中の一つとして返される
-        console.log(res.data.stop_date)
+        console.log(res.data.stop_date);
         stopDate = new Date(res.data.stop_date);
         // console.log(date.start_date);
         originalDates = getDatesBetweenDates(startDate, stopDate); // 開始日から終了日までのdateオブジェクトの配列
-        console.log(originalDates)
-        dates = originalDates.concat();
-        console.log(dates);
-        setShiftDatesList(changeFormDates(dates)); // 配列を〇月〇日（〇曜日）に変換した配列
-        // console.log(changeFormDates(dates))
+        console.log("originalDates:");
+        console.log(originalDates);
+        setShiftDatesList(changeFormDates(originalDates)); // 配列を〇月〇日（〇曜日）に変換した配列
+        // console.log(changeFormDates(originalDates));
         // console.log(shiftDatesList)
         // console.log(exDates)
         
