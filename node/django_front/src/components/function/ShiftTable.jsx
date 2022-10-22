@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     left: 0,
     background: "white",
     borderRight: "2px solid black",
-    width: "150px"
+    width: "185px"
   },
   cell: {
     background: "white",
