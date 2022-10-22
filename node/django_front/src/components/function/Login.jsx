@@ -54,7 +54,8 @@ export default function Login() {
     console.log({ email, password });
     
     // useAuth.jsのログイン関数を呼び出してログイン
-    auth.login(email, password).then((res) => {
+    auth.login(email, password)
+    .then((res) => {
       let userMe;
       if(res === true) {
         const distribute = new Promise((resolved, rejected) => {
@@ -91,6 +92,7 @@ export default function Login() {
         })
       }
     })
+    .catch(err=>{console.log(err);});
   };
 
   return (
