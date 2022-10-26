@@ -7,11 +7,11 @@ export const Verify = (accessToken) => {
         token: accessToken
     })
     .then(() => {
-        console.log("verify!");
+        // console.log("verify!");
     })
     .catch((error) => {
         // console.log(error);
-        console.log("Not verify!");
+        // console.log("Not verify!");
         window.localStorage.setItem("access", "undefined");
         Refresh(window.localStorage.getItem("refresh"));
     })
