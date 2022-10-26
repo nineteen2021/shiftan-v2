@@ -1,0 +1,10 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+.github/
+
+.dbdate/
+
+.devcontainer
+
+node_modules/

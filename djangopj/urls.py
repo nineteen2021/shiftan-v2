@@ -15,8 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from api import views as apiviews
+from rest_framework_simplejwt import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('/', include("shiftan.urls")),
+    path('shiftan/', include("shiftan.urls")),
+    path('api/', include(apiviews.router.urls)),
+    path('api-auth/', include('djoser.urls.jwt')),
+    path('api-auth/', include('djoser.urls')),
+    # トークン取得
+    # localhost:8000/api-auth/jwt/create/
+    # トークン再取得
+    # localhost:8000/api-auth/jwt/refresh/
+    # トークン検証
+    # localhost:8000/api-auth/jwt/verify/
 ]

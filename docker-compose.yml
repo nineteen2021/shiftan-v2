@@ -30,6 +30,15 @@ services:          # 2
       dockerfile: Dockerfile_react
     volumes:
       - ./node:/usr/src/code:cached
-    command: sh -c "cd django_front && yarn start"
+    entrypoint:
+      - sh
+    command:
+      - -c
+      - |
+        [ -f ~/.exec-once ] || {
+          cd django_front && yarn install && touch ~/.exec-once && cd ..
+        }
+        cd django_front && yarn start
+        
     ports:
       - "3000:3000"

@@ -1,4 +1,65 @@
-.App {
+.App-logo{
+  height: 40px; 
+}
+
+.Layout-booleanEditors {
+  visibility:hidden;
+}
+
+.Toolbar-toolbar {
+  position: sticky!important;
+}
+
+.css-1k4xd1i-MuiPaper-root-MuiAppBar-root {
+  z-index: 1100!important;
+}
+
+.css-169ccso-MuiPaper-root-MuiAppBar-root {
+  z-index: 1100!important;
+}
+
+.css-jrrpff {
+  z-index: 1200!important;
+}
+
+.css-rfuiv6-MuiPaper-root-MuiDrawer-paper {
+  z-index: 1000!important;
+}
+
+.css-nupfgw-MuiGrid-root.Layout-root {
+  padding-top: 74px!important;
+}
+
+.bottomButton {
+  display: flex!important;
+  flex-flow: column!important;
+  color: #fff!important;
+}
+
+.bottomIcon {
+  margin-left: 10px;
+}
+
+.bottomNavbar {
+  z-index: 1201;
+}
+
+/* shiftEditor関連 */
+.css-pzc27e-MuiToolbar-root { 
+  position: sticky!important;
+  top: 63px;
+  left: 74px;
+  background: #fff;
+  z-index: 1000;
+}
+.moveTmp { 
+  position: sticky!important;
+  top: 63px;
+  left: 74px;
+  z-index: 1001;
+}
+
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +96,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
