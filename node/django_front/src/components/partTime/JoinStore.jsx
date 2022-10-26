@@ -98,6 +98,11 @@ export default function JoinStore() {
         });
     }
 
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        application();
+    }
+
     return (
         <>
             <Collapse in={error}>
@@ -114,7 +119,7 @@ export default function JoinStore() {
                     }}
                 >
                     所属する店舗のIDを入力してください
-                    <Box component="form" noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
                             required
@@ -130,14 +135,11 @@ export default function JoinStore() {
 
                         <Button
                             fullWidth
+                            type='submit'
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
-                            onClick={() => {
-                                application();
-                            }
-                            }
                         >
-                            申請
+                            申請する
                         </Button>
                     </Box>
                 </Box>
@@ -148,7 +150,15 @@ export default function JoinStore() {
                 <DialogTitle>確認</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        以下の店舗に申請を送信します。よろしいですか？<br/>
+                        以下の店舗に申請を送信します。よろしいですか？
+                    </DialogContentText>
+                    <DialogContentText sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        fontSize: '25px',
+
+                    }}>
                         {String(storeName)}
                     </DialogContentText>
                 </DialogContent>
