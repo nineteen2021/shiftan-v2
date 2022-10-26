@@ -6,8 +6,8 @@ import { useAuth } from '../hooks/useAuth';
 
 const PrivateRoutes = () => {
     const auth = useAuth();
-    console.log(auth);
-    console.log('Private route works!');
+    // console.log(auth);
+    // console.log('Private route works!');
     return(
         auth.accessToken != "undefined" ? <Outlet/> : <Navigate to='/login'/>
     )
