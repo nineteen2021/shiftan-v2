@@ -73,7 +73,9 @@ export default function ShiftSubmit() {
                     console.log("シフト範囲を取得");
                     let dateList = new Array(); //ここでシフト範囲分の日付の配列を作成
                     for(var d = new Date(res.data.start_date); d <= new Date(res.data.stop_date); d.setDate(d.getDate()+1)) {
-                      let formatedDate = createData(new Date(d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()), new Date(d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()));
+                      console.log(d);
+                      console.log(d.getFullYear()+'-'+(d.getMonth()+1).toString().padStart(2, "0")+'-'+d.getDate().toString().padStart(2, "0"));
+                      let formatedDate = createData(new Date(d.getFullYear()+'-'+(d.getMonth()+1).toString().padStart(2, "0")+'-'+d.getDate().toString().padStart(2, "0")+"T00:00:00"), new Date(d.getFullYear()+'-'+(d.getMonth()+1).toString().padStart(2, "0")+'-'+d.getDate().toString().padStart(2, "0")+"T00:00:00"));
                       dateList.push(formatedDate);
                     }
                     console.log(dateList)
