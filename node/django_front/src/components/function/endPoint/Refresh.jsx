@@ -5,22 +5,20 @@ export const Refresh = (refreshToken) => {
         refresh: refreshToken
     })
     .then(function (response) {
-        
-        console.log("Refresh!")
         return(
-            window.localStorage.setItem("access", response.data.access),
-            console.log("Refresh実行"),
-            console.log("access:" + response.data.access)
+            window.localStorage.setItem("access", response.data.access)
+            // console.log("Refresh実行"),
+            // console.log("access:" + response.data.access)
         )
     })
     .catch(function (error) {
         // console.log(error);
         return(
-            console.log("Not refresh!"),
+            // console.log("Not refresh!"),
             window.localStorage.setItem("access", "undefined"),
-            window.localStorage.setItem("refresh", "undefined"),
-            console.log("access:" + window.localStorage.getItem("access")),
-            console.log("refresh:" + window.localStorage.getItem("refresh"))
+            window.localStorage.setItem("refresh", "undefined")
+            // console.log("access:" + window.localStorage.getItem("access")),
+            // console.log("refresh:" + window.localStorage.getItem("refresh"))
         )
         
         

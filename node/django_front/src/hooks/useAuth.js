@@ -9,6 +9,7 @@ export const AuthProvider = ({ children }) => {
     // const [refreshToken, setRefreshToken]
 
     const login = async (email, password) => {
+        let flag;
         const res = await axios.post('http://localhost:8000/api-auth/jwt/create/', {
             email: email,
             password: password
@@ -17,15 +18,15 @@ export const AuthProvider = ({ children }) => {
             setAccessToken(res.data.access);
             window.localStorage.setItem("access", res.data.access);
             window.localStorage.setItem("refresh", res.data.refresh);
-            console.log("access:" + window.localStorage.getItem("access"));
-            console.log("refresh:" + window.localStorage.getItem("refresh"));
+            return flag=true;
         })
         // TODO: エラー処理。現時点では正常系のみ想定したコードになっている
         .catch((error) => {
             console.log(error);
             alert("メールアドレスかパスワードが違います。");
+            return flag=false;
         })
-        return true;
+        return flag;
     };
 
     const logout = () => {

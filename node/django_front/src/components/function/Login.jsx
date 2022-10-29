@@ -39,7 +39,6 @@ const theme = createTheme();
 export default function Login() {
   const navigate = useNavigate();
   const auth = useAuth();
-  // console.log(auth);
   const [users, setUsers] = useState(null)
 
   const handleSubmit = (event) => {
@@ -49,12 +48,10 @@ export default function Login() {
     // テキストボックスからメールアドレスとパスワードを取得
     const email = data.get("email");
     const password = data.get("password");
-
-    // eslint-disable-next-line no-console
-    console.log({ email, password });
     
     // useAuth.jsのログイン関数を呼び出してログイン
-    auth.login(email, password).then((res) => {
+    auth.login(email, password)
+    .then((res) => {
       let userMe;
       if(res === true) {
         const distribute = new Promise((resolved, rejected) => {
@@ -68,18 +65,12 @@ export default function Login() {
             .then(res=>{
               setUsers(res.data);
               userMe=res.data
-              console.log("user/me取得")
-              console.log(res.data);
             })
             .then(res=>{
-              console.log("is_manager判別")
-              console.log(userMe.is_manager)
               if(userMe.is_manager === true) {
-                console.log("店長アカウントです")
                 navigate("/storeHome")
               }
               else if (userMe.is_manager === false) {
-                console.log("アルバイトアカウントです")
                 navigate("/partTimeHome")
               }
               else {
@@ -91,6 +82,7 @@ export default function Login() {
         })
       }
     })
+    .catch(err=>{console.log(err);});
   };
 
   return (
