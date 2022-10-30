@@ -69,32 +69,62 @@ PositionDialog.propTypes = {
 
 export default function StaffManager() {
 
-    //ポジション編集画面のポップアップ
-    const [open, setOpen] = React.useState(false);
-    const handleClickOpen = () => {
-        setOpen(true);
-        
-    };
-    const handleClose = (value) => {
-        setOpen(false);
-    };
+  //ポジション編集画面のポップアップ
+  const [open, setOpen] = React.useState(false);
+  const [users, setUsers] = React.useState(null);
+  const handleClickOpen = () => {
+      setOpen(true);
+      
+  };
+  const handleClose = (value) => {
+      setOpen(false);
+  };
 
-    const [pos, setPos] = React.useState([
-      {id:1, name:"未設定", color:'#000000'},
-      {id:2, name:"厨房", color:'#00ff00'},
-      {id:3, name:"ホール", color:'#ff0000'},
-    ]);
+  const [pos, setPos] = React.useState([
+    {id:1, name:"未設定", color:'#000000'},
+    {id:2, name:"厨房", color:'#00ff00'},
+    {id:3, name:"ホール", color:'#ff0000'},
+  ]);
 
-    const [rows, setRows] = React.useState([
-      {id:1,name:'山田太郎', position:2},
-      {id:2,name:'山田太郎', position:2},
-      {id:3,name:'山田太郎', position:2},
-      {id:4,name:'山田太郎', position:2},
-      {id:5,name:'山田太郎', position:3},
-      {id:6,name:'山田太郎', position:3},
-      {id:7,name:'山田太郎', position:3},
-    ]);
+  const [rows, setRows] = React.useState([
+    {id:1,name:'山田太郎', position:2},
+    {id:2,name:'山田太郎', position:2},
+    {id:3,name:'山田太郎', position:2},
+    {id:4,name:'山田太郎', position:2},
+    {id:5,name:'山田太郎', position:3},
+    {id:6,name:'山田太郎', position:3},
+    {id:7,name:'山田太郎', position:3},
+  ]);
 
+  useLayoutEffect(() => {
+    let store_FK;
+    axios.get('http://localhost:8000/api-auth/users/me/',{
+      headers: {
+          'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
+      }
+    })
+    .then(res=>{
+      store_FK = res.data.store_FK;
+      console.log(store_FK);
+      axios.get('http://localhost:8000/api/user/?is_store=true&store_FK='+store_FK,{
+        headers: {
+          'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
+        }
+      })
+      .then(res=>{
+        setUsers(res.data);
+        console.log(res.data);
+      })
+      .catch(err=>{
+        console.log(err);
+      })
+    })
+    .catch(err=>{
+      console.log(err);
+    })
+  }, [])
+
+  if(!users) return null;
   return (
     <Container component="main" maxWidth="md" sx={{ mb: 4 }}>
       <Typography fontSize={20} sx={{ ml:-22 }}>スタッフ管理</Typography>
