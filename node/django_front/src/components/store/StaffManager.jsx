@@ -210,7 +210,6 @@ export default function StaffManager() {
             <Grid item sx={{marginLeft: '15em'}}>
                 <Button variant="contained" component={routerLink} to="/certification" sx={{ml: 2}}>認証</Button>
                 <Button variant="contained" sx={{ml: 2}} onClick={handleClickOpen}>ポジション編集</Button>
-                <Button variant="contained" sx={{ml: 2}}>保存</Button>
                 <PositionDialog
                     open={open}
                     onClose={handleClose}
