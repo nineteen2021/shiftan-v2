@@ -84,8 +84,6 @@ export default function Position() {
          .then(() => {
             newGroup.splice(index, 1);
             setGroups(newGroup);
-            console.log(index);
-            console.log("消えた");
         })
          .catch(error => {
              console.log(error);
