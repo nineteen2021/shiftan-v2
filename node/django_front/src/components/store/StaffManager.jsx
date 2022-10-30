@@ -151,7 +151,7 @@ export default function StaffManager() {
     .catch(err=>{
       console.log(err);
     })
-  }, [])
+  }, [open])
 
   if(!users || !positions) return null;
   return (
