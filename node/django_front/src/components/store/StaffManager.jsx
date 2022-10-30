@@ -142,17 +142,16 @@ export default function StaffManager() {
                     <TableRow>
                         <TableCell align="left"><b>名前</b></TableCell>
                         <TableCell align="left"><b>ポジション名</b></TableCell>
-                        <TableCell align="left"><b>色</b></TableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>
-                    {rows.map((row, index) => (
+                    {users.map((user) => (
                         <TableRow
-                        key={row.id}
+                        key={user.id}
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                         <TableCell component="th" scope="row" align="left">
-                            <font size="5">{row.name}</font>
+                            <font size="5">{user.last_name + ' ' + user.first_name}</font>
                         </TableCell>
                         <TableCell align="left">
                             <FormControl variant="standard" sx={{ mt: 1, mb: 1, minWidth: 120 }}>
@@ -160,14 +159,14 @@ export default function StaffManager() {
                                 <Select
                                 labelId="demo-simple-select-standard-label"
                                 id="demo-simple-select-standard"
-                                defaultValue={row.position}
-                                onChange={(event, row) => {
-                                  const newRow = rows;
-                                  console.log(row);
-                                  newRow[index].position = event.target.value;
-                                  console.log(newRow);
-                                  setRows(newRow);
-                                }}
+                                defaultValue="1"
+                                // onChange={(event, row) => {
+                                //   const newRow = rows;
+                                //   console.log(row);
+                                //   newRow[index].position = event.target.value;
+                                //   console.log(newRow);
+                                //   setRows(newRow);
+                                // }}
                                 label="ポジション"
                                 >
                                 {pos.map((poss, index) => (
@@ -177,7 +176,6 @@ export default function StaffManager() {
                             </FormControl>
 
                         </TableCell>
-                        <TableCell align="left"><Typography variant="h4" style={{color: pos[(row.position)-1].color}}>■</Typography></TableCell>
                         </TableRow>
                     ))}
                     </TableBody>
