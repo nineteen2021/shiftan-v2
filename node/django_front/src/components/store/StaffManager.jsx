@@ -72,6 +72,7 @@ export default function StaffManager() {
   //ポジション編集画面のポップアップ
   const [open, setOpen] = React.useState(false);
   const [users, setUsers] = React.useState(null);
+  const [positions, setPositions] = React.useState(null)
   const handleClickOpen = () => {
       setOpen(true);
       
@@ -80,11 +81,18 @@ export default function StaffManager() {
       setOpen(false);
   };
 
-  const [pos, setPos] = React.useState([
-    {id:1, name:"未設定", color:'#000000'},
-    {id:2, name:"厨房", color:'#00ff00'},
-    {id:3, name:"ホール", color:'#ff0000'},
-  ]);
+  const positionChange = (position_FK, id) => {
+    axios.patch('http://localhost:8000/api/user/'+id+'/',{
+      group_FK: position_FK
+    }
+    ,{
+      headers: {
+        'Authorization': `JWT ${window.localStorage.getItem('access')}`
+      }
+    })
+    .then((res)=>{console.log(res.data);})
+    .catch((err)=>{console.log(err);})
+  }
 
   useLayoutEffect(() => {
     let store_FK;
@@ -108,13 +116,23 @@ export default function StaffManager() {
       .catch(err=>{
         console.log(err);
       })
+      axios.get('http://localhost:8000/api/group/?store_FK='+store_FK,{
+        headers: {
+          'Authorization': `JWT ${localStorage.getItem('access')}`,
+        }
+      })
+      .then(res=>{
+        setPositions(res.data);
+        console.log(res.data);
+      })
+      .catch(err=>{console.log(err);})
     })
     .catch(err=>{
       console.log(err);
     })
   }, [])
 
-  if(!users) return null;
+  if(!users || !positions) return null;
   return (
     <Container component="main" maxWidth="md" sx={{ mb: 4 }}>
       <Typography fontSize={20} sx={{ ml:-22 }}>スタッフ管理</Typography>
@@ -149,18 +167,14 @@ export default function StaffManager() {
                                 <Select
                                 labelId="demo-simple-select-standard-label"
                                 id="demo-simple-select-standard"
-                                defaultValue="1"
-                                // onChange={(event, row) => {
-                                //   const newRow = rows;
-                                //   console.log(row);
-                                //   newRow[index].position = event.target.value;
-                                //   console.log(newRow);
-                                //   setRows(newRow);
-                                // }}
+                                defaultValue={user.group_FK}
+                                onChange={(event) => {
+                                  positionChange(event.target.value, user.id);
+                                }}
                                 label="ポジション"
                                 >
-                                {pos.map((poss, index) => (
-                                  <MenuItem key={poss.id} value={poss.id}>{poss.name}</MenuItem>
+                                {positions.map((position) => (
+                                  <MenuItem key={position.id} value={position.id}>{position.group_name}</MenuItem>
                                 ))}
                                 </Select>
                             </FormControl>
