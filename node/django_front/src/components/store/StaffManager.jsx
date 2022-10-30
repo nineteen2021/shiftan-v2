@@ -72,7 +72,7 @@ export default function StaffManager() {
   //ポジション編集画面のポップアップ
   const [open, setOpen] = React.useState(false);
   const [users, setUsers] = React.useState(null);
-  const [positions, setPositions] = React.useState(null)
+  const [positions, setPositions] = React.useState(null);
   const handleClickOpen = () => {
       setOpen(true);
       
@@ -81,17 +81,38 @@ export default function StaffManager() {
       setOpen(false);
   };
 
+  // ポジション名が未設定の場合を考慮する
+  // 197、199行目のvalueを引数にとる
   const positionChange = (position_FK, id) => {
-    axios.patch('http://localhost:8000/api/user/'+id+'/',{
-      group_FK: position_FK
-    }
-    ,{
-      headers: {
-        'Authorization': `JWT ${window.localStorage.getItem('access')}`
+    if(position_FK=='未設定') {
+      axios.patch('http://localhost:8000/api/user/'+id+'/',{
+        group_FK: null
       }
-    })
-    .then((res)=>{console.log(res.data);})
-    .catch((err)=>{console.log(err);})
+      ,{
+        headers: {
+          'Authorization': `JWT ${window.localStorage.getItem('access')}`
+        }
+      })
+      .then((res)=>{console.log(res.data);})
+      .catch((err)=>{console.log(err);})
+    }
+    else {
+      axios.patch('http://localhost:8000/api/user/'+id+'/',{
+        group_FK: position_FK
+      }
+      ,{
+        headers: {
+          'Authorization': `JWT ${window.localStorage.getItem('access')}`
+        }
+      })
+      .then((res)=>{console.log(res.data);})
+      .catch((err)=>{console.log(err);})
+    }
+  }
+
+  const checkGroupFK = (group_FK) => {
+    if (group_FK == null) return '未設定';
+    else return group_FK;
   }
 
   useLayoutEffect(() => {
@@ -167,18 +188,18 @@ export default function StaffManager() {
                                 <Select
                                 labelId="demo-simple-select-standard-label"
                                 id="demo-simple-select-standard"
-                                defaultValue={user.group_FK}
+                                defaultValue={checkGroupFK(user.group_FK)}
                                 onChange={(event) => {
                                   positionChange(event.target.value, user.id);
                                 }}
                                 label="ポジション"
                                 >
+                                  <MenuItem key={null} value='未設定'>未設定</MenuItem>
                                 {positions.map((position) => (
                                   <MenuItem key={position.id} value={position.id}>{position.group_name}</MenuItem>
                                 ))}
                                 </Select>
                             </FormControl>
-
                         </TableCell>
                         </TableRow>
                     ))}
