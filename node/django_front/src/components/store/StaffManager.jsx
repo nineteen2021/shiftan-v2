@@ -86,16 +86,6 @@ export default function StaffManager() {
     {id:3, name:"ホール", color:'#ff0000'},
   ]);
 
-  const [rows, setRows] = React.useState([
-    {id:1,name:'山田太郎', position:2},
-    {id:2,name:'山田太郎', position:2},
-    {id:3,name:'山田太郎', position:2},
-    {id:4,name:'山田太郎', position:2},
-    {id:5,name:'山田太郎', position:3},
-    {id:6,name:'山田太郎', position:3},
-    {id:7,name:'山田太郎', position:3},
-  ]);
-
   useLayoutEffect(() => {
     let store_FK;
     axios.get('http://localhost:8000/api-auth/users/me/',{
