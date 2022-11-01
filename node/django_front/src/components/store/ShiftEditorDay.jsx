@@ -484,14 +484,14 @@ export default class ShiftEditorDay extends React.PureComponent {
           />
           <DayView
             displayName="日表示"
-            startDayHour={0}
+            startDayHour={7}
             endDayHour={24}
             intervalCount={1}
           />
           <WeekView
             displayName="週表示"
-            startDayHour={10}
-            endDayHour={19}
+            startDayHour={7}
+            endDayHour={24}
           />
           <Toolbar />
           <ViewSwitcher />
