@@ -45,10 +45,10 @@ const locations = [
 const localization = {
   allDayLabel: '終日',
   detailsLabel: '概要',
-  titleLabel: 'タイトル',
+  titleLabel: '記述しても保存しません',
   commitCommand: '保存',
   moreInformationLabel: '追加の情報',
-  notesLabel: 'メモ',
+  notesLabel: '記述しても保存しません',
   today: '今日',
 };
 
