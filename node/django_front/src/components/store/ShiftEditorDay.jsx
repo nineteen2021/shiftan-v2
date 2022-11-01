@@ -32,34 +32,6 @@ import {
 } from '@mui/material/colors';
 import NoMatch from '../function/NoMatch';
 
-// const getUsersF = () => {
-//   axios
-//   .get('http://localhost:8000/api-auth/users/',{
-//       headers: {
-//           'Authorization': `JWT ${window.localStorage.getItem('access')}`, // ここを追加
-//       }
-//   })
-//   .then(res=>{
-//     console.log("ユーザーの情報を取得しました")
-//     let userArr = new Array();
-//     for(let i = 0; res.data.length > i; i++){
-//       let tmp = {
-//         text: res.data[i].last_name + res.data[i].first_name,
-//         id: res.data[i].id,
-//         color: teal,
-//       }
-//       userArr.push(tmp);
-//     }
-//     console.log(userArr);
-//     console.log(owners);
-//     return userArr;
-//   })
-//   .catch(err=>{
-//     console.log(err);
-//     return err;
-//   });
-// }
-
 const owners = [{
   text: '読み込み中',
   id: -1,
@@ -110,6 +82,7 @@ export default class ShiftEditorDay extends React.PureComponent {
       shift_rangeStop_date: '',
       shift_rangeName: "読み込み中",
       bad_store_id: false,
+      layoutSize: document.documentElement.clientHeight - 160,
     };
 
     this.commitChanges = this.commitChanges.bind(this);
@@ -385,9 +358,19 @@ export default class ShiftEditorDay extends React.PureComponent {
       console.log(err);
     });
 
+    this.resizeWindow();
+
   }
 
-  
+  // 画面のリサイズ用の関数
+  resizeWindow() {
+    window.addEventListener('resize', this.setState({layoutSize:document.documentElement.clientHeight - 160}))
+  }
+
+
+  componentDidUpdate() {
+    this.resizeWindow()
+  }
 
   render() {
     // const checkOwner = () => { //renderの後でNavigateを頑張ってみたがうまくいかず
@@ -396,7 +379,7 @@ export default class ShiftEditorDay extends React.PureComponent {
     //     {isManager ? <Navigate to="/*" />}
     //   );
     // }
-    const { data, resources, grouping, groupByDate, isGroupByDate, success, moveTmp, outOfStoreRange , shift_rangeName, shift_rangeStart_date, shift_rangeStop_date, bad_store_id } = this.state;
+    const { data, resources, grouping, groupByDate, isGroupByDate, success, moveTmp, outOfStoreRange , shift_rangeName, shift_rangeStart_date, shift_rangeStop_date, bad_store_id, layoutSize } = this.state;
     console.log('現在のシフトデータ');
     console.log(this.state.data)
 
@@ -471,6 +454,7 @@ export default class ShiftEditorDay extends React.PureComponent {
       <Paper>
         <Scheduler
           data={data}
+          height={this.state.layoutSize}
         >
           <ViewState
             defaultCurrentDate={String(shift_rangeStart_date)}
