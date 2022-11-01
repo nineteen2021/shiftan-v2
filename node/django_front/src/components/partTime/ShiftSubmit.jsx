@@ -162,6 +162,7 @@ export default function ShiftSubmit() {
     return navigate("/*")
   }
   console.log(dates)
+  const dayStr = [ "日", "月", "火", "水", "木", "金", "土" ];
   return (
     <>
       <Grid
@@ -190,7 +191,7 @@ export default function ShiftSubmit() {
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      <font size="4">{String(row.startTime.getMonth() + 1) + "月" + String(row.startTime.getDate()) + "日"}</font>
+                      <font size="4">{String(row.startTime.getMonth() + 1) + "月" + String(row.startTime.getDate()) + "日" + "(" + dayStr[row.startTime.getDay()] + ")"}</font>
                     </TableCell>
                     <TableCell align="right">
                       <LocalizationProvider dateAdapter={AdapterDateFns} locale={ja}>
@@ -269,10 +270,10 @@ export default function ShiftSubmit() {
           <DialogContentText>
             以下の内容で提出しますか？<br/>
             <font color="#ee0000">エラーが発生している箇所は提出されません</font><br/>
-            {dates.filter(data => data.error === true).map((row, index) => <li key={row.date}><font color='#ee0000'>{String(row.startTime.getMonth() + 1) + "月" + String(row.startTime.getDate()) + "日"}　{String(row.startTime.getHours())+'時'+String(row.startTime.getMinutes())+'分'}～{String(row.endTime.getHours())+'時'+String(row.endTime.getMinutes())+'分'}</font></li>)}
+            {dates.filter(data => data.error === true).map((row, index) => <li key={row.date}><font color='#ee0000'>{String(row.startTime.getMonth() + 1) + "月" + String(row.startTime.getDate()) + "日"+ "(" + dayStr[row.startTime.getDay()] + ")"}　{String(row.startTime.getHours())+'時'+String(row.startTime.getMinutes())+'分'}～{String(row.endTime.getHours())+'時'+String(row.endTime.getMinutes())+'分'}</font></li>)}
             <br/>
           </DialogContentText>
-          {dates.filter(data => data.isDisable === false && data.error === false).map((row, index) => <li key={row.date}>{String(row.startTime.getMonth() + 1) + "月" + String(row.startTime.getDate()) + "日"}　{String(row.startTime.getHours())+'時'+String(row.startTime.getMinutes())+'分'}～{String(row.endTime.getHours())+'時'+String(row.endTime.getMinutes())+'分'}</li>)}
+          {dates.filter(data => data.isDisable === false && data.error === false).map((row, index) => <li key={row.date}>{String(row.startTime.getMonth() + 1) + "月" + String(row.startTime.getDate()) + "日"+ "(" + dayStr[row.startTime.getDay()] + ")"}　{String(row.startTime.getHours())+'時'+String(row.startTime.getMinutes())+'分'}～{String(row.endTime.getHours())+'時'+String(row.endTime.getMinutes())+'分'}</li>)}
 
         </DialogContent>
         <DialogActions>
