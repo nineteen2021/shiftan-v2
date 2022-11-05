@@ -53,7 +53,8 @@ MIDDLEWARE = [
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000'
+    'http://127.0.0.1:3000',
+    'http://shiftan.nineteen.page'
 ]
 
 ROOT_URLCONF = 'djangopj.urls'
@@ -214,8 +215,8 @@ DJOSER = {
     },
 }
 
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = False
 
-SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = False
 
 CSRF_COOKIE_SECURE = True
