@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+from .settings_local import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -19,14 +20,6 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'l%-as2=!795+bszcos!h!(dpz=p19at@ufgfabnu7eb+@2i#9a'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -133,19 +126,7 @@ SIMPLE_JWT = {
 #     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
 #     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 # }
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django-db',
-        'USER': 'django',
-        'PASSWORD': 'django',
-        'HOST': 'db',
-        'PORT': '3306'
-    }
-}
 
 AUTH_USER_MODEL = 'shiftan.User'
 
@@ -232,3 +213,9 @@ DJOSER = {
         'username_changed_confirmation': 'api.email.UsernameChangedConfirmationEmail',
     },
 }
+
+SECURE_SSL_REDIRECT = True
+
+SESSION_COOKIE_SECURE = True
+
+CSRF_COOKIE_SECURE = True
