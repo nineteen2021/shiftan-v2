@@ -55,7 +55,6 @@ function PositionDialog(props) {
         <DialogTitle>ポジション編集</DialogTitle>
         <PositionTable/>
         <DialogActions>
-          <Button onClick={handleClose}>キャンセル</Button>
           <Button onClick={handleClose}>OK</Button>
         </DialogActions>
       </Dialog>
