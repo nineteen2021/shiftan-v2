@@ -9,4 +9,4 @@ __pycache__/
 
 node_modules/
 
-djangopj/settings_local.py
+/djangopj/settings_local.py

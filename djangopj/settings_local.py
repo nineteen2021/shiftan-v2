@@ -19,5 +19,5 @@ DATABASES = {
         'PORT': '3306'
     }
 }
-
+EMAIL_HOST_PASSWORD = 'konzkjbvzpccrupz'
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'
