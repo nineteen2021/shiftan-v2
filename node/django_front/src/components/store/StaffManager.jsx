@@ -55,7 +55,6 @@ function PositionDialog(props) {
         <DialogTitle>ポジション編集</DialogTitle>
         <PositionTable/>
         <DialogActions>
-          <Button onClick={handleClose}>キャンセル</Button>
           <Button onClick={handleClose}>OK</Button>
         </DialogActions>
       </Dialog>
@@ -69,32 +68,91 @@ PositionDialog.propTypes = {
 
 export default function StaffManager() {
 
-    //ポジション編集画面のポップアップ
-    const [open, setOpen] = React.useState(false);
-    const handleClickOpen = () => {
-        setOpen(true);
-        
-    };
-    const handleClose = (value) => {
-        setOpen(false);
-    };
+  //ポジション編集画面のポップアップ
+  const [open, setOpen] = React.useState(false);
+  const [users, setUsers] = React.useState(null);
+  const [positions, setPositions] = React.useState(null);
+  const handleClickOpen = () => {
+      setOpen(true);
+      
+  };
+  const handleClose = (value) => {
+      setOpen(false);
+  };
 
-    const [pos, setPos] = React.useState([
-      {id:1, name:"未設定", color:'#000000'},
-      {id:2, name:"厨房", color:'#00ff00'},
-      {id:3, name:"ホール", color:'#ff0000'},
-    ]);
+  // ポジション名が未設定の場合を考慮する
+  // 197、199行目のvalueを引数にとる
+  const positionChange = (position_FK, id) => {
+    if(position_FK=='未設定') {
+      axios.patch('http://localhost:8000/api/user/'+id+'/',{
+        group_FK: null
+      }
+      ,{
+        headers: {
+          'Authorization': `JWT ${window.localStorage.getItem('access')}`
+        }
+      })
+      .then((res)=>{console.log(res.data);})
+      .catch((err)=>{console.log(err);})
+    }
+    else {
+      axios.patch('http://localhost:8000/api/user/'+id+'/',{
+        group_FK: position_FK
+      }
+      ,{
+        headers: {
+          'Authorization': `JWT ${window.localStorage.getItem('access')}`
+        }
+      })
+      .then((res)=>{console.log(res.data);})
+      .catch((err)=>{console.log(err);})
+    }
+  }
 
-    const [rows, setRows] = React.useState([
-      {id:1,name:'山田太郎', position:2},
-      {id:2,name:'山田太郎', position:2},
-      {id:3,name:'山田太郎', position:2},
-      {id:4,name:'山田太郎', position:2},
-      {id:5,name:'山田太郎', position:3},
-      {id:6,name:'山田太郎', position:3},
-      {id:7,name:'山田太郎', position:3},
-    ]);
+  const checkGroupFK = (group_FK) => {
+    if (group_FK == null) return '未設定';
+    else return group_FK;
+  }
 
+  useLayoutEffect(() => {
+    let store_FK;
+    axios.get('http://localhost:8000/api-auth/users/me/',{
+      headers: {
+          'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
+      }
+    })
+    .then(res=>{
+      store_FK = res.data.store_FK;
+      console.log(store_FK);
+      axios.get('http://localhost:8000/api/user/?is_store=true&store_FK='+store_FK,{
+        headers: {
+          'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
+        }
+      })
+      .then(res=>{
+        setUsers(res.data);
+        console.log(res.data);
+      })
+      .catch(err=>{
+        console.log(err);
+      })
+      axios.get('http://localhost:8000/api/group/?store_FK='+store_FK,{
+        headers: {
+          'Authorization': `JWT ${localStorage.getItem('access')}`,
+        }
+      })
+      .then(res=>{
+        setPositions(res.data);
+        console.log(res.data);
+      })
+      .catch(err=>{console.log(err);})
+    })
+    .catch(err=>{
+      console.log(err);
+    })
+  }, [open])
+
+  if(!users || !positions) return null;
   return (
     <Container component="main" maxWidth="md" sx={{ mb: 4 }}>
       <Typography fontSize={20} sx={{ ml:-22 }}>スタッフ管理</Typography>
@@ -112,17 +170,16 @@ export default function StaffManager() {
                     <TableRow>
                         <TableCell align="left"><b>名前</b></TableCell>
                         <TableCell align="left"><b>ポジション名</b></TableCell>
-                        <TableCell align="left"><b>色</b></TableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>
-                    {rows.map((row, index) => (
+                    {users.map((user) => (
                         <TableRow
-                        key={row.id}
+                        key={user.id}
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                         <TableCell component="th" scope="row" align="left">
-                            <font size="5">{row.name}</font>
+                            <font size="5">{user.last_name + ' ' + user.first_name}</font>
                         </TableCell>
                         <TableCell align="left">
                             <FormControl variant="standard" sx={{ mt: 1, mb: 1, minWidth: 120 }}>
@@ -130,24 +187,19 @@ export default function StaffManager() {
                                 <Select
                                 labelId="demo-simple-select-standard-label"
                                 id="demo-simple-select-standard"
-                                defaultValue={row.position}
-                                onChange={(event, row) => {
-                                  const newRow = rows;
-                                  console.log(row);
-                                  newRow[index].position = event.target.value;
-                                  console.log(newRow);
-                                  setRows(newRow);
+                                defaultValue={checkGroupFK(user.group_FK)}
+                                onChange={(event) => {
+                                  positionChange(event.target.value, user.id);
                                 }}
                                 label="ポジション"
                                 >
-                                {pos.map((poss, index) => (
-                                  <MenuItem key={poss.id} value={poss.id}>{poss.name}</MenuItem>
+                                  <MenuItem key={null} value='未設定'>未設定</MenuItem>
+                                {positions.map((position) => (
+                                  <MenuItem key={position.id} value={position.id}>{position.group_name}</MenuItem>
                                 ))}
                                 </Select>
                             </FormControl>
-
                         </TableCell>
-                        <TableCell align="left"><Typography variant="h4" style={{color: pos[(row.position)-1].color}}>■</Typography></TableCell>
                         </TableRow>
                     ))}
                     </TableBody>
@@ -157,7 +209,6 @@ export default function StaffManager() {
             <Grid item sx={{marginLeft: '15em'}}>
                 <Button variant="contained" component={routerLink} to="/certification" sx={{ml: 2}}>認証</Button>
                 <Button variant="contained" sx={{ml: 2}} onClick={handleClickOpen}>ポジション編集</Button>
-                <Button variant="contained" sx={{ml: 2}}>保存</Button>
                 <PositionDialog
                     open={open}
                     onClose={handleClose}
