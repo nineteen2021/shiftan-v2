@@ -8,3 +8,5 @@ __pycache__/
 .devcontainer
 
 node_modules/
+
+/djangopj/settings_local.py
