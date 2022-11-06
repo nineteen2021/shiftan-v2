@@ -32,64 +32,6 @@ import {
 } from '@mui/material/colors';
 import NoMatch from '../function/NoMatch';
 
-const getUsersF = () => {
-  axios
-  .get('http://localhost:8000/api-auth/users/',{
-      headers: {
-          'Authorization': `JWT ${window.localStorage.getItem('access')}`, // ここを追加
-      }
-  })
-  .then(res=>{
-    console.log("ユーザーの情報を取得しました")
-    let userArr = new Array();
-    for(let i = 0; res.data.length > i; i++){
-      let tmp = {
-        text: res.data[i].last_name + res.data[i].first_name,
-        id: res.data[i].id,
-        color: teal,
-      }
-      userArr.push(tmp);
-    }
-    console.log(userArr);
-    console.log(owners);
-    return userArr;
-  })
-  .catch(err=>{
-    console.log(err);
-    return err;
-  });
-}
-
-const appointments = [{
-  id: 0,
-  title: 'Watercolor Landscape',
-  members: [3],
-  roomId: 1,
-  startDate: new Date(2017, 4, 28, 9, 30),
-  endDate: new Date(2017, 4, 28, 12, 0),
-}, {
-  id: 1,
-  title: 'Oil Painting for Beginners',
-  members: [5],
-  roomId: 1,
-  startDate: new Date(2017, 4, 28, 12, 30),
-  endDate: new Date(2017, 4, 28, 14, 30),
-}, {
-  id: 2,
-  title: 'Testing',
-  members: [1],
-  roomId: 1,
-  startDate: new Date(2017, 4, 28, 12, 30),
-  endDate: new Date(2017, 4, 28, 14, 30),
-}, {
-  id: 3,
-  title: 'Final exams',
-  members: [1],
-  roomId: 1,
-  startDate: new Date(2017, 4, 28, 9, 30),
-  endDate: new Date(2017, 4, 28, 12, 0),
-}];
-
 const owners = [{
   text: '読み込み中',
   id: -1,
@@ -103,14 +45,12 @@ const locations = [
 const localization = {
   allDayLabel: '終日',
   detailsLabel: '概要',
-  titleLabel: 'タイトル',
+  titleLabel: '記述しても保存しません',
   commitCommand: '保存',
   moreInformationLabel: '追加の情報',
-  notesLabel: 'メモ',
+  notesLabel: '記述しても保存しません',
   today: '今日',
 };
-
-const shift_range_FK = 1;
 
 const isWeekOrMonthView = viewName => viewName === 'Week' || viewName === 'Day';
 export default class ShiftEditorDay extends React.PureComponent {
@@ -142,6 +82,7 @@ export default class ShiftEditorDay extends React.PureComponent {
       shift_rangeStop_date: '',
       shift_rangeName: "読み込み中",
       bad_store_id: false,
+      layoutSize: document.documentElement.clientHeight - 160,
     };
 
     this.commitChanges = this.commitChanges.bind(this);
@@ -265,16 +206,6 @@ export default class ShiftEditorDay extends React.PureComponent {
     .catch(err=>{
       console.log(err);
     });
-
-  //   if (!ownerAccount){  //遷移がうまくいかない
-  //     console.log("usersがないよ");
-  //     return null;
-  // } else if (ownerAccount.is_manager === false) {
-  //   console.log("はじき出すよ")
-  //     return (
-  //       <Navigate to="/*"/>
-  //     );
-  // }
 
     await axios //店に所属しているすべてのユーザーの情報をとってくる
     .get('http://127.0.0.1:8000/api/user/?store_FK=' + ownerAccount.store_FK,{ //TODO:storeFKで絞り込めないので、絞り込めるようにする
@@ -425,11 +356,18 @@ export default class ShiftEditorDay extends React.PureComponent {
     .catch(err=>{
       console.log(err);
     });
+    this.resizeWindow();
+  }
 
-}
+  // 画面のリサイズ用の関数
+  resizeWindow() {
+    window.addEventListener('resize', this.setState({layoutSize:document.documentElement.clientHeight - 160}))
+  }
 
-  
 
+  componentDidUpdate() {
+    this.resizeWindow()
+  }
   render() {
     // const checkOwner = () => { //renderの後でNavigateを頑張ってみたがうまくいかず
     //   const isManager = ownerAccount.is_manager
@@ -437,7 +375,7 @@ export default class ShiftEditorDay extends React.PureComponent {
     //     {isManager ? <Navigate to="/*" />}
     //   );
     // }
-    const { data, resources, grouping, groupByDate, isGroupByDate, success, moveTmp, outOfStoreRange , shift_rangeName, shift_rangeStart_date, shift_rangeStop_date, bad_store_id } = this.state;
+    const { data, resources, grouping, groupByDate, isGroupByDate, success, moveTmp, outOfStoreRange , shift_rangeName, shift_rangeStart_date, shift_rangeStop_date, bad_store_id, layoutSize } = this.state;
     console.log('現在のシフトデータ');
     console.log(this.state.data)
 
@@ -448,7 +386,9 @@ export default class ShiftEditorDay extends React.PureComponent {
         return !String(data.title).match(/シフト希望/)
       });
       console.log(onlyShift);
-      let resurtBase = new Array();
+
+      let resultBase = new Array();
+
       for (let i = 0; i < onlyShift.length; i++){
         let tmp = {
           id: onlyShift[i].id,
@@ -457,10 +397,10 @@ export default class ShiftEditorDay extends React.PureComponent {
           start_time:onlyShift[i].startDate,
           stop_time:onlyShift[i].endDate,
         }
-        resurtBase.push(tmp);
+        resultBase.push(tmp);
       }
       console.log("以下をpushします")
-      console.log(resurtBase)
+      console.log(resultBase)
 
       axios //まずは消す
       .delete('http://localhost:8000/api/work_schedule/?fk=' + query2.get('id') ,
@@ -475,9 +415,7 @@ export default class ShiftEditorDay extends React.PureComponent {
         console.log('削除しました')
         axios //ユーザー情報を送信
         .post('http://localhost:8000/api/work_schedule/',
-            
-          resurtBase
-            
+          resultBase            
         ,{
             headers: {
                 'Content-Type': 'application/json',
@@ -512,6 +450,7 @@ export default class ShiftEditorDay extends React.PureComponent {
       <Paper>
         <Scheduler
           data={data}
+          height={this.state.layoutSize}
         >
           <ViewState
             defaultCurrentDate={String(shift_rangeStart_date)}
@@ -525,14 +464,14 @@ export default class ShiftEditorDay extends React.PureComponent {
           />
           <DayView
             displayName="日表示"
-            startDayHour={0}
+            startDayHour={7}
             endDayHour={24}
             intervalCount={1}
           />
           <WeekView
             displayName="週表示"
-            startDayHour={10}
-            endDayHour={19}
+            startDayHour={7}
+            endDayHour={24}
           />
           <Toolbar />
           <ViewSwitcher />
