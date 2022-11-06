@@ -10,7 +10,6 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker , {registerLocale}from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -68,16 +67,16 @@ const MakeShift = () => {
 
         // 各欄に値が入っていたらpostできる値に変更
         if (startValue !== null) {
-          postStartValue =await startValue.getFullYear() + '-' + ('00' + (startValue.getMonth() + 1)).slice(-2) + '-' + ('00' + startValue.getDate()).slice(-2)
-          console.log(postStartValue)
+            postStartValue =await startValue.getFullYear() + '-' + ('00' + (startValue.getMonth() + 1)).slice(-2) + '-' + ('00' + startValue.getDate()).slice(-2)
+            console.log(postStartValue)
         }
         if (endValue !== null) {
-          postEndValue =await endValue.getFullYear() + '-' + ('00' + (endValue.getMonth() + 1)).slice(-2) + '-' + ('00' + endValue.getDate()).slice(-2)
-          console.log(postEndValue)
+            postEndValue =await endValue.getFullYear() + '-' + ('00' + (endValue.getMonth() + 1)).slice(-2) + '-' + ('00' + endValue.getDate()).slice(-2)
+            console.log(postEndValue)
         }
         if (deadlineValue !== null){
-          postDeadlineValue =await deadlineValue.getFullYear() + '-' + ('00' + (deadlineValue.getMonth() + 1)).slice(-2) + '-' + ('00' + deadlineValue.getDate()).slice(-2)
-          console.log(postDeadlineValue)
+            postDeadlineValue =await deadlineValue.getFullYear() + '-' + ('00' + (deadlineValue.getMonth() + 1)).slice(-2) + '-' + ('00' + deadlineValue.getDate()).slice(-2)
+            console.log(postDeadlineValue)
         }
 
         // シフト範囲をPOST
@@ -130,25 +129,24 @@ const MakeShift = () => {
     }
 
     const onSubmit = (event) => {
-      event.preventDefault()
-      if(formVaridation()){
-          
+        event.preventDefault()
+        if(formVaridation()){
         makeShiftPost();
-      }
+    }
     }
 
-  return (
+return (
     <>
-    <LocalizationProvider dateAdapter={AdapterDateFns} locale={ja}>
-        <Container component="main" maxWidth="xs" />
-        <Typography fontSize={20} sx={{ ml:3 }}>シフト作成</Typography>
-            <CssBaseline />
-                <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 3 }}>
+    <LocalizationProvider dateAdapter={AdapterDateFns} locale={ja}> 
+        <Container component="main" maxWidth="md"/>
+            <Typography sx={{fontSize:20, position:'fixed', left:'100px'}}>シフト作成</Typography>
+                <Box component="form" onSubmit={onSubmit} noValidate>
                     <Grid container
                         sx={{
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
+                            pt:"50px",
                         }}
                         spacing={2}
                     >
@@ -168,10 +166,10 @@ const MakeShift = () => {
                             />
                         </Grid>
                         <Grid item>
-                          <Typography component="h1" variant="h6">
+                            <Typography component="h1" variant="h6">
                                 開始日*
-                          </Typography>
-                          <DatePicker
+                            </Typography>
+                            <DatePicker
                             selected={startValue}
                             onChange={(date) => startSetValue(date)}
                             selectsStart
@@ -181,50 +179,46 @@ const MakeShift = () => {
                             disabledKeyboardNavigation
                             placeholderText="開始日*"
                             locale="ja"
-                            
                             customInput={<TextField 
                                 autoComplete="off"
                                 error={startValueError}/>}
-                          />
-                         
+                        />
                         </Grid>
                         <Grid item>
-                          <Typography component="h6" variant="h6">
-                              終了日*
-                          </Typography>
-                          <DatePicker
-                              selected={endValue}
-                              onChange={(date) => endSetValue(date)}
-                              selectsEnd
-                              startDate={startValue}
-                              endDate={endValue}
-                              minDate={startValue}
-                              dateFormat="yyyy年MM月dd日(E)"
-                              disabledKeyboardNavigation
-                              placeholderText="終了日*"
-                              locale="ja"
-                              customInput={<TextField 
-                                autoComplete="off"
-                                error={startValueError}/>}
-                          />
-                           
+                            <Typography component="h6" variant="h6">
+                                終了日*
+                            </Typography>
+                            <DatePicker
+                                selected={endValue}
+                                onChange={(date) => endSetValue(date)}
+                                selectsEnd
+                                startDate={startValue}
+                                endDate={endValue}
+                                minDate={startValue}
+                                dateFormat="yyyy年MM月dd日(E)"
+                                disabledKeyboardNavigation
+                                placeholderText="終了日*"
+                                locale="ja"
+                                customInput={<TextField 
+                                    autoComplete="off"
+                                    error={startValueError}/>}
+                            />
                         </Grid>
                         <Grid>{endValueErrorMessage}</Grid>
                         <Grid item>
-                          <Typography component="h1" variant="h6">
-                              締切日
-                          </Typography>
-                          <DatePicker
-                            selected={deadlineValue}
-                            onChange={(date) => deadlineSetValue(date)} 
-                            disabledKeyboardNavigation
-                            dateFormat="yyyy年MM月dd日(E)"
-                            placeholderText="締切日"
-                            locale="ja"
-                            customInput={<TextField 
-                                autoComplete="off"/>}
-                          />
-                            
+                            <Typography component="h1" variant="h6">
+                            締切日
+                            </Typography>
+                            <DatePicker
+                                selected={deadlineValue}
+                                onChange={(date) => deadlineSetValue(date)} 
+                                disabledKeyboardNavigation
+                                dateFormat="yyyy年MM月dd日(E)"
+                                placeholderText="締切日"
+                                locale="ja"
+                                customInput={<TextField 
+                                    autoComplete="off"/>}
+                            />
                         </Grid>
                         <Grid item >
                             <Button
