@@ -8,14 +8,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Typography, Button, Grid, Checkbox } from '@mui/material';
-import ChangeColor from '../function/ChangeColor';
+// import ChangeColor from '../function/ChangeColor';
 import TextField from '@mui/material/TextField';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { areArraysEqual } from '@mui/material/node_modules/@mui/base';
 import axios from 'axios';
-import ColorPicker from '../function/ColorPicker';
-
-const rows = [];
 
 export default function Position() {
     const [users, setUsers] = useState(null)
@@ -87,8 +83,6 @@ export default function Position() {
          .then(() => {
             newGroup.splice(index, 1);
             setGroups(newGroup);
-            console.log(index);
-            console.log("消えた");
         })
          .catch(error => {
              console.log(error);
@@ -104,24 +98,23 @@ export default function Position() {
                     <Grid item><Button variant="contained" sx={{ mt: 2 , mr:1}} onClick={createNewGroup}>追加</Button></Grid>
                 </Grid>
                 <TableContainer component={Paper}>
-                    <Table sx={{minWidth: 550 }} aria-label="caption table">
+                    <Table sx={{minWidth: 450}} aria-label="caption table">
                         <TableHead>
                             <TableRow>
-                                <TableCell align='left'>色</TableCell>
-                                <TableCell align='left'>ポジション名</TableCell>
-                                <TableCell align='left'>削除</TableCell>
-                                <TableCell align="center"></TableCell>
+                                {/* <TableCell align='left'>色</TableCell> */}
+                                <TableCell align='center'>ポジション名</TableCell>
+                                <TableCell align='center'>削除</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {groups?.map((group, index) => (
                                 <TableRow>
-                                    <TableCell>
+                                    {/* <TableCell> */}
                                         {/* group.group_color */}
-                                        <ChangeColor color={group.color} id={group.id}/>
-                                    </TableCell>
-                                    <TableCell component="th" scope="row" >{group.group_name}</TableCell>
-                                    <TableCell key={index}>
+                                        {/* <ChangeColor color={group.color} id={group.id}/> */}
+                                    {/* </TableCell> */}
+                                    <TableCell component="th" scope="row" align='center'>{group.group_name}</TableCell>
+                                    <TableCell key={index} align='center'>
                                         <Button variant="outlined" startIcon={<DeleteIcon />} 
                                                 onClick={() => {
                                                     deleteGroup(index);}}>
