@@ -8,12 +8,14 @@
 その課題解決のために[しふたん（自動シフト作成アプリ）](https://github.com/JinA293/shiftan)を開発しましたが、店舗に導入できず課題の解決に至りませんでした。
 そのため、課題解決のためにもう一度チームでShiftanの開発を始めました。
 
-## 使用した技術
+## 使用技術
 ![image](https://user-images.githubusercontent.com/84577532/202180920-0258aac5-38fb-40ab-a738-dd39cb4421e5.png)
 #### Front : JavaScript(React), HTML/CSS, MaterialUI  
 #### Back : Python(Django)  
 #### DB : MySQL  
 #### TaskManagement : Trello, Miro etc.  
+### ER図
+![image](https://user-images.githubusercontent.com/84577532/202622388-ba393a81-4821-4919-9afb-1c21bee81040.png)
 
 ## どのように動くか
 ### どちらのアカウントでも使える機能
