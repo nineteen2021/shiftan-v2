@@ -274,7 +274,6 @@ export default function ShiftSubmit() {
             <br/>
           </DialogContentText>
           {dates.filter(data => data.isDisable === false && data.error === false).map((row, index) => <li key={row.date}>{String(row.startTime.getMonth() + 1) + "月" + String(row.startTime.getDate()) + "日"+ "(" + dayStr[row.startTime.getDay()] + ")"}　{String(row.startTime.getHours())+'時'+String(row.startTime.getMinutes())+'分'}～{String(row.endTime.getHours())+'時'+String(row.endTime.getMinutes())+'分'}</li>)}
-
         </DialogContent>
         <DialogActions>
           <Button onClick={onCloseDialog}>キャンセル</Button>
