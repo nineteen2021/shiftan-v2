@@ -32,6 +32,7 @@ import Management from './components/store/Management';
 import ShiftTable from './components/function/ShiftTable';
 import FinishRegister from './components/function/FinishRegister';
 import FinishStoreRegister from './components/store/FinishStoreRegister';
+import CheckSubmit from './components/partTime/CheckSubmit';
 
 
 const App = () => {
@@ -115,6 +116,15 @@ const App = () => {
             element={
               <>
               <PartTimeNavbar contents={<ShiftTable />} />
+              <BottomNavbar/>
+              </>
+            }
+            />
+
+            <Route path="checkSubmit" 
+            element={
+              <>
+              <PartTimeNavbar contents={<CheckSubmit />} />
               <BottomNavbar/>
               </>
             }
