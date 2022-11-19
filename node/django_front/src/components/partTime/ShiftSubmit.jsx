@@ -24,6 +24,7 @@ import DialogActions from '@mui/material/DialogActions';
 import Typography from '@mui/material/Typography';
 import ja from 'date-fns/locale/ja'
 import { useLocation } from 'react-router-dom';
+import { Link as routerLink } from 'react-router-dom'
 
 function createData(startTime, endTime) {
   let isDisable = true
@@ -259,7 +260,14 @@ export default function ShiftSubmit() {
             </Table>
           </TableContainer>
         </Grid>
-        <Grid item sx={{ marginLeft: '28em' }}>
+        <Grid item sx={{ marginLeft: '26em' }}>
+        <Button 
+          variant="contained" 
+          component={routerLink}
+          to={"/checkSubmit?id=" + query2.get('id')} 
+          sx={{ ml: 2 }}>
+          戻る
+        </Button>
           <Button onClick={handleClickOpen} variant="contained" sx={{ ml: 2 }}>保存</Button>
         </Grid>
       </Grid>

@@ -39,17 +39,16 @@ export default function PartTimeShiftList(props) {
               component={routerLink}
               to={"/partTimeShiftTable?id=" + props.fk}
             >
-              確認
+              確定シフト確認
             </Button>
-            <Button variant="contained" sx={{ mr: 1, ml:1 }}>希望確認</Button>
             <Button 
               variant="contained" 
-              color="yellowButton" 
-              sx={{ ml: 1 }}
+              color="whiteButton" 
+              sx={{ mr: 1, ml:1 }}
               component={routerLink}
-              to={"/shiftSubmit?id=" + props.fk} //propsからFKを取得
+              to={"/checkSubmit?id=" + props.fk}
             >
-              編集
+              希望シフト確認・提出
             </Button>
           </Grid>
         </Grid>
