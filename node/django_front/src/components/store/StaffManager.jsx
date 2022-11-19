@@ -153,14 +153,16 @@ export default function StaffManager() {
 
   if(!users || !positions) return null;
   return (
-    <Container component="main" maxWidth="md" sx={{ mb: 4 }}>
-      <Typography fontSize={20} sx={{ ml:-22 }}>スタッフ管理</Typography>
+    <Container component="main" maxWidth="md">
+      <Typography sx={{fontSize:20, position:'fixed', left:'100px'}}>スタッフ管理</Typography>
         <Grid
-            container
-            direction="column"
-            justifyContent="center"
-            alignItems="center "
-            spacing={5}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            pt:"50px",
+          }}
+          spacing={2}
         >
             <Grid item>
                 <TableContainer component={Paper} sx={{ minWidth:  550 }}>
@@ -205,7 +207,7 @@ export default function StaffManager() {
                 </Table>
                 </TableContainer>
             </Grid>
-            <Grid item sx={{marginLeft: '15em'}}>
+            <Grid item sx={{ml: '15em', mt: '15px'}}>
                 <Button variant="contained" component={routerLink} to="/certification" sx={{ml: 2}}>認証</Button>
                 <Button variant="contained" sx={{ml: 2}} onClick={handleClickOpen}>ポジション編集</Button>
                 <PositionDialog
