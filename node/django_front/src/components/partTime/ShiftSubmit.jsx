@@ -173,6 +173,7 @@ export default function ShiftSubmit() {
         spacing={5}
       >
         <Grid item>
+        <Typography sx={{fontSize:20, position:'absolute', left:'20px', top:'90px'}}>希望シフト提出</Typography>
           <Typography sx={{ mb: 1 }}>勤務可能な日付にチェックを入れ、シフトを提出してください</Typography>
           <TableContainer component={Paper} >
             <Table aria-label="simple table">
