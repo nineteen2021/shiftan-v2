@@ -38,23 +38,16 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function PartTimeSettings() {
 
+    const [users, setUsers] = useState(null)
     const [selectedItem, setSelectedItem] = React.useState('')
-
-    const onOpenDialog = (name) => {
-        setSelectedItem(name)
-    }
-
-    const onCloseDialog = () => {
-        setSelectedItem('')
-    }
-
+    const onOpenDialog = (name) => {setSelectedItem(name)}
+    const onCloseDialog = () => {setSelectedItem('')}
     const navigate = useNavigate();
-
     const logout = () => {
         window.localStorage.clear()
         navigate("/")
     }
-    const [users, setUsers] = useState(null)
+
     useLayoutEffect(() => {
     axios
         .get('http://localhost:8000/api-auth/users/me/',{
@@ -75,8 +68,8 @@ export default function PartTimeSettings() {
     return (
         <>
             <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                <Typography fontSize={20} sx={{ ml:3 }}>設定</Typography>
-                    <List>
+                <Typography sx={{fontSize:20, position:'fixed'}}>設定</Typography>
+                    <List sx={{pt:"50px"}}>
                         <ListItem disablePadding>
                             <ListItemButton onClick={() => onOpenDialog("PartTimeAccountSettings")}>
                                 <ListItemIcon>

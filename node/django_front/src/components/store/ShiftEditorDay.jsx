@@ -207,7 +207,6 @@ export default class ShiftEditorDay extends React.PureComponent {
       console.log(err);
     });
 
-
     await axios //店に所属しているすべてのユーザーの情報をとってくる
     .get('http://127.0.0.1:8000/api/user/?store_FK=' + ownerAccount.store_FK,{ //TODO:storeFKで絞り込めないので、絞り込めるようにする
         headers: {
@@ -357,9 +356,7 @@ export default class ShiftEditorDay extends React.PureComponent {
     .catch(err=>{
       console.log(err);
     });
-
     this.resizeWindow();
-
   }
 
   // 画面のリサイズ用の関数
@@ -371,7 +368,6 @@ export default class ShiftEditorDay extends React.PureComponent {
   componentDidUpdate() {
     this.resizeWindow()
   }
-
   render() {
     // const checkOwner = () => { //renderの後でNavigateを頑張ってみたがうまくいかず
     //   const isManager = ownerAccount.is_manager
@@ -390,7 +386,9 @@ export default class ShiftEditorDay extends React.PureComponent {
         return !String(data.title).match(/シフト希望/)
       });
       console.log(onlyShift);
+
       let resultBase = new Array();
+
       for (let i = 0; i < onlyShift.length; i++){
         let tmp = {
           id: onlyShift[i].id,
@@ -417,9 +415,7 @@ export default class ShiftEditorDay extends React.PureComponent {
         console.log('削除しました')
         axios //ユーザー情報を送信
         .post('http://localhost:8000/api/work_schedule/',
-            
-          resultBase
-            
+          resultBase            
         ,{
             headers: {
                 'Content-Type': 'application/json',
