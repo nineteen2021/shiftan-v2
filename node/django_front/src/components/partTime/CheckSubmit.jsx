@@ -160,7 +160,7 @@ export default function CheckSubmit() {
                         variant="contained"
                         component={routerLink}
                         to={"/shiftSubmit?id=" + query2.get('id')}
-                        sx={{ ml: 9 }}>
+                        sx={{ ml: 24 }}>
                         編集
                     </Button>
                 </Grid>
