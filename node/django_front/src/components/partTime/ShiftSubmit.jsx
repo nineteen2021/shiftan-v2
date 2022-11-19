@@ -80,7 +80,7 @@ export default function ShiftSubmit() {
                     }
                     console.log(dateList)
                     axios //既存のシフト希望を取得（あとから編集できるようにするため）
-                    .get('http://localhost:8000/api/tmp_work_schedule/?store_FK=' + storeFK + '&user_FK=' + userFK, {
+                    .get('http://localhost:8000/api/tmp_work_schedule/?store_FK=' + storeFK + '&user_FK=' + userFK + '&shift_range_FK=' + query2.get('id'), {
                         headers: {
                             'Authorization': `JWT ${localStorage.getItem('access')}`,
                         }
