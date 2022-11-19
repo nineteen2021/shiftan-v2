@@ -152,7 +152,6 @@ export default function PartTimeHome() {
     <>
       <Container component="main" maxWidth="md">
         <Typography sx={{fontSize:20, position:'absolute', left:'20px', top:'90px'}}>シフト一覧</Typography>
-
         <Box sx={{pt:"50px"}}>
           {ranges.map((val) =>
             <PartTimeShiftList shiftName={val.shift_name} fk={val.id} />
