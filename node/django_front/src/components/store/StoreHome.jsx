@@ -1,7 +1,7 @@
 import * as React from 'react';
 import axios from 'axios';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
-import { Fragment, useState, useEffect, useLayoutEffect } from 'react';
+import { useState, useLayoutEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import StoreShiftList from './StoreShiftList';
 import Link from '@mui/material/Link';
-import { Link as routerLink, Navigate } from 'react-router-dom'
+import { Link as routerLink} from 'react-router-dom'
 
 const shifts = ['1月前半シフト','1月後半シフト','2月前半シフト','2月前半シフト','3月前半シフト','3月後半シフト'];
 
@@ -186,7 +186,7 @@ export default function StoreHome(){
           }else {
             return(
               <Container component="main" maxWidth="md">
-                <Typography fontSize={20} sx={{ ml:-22 }}>シフト一覧</Typography>
+                <Typography sx={{fontSize:20, position:'fixed', left:'100px', top:'90px'}}>シフト一覧</Typography>
                 {!untrustedUsers.length == 0 && 
                   <Typography fontSize={18} sx={{ mt:2 }}>{untrustedUsers.length + '人の承認待ちユーザーがいます '} 
                     <Link
@@ -196,9 +196,11 @@ export default function StoreHome(){
                     </Link>
                   </Typography>
                 }
+                <Box sx={{pt:"50px"}}>
                 {ranges.map((val) => 
                   <StoreShiftList shiftName={val.shift_name} fk={val.id} />
-                )} 
+                )}
+                </Box> 
               </Container>
             )
           }

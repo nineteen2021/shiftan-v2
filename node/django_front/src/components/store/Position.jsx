@@ -13,7 +13,6 @@ import TextField from '@mui/material/TextField';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 
-
 export default function Position() {
     const [users, setUsers] = useState(null)
     const [groups, setGroups] = useState(null)

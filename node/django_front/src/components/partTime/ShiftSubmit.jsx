@@ -24,6 +24,7 @@ import DialogActions from '@mui/material/DialogActions';
 import Typography from '@mui/material/Typography';
 import ja from 'date-fns/locale/ja'
 import { useLocation } from 'react-router-dom';
+import { Link as routerLink } from 'react-router-dom'
 
 function createData(startTime, endTime) {
   let isDisable = true
@@ -80,7 +81,7 @@ export default function ShiftSubmit() {
                     }
                     console.log(dateList)
                     axios //既存のシフト希望を取得（あとから編集できるようにするため）
-                    .get('http://localhost:8000/api/tmp_work_schedule/?store_FK=' + storeFK + '&user_FK=' + userFK, {
+                    .get('http://localhost:8000/api/tmp_work_schedule/?store_FK=' + storeFK + '&user_FK=' + userFK + '&shift_range_FK=' + query2.get('id'), {
                         headers: {
                             'Authorization': `JWT ${localStorage.getItem('access')}`,
                         }
@@ -259,7 +260,14 @@ export default function ShiftSubmit() {
             </Table>
           </TableContainer>
         </Grid>
-        <Grid item sx={{ marginLeft: '28em' }}>
+        <Grid item sx={{ marginLeft: '26em' }}>
+        <Button 
+          variant="contained" 
+          component={routerLink}
+          to={"/checkSubmit?id=" + query2.get('id')} 
+          sx={{ ml: 2 }}>
+          戻る
+        </Button>
           <Button onClick={handleClickOpen} variant="contained" sx={{ ml: 2 }}>保存</Button>
         </Grid>
       </Grid>
@@ -274,7 +282,6 @@ export default function ShiftSubmit() {
             <br/>
           </DialogContentText>
           {dates.filter(data => data.isDisable === false && data.error === false).map((row, index) => <li key={row.date}>{String(row.startTime.getMonth() + 1) + "月" + String(row.startTime.getDate()) + "日"+ "(" + dayStr[row.startTime.getDay()] + ")"}　{String(row.startTime.getHours())+'時'+String(row.startTime.getMinutes())+'分'}～{String(row.endTime.getHours())+'時'+String(row.endTime.getMinutes())+'分'}</li>)}
-
         </DialogContent>
         <DialogActions>
           <Button onClick={onCloseDialog}>キャンセル</Button>
