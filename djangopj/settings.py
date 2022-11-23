@@ -1,3 +1,8 @@
+try:
+    from .settings_local import *
+except ImportError:
+    pass
+
 """
 Django settings for djangopj project.
 
