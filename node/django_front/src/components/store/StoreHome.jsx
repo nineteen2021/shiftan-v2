@@ -186,7 +186,7 @@ export default function StoreHome(){
           }else {
             return(
               <Container component="main" maxWidth="md">
-                <Typography sx={{fontSize:20, position:'fixed', left:'100px', top:'90px'}}>シフト一覧</Typography>
+                <Typography sx={{fontSize:20, position:'absolute', left:'100px', top:'90px'}}>シフト一覧</Typography>
                 {!untrustedUsers.length == 0 && 
                   <Typography fontSize={18} sx={{ mt:2 }}>{untrustedUsers.length + '人の承認待ちユーザーがいます '} 
                     <Link

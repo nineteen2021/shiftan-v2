@@ -55,7 +55,7 @@ export default function CheckStore() {
                             <ListItemIcon>
                                 <LocalPhoneIcon />
                             </ListItemIcon>
-                         <ListItemText primary="店舗電話番号" secondary={testUser.phoneNumber} />
+                        <ListItemText primary="店舗電話番号" secondary={testUser.phoneNumber} />
                         </ListItem>
                         <ListItem disablePadding sx={{ m: 2 }}>
                             <ListItemIcon>

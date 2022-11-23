@@ -154,7 +154,7 @@ export default function Management() {
     return (
         <>
         <Container component="main" maxWidth="md" sx={{ mb: 4 }}>
-            <Typography sx={{fontSize:20, position:'fixed', left:'100px'}}>従業員管理</Typography>
+            <Typography sx={{fontSize:20, position:'absolute', left:'100px'}}>従業員管理</Typography>
             <Grid sx={{
                 direction:"column",
                 justifyContent:"center",
