@@ -26,7 +26,7 @@ export default function PartTimeHome() {
     var r = 0;
     if( a.id < b.id ){ r = -1; }
     else if( a.id > b.id ){ r = 1; }
-  
+
     return ( -1 * r );
   }
 
@@ -152,12 +152,13 @@ export default function PartTimeHome() {
   return (
     <>
       <Container component="main" maxWidth="md">
-        <Typography fontSize={20} sx={{ ml:-22 }}>シフト一覧</Typography>
+        <Typography sx={{fontSize:20, position:'absolute', left:'20px', top:'90px'}}>シフト一覧</Typography>
 
-        {ranges.map((val) =>
-          <PartTimeShiftList shiftName={val.shift_name} fk={val.id} />
-        )}
-
+        <Box sx={{pt:"50px"}}>
+          {ranges.map((val) =>
+            <PartTimeShiftList shiftName={val.shift_name} fk={val.id} />
+          )}
+        </Box> 
       </Container>
     </>
   )
