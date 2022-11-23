@@ -1,5 +1,5 @@
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'l%-as2=!795+bszcos!h!(dpz=p19at@ufgfabnu7eb+@2i#9a'
+SECRET_KEY = '_300nmtp7zbq-!k)l+r_ag(ntrs^=c_%qx@eo43ugfl4$qsqfn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
