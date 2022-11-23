@@ -154,7 +154,7 @@ export default function StaffManager() {
   if(!users || !positions) return null;
   return (
     <Container component="main" maxWidth="md">
-      <Typography sx={{fontSize:20, position:'fixed', left:'100px'}}>スタッフ管理</Typography>
+      <Typography sx={{fontSize:20, position:'absolute', left:'100px'}}>スタッフ管理</Typography>
         <Grid
           sx={{
             display: 'flex',

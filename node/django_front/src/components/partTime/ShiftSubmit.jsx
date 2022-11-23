@@ -139,9 +139,9 @@ export default function ShiftSubmit() {
         console.log('削除しました')
         axios //ユーザー情報を送信
         .post('http://localhost:8000/api/tmp_work_schedule/',
-            
+
           result
-            
+
         ,{
             headers: {
                 'Content-Type': 'application/json',
@@ -174,6 +174,7 @@ export default function ShiftSubmit() {
         spacing={5}
       >
         <Grid item>
+          <Typography sx={{fontSize:20, position:'absolute', left:'20px', top:'90px'}}>希望シフト提出</Typography>
           <Typography sx={{ mb: 1 }}>勤務可能な日付にチェックを入れ、シフトを提出してください</Typography>
           <TableContainer component={Paper} >
             <Table aria-label="simple table">
