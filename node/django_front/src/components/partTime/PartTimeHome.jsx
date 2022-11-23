@@ -12,6 +12,8 @@ import Box from '@mui/material/Box';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import { Link as routerLink } from 'react-router-dom'
 
+const shifts = ['1月前半シフト', '1月後半シフト', '2月前半シフト', '2月前半シフト', '3月前半シフト', '3月後半シフト'];
+
 export default function PartTimeHome() {
 
   const [users, setUsers] = useState(null)
@@ -24,7 +26,7 @@ export default function PartTimeHome() {
     var r = 0;
     if( a.id < b.id ){ r = -1; }
     else if( a.id > b.id ){ r = 1; }
-  
+
     return ( -1 * r );
   }
 
@@ -50,8 +52,9 @@ export default function PartTimeHome() {
                     })
                     .then(res=>{setUsers(res.data);
                                 console.log(res.data);
+                                //idで新しい順に並び替える
                                 const rangesVal = res.data;
-                                setRanges(rangesVal.sort(sort)); //idで新しい順に並び替える
+                                setRanges(rangesVal.sort(sort));
                                 console.log(ranges);
                             })
                     .catch(err=>{
@@ -91,11 +94,9 @@ export default function PartTimeHome() {
               </Grid>
               <Grid item xs={12}>
                   <font color='#707070' align='center'>
-                    <p>
-                      お使いのアカウントはまだどの<br/>
-                      店舗にも所属していません。<br/>
-                      申請ボタンを押して店舗に<br/>
-                      申請を送りましょう！
+                    <p>お使いのアカウントはまだどの<br/>
+                    店舗にも所属していません。<br/>申請ボタンを押して店舗に
+                    <br/>申請を送りましょう！
                     </p>
                   </font>
               </Grid>
@@ -152,6 +153,7 @@ export default function PartTimeHome() {
     <>
       <Container component="main" maxWidth="md">
         <Typography sx={{fontSize:20, position:'absolute', left:'20px', top:'90px'}}>シフト一覧</Typography>
+
         <Box sx={{pt:"50px"}}>
           {ranges.map((val) =>
             <PartTimeShiftList shiftName={val.shift_name} fk={val.id} />
@@ -160,3 +162,4 @@ export default function PartTimeHome() {
       </Container>
     </>
   )
+}
