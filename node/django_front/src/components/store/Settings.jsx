@@ -76,7 +76,7 @@ export default function Settings() {
     return (
         <>
             <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                <Typography sx={{fontSize:20, position:'fixed'}}>設定</Typography>
+                <Typography sx={{fontSize:20, position:'absolute'}}>設定</Typography>
                     <List sx={{pt:"50px"}}>
                         <ListItem disablePadding>
                             <ListItemButton onClick={() => onOpenDialog("AccountSetting")}>

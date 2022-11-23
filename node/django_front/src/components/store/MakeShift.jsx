@@ -139,7 +139,7 @@ return (
     <>
     <LocalizationProvider dateAdapter={AdapterDateFns} locale={ja}> 
         <Container component="main" maxWidth="md"/>
-            <Typography sx={{fontSize:20, position:'fixed', left:'100px'}}>シフト作成</Typography>
+            <Typography sx={{fontSize:20, position:'absolute', left:'100px'}}>シフト作成</Typography>
                 <Box component="form" onSubmit={onSubmit} noValidate>
                     <Grid container
                         sx={{
