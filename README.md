@@ -1,7 +1,7 @@
 # Shiftan（シフト管理業務補助アプリ）
 ![image](https://user-images.githubusercontent.com/84577532/202179477-766ef36e-3463-4b27-80a9-fb481b0198c9.png)
-技育展登壇用スライド: https://docs.google.com/presentation/d/1Akfkf7ZtehgYBxIZ36l0LURtK4Hk89z9VLFWCwWnZ6Q/edit#slide=id.g13cf339ed51_2_72  
-技育展で頂いたフィードバック:https://docs.google.com/spreadsheets/d/11v8Uxg2MD86KlIXFQZIWBLcNgak1l6HVWH_7wiTbbx4/edit#gid=1919178158
+技育展登壇用スライド:  https://docs.google.com/presentation/d/1Akfkf7ZtehgYBxIZ36l0LURtK4Hk89z9VLFWCwWnZ6Q/edit#slide=id.g13cf339ed51_2_72  
+技育展で頂いたフィードバック:  https://docs.google.com/spreadsheets/d/11v8Uxg2MD86KlIXFQZIWBLcNgak1l6HVWH_7wiTbbx4/edit#gid=1919178158
 
 ## 概要
 Shiftanは飲食店等のシフト管理業務を補助するwebアプリです。  
