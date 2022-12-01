@@ -36,7 +36,7 @@ Shiftanは飲食店等のシフト管理業務を補助するwebアプリです�
 ![image](https://user-images.githubusercontent.com/84577532/202622388-ba393a81-4821-4919-9afb-1c21bee81040.png)
 
 ## どのように動くか
-
+（実際の画面はWikiを参照）
 ### 店舗マネージャーアカウントでのみ使える機能
 - シフト編集
 - シフト作成
