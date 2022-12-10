@@ -36,7 +36,7 @@ export default function ResetPassword() {
 
   const resetPassword = () => {
     axios
-    .post('http://localhost:8000/api-auth/users/reset_password_confirm/',
+    .post(process.env.REACT_APP_API_URL + '/api-auth/users/reset_password_confirm/',
         {
           uid: query2.get('uid'),
           token: query2.get('token'),

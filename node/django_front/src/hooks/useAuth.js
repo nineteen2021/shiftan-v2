@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (email, password) => {
         let flag;
-        const res = await axios.post('http://localhost:8000/api-auth/jwt/create/', {
+        const res = await axios.post(process.env.REACT_APP_API_URL + '/api-auth/jwt/create/', {
             email: email,
             password: password
         })

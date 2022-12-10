@@ -50,7 +50,7 @@ export default function PasswordSentMail() {
 
     const submitEmail = () => {
       axios
-      .post('http://localhost:8000/api-auth/users/reset_password/',
+      .post(process.env.REACT_APP_API_URL + '/api-auth/users/reset_password/',
       {
         email: email
       },

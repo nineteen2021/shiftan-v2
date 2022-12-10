@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const Refresh = (refreshToken) => {
-    axios.post('http://localhost:8000/api-auth/jwt/refresh/', {
+    axios.post(process.env.REACT_APP_API_URL + '/api-auth/jwt/refresh/', {
         refresh: refreshToken
     })
     .then(function (response) {

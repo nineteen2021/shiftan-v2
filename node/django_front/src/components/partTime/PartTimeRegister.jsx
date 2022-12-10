@@ -82,7 +82,7 @@ export default function PartTimeRegister() {
     }
     const changeData = () => { //バックエンドにデータを送り、データベースにデータを作成する関数
       axios
-      .post('http://localhost:8000/api-auth/users/',
+      .post(process.env.REACT_APP_API_URL + '/api-auth/users/',
           {
             username: email,
             email: email,
