@@ -34,7 +34,7 @@ export default function Management() {
     useLayoutEffect(() => {
         let fk;
         axios
-            .get('http://localhost:8000/api-auth/users/me/', {
+            .get(process.env.REACT_APP_API_URL + '/api-auth/users/me/', {
                 headers: {
                     'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
                 }
@@ -45,7 +45,7 @@ export default function Management() {
                 fk = res.data.store_FK
                 setStoreFK(res.data.store_FK);
                 axios
-                    .get('http://localhost:8000/api/user/?is_store=true&store_FK=' + fk, {
+                    .get(process.env.REACT_APP_API_URL + '/api/user/?is_store=true&store_FK=' + fk, {
                         headers: {
                             'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
                         }
@@ -55,7 +55,7 @@ export default function Management() {
                         setTrustedUsers(res.data);
                         console.log(res.data);
                         axios
-                            .get('http://localhost:8000/api/store/' + fk + '/', {
+                            .get(process.env.REACT_APP_API_URL + '/api/store/' + fk + '/', {
                                 headers: {
                                     'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
                                 }
@@ -70,7 +70,7 @@ export default function Management() {
                     .catch(err => {
                         console.log('再試行');
                         axios
-                            .get('http://localhost:8000/api/user/?is_store=true&store_FK=' + fk, {
+                            .get(process.env.REACT_APP_API_URL + '/api/user/?is_store=true&store_FK=' + fk, {
                                 headers: {
                                     'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
                                 }
@@ -80,7 +80,7 @@ export default function Management() {
                                 setTrustedUsers(res.data);
                                 console.log(res.data);
                                 axios
-                                    .get('http://localhost:8000/api/store/' + fk + '/', {
+                                    .get(process.env.REACT_APP_API_URL + '/api/store/' + fk + '/', {
                                         headers: {
                                             'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
                                         }
@@ -105,7 +105,7 @@ export default function Management() {
 
     const deleteUser = (id) => {
         axios
-            .patch('http://localhost:8000/api/user/' + id + '/',
+            .patch(process.env.REACT_APP_API_URL + '/api/user/' + id + '/',
                 {
                     store_FK: null,
                     is_store: false
@@ -120,7 +120,7 @@ export default function Management() {
                 console.log('以下のユーザーを削除しました');
                 console.log(res.data);
                 axios
-                    .get('http://localhost:8000/api/user/?is_store=true&store_FK=' + storeFK, {
+                    .get(process.env.REACT_APP_API_URL + '/api/user/?is_store=true&store_FK=' + storeFK, {
                         headers: {
                             'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
                         }

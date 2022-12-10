@@ -110,7 +110,7 @@ export default function ShiftTable() {
 
   useLayoutEffect(() => {
     axios
-    .get('http://localhost:8000/api-auth/users/me/',{
+    .get(process.env.REACT_APP_API_URL + '/api-auth/users/me/',{
         headers: {
             'Authorization': `JWT ${localStorage.getItem('access')}`,
         }
@@ -118,7 +118,7 @@ export default function ShiftTable() {
     .then(res=>{
       const storeFK = res.data.store_FK;
       axios
-      .get('http://localhost:8000/api/shift_range/' + query2.get('id') +'/',{ // 店舗のシフト表の情報を取得
+      .get(process.env.REACT_APP_API_URL + '/api/shift_range/' + query2.get('id') +'/',{ // 店舗のシフト表の情報を取得
           headers: {
               'Authorization': `JWT ${localStorage.getItem('access')}`
           }
@@ -132,7 +132,7 @@ export default function ShiftTable() {
         let originalDates = getDatesBetweenDates(startDate, stopDate); // 開始日から終了日までのdateオブジェクトの配列
         setShiftDatesList(changeFormDates(originalDates)); // 配列を〇月〇日（〇曜日）に変換した配列
         
-        axios.get('http://localhost:8000/api/work_schedules/?store_FK=' + String(storeFK), {
+        axios.get(process.env.REACT_APP_API_URL + '/api/work_schedules/?store_FK=' + String(storeFK), {
           headers: {
             'Authorization': `JWT ${localStorage.getItem('access')}`
           }

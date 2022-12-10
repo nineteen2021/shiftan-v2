@@ -49,7 +49,7 @@ export default function JoinStore() {
 
     const application = () => {
         axios //入力されたストアIDからストアの情報を持ってくる
-            .get('http://localhost:8000/api/store/?store_ID=' + store_id, {
+            .get(process.env.REACT_APP_API_URL + '/api/store/?store_ID=' + store_id, {
                 headers: {
                     'Authorization': `JWT ${localStorage.getItem('access')}`
                 }
@@ -76,7 +76,7 @@ export default function JoinStore() {
 
     const updateData = () => {
         axios
-        .patch('http://localhost:8000/api-auth/users/me/',
+        .patch(process.env.REACT_APP_API_URL + '/api-auth/users/me/',
             {
                 store_FK: storeFK,
                 is_store: false

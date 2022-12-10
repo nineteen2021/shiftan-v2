@@ -57,7 +57,7 @@ export default function Login() {
         const distribute = new Promise((resolved, rejected) => {
           (() => {
             axios
-            .get('http://localhost:8000/api-auth/users/me/',{
+            .get(process.env.REACT_APP_API_URL + '/api-auth/users/me/',{
               headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
               }

@@ -34,7 +34,7 @@ function PositionDialog(props) {
     const navigate = useNavigate();
     useLayoutEffect(() => {
       axios
-        .get('http://localhost:8000/api-auth/users/me/',{
+        .get(process.env.REACT_APP_API_URL + '/api-auth/users/me/',{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
             }
@@ -83,7 +83,7 @@ export default function StaffManager() {
   // 197、199行目のvalueを引数にとる
   const positionChange = (position_FK, id) => {
     if(position_FK=='未設定') {
-      axios.patch('http://localhost:8000/api/user/'+id+'/',{
+      axios.patch(process.env.REACT_APP_API_URL + '/api/user/'+id+'/',{
         group_FK: null
       }
       ,{
@@ -95,7 +95,7 @@ export default function StaffManager() {
       .catch((err)=>{console.log(err);})
     }
     else {
-      axios.patch('http://localhost:8000/api/user/'+id+'/',{
+      axios.patch(process.env.REACT_APP_API_URL + '/api/user/'+id+'/',{
         group_FK: position_FK
       }
       ,{
@@ -115,7 +115,7 @@ export default function StaffManager() {
 
   useLayoutEffect(() => {
     let store_FK;
-    axios.get('http://localhost:8000/api-auth/users/me/',{
+    axios.get(process.env.REACT_APP_API_URL + '/api-auth/users/me/',{
       headers: {
           'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
       }
@@ -123,7 +123,7 @@ export default function StaffManager() {
     .then(res=>{
       store_FK = res.data.store_FK;
       console.log(store_FK);
-      axios.get('http://localhost:8000/api/user/?is_store=true&store_FK='+store_FK,{
+      axios.get(process.env.REACT_APP_API_URL + '/api/user/?is_store=true&store_FK='+store_FK,{
         headers: {
           'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
         }
@@ -135,7 +135,7 @@ export default function StaffManager() {
       .catch(err=>{
         console.log(err);
       })
-      axios.get('http://localhost:8000/api/group/?store_FK='+store_FK,{
+      axios.get(process.env.REACT_APP_API_URL + '/api/group/?store_FK='+store_FK,{
         headers: {
           'Authorization': `JWT ${localStorage.getItem('access')}`,
         }

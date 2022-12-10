@@ -61,7 +61,7 @@ export default function AccountSettings() {
 
     useEffect(() => {
         axios
-        .get('http://localhost:8000/api-auth/users/me/',{
+        .get(process.env.REACT_APP_API_URL + '/api-auth/users/me/',{
             headers: {
                 'Authorization': `JWT ${window.localStorage.getItem('access')}`,
             }
@@ -75,7 +75,7 @@ export default function AccountSettings() {
     useEffect(() => {
         let fk;
         axios
-        .get('http://localhost:8000/api-auth/users/me/',{
+        .get(process.env.REACT_APP_API_URL + '/api-auth/users/me/',{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
             }
@@ -84,7 +84,7 @@ export default function AccountSettings() {
                     fk = res.data.store_FK;
                     //console.log(fk);
                     axios
-                    .get('http://localhost:8000/api/store/' + String(fk) + '/',{
+                    .get(process.env.REACT_APP_API_URL + '/api/store/' + String(fk) + '/',{
                         headers: {
                             'Authorization': `JWT ${localStorage.getItem('access')}`
                         }
@@ -112,7 +112,7 @@ export default function AccountSettings() {
 
     const changeData = (key, value) => { //PATCHを利用しデータベースの値を変更する関数
         axios
-        .patch('http://localhost:8000/api-auth/users/me/',
+        .patch(process.env.REACT_APP_API_URL + '/api-auth/users/me/',
             {[key]: value} //変更したいキーと値
         ,{
             headers: {
@@ -132,7 +132,7 @@ export default function AccountSettings() {
 
     const changeName = (last, first) => { //PATCHを利用しデータベースの値を変更する関数。氏名変更専用。
         axios
-        .patch('http://localhost:8000/api-auth/users/me/',
+        .patch(process.env.REACT_APP_API_URL + '/api-auth/users/me/',
             {
                 last_name: last,
                 first_name: first
@@ -156,7 +156,7 @@ export default function AccountSettings() {
     const changeStoreData = (key, value) => {//ユーザーの店舗FKを取得してから、それを利用してストアの情報を変更する関数
         let fk;
         axios
-        .get('http://localhost:8000/api-auth/users/me/',{
+        .get(process.env.REACT_APP_API_URL + '/api-auth/users/me/',{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`,
             }
@@ -164,7 +164,7 @@ export default function AccountSettings() {
         .then(res=>{setUsers(res.data);
                     fk = res.data.store_FK;
                     axios
-                    .patch('http://localhost:8000/api/store/' + String(fk) + '/',
+                    .patch(process.env.REACT_APP_API_URL + '/api/store/' + String(fk) + '/',
                     {
                         [key]: value
                     },
@@ -184,7 +184,7 @@ export default function AccountSettings() {
 
     const sendResetEmail = (email) => {//メールアドレス変更メールを送信する関数
         axios
-        .post('http://localhost:8000/api-auth/users/reset_email/',
+        .post(process.env.REACT_APP_API_URL + '/api-auth/users/reset_email/',
         {email: email},
         {
             headers: {
