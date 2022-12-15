@@ -16,7 +16,7 @@ export default function ChangeColor(props){
 
     const newColor = (hexColor) => { //PATCHを利用しデータベースの値を変更する関数
         axios
-        .patch('http://localhost:8000/api/group/' + props.id + '/',
+        .patch(process.env.REACT_APP_API_URL + '/api/group/' + props.id + '/',
             {color: hexColor} //変更したいキーと値
         ,{
             headers: {

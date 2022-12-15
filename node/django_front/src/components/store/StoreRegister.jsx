@@ -61,7 +61,7 @@ export default function Register() {
 
   React.useLayoutEffect(() => {//ページを表示する前にストアのデータベースを持ってくる
     axios
-      .get('http://localhost:8000/api/store/', {
+      .get(process.env.REACT_APP_API_URL + '/api/store/', {
         headers: {
           'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
         }
@@ -76,7 +76,7 @@ export default function Register() {
   const changeStoreFK = (value) => {
     console.log('change関数実行！')
     axios
-      .patch('http://localhost:8000/api-auth/users/me/',
+      .patch(process.env.REACT_APP_API_URL + '/api-auth/users/me/',
         {
           store_FK: value,
           is_store: true
@@ -95,7 +95,7 @@ export default function Register() {
   const changeData = () => { //バックエンドにデータを送り、データベースにデータを作成する関数
     let storeID;
     axios //店舗情報を送信
-      .post('http://localhost:8000/api/store/',
+      .post(process.env.REACT_APP_API_URL + '/api/store/',
         {
           store_name: store_name,
           address: address,

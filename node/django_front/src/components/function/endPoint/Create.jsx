@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export default function Create(email, password) {
     
-    axios.post('http://localhost:8000/api-auth/jwt/create/', {
+    axios.post(process.env.REACT_APP_API_URL + '/api-auth/jwt/create/', {
         email: email,
         password: password
     })

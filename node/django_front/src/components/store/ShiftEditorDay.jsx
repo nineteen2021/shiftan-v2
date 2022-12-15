@@ -93,7 +93,7 @@ export default class ShiftEditorDay extends React.PureComponent {
   async getShiftData() {
     //シフトデータを持ってくる
     await axios
-    .get('http://localhost:8000/api/tmp_work_schedule/',{
+    .get(process.env.REACT_APP_API_URL + '/api/tmp_work_schedule/',{
         headers: {
             'Authorization': `JWT ${window.localStorage.getItem('access')}`,
         }
@@ -193,7 +193,7 @@ export default class ShiftEditorDay extends React.PureComponent {
     const query2 = new URLSearchParams(windowUrl);
     let ownerAccount; //店長のユーザーデータが入る関数
     await axios
-    .get('http://localhost:8000/api-auth/users/me/',{
+    .get(process.env.REACT_APP_API_URL + '/api-auth/users/me/',{
         headers: {
             'Authorization': `JWT ${window.localStorage.getItem('access')}`,
         }
@@ -276,7 +276,7 @@ export default class ShiftEditorDay extends React.PureComponent {
 
     //シフト希望のデータを持ってくる
     await axios
-    .get('http://localhost:8000/api/tmp_work_schedule/?shift_range_FK=' + query2.get('id'),{
+    .get(process.env.REACT_APP_API_URL + '/api/tmp_work_schedule/?shift_range_FK=' + query2.get('id'),{
         headers: {
             'Authorization': `JWT ${window.localStorage.getItem('access')}`,
         }
@@ -304,7 +304,7 @@ export default class ShiftEditorDay extends React.PureComponent {
 
     //シフトデータを持ってくる
     await axios
-    .get('http://localhost:8000/api/work_schedule/?shift_range_FK=' + query2.get('id'),{
+    .get(process.env.REACT_APP_API_URL + '/api/work_schedule/?shift_range_FK=' + query2.get('id'),{
         headers: {
             'Authorization': `JWT ${window.localStorage.getItem('access')}`,
         }
@@ -335,7 +335,7 @@ export default class ShiftEditorDay extends React.PureComponent {
     
     //shift_rangeを持ってくる
     await axios
-    .get('http://localhost:8000/api/shift_range/'+ query2.get('id') + '/',{
+    .get(process.env.REACT_APP_API_URL + '/api/shift_range/'+ query2.get('id') + '/',{
         headers: {
             'Authorization': `JWT ${window.localStorage.getItem('access')}`,
         }
@@ -403,7 +403,7 @@ export default class ShiftEditorDay extends React.PureComponent {
       console.log(resultBase)
 
       axios //まずは消す
-      .delete('http://localhost:8000/api/work_schedule/?fk=' + query2.get('id') ,
+      .delete(process.env.REACT_APP_API_URL + '/api/work_schedule/?fk=' + query2.get('id') ,
       {
           headers: {
               'Content-Type': 'application/json',
@@ -414,7 +414,7 @@ export default class ShiftEditorDay extends React.PureComponent {
         res=>{console.log(res.data);
         console.log('削除しました')
         axios //ユーザー情報を送信
-        .post('http://localhost:8000/api/work_schedule/',
+        .post(process.env.REACT_APP_API_URL + '/api/work_schedule/',
           resultBase            
         ,{
             headers: {

@@ -9,7 +9,7 @@ const Activate = () => {
 
   useEffect(() => {
     axios
-    .post('http://localhost:8000/api-auth/users/activation/',
+    .post(process.env.REACT_APP_API_URL + '/api-auth/users/activation/',
         {
           uid: query2.get('uid'),
           token: query2.get('token'),

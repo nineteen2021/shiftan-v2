@@ -26,7 +26,7 @@ export default function Certification() {
   useLayoutEffect(() => {
     let fk;
     axios
-        .get('http://localhost:8000/api-auth/users/me/',{
+        .get(process.env.REACT_APP_API_URL + '/api-auth/users/me/',{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
             }
@@ -36,7 +36,7 @@ export default function Certification() {
                   fk=res.data.store_FK
                   setStoreFK(res.data.store_FK);
                   axios
-                  .get('http://localhost:8000/api/user/?is_store=false&store_FK='+fk,{
+                  .get(process.env.REACT_APP_API_URL + '/api/user/?is_store=false&store_FK='+fk,{
                       headers: {
                           'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
                       }
@@ -48,7 +48,7 @@ export default function Certification() {
                   .catch(err=>{
                     console.log('再試行');
                     axios
-                    .get('http://localhost:8000/api/user/?is_store=false&store_FK='+fk,{
+                    .get(process.env.REACT_APP_API_URL + '/api/user/?is_store=false&store_FK='+fk,{
                         headers: {
                             'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
                         }
@@ -65,7 +65,7 @@ export default function Certification() {
 
   const approval = (id) => {
     axios
-    .patch('http://localhost:8000/api/user/' + id +'/',
+    .patch(process.env.REACT_APP_API_URL + '/api/user/' + id +'/',
         {
             is_store: true
         } //変更したいキーと値
@@ -79,7 +79,7 @@ export default function Certification() {
                 console.log('以下のユーザーを承認しました');
                 console.log(res.data);
                 axios
-                    .get('http://localhost:8000/api/user/?is_store=false&store_FK='+storeFK,{
+                    .get(process.env.REACT_APP_API_URL + '/api/user/?is_store=false&store_FK='+storeFK,{
                         headers: {
                             'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
                         }
@@ -97,7 +97,7 @@ export default function Certification() {
 
   const rejection = (id) => {
     axios
-    .patch('http://localhost:8000/api/user/' + id +'/',
+    .patch(process.env.REACT_APP_API_URL + '/api/user/' + id +'/',
         {
             store_FK: null
         } //変更したいキーと値
@@ -111,7 +111,7 @@ export default function Certification() {
                 console.log('以下のユーザーを拒否しました');
                 console.log(res.data);
                 axios
-                    .get('http://localhost:8000/api/user/?is_store=false&store_FK='+storeFK,{
+                    .get(process.env.REACT_APP_API_URL + '/api/user/?is_store=false&store_FK='+storeFK,{
                         headers: {
                             'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
                         }

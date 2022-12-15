@@ -41,7 +41,7 @@ export default function ChangePassword() {
 
     const resetPassword = () => {
         axios
-            .post('http://localhost:8000/api-auth/users/set_password/',
+            .post(process.env.REACT_APP_API_URL + '/api-auth/users/set_password/',
                 {
                     new_password: password,
                     re_new_password: re_password,
