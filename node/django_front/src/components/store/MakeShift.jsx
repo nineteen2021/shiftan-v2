@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useEffect, useLayoutEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import useForm from "react-hook-form";
 import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import ja from 'date-fns/locale/ja'
@@ -37,28 +36,25 @@ const MakeShift = () => {
     const navigate = useNavigate();
 
     // storeFKを取得
-    useEffect(() => {
-        axios
-        .get('http://localhost:8000/api-auth/users/me/',{
+
+    useLayoutEffect(() => {
+    axios
+        .get(process.env.REACT_APP_API_URL + '/api-auth/users/me/',{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
             }
         })
         .then(res=>{setUsers(res.data);
-            setStoreFK(res.data.store_FK);
-        })
+                    setStoreFK(res.data.store_FK);
+                    console.log(res.data);
+                })
         .catch(err=>{console.log(err);});
     }, []);
-    if (!users) {
-        console.log("usersがないよ");
-        return null;
-    }
-    // アルバイトアカウントははじく
+    if (!users) return null;
+    // アルバイトアカウントだった時はじく
     else if (users.is_manager === false) {
-        console.log("はじき出すよ")
         return navigate("/*")
     }
-
     const makeShiftPost = async() => {
         console.log(shiftName)
         console.log(startValue)
@@ -82,7 +78,7 @@ const MakeShift = () => {
         // シフト範囲をPOST
         console.log(storeFK)
         await axios
-        .post("http://localhost:8000/api/shift_range/",{
+        .post(process.env.REACT_APP_API_URL+"/api/shift_range/",{
             store_FK:storeFK,
             shift_name:shiftName,
             start_date:postStartValue,

@@ -20,7 +20,7 @@ export default function Position() {
     
     useEffect(() => {
         axios
-        .get('http://localhost:8000/api/group/',{
+        .get(process.env.REACT_APP_API_URL + '/api/group/',{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
             }
@@ -32,7 +32,7 @@ export default function Position() {
     
     useEffect(() => {
         axios
-        .get('http://localhost:8000/api-auth/users/me/',{
+        .get(process.env.REACT_APP_API_URL + '/api-auth/users/me/',{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
             }
@@ -48,7 +48,7 @@ export default function Position() {
     
     const createNewGroup = () => {
         console.log(users.store_FK)
-        axios.post('http://localhost:8000/api/group/', {
+        axios.post(process.env.REACT_APP_API_URL + '/api/group/', {
              store_FK: users.store_FK,
              group_name: name,
              color: "#FFFFFF",
@@ -68,7 +68,7 @@ export default function Position() {
             });
         }
     
-    const url = 'http://localhost:8000/api/group/'  ;
+    const url = process.env.REACT_APP_API_URL + '/api/group/'  ;
 
     const deleteGroup = (index) => {
         const newGroup = [...groups]

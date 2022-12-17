@@ -57,7 +57,7 @@ export default function Login() {
         const distribute = new Promise((resolved, rejected) => {
           (() => {
             axios
-            .get('http://localhost:8000/api-auth/users/me/',{
+            .get(process.env.REACT_APP_API_URL + '/api-auth/users/me/',{
               headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
               }
@@ -75,6 +75,8 @@ export default function Login() {
               }
               else {
                 console.log("アカウント振り分けでエラーが起こりました")
+                console.log(process.env.API_URL)
+                console.log(process.env.REACT_APP_API_URL + '/api-auth/users/me/')
               }
             })
             .catch(err=>{console.log(err);});

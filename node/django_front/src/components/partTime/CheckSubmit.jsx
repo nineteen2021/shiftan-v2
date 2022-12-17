@@ -38,7 +38,7 @@ export default function CheckSubmit() {
         let storeFK;
         let userFK;
         axios //ユーザーの情報を取得
-            .get('http://localhost:8000/api-auth/users/me/', {
+            .get(process.env.REACT_APP_API_URL + '/api-auth/users/me/', {
                 headers: {
                     'Authorization': `JWT ${localStorage.getItem('access')}`,
                 }
@@ -49,7 +49,7 @@ export default function CheckSubmit() {
                 storeFK = res.data.store_FK;
                 userFK = res.data.id;
                 axios //shift_rangeを取得
-                    .get('http://localhost:8000/api/shift_range/' + query2.get('id') + '/', {
+                    .get(process.env.REACT_APP_API_URL + '/api/shift_range/' + query2.get('id') + '/', {
                         headers: {
                             'Authorization': `JWT ${localStorage.getItem('access')}`,
                         }
@@ -66,7 +66,7 @@ export default function CheckSubmit() {
                             dateList.push(formatedDate);
                         }
                         axios //既存のシフト希望を取得（あとから編集できるようにするため）
-                            .get('http://localhost:8000/api/tmp_work_schedule/?store_FK=' + storeFK + '&user_FK=' + userFK + '&shift_range_FK=' + query2.get('id'), {
+                            .get(process.env.REACT_APP_API_URL + '/api/tmp_work_schedule/?store_FK=' + storeFK + '&user_FK=' + userFK + '&shift_range_FK=' + query2.get('id'), {
                                 headers: {
                                     'Authorization': `JWT ${localStorage.getItem('access')}`,
                                 }

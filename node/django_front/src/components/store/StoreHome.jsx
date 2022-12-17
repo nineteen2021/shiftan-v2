@@ -32,7 +32,7 @@ export default function StoreHome(){
   useLayoutEffect(() => {
     let store_FK;
     axios
-        .get('http://localhost:8000/api-auth/users/me/',{
+        .get(process.env.REACT_APP_API_URL + '/api-auth/users/me/',{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
             }
@@ -43,7 +43,7 @@ export default function StoreHome(){
                     console.log('ユーザーを取得');
                     console.log(res.data);
                     axios
-                    .get('http://localhost:8000/api/shift_range/?store_FK='+store_FK,{
+                    .get(process.env.REACT_APP_API_URL + '/api/shift_range/?store_FK='+store_FK,{
                         headers: {
                             'Authorization': `JWT ${localStorage.getItem('access')}`,
                         }
@@ -56,7 +56,7 @@ export default function StoreHome(){
                                 setRanges(rangesVal.sort(sort));
 
                                 axios
-                                .get('http://localhost:8000/api/user/?is_store=false&store_FK='+store_FK,{
+                                .get(process.env.REACT_APP_API_URL + '/api/user/?is_store=false&store_FK='+store_FK,{
                                     headers: {
                                         'Authorization': `JWT ${localStorage.getItem('access')}`, // ここを追加
                                     }
@@ -73,7 +73,7 @@ export default function StoreHome(){
                     .catch(err=>{
                       console.log(err);
                       axios
-                      .get('http://localhost:8000/api/shift_range/?store_FK='+store_FK,{
+                      .get(process.env.REACT_APP_API_URL + '/api/shift_range/?store_FK='+store_FK,{
                           headers: {
                               'Authorization': `JWT ${localStorage.getItem('access')}`,
                           }
@@ -83,7 +83,7 @@ export default function StoreHome(){
                                   console.log(res.data);
                                   setRanges(res.data);
                                   axios
-                                  .get('http://localhost:8000/api/user/?is_store=false&store_FK='+store_FK,{
+                                  .get(process.env.REACT_APP_API_URL + '/api/user/?is_store=false&store_FK='+store_FK,{
                                       headers: {
                                           'Authorization': `JWT ${localStorage.getItem('access')}`,
                                       }

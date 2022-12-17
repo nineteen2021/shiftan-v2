@@ -33,7 +33,7 @@ export default function PartTimeHome() {
   useLayoutEffect(() => {
     let store_FK;
     axios
-        .get('http://localhost:8000/api-auth/users/me/',{
+        .get(process.env.REACT_APP_API_URL + '/api-auth/users/me/',{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`,
             }
@@ -45,7 +45,7 @@ export default function PartTimeHome() {
                     setIsTrusted(res.data.is_store)
                     console.log(res.data);
                     axios
-                    .get('http://localhost:8000/api/shift_range/?store_FK='+store_FK,{
+                    .get(process.env.REACT_APP_API_URL + '/api/shift_range/?store_FK='+store_FK,{
                         headers: {
                             'Authorization': `JWT ${localStorage.getItem('access')}`,
                         }
@@ -60,7 +60,7 @@ export default function PartTimeHome() {
                     .catch(err=>{
                       console.log(err);
                       axios
-                      .get('http://localhost:8000/api/shift_range/?store_FK='+store_FK,{
+                      .get(process.env.REACT_APP_API_URL + '/api/shift_range/?store_FK='+store_FK,{
                           headers: {
                               'Authorization': `JWT ${localStorage.getItem('access')}`,
                           }
